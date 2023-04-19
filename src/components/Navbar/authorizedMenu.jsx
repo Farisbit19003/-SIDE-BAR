@@ -27,7 +27,7 @@ const AuthorizedMenu = () => {
           <Menu.Item>
             <li
               className="flex w-full flex-col space-y-1 rounded-t
-             bg-[#248F59] px-4 py-3 text-sm text-white"
+             bg-[#248F59] px-4 py-3 text-sm text-[#FFFFFF]"
             >
               <span className="font-semibold capitalize">kamran</span>
               <span className="text-xs">Kamran@gmail.com</span>

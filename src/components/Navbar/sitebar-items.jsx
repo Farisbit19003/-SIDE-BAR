@@ -1,17 +1,18 @@
-
-const SidebarItem = ({ href, icon, label }) => {
+const SidebarItem = ({  icon, label, onClick }) => {
+  const handleClick = (e) => {
+    e.preventDefault();
+    onClick();
+  };
   return (
-    <a
-      href={href}
-      className="text-start flex w-full items-center text-base text-body-dark focus:text-accent"
+    <div
+      onClick={handleClick}
+      className="text-start cursor-pointer flex rounded-lg p-2 ml-2 items-center font-sans text-lg font-normal hover:bg-[#248F59] hover:text-[#FFFFFF]"
     >
-      {/* {getIcon({
-        iconList: sidebarIcons,
-        iconName: icon,
-        className: 'w-5 h-5 me-4',
-      })} */}
-      <span>{label}</span>
-    </a>
+      <div className="flex flex-row justify-center items-center">
+        <span className="align-middle flex mr-2">{icon}</span>
+        <span>{label}</span>
+      </div>
+    </div>
   );
 };
 
