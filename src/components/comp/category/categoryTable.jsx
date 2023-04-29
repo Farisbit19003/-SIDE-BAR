@@ -27,8 +27,8 @@ const CatTable=()=>{
               <tr className="bg-white" key={index}>
                 <td className="px-4 py-2">{item.id}</td>
                 <td className="px-4 py-2">{item.Name}</td>
-                <td className="px-4 py-2">{item.Icon}</td>
                 <td className="px-4 py-2">{item.Slug}</td>
+                <td className="px-4 py-2">{item.Icon}</td>
                 <td className="px-4 py-2">{item.Group}</td>
                 <td className="px-4 py-2 bg-none flex flex-row">{item.Action}</td>
               </tr>
