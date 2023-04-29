@@ -1,5 +1,4 @@
 import { motion } from "framer-motion";
-import logo from "../../assets/logo.svg";
 import AuthorizedMenu from "./authorizedMenu";
 import { AlignLeftOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
