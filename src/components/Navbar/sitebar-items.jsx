@@ -1,18 +1,19 @@
-const SidebarItem = ({  icon, label, onClick }) => {
-  const handleClick = (e) => {
-    e.preventDefault();
-    onClick();
-  };
+import { Link } from "react-router-dom";
+
+const SidebarItem = ({  icon, label,to}) => {
   return (
-    <div
-      onClick={handleClick}
-      className="text-start cursor-pointer flex rounded-lg p-2 ml-2 items-center font-sans text-lg font-normal hover:bg-[#248F59] hover:text-[#FFFFFF]"
+    <Link to={`${to}`}
+      className="text-start text-gray-600
+       cursor-pointer
+        flex rounded-lg p-2 ml-1
+        items-center font-sans text-md font-normal
+         hover:bg-[#248F59] hover:text-[#FFFFFF]"
     >
       <div className="flex flex-row justify-center items-center">
         <span className="align-middle flex mr-2">{icon}</span>
         <span>{label}</span>
       </div>
-    </div>
+    </Link>
   );
 };
 

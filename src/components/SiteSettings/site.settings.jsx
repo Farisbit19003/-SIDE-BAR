@@ -1,33 +1,19 @@
 import {
+  AuditOutlined,
+  CalendarOutlined,
+  SettingOutlined,
   ShopOutlined,
   ShoppingOutlined,
-  SettingOutlined,
-  UserOutlined,
-  CalendarOutlined,
   TagsOutlined,
-  AuditOutlined,
+  UserOutlined,
 } from "@ant-design/icons";
-import { BsShopWindow } from "react-icons/bs";
-import { MdOutlineDashboard } from "react-icons/md";
-import { HiOutlineReceiptRefund } from "react-icons/hi";
-import { TbTruckDelivery } from "react-icons/tb";
-import { TbCategory } from "react-icons/tb";
 import { AiOutlineUnorderedList } from "react-icons/ai";
-import Dashboard from "../layout/pages/dashboard";
-import Shops from "../layout/pages/shops";
-import myShops from "../layout/pages/my-shops";
-import addProducts from "../layout/pages/add-products";
-import Attributes from "../layout/pages/attributes";
-import Categories from "../layout/pages/categories";
-import Orders from "../layout/pages/orders";
-import createOrders from "../layout/pages/create-orders copy";
-import Users from "../layout/pages/users";
-import Shippings from "../layout/pages/shippings";
-import Reviews from "../layout/pages/reviews";
-import Refunds from "../layout/pages/refunds";
-import Settings from "../layout/pages/settings";
+import { BsShopWindow } from "react-icons/bs";
+import { HiOutlineReceiptRefund } from "react-icons/hi";
+import { MdOutlineDashboard } from "react-icons/md";
+import { TbCategory, TbTruckDelivery } from "react-icons/tb";
 export const siteSettings = {
-  name: "PickBazar",
+  name: "Bazar.pk",
   //   description: '',
   //   logo: {
   //     url: '/logo.svg',
@@ -60,31 +46,31 @@ export const siteSettings = {
         id: 1,
         label: "Dashboard",
         icon: <MdOutlineDashboard />,
-        component: Dashboard,
+        to: "/",
       },
       {
         id: 2,
         label: "Shops",
         icon: <ShopOutlined />,
-        component: Shops,
+        to: "/shop",
       },
       {
         id: 3,
         label: "My-Shops",
         icon: <BsShopWindow />,
-        component: myShops,
+        to: "/my-shop",
       },
       {
         id: 4,
         label: "Add Products",
         icon: <ShoppingOutlined />,
-        component: addProducts,
+        to: "/products",
       },
       {
         id: 5,
         label: "Attributes",
         icon: <TagsOutlined />,
-        component: Attributes,
+        to: "/attributes",
       },
       // {
       //   href: "",
@@ -95,7 +81,7 @@ export const siteSettings = {
         id: 6,
         label: "Categories",
         icon: <TbCategory />,
-        component: Categories,
+        to: "/categories",
       },
       // {
       //   href: "",
@@ -116,19 +102,19 @@ export const siteSettings = {
         id: 7,
         label: "Orders",
         icon: <AiOutlineUnorderedList />,
-        component: Orders,
+        to: "/orders",
       },
       {
         id: 8,
         label: "Create-Order",
         icon: <CalendarOutlined />,
-        component: createOrders,
+        to: "/orders/creates",
       },
       {
         id: 9,
         label: "Users",
         icon: <UserOutlined />,
-        component: Users,
+        to: "/users",
       },
       // {
       //   href: "",
@@ -144,7 +130,7 @@ export const siteSettings = {
         id: 10,
         label: "Shippings",
         icon: <TbTruckDelivery />,
-        component: Shippings,
+        to: "/shippings",
       },
       // {
       //   href: "",
@@ -155,7 +141,7 @@ export const siteSettings = {
         id: 11,
         label: "Refunds",
         icon: <HiOutlineReceiptRefund />,
-        component: Refunds,
+        to: "/refunds",
       },
       // {
       //   href: "",
@@ -166,13 +152,13 @@ export const siteSettings = {
         id: 12,
         label: "Reviews",
         icon: <AuditOutlined />,
-        component: Reviews,
+        to: "/reviews",
       },
       {
         id: 13,
         label: "Settings",
         icon: <SettingOutlined />,
-        component: Settings,
+        to: "/settings",
       },
     ],
     // shop: [

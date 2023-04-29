@@ -2,6 +2,7 @@ import { Fragment } from "react";
 import { Menu, Transition } from "@headlessui/react";
 import { Avatar, Space } from "antd";
 import { UserOutlined } from "@ant-design/icons";
+import { Link } from "react-router-dom";
 const AuthorizedMenu = () => {
   return (
     <Menu as="div" className="relative inline-block text-left ml-5">
@@ -36,13 +37,10 @@ const AuthorizedMenu = () => {
 
           <Menu.Item>
             <li className="cursor-pointer border-b border-gray-100 last:border-0">
-              <a
-                className={
-                  "block px-4 py-3 text-sm font-semibold capitalize transition duration-200 hover:text-accent"
-                }
-              >
-                Profile
-              </a>
+              <div className="block px-4 py-3 text-sm font-semibold capitalize transition duration-200 hover:text-accent"
+                >
+                <Link to="/profile-update">Profile</Link>
+                </div>
             </li>
           </Menu.Item>
           <Menu.Item>

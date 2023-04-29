@@ -1,11 +1,18 @@
-import React from 'react';
-
+import React from "react";
+import AdminLayout from "../admin";
+import Card from "../../comp/Dashboard/card";
+import Graph from "../../comp/Dashboard/graph";
+import Table from "../../comp/Dashboard/table";
 const Dashboard = () => {
   return (
-    <div className='flex justify-center text-4xl items-center'>
-      <h1>Dashboard</h1>
-      <p>Welcome to your dashboard</p>
-    </div>
+    <AdminLayout>
+      {/* CARD */}
+      <Card />
+      {/* GRAPH */}
+      <Graph />
+      {/* TABLE */}
+      <Table />
+    </AdminLayout>
   );
 };
 

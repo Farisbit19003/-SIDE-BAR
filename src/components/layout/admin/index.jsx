@@ -7,9 +7,6 @@ import { Drawer } from "antd";
 import { siteSettings } from "../../SiteSettings/site.settings";
 const AdminLayout = ({ children }) => {
   const [open, setOpen] = useState(false);
-  const [selectedId, setSelectedId] = useState(
-    siteSettings.sidebarLinks.admin[0].id
-  );
   // initialize with the first item's id
   const onClose = () => {
     setOpen(false);
@@ -22,15 +19,11 @@ const AdminLayout = ({ children }) => {
           key={s.id}
           label={s.label}
           icon={s.icon}
-          onClick={() => setSelectedId(s.id)}
+          to={s.to}
         />
       ))}
     </Fragment>
   );
-  const SelectedComponent = siteSettings.sidebarLinks.admin.find(
-    (s) => s.id === selectedId
-  )?.component;
-  console.log("ID=>", selectedId);
   return (
     <div className="flex min-h-screen flex-col bg-gray-100 transition-colors duration-150">
       <Navbar setOpen={setOpen} />
@@ -43,16 +36,17 @@ const AdminLayout = ({ children }) => {
         <SidebarItemMap />
       </Drawer>
 
-      <div className="flex flex-1 pt-20">
-        <aside className="xl:w-76 ltr:left-0 ltr:right-auto rtl:right-0 rtl:left-auto fixed bottom-0 hidden h-full w-72 overflow-y-auto bg-white px-4 pt-28 shadow lg:block">
-          <div className="flex flex-col space-y-6 py-3">
+      <div className="flex flex-1   pt-20">
+        <aside className="xl:w-76 ltr:left-0
+         ltr:right-auto rtl:right-0 rtl:left-auto fixed bottom-0 hidden
+          h-full w-72 overflow-y-auto bg-white px-4 pt-20 shadow lg:block">
+          <div className="flex flex-col space-y-2 py-3">
             <SidebarItemMap />
           </div>
         </aside>
-        <main className="ltr:lg:pl-72 ltr:xl:pl-76 rtl:lg:pr-72 rtl:xl:pr-76 rtl:lg:pl-0 w-full">
+        <main className="lg:pl-72 lg:pr-0 xl:pl-76 xl:pr-76 w-full">
           <div className="h-full p-5 md:p-8">
-            {" "}
-            <SelectedComponent />
+            {children}
           </div>
         </main>
       </div>

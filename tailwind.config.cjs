@@ -11,5 +11,9 @@ module.exports = {
       'serif': ['Gambarino'],
     },
   },
-  plugins: [],
+  plugins: [
+    require('@tailwindcss/typography'),
+    require('@tailwindcss/forms'),
+    require('tailwindcss-rtl'),
+  ],
 }
