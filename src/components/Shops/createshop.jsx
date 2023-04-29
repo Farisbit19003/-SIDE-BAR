@@ -6,6 +6,7 @@ import BasicInfo from "../comp/Create Shop/basicInfo";
 import PaymentInfo from "../comp/Create Shop/paymentInfo";
 import ShopInfo from "../comp/Create Shop/shopInfo";
 import SocialInfo from "../comp/Create Shop/socialInfo";
+import SaveButton from "../comp/common/save";
 
 const coverImageInformation = (
   <span>
@@ -98,6 +99,9 @@ const CreateShops = () => {
             <div className="flex w-full bg-white sm:w-8/12 md:w-2/3">
               <SocialInfo/>
             </div>
+          </div>
+          <div className="flex justify-end">
+            <SaveButton/>
           </div>
         </form>
       </>
