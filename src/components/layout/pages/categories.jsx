@@ -9,7 +9,7 @@ const Categories = () => {
     <div className='flex mb-4 flex-row bg-white shadow justify-between p-3 items-center'>
      <h1 className='text-[#248F59] font-serif text-3xl'>Categories</h1>
    
-    <button className='bg-[#248F59] font-sans uppercase text-[#FFFFFF] p-3'>
+    <button className='bg-[#248F59] rounded h-10 w-fit text-sm sm:whitespace-nowrap flex justify-center items-center font-sans uppercase text-[#FFFFFF] p-3'>
       <Link to="/categories/create">Add Categories</Link>
     </button>
     </div>
