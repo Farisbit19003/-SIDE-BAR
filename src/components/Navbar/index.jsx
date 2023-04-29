@@ -21,7 +21,7 @@ const Navbar = ({ setOpen }) => {
         </motion.button>
 
         <div className="ms-5 me-auto hidden md:flex">
-          <img src={logo} alt="logo" className="object-cover h-8" />
+          <img src={"https://res.cloudinary.com/dc367rgig/image/upload/v1682767512/Logo_lokccn.svg"} alt="logo" className="object-cover h-8" />
         </div>
 
         <div className="space-s-8 flex items-center">
