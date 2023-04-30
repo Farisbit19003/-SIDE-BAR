@@ -20,8 +20,8 @@ const Categories = () => {
             </h1>
           </div>
 
-          <div className="ms-auto flex w-full flex-col items-center space-y-4 md:flex-row md:space-y-0 xl:w-3/4 justify-between sm:flex-row sm:items-stretch">
-            <Search className="w-full flex flex-wrap sm:w-auto" />
+          <div className="  w-full  flex sm:flex-row flex-col   xl:w-3/4 border-2 border-red-900  ">
+            <Search className="flex" />
 
             {/* <TypeFilter
               className="md:ms-6"
@@ -30,10 +30,10 @@ const Categories = () => {
                 setPage(1);
               }}
             /> */}
-
-            <button className="bg-[#248F59] my-auto rounded h-10 w-full sm:w-auto text-sm whitespace-nowrap flex flex-grow justify-center items-center font-sans uppercase text-[#FFFFFF] p-3">
+              <div className="flex w-full sm:w-fit">
+            <button className="bg-[#248F59] my-auto rounded h-10 w-full sm:w-full text-sm whitespace-nowrap flex  justify-center items-center font-sans uppercase text-[#FFFFFF] p-3">
               <Link to="/categories/create">Add Categories</Link>
-            </button>
+            </button></div>
           </div>
         </div>
       </div>

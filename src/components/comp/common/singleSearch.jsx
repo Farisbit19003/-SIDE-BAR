@@ -24,7 +24,7 @@ const SingleSearch = ({
     aria-label="Search input"
     autoComplete="off"
     {...rest}
-    className="px-8 py-2 w-[22rem] border-gray-400 rounded-md  focus:outline-none focus:ring-2 focus:ring-green-600"
+    className="px-8 py-2 w-[22rem] md:!w-full flex items-center border-gray-400 rounded-md  focus:outline-none focus:ring-2 focus:ring-green-600"
   />
   <button
     type="submit"
