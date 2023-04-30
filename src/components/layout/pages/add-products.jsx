@@ -1,31 +1,32 @@
 import React from "react";
 import AdminLayout from "../admin";
-import Search from "../../comp/common/search";
 import { Link } from "react-router-dom";
 
 const AddProducts = () => {
   return (
     <AdminLayout>
-    <div className="mb-8 flex flex-col">
-        <div className="flex p-3 bg-white justify-center w-full flex-col items-center md:flex-row">
-          <div className="flex items-center justify-center md:mb-0 md:w-1/4">
-            <h1 className="text-4xl flex items-center justify-center font-serif text-[#248F59] font-normal text-heading">
-              Products
-            </h1>
+  <div className="p-3 md:p-6 mb-6 flex  flex-col sm:flex-row items-center justify-between bg-white ">
+        <div>
+          <h1 className="font-serif font-normal text-3xl text-[#248F59]">
+            Products
+          </h1>
+        </div>
+        <div className="flex flex-col px-2 py-2 sm:flex-row gap-3 justify-center  items-center">
+          <div className="relative">
+            <input
+              type="search"
+              placeholder="Type queries"
+              className=" sm:py-3 border border-gray-400 rounded-md focus:outline-none focus:ring-2 focus:ring-green-600 w-full"
+            />
+            <button
+              type="submit"
+              className="absolute top-0 right-0 px-3 sm:px-4 whitespace-pre-wrap  my-2 text-gray-400 outline-none focus:outline-none active:outline-none"
+            >
+              <BiSearch size={25} className="inline-block align-middle" />
+            </button>
           </div>
-
-          <div className="ms-auto flex w-full flex-col items-center space-y-4 md:flex-row md:space-y-0 xl:w-3/4 justify-between sm:flex-row sm:items-stretch">
-            <Search className="w-full flex flex-wrap sm:w-auto" />
-            
-            {/* <TypeFilter
-              className="md:ms-6"
-              onTypeFilter={({ slug }: { slug: string }) => {
-                setType(slug);
-                setPage(1);
-              }}
-            /> */}
-
-            <button className="bg-[#248F59] my-auto rounded h-10 w-full sm:w-auto text-sm whitespace-nowrap flex flex-grow justify-center items-center font-sans uppercase text-[#FFFFFF] p-3">
+          <div className=" flex ">
+            <button className="bg-[#248F59] w-full px-4 py-2 sm:py-3 rounded-md text-sm sm:text-base whitespace-nowrap flex justify-center items-center font-sans uppercase text-[#FFFFFF]">
               <Link to="/categories/create">Add Categories</Link>
             </button>
           </div>
