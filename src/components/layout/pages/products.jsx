@@ -1,15 +1,14 @@
 import React from "react";
 import AdminLayout from "../admin";
 import { BiSearch } from "react-icons/bi";
-import { ShopTable } from "../../comp/shop/shopsTable";
-
-const Shops = () => {
+import { ProductsTable } from "../../comp/Products/productsTable";
+const Products = () => {
   return (
     <AdminLayout>
-      <div className="p-3 md:p-6 mb-6 flex shadow flex-col sm:flex-row items-center justify-between bg-white ">
+   <div className="p-3 md:p-6 mb-6 flex shadow flex-col sm:flex-row items-center justify-between bg-white ">
         <div>
           <h1 className="font-serif font-normal text-3xl text-[#248F59]">
-            Shop
+            Products
           </h1>
         </div>
         
@@ -28,9 +27,9 @@ const Shops = () => {
           </div>
         
       </div>
-      <ShopTable />
+      <ProductsTable/>
     </AdminLayout>
   );
 };
 
-export default Shops;
+export default Products;

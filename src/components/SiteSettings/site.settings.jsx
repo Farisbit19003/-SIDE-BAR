@@ -62,7 +62,7 @@ export const siteSettings = {
       },
       {
         id: 4,
-        label: "Add Products",
+        label: "Products",
         icon: <ShoppingOutlined />,
         to: "/products",
       },

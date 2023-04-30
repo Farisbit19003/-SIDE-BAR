@@ -3,7 +3,7 @@ import Login from "./components/auth/login";
 import Register from "./components/auth/register";
 import NewCategory from "./components/comp/category/newCategory";
 import Profile from "./components/layout/admin/profile";
-import AddProducts from "./components/layout/pages/add-products";
+import Products from "./components/layout/pages/products";
 import Attributes from "./components/layout/pages/attributes";
 import Categories from "./components/layout/pages/categories";
 import CreateOrders from "./components/layout/pages/create-orders copy";
@@ -30,7 +30,7 @@ function App() {
           <Route exact path="/forgot-password" element={<ForgotPassword />} />
           <Route exact path="/" element={<Dashboard />} />
           <Route exact path="/shop" element={<Shops />} />
-          <Route exact path="/products" element={<AddProducts />} />
+          <Route exact path="/products" element={<Products />} />
           <Route exact path="/my-shop" element={<MyShops />} />
           <Route exact path="/attributes" element={<Attributes />} />
           <Route exact path="/orders" element={<Orders />} />
