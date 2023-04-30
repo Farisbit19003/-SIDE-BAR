@@ -23,7 +23,7 @@ export const RecentPurchasesTable=()=>{
                 </thead>
                 <tbody>
                   {recentPurchasesData.map((item, index) => (
-                    <tr className="bg-white" key={index}>
+                    <tr className="bg-white cursor-default hover:!bg-gray-100 border-b-2" key={index}>
                       <td className="px-4 py-2">{item.orderId}</td>
                       <td className="px-4 py-2">{item.product}</td>
                       <td className="px-4 py-2">

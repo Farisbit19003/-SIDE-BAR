@@ -56,7 +56,7 @@ export const ShopData = [
     OwnerName: "Sherlock",
     Products: "55",
     Orders: "55",
-    Status: "Active",
+    Status: "InActive",
     Action: [
       <TiDelete size={25} color="red" />,
       <TbCircleCheck color="green" size={25} />,

@@ -24,7 +24,7 @@ export const PopularProductTable=()=>{
               </thead>
               <tbody>
                 {PopularProductData.map((item, index) => (
-                  <tr className="bg-white" key={index}>
+                  <tr className="bg-white cursor-default hover:!bg-gray-100 border-b-2" key={index}>
                     <td className="px-4 py-2">{item.Name}</td>
                     <td className="px-4 py-2">{item.Shop}</td>
                     <td className="px-4 py-2">{item.Price}</td>

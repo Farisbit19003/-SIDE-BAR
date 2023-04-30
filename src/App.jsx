@@ -1,5 +1,4 @@
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
-import CreateShops from "./components/Shops/createshop";
 import Login from "./components/auth/login";
 import Register from "./components/auth/register";
 import NewCategory from "./components/comp/category/newCategory";
@@ -18,6 +17,8 @@ import Shippings from "./components/layout/pages/shippings";
 import Shops from "./components/layout/pages/shops";
 import Users from "./components/layout/pages/users";
 import ForgotPassword from "./components/auth/forgotpassword";
+import CreateShops from "./components/layout/pages/createshop";
+import ShopDetails from "./components/comp/shop/shopDetails";
 
 function App() {
   return (
@@ -43,6 +44,7 @@ function App() {
           <Route exact path="/users" element={<Users />} />
           <Route exact path="/shop/create" element={<CreateShops />} />
           <Route exact path="/profile-update" element={<Profile />} />
+          <Route exact path="/shop/details" element={<ShopDetails />} />
         </Routes>
       </Router>
     </>

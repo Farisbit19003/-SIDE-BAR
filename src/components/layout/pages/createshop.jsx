@@ -1,12 +1,12 @@
 import React from "react";
-import AdminLayout from "../../components/layout/admin";
-import Description from "../comp/common/discription";
-import Card from "../comp/common/cards";
-import BasicInfo from "../comp/Create Shop/basicInfo";
-import PaymentInfo from "../comp/Create Shop/paymentInfo";
-import ShopInfo from "../comp/Create Shop/shopInfo";
-import SocialInfo from "../comp/Create Shop/socialInfo";
-import SaveButton from "../comp/common/save";
+import AdminLayout from "../admin";
+import Description from "../../comp/common/discription";
+import Card from "../../comp/common/cards";
+import BasicInfo from "../../comp/Create Shop/basicInfo";
+import PaymentInfo from "../../comp/Create Shop/paymentInfo";
+import ShopInfo from "../../comp/Create Shop/shopInfo";
+import SocialInfo from "../../comp/Create Shop/socialInfo";
+import SaveButton from "../../comp/common/save";
 
 const coverImageInformation = (
   <span>
