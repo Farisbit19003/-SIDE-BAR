@@ -20,7 +20,7 @@ const Categories = () => {
             </h1>
           </div>
 
-          <div className="  w-full  flex sm:flex-row flex-col   xl:w-3/4 border-2 border-red-900  ">
+          <div className="  w-full  flex sm:flex-row flex-col   xl:w-3/4  ">
             <Search className="flex" />
 
             {/* <TypeFilter
