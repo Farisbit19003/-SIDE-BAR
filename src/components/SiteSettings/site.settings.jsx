@@ -11,6 +11,7 @@ import { AiOutlineUnorderedList } from "react-icons/ai";
 import { BsShopWindow } from "react-icons/bs";
 import { HiOutlineReceiptRefund } from "react-icons/hi";
 import { MdOutlineDashboard } from "react-icons/md";
+import {BiMoneyWithdraw} from "react-icons/bi";
 import { TbCategory, TbTruckDelivery } from "react-icons/tb";
 export const siteSettings = {
   name: "Bazar.pk",
@@ -132,13 +133,14 @@ export const siteSettings = {
         icon: <TbTruckDelivery />,
         to: "/shippings",
       },
-      // {
-      //   href: "",
-      //   label: "Withdraw",
-      //   icon: "WithdrawIcon",
-      // },
+     {
+       id: 11,
+       label: "Withdraws",
+       icon: <BiMoneyWithdraw/>,
+       to:"/withdraws"
+     },
       {
-        id: 11,
+        id: 12,
         label: "Refunds",
         icon: <HiOutlineReceiptRefund />,
         to: "/refunds",
@@ -149,13 +151,13 @@ export const siteSettings = {
       //   icon: "QuestionIcon",
       // },
       {
-        id: 12,
+        id: 13,
         label: "Reviews",
         icon: <AuditOutlined />,
         to: "/reviews",
       },
       {
-        id: 13,
+        id: 14,
         label: "Settings",
         icon: <SettingOutlined />,
         to: "/settings",

@@ -36,8 +36,6 @@ const CreateShops = () => {
             </div>
             <div className="flex w-full sm:whitespace-nowrap bg-white sm:w-8/12 md:w-2/3">
               <Card />
-            
-            
             </div>
           </div>
           {/* COVER IMAGE */}
@@ -61,7 +59,7 @@ const CreateShops = () => {
               />
             </div>
             <div className="flex w-full bg-white sm:w-8/12 md:w-2/3">
-              <BasicInfo/>
+              <BasicInfo />
             </div>
           </div>
           {/* PAYMENT INFO */}
@@ -73,7 +71,7 @@ const CreateShops = () => {
               />
             </div>
             <div className="flex w-full bg-white sm:w-8/12 md:w-2/3">
-              <PaymentInfo/>
+              <PaymentInfo />
             </div>
           </div>
           {/* SHOP INFO */}
@@ -85,11 +83,11 @@ const CreateShops = () => {
               />
             </div>
             <div className="flex w-full bg-white sm:w-8/12 md:w-2/3">
-              <ShopInfo/>
+              <ShopInfo />
             </div>
           </div>
-           {/* SOCIAL INFO */}
-           <div className="my-2 flex flex-wrap border-b-2 border-dashed  pb-8 sm:my-8">
+          {/* SOCIAL INFO */}
+          <div className="my-2 flex flex-wrap border-b-2 border-dashed  pb-8 sm:my-8">
             <div className="flex sm:pe-4 md:pe-5  w-full px-0 pb-5 sm:w-4/12 sm:py-8 md:w-1/3">
               <Description
                 title={"Shop Settings"}
@@ -97,11 +95,11 @@ const CreateShops = () => {
               />
             </div>
             <div className="flex w-full bg-white sm:w-8/12 md:w-2/3">
-              <SocialInfo/>
+              <SocialInfo />
             </div>
           </div>
           <div className="flex justify-end">
-            <SaveButton/>
+            <SaveButton />
           </div>
         </form>
       </>

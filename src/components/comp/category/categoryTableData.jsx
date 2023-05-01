@@ -1,7 +1,6 @@
 
 import { ManOutlined } from "@ant-design/icons";
-import { BiEdit } from "react-icons/bi";
-import { MdDelete } from "react-icons/md";
+import { BiEdit, BiTrash } from "react-icons/bi";
 import {CiBeerMugFull, CiBurger, CiLaptop} from "react-icons/ci";
 
 
@@ -14,7 +13,7 @@ export const catTableData=[
         Icon: <ManOutlined/>,
         Group: "Clothes",
         Action:[
-            <MdDelete size={25} color="red"/> ,<BiEdit size={25} />
+            <BiTrash size={25} color="red"/> ,<BiEdit size={25} />
             
         ],
       },
@@ -25,7 +24,7 @@ export const catTableData=[
         Icon: <ManOutlined/>,
         Group: "Clothes",
         Action:[
-            <MdDelete size={25} color="red"/> ,<BiEdit size={25} />
+          <BiTrash size={25} color="red"/> ,<BiEdit size={25} />
             
         ],
       },
@@ -36,7 +35,7 @@ export const catTableData=[
         Icon: <CiBurger/>,
         Group: "Food",
         Action:[
-            <MdDelete size={25} color="red"/> ,<BiEdit size={25} />
+            <BiTrash size={25} color="red"/> ,<BiEdit size={25} />
             
         ],
       },
@@ -47,7 +46,7 @@ export const catTableData=[
         Icon: <ManOutlined/>,
         Group: "Clothes",
         Action:[
-            <MdDelete size={25} color="red"/> ,<BiEdit size={25} />
+            <BiTrash size={25} color="red"/> ,<BiEdit size={25} />
             
         ],
       },
@@ -58,7 +57,7 @@ export const catTableData=[
         Icon: <ManOutlined/>,
         Group: "Clothes",
         Action:[
-            <MdDelete size={25} color="red"/> ,<BiEdit size={25} />
+            <BiTrash size={25} color="red"/> ,<BiEdit size={25} />
             
         ],
       },
@@ -69,7 +68,7 @@ export const catTableData=[
         Icon: <CiBeerMugFull/>,
         Group: "Beverage",
         Action:[
-            <MdDelete size={25} color="red"/> ,<BiEdit size={25} />
+            <BiTrash size={25} color="red"/> ,<BiEdit size={25} />
             
         ],
       },
@@ -80,7 +79,7 @@ export const catTableData=[
         Icon: <ManOutlined/>,
         Group: "Clothes",
         Action:[
-            <MdDelete size={25} color="red"/> ,<BiEdit size={25} />
+            <BiTrash size={25} color="red"/> ,<BiEdit size={25} />
             
         ],
       },
@@ -91,7 +90,7 @@ export const catTableData=[
         Icon: <ManOutlined/>,
         Group: "Clothes",
         Action:[
-            <MdDelete size={25} color="red"/> ,<BiEdit size={25} />
+            <BiTrash size={25} color="red"/> ,<BiEdit size={25} />
             
         ],
       },
@@ -102,7 +101,7 @@ export const catTableData=[
         Icon: <ManOutlined/>,
         Group: "Clothes",
         Action:[
-            <MdDelete size={25} color="red"/> ,<BiEdit size={25} />
+            <BiTrash size={25} color="red"/> ,<BiEdit size={25} />
             
         ],
       },
@@ -113,7 +112,7 @@ export const catTableData=[
         Icon: <ManOutlined/>,
         Group: "Clothes",
         Action:[
-            <MdDelete size={25} color="red"/> ,<BiEdit size={25} />
+            <BiTrash size={25} color="red"/> ,<BiEdit size={25} />
             
         ],
       },
@@ -124,7 +123,7 @@ export const catTableData=[
         Icon: <ManOutlined/>,
         Group: "Clothes",
         Action:[
-            <MdDelete size={25} color="red"/> ,<BiEdit size={25} />
+            <BiTrash size={25} color="red"/> ,<BiEdit size={25} />
             
         ],
       },
@@ -135,7 +134,7 @@ export const catTableData=[
         Icon: <ManOutlined/>,
         Group: "Clothes",
         Action:[
-            <MdDelete size={25} color="red"/> ,<BiEdit size={25} />
+            <BiTrash size={25} color="red"/> ,<BiEdit size={25} />
             
         ],
       },
@@ -146,7 +145,7 @@ export const catTableData=[
         Icon: <CiLaptop/>,
         Group: "Mobiles and Laptops",
         Action:[
-            <MdDelete size={25} color="red"/> ,<BiEdit size={25} />
+            <BiTrash size={25} color="red"/> ,<BiEdit size={25} />
             
         ],
       },

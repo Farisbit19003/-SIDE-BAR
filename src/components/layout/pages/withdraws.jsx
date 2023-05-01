@@ -1,24 +1,19 @@
 import React from "react";
 import AdminLayout from "../admin";
 import { Link } from "react-router-dom";
-import CatTable from "../../comp/category/categoryTable";
-import { BiSearch } from "react-icons/bi";
-const Categories = () => {
-  //  function handleSearch({ searchText }:
-  //   { searchText: string }) {
-  //   setSearchTerm(searchText);
-  //   setPage(1);
-  // }
+import { WithdrawlsTable } from "../../comp/withdrawls/withdrawlsTable";
+
+const Withdraws = () => {
   return (
     <AdminLayout>
-      <div className="p-3 md:p-6 mb-6 flex  shadow flex-col sm:flex-row items-center justify-between bg-white ">
+      <div className="p-3 md:p-6 mb-6 flex shadow flex-col sm:flex-row items-center justify-between bg-white ">
         <div>
           <h1 className="font-serif font-normal text-3xl text-[#248F59]">
-            Categories
+            Withdrawls
           </h1>
         </div>
         <div className="flex flex-col px-2 py-2 sm:flex-row gap-3 justify-center  items-center">
-          <div className="relative">
+          {/* <div className="relative">
             <input
               type="search"
               placeholder="Type queries"
@@ -30,21 +25,17 @@ const Categories = () => {
             >
               <BiSearch size={25} className="inline-block align-middle" />
             </button>
-          </div>
+          </div> */}
           <div className=" flex ">
             <button className="bg-[#248F59] w-full px-4 py-2 sm:py-3 rounded-md text-sm sm:text-base whitespace-nowrap flex justify-center items-center font-sans uppercase text-[#FFFFFF]">
-              <Link to="/categories/create">Add Categories</Link>
+              <Link to="/withdrawls/request">Request Withdrawls</Link>
             </button>
           </div>
         </div>
       </div>
-
-      <div className="flex w-full">
-        {" "}
-        <CatTable />
-      </div>
+      <WithdrawlsTable />
     </AdminLayout>
   );
 };
 
-export default Categories;
+export default Withdraws;

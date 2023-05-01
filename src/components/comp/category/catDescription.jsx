@@ -1,10 +1,8 @@
 import React from "react";
-import {  categoryTypes } from "./catItypes";
-import { categoryIcons } from "./catIcons";
-import CategoryDropdown from "./dropdown";
+import { categoryTypes } from "./catItypes";
 import { categoryParent } from "./catParent";
 
-const CategoryDes = ({icon}) => {
+const CategoryDes = () => {
   return (
     <>
       <div className="p-3 font-sans w-full flex flex-col">

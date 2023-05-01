@@ -1,13 +1,18 @@
-import React from 'react';
-import AdminLayout from '../admin';
+import React from "react";
+import AdminLayout from "../admin";
+import { ReviewTable } from "../../comp/reviews/reviewTable";
 
 const Reviews = () => {
   return (
     <AdminLayout>
-    <div className='flex flex-col text-4xl justify-center items-center'>
-      <h1>Reviews</h1>
-      <p>Check Reviews HERE</p>
-    </div>
+      <div className="p-3 md:p-6 mb-6 flex shadow flex-col sm:flex-row items-center justify-center bg-white ">
+        <div>
+          <h1 className="font-serif font-normal text-3xl text-[#248F59]">
+            Reviews
+          </h1>
+        </div>
+      </div>
+      <ReviewTable />
     </AdminLayout>
   );
 };

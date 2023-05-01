@@ -24,7 +24,7 @@ const CatTable=()=>{
           </thead>
           <tbody>
             {catTableData.map((item, index) => (
-              <tr className="bg-white" key={index}>
+              <tr className="bg-white cursor-default whitespace-nowrap hover:!bg-gray-100 border-b-2 font-sans" key={index}>
                 <td className="px-4 py-2">{item.id}</td>
                 <td className="px-4 py-2">{item.Name}</td>
                 <td className="px-4 py-2">{item.Slug}</td>
