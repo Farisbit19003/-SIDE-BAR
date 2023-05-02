@@ -14,7 +14,7 @@ export const AttributeTable = () => {
               <thead>
                 <tr className="bg-[#F2F2F2]">
                   {Headings.map((heading, index) => (
-                    <th className="px-4 whitespace-nowrap py-2" key={index}>
+                    <th className="px-4 text-center whitespace-nowrap py-2" key={index}>
                       {heading}
                     </th>
                   ))}
@@ -24,7 +24,7 @@ export const AttributeTable = () => {
               <tbody>
                 {AttributesData.map((item, index) => (
                   <tr
-                    className="bg-white cursor-default hover:!bg-gray-100 border-b-2 font-sans"
+                    className="bg-white text-center cursor-default hover:!bg-gray-100 border-b-2 font-sans"
                     key={index}
                   >
                     <td className="px-4 py-2">{item.Id}</td>
@@ -32,7 +32,7 @@ export const AttributeTable = () => {
                     <td className="px-4 py-2 whitespace-nowrap">
                       {item.Values}
                     </td>
-                    <td className="px-4 py-2 flex gap-2">{item.Action}</td>
+                    <td className="px-4 py-2 flex items-center justify-center gap-2 cursor-pointer text-center">{item.Action}</td>
                   </tr>
                 ))}
               </tbody>

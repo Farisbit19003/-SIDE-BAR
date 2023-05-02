@@ -7,7 +7,7 @@ export const UserTable = () => {
       <div className="my-6  flex border bg-white shadow">
         <div className=" mx-auto mt-2 h-fit w-full">
           <div className="flex flex-row justify-center items-center mx-2 my-2">
-            <p className="flex font-sans font-semibold text-lg ">Refunds</p>
+            <p className="flex font-sans font-semibold text-lg ">Users</p>
           </div>
           <div className="overflow-x-auto flex flex-col justify-center">
             <table className="mx-2 my-2 font-sans shadow">
@@ -40,7 +40,7 @@ export const UserTable = () => {
                     >
                       {item.status}
                     </td>
-                    <td className="px-4 py-2 flex gap-2 items-center justify-center">
+                    <td className="px-2 py-2  justify-center flex  cursor-pointer">
                       {item.Action}
                     </td>
                   </tr>

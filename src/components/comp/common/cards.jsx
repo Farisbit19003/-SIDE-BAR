@@ -1,13 +1,10 @@
 import React from "react";
-import FileInput from "../Create Shop/fileInput";
 
-const Card = () => {
+const Card = ({ children }) => {
   return (
     <>
-      <div className="bg-white w-full h-fit p-5 ">
-        <div className="flex border-2 border-green-500 border-dashed justify-center items-center">
-          <FileInput />
-        </div>
+      <div className="flex w- h-fit  justify-center items-center w-full p-4 sm:whitespace-nowrap bg-white sm:w-8/12 md:w-2/3">
+        {children}
       </div>
     </>
   );

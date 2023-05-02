@@ -77,7 +77,7 @@ export const OrderTable = () => {
                       onMouseEnter={handleMouseEnter}
                       onMouseLeave={handleMouseLeave}
                     >{item.address}</td>
-                    <td className="px-4 py-2 flex justify-center">{item.Action}</td>
+                    <td className="px-4 py-2 flex items-center  justify-center">{item.Action}</td>
                     
                   </tr>
                 ))}

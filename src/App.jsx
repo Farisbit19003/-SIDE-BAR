@@ -22,6 +22,8 @@ import Shops from "./components/layout/pages/shops";
 import Users from "./components/layout/pages/users";
 import Withdraws from "./components/layout/pages/withdraws";
 import NewAttribute from "./components/comp/attributes/attributeForm";
+import AddProduct from "./components/comp/Products/addProduct";
+
 
 function App() {
   return (
@@ -34,6 +36,7 @@ function App() {
           <Route exact path="/" element={<Dashboard />} />
           <Route exact path="/shop" element={<Shops />} />
           <Route exact path="/products" element={<Products />} />
+          <Route exact path="/products/add" element={<AddProduct />} />
           <Route exact path="/my-shop" element={<MyShops />} />
           <Route exact path="/attributes" element={<Attributes />} />
           <Route exact path="/attributes/create" element={<NewAttribute />} />

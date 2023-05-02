@@ -1,6 +1,7 @@
 import React from "react";
 import Description from "../common/discription";
 import Card from "../common/cards";
+import FileInput from "../common/fileInput";
 import AdminLayout from "../../layout/admin";
 import CategoryDes from "./catDescription";
 import SaveButton from "../common/save";
@@ -21,9 +22,11 @@ const NewCategory=()=>{
               details={"Upload your category image here"}
             />
           </div>
-          <div className="flex w-full sm:whitespace-nowrap bg-white sm:w-8/12 md:w-2/3">
-            <Card />
-          </div>
+          
+            <Card >
+              <FileInput />
+            </Card>
+          
         </div>
          {/* Description */}
          <div className="my-2 flex flex-wrap border-b-2 border-dashed  pb-8 sm:my-8">
@@ -37,6 +40,7 @@ const NewCategory=()=>{
             <CategoryDes/>
           </div>
         </div>
+      
         <div className="float-right"> <SaveButton/></div>
        
       </AdminLayout>

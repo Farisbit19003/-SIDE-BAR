@@ -55,7 +55,7 @@ export const RefundTable = () => {
                     >
                       {item.Status}
                     </td>
-                    <td className="px-4 py-2 flex justify-center">{item.Action}</td>
+                    <td className="px-4 py-2 flex cursor-pointer justify-center">{item.Action}</td>
                     
                   </tr>
                 ))}

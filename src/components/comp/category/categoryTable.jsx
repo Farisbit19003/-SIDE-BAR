@@ -30,7 +30,7 @@ const CatTable=()=>{
                 <td className="px-4 py-2">{item.Slug}</td>
                 <td className="px-4 py-2">{item.Icon}</td>
                 <td className="px-4 py-2">{item.Group}</td>
-                <td className="px-4 py-2 bg-none flex flex-row">{item.Action}</td>
+                <td className="px-4 py-2 b gap-2 cursor-pointer flex flex-row">{item.Action}</td>
               </tr>
             ))}
           </tbody>

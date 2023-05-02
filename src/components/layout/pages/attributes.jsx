@@ -9,7 +9,7 @@ const Attributes = () => {
       <div className="p-3 md:p-6 mb-6 flex  shadow flex-col sm:flex-row items-center justify-between bg-white ">
         <div>
           <h1 className="font-serif font-normal text-3xl text-[#248F59]">
-            Categories
+            Attributes
           </h1>
         </div>
         <div className="flex flex-col px-2 py-2 sm:flex-row gap-3 justify-center  items-center">

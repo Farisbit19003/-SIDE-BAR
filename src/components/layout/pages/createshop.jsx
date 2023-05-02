@@ -1,17 +1,18 @@
 import React from "react";
 import AdminLayout from "../admin";
 import Description from "../../comp/common/discription";
-import Card from "../../comp/common/cards";
 import BasicInfo from "../../comp/Create Shop/basicInfo";
 import PaymentInfo from "../../comp/Create Shop/paymentInfo";
 import ShopInfo from "../../comp/Create Shop/shopInfo";
 import SocialInfo from "../../comp/Create Shop/socialInfo";
 import SaveButton from "../../comp/common/save";
+import FileInput from "../../comp/common/fileInput";
+import Card from "../../comp/common/cards";
 
 const coverImageInformation = (
   <span>
     {"Upload your shop cover image from here."} <br />
-    {"Dimension of the cover image should be"} &nbsp;
+    {"Dimension of the cover image should be"} <br />
     <span className="font-bold">1170 x 435</span>
   </span>
 );
@@ -34,9 +35,10 @@ const CreateShops = () => {
                 details={"Upload your shop logo from here"}
               />
             </div>
-            <div className="flex w-full sm:whitespace-nowrap bg-white sm:w-8/12 md:w-2/3">
-              <Card />
-            </div>
+            {/*IMAGE  */}
+            <Card>
+              <FileInput keyPrefix="first" />
+            </Card>
           </div>
           {/* COVER IMAGE */}
           <div className="my-2 flex flex-wrap border-b-2 border-dashed  pb-8 sm:my-8">
@@ -46,9 +48,9 @@ const CreateShops = () => {
                 details={coverImageInformation}
               />
             </div>
-            <div className="flex w-full sm:whitespace-nowrap bg-white sm:w-8/12 md:w-2/3">
-              <Card />
-            </div>
+            <Card>
+              <FileInput keyPrefix="second" />
+            </Card>
           </div>
           {/* Basic Info */}
           <div className="my-2 flex flex-wrap border-b-2 border-dashed  pb-8 sm:my-8">
