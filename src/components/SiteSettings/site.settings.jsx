@@ -1,18 +1,16 @@
 import {
-  AuditOutlined,
-  CalendarOutlined,
-  SettingOutlined,
+  AuditOutlined, SettingOutlined,
   ShopOutlined,
   ShoppingOutlined,
   TagsOutlined,
-  UserOutlined,
+  UserOutlined
 } from "@ant-design/icons";
 import { AiOutlineUnorderedList } from "react-icons/ai";
+import { BiMoneyWithdraw } from "react-icons/bi";
 import { BsShopWindow } from "react-icons/bs";
 import { HiOutlineReceiptRefund } from "react-icons/hi";
 import { MdOutlineDashboard } from "react-icons/md";
-import {BiMoneyWithdraw} from "react-icons/bi";
-import { TbCategory, TbTruckDelivery } from "react-icons/tb";
+import { TbCategory } from "react-icons/tb";
 export const siteSettings = {
   name: "Bazar.pk",
   //   description: '',
@@ -106,12 +104,6 @@ export const siteSettings = {
         to: "/orders",
       },
       {
-        id: 8,
-        label: "Create-Order",
-        icon: <CalendarOutlined />,
-        to: "/orders/creates",
-      },
-      {
         id: 9,
         label: "Users",
         icon: <UserOutlined />,
@@ -127,12 +119,6 @@ export const siteSettings = {
       //   label: "sidebar-nav-item-taxes",
       //   icon: "TaxesIcon",
       // },
-      {
-        id: 10,
-        label: "Shippings",
-        icon: <TbTruckDelivery />,
-        to: "/shippings",
-      },
      {
        id: 11,
        label: "Withdraws",

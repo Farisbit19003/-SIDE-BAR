@@ -5,10 +5,9 @@ import Register from "./components/auth/register";
 import NewCategory from "./components/comp/category/newCategory";
 import ShopDetails from "./components/comp/shop/shopDetails";
 import CreateWithdrawls from "./components/comp/withdrawls/createWithdrawls";
-import Profile from "./components/layout/admin/profile";
+import Profile from "./components/layout/pages/profile";
 import Attributes from "./components/layout/pages/attributes";
 import Categories from "./components/layout/pages/categories";
-import CreateOrders from "./components/layout/pages/create-orders copy";
 import CreateShops from "./components/layout/pages/createshop";
 import Dashboard from "./components/layout/pages/dashboard";
 import MyShops from "./components/layout/pages/my-shops";
@@ -41,7 +40,6 @@ function App() {
           <Route exact path="/attributes" element={<Attributes />} />
           <Route exact path="/attributes/create" element={<NewAttribute />} />
           <Route exact path="/orders" element={<Orders />} />
-          <Route exact path="/orders/create" element={<CreateOrders />} />
           <Route exact path="/categories" element={<Categories />} />
           <Route exact path="/categories/create" element={<NewCategory />} />
           <Route exact path="/refunds" element={<Refunds />} />
