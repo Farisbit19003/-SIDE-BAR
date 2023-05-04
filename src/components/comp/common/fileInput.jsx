@@ -75,6 +75,7 @@ const FileInput = ({ keyPrefix, multiple }) => {
             <div key={index} className="flex flex-row m-2  my-2">
               <div className="flex-1  text-gray-500 font-semibold">
                 {file.name}
+                <span><img src={file.path} height={50} width={50} /></span>
               </div>
               <TiDeleteOutline
                 color="red"

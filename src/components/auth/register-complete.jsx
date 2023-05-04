@@ -1,61 +1,85 @@
-import { useState, useContext,useEffect } from "react";
+import { useState,useEffect,useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { UserContext } from "../../context";
 import { toast } from "react-toastify";
-import { LOGIN } from "./auth";
+import { UserContext } from "../../context";
+import { registerComplete } from "./auth";
 import { LoadingOutlined } from "@ant-design/icons";
 import {AiOutlineLoading3Quarters} from "react-icons/ai"
 
-const Login = () => {
+const RegisterComplete = () => {
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [secret, setSecret] = useState("");
   const [loading, setloading] = useState(false);
-  const [state, setState] = useContext(UserContext);
+  //state
+  const [state] = useContext(UserContext);
   const navigate = useNavigate();
+  //useEffect for PreFilled Email
+  useEffect(()=>{
+  setEmail(window.localStorage.getItem("Email",email));
+  },[])
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!email || !password) {
-      return toast.error("Please Fill al Field");
+    try {
+      if (!email || !secret) {
+        return toast.error("Please Fill al Fields");
+      }
+      setloading(true);
+     registerComplete( email, secret).then((res) => {
+        if (res.error) {
+          setloading(false);
+          toast.error(res.error);
+        } else {
+          setloading(false);
+          setEmail("");
+          setSecret("");
+          window.localStorage.removeItem("Email",email);
+          navigate("/login")
+        }
+      });
+    } catch (err) {
+      toast.error(err.response.data);
+      setloading(false);
     }
-    setloading(true);
-    LOGIN(email, password, setState, setloading);
   };
-  useEffect(()=>{
-    if(state&&state.token){
-    setTimeout(() => {
-      navigate("/");
-    }, 3000); // 5 seconds
+  useEffect(() => {
+    if (state && state.token) {
+      setTimeout(() => {
+        navigate("/");
+      }, 3000); // 5 seconds
     }
-},[state&&state.token]);
-  return  state&&state.token?(
+  }, [state && state.token]);
+  return state && state.token ? (
     <div className="fixed inset-0 flex items-center justify-center">
-  <div className="flex flex-col items-center">
-    <AiOutlineLoading3Quarters className="text-6xl w-16 h-16 text-[#248F59] animate-spin" />
-    <span className="mt-4 text-gray-500 text-lg font-semibold">Redirecting to Homepage...</span>
-  </div>
-</div>
-  ) :(
+      <div className="flex flex-col items-center">
+        <AiOutlineLoading3Quarters className="text-6xl w-16 h-16 text-[#248F59] animate-spin" />
+        <span className="mt-4 text-gray-500 text-lg font-semibold">
+          Redirecting to Homepage...
+        </span>
+      </div>
+    </div>
+  ) : (
     <>
       <div className="bg-gray-200 flex flex-wrap h-screen lg:p-4   mx-auto justify-center">
         <div className="bg-white flex flex-col p-4 md:w-fit w-full mx-auto border-2 justify-center shadow">
           {/* LOGO */}
           <img src="../../src/assets/Logo.svg" className="h-10" alt="" />
           <h1 className="text-gray-400 font-thin flex justify-center items-center italic mb-6 font-sans">
-            Login to Admin
+           Complete Registration
           </h1>
           {/* EMAIL */}
           <label className="mb-3 block text-sm font-semibold leading-none text-body-dark">
             Email
           </label>
           <input
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            type="email"
+          value={email}
+          onChange={(e)=>setEmail(e.target.value)}
+          disabled
+           type="email"
             className="h-12 mb-4 flex flex-wrap bg-white border border-gray-400 rounded-lg px-3 py-2 text-lg font-sans font-normal tracking-normal text-left focus:outline-none focus:ring-2 focus:ring-green-600"
           />
           {/* PASSWORD */}
           <label className="mb-3 block text-sm font-semibold leading-none text-body-dark">
-            Password
+            Secret
           </label>
           <Link
             to="/forgot-password"
@@ -64,36 +88,18 @@ const Login = () => {
             Forgot Password?
           </Link>
           <input
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+           value={secret}
+           onChange={(e)=>setSecret(e.target.value)}
             type="password"
             className="h-12 mb-4 flex flex-wrap  bg-white border border-gray-400 rounded-lg px-3 py-2 text-lg font-sans font-normal tracking-normal text-left focus:outline-none focus:ring-2 focus:ring-green-600"
           />
           {/* LOGIN */}
-          <button
-            onClick={handleSubmit}
-            className="h-12 my-3 flex flex-wrap justify-center items-center rounded-lg w-full bg-[#248F59] uppercase text-[#FFFFFF]"
-          >
-            {loading ? <LoadingOutlined /> : " Login"}
+          <button onClick={handleSubmit} className="h-12 my-3 flex flex-wrap justify-center items-center rounded-lg w-full bg-[#248F59] uppercase text-[#FFFFFF]">
+          {loading? <LoadingOutlined/>:"Complete Registration"}
           </button>
-          {/* OR */}
-          <div className="relative flex my-5 flex-col items-center justify-center text-sm text-heading">
-            <hr className="w-full" />
-            <span className="start-2/4 -ms-4 absolute -top-2.5 bg-light px-2">
-              OR
-            </span>
-          </div>
-          {/* REGISTER */}
-          <span className="font-sans text-base font-normal my-2 text-center">
-            Don't have any account?
-            <Link to="/register" className="text-[#248F59]">
-              {" "}
-              Register as Shop Owner
-            </Link>
-          </span>
         </div>
       </div>
     </>
   );
 };
-export default Login;
+export default RegisterComplete;

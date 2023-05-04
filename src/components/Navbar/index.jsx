@@ -1,9 +1,12 @@
 import { motion } from "framer-motion";
 import AuthorizedMenu from "./authorizedMenu";
 import { AlignLeftOutlined } from "@ant-design/icons";
-import { Link } from "react-router-dom";
-
+import { UserContext } from "../../context";
+import { Link ,useNavigate} from "react-router-dom";
+import { useContext } from "react";
 const Navbar = ({ setOpen }) => {
+  const [state, setState] = useContext(UserContext);;
+  const role=state&&state.user&&state.user.role;
   const toggleSidebar = () => {
     setOpen(true);
   };
@@ -20,17 +23,19 @@ const Navbar = ({ setOpen }) => {
         </motion.button>
 
         <div className="ms-5 me-auto hidden md:flex">
+          <Link to="/">
           <img src={"https://res.cloudinary.com/dc367rgig/image/upload/v1682767512/Logo_lokccn.svg"} alt="logo" className="object-cover h-8" />
-        </div>
+          </Link>      
+            </div>
 
         <div className="space-s-8 flex items-center">
-          <button
+       {role==="Seller"?   <button
             className="ms-4 md:ms-6 mx-auto px-3 py-0  text-sm h-9 bg-[#248F59] font-sans text-[#FFFFFF]  hover:bg-accent-hover
                inline-flex items-center justify-center flex-shrink-0 font-normal leading-none rounded-lg outline-none transition duration-300 ease-in-out focus:outline-none focus:shadow
                "
           >
             <Link to="/shop/create">Create Shop</Link>
-          </button>
+          </button>:""}
 
           <AuthorizedMenu />
         </div>

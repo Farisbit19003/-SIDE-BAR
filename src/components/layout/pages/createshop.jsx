@@ -1,5 +1,5 @@
 import React from "react";
-import AdminLayout from "../admin";
+import ShopLayout from "../../layout/Shop/index"
 import Description from "../../comp/common/discription";
 import BasicInfo from "../../comp/Create Shop/basicInfo";
 import PaymentInfo from "../../comp/Create Shop/paymentInfo";
@@ -19,7 +19,7 @@ const coverImageInformation = (
 
 const CreateShops = () => {
   return (
-    <AdminLayout>
+    <ShopLayout>
       <>
         <form>
           <div className="my-2 flex flex-wrap border-b-2 border-dashed  pb-8 sm:my-8">
@@ -105,7 +105,7 @@ const CreateShops = () => {
           </div>
         </form>
       </>
-    </AdminLayout>
+    </ShopLayout>
   );
 };
 

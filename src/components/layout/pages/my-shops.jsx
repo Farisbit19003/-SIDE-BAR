@@ -1,5 +1,5 @@
 import React from 'react';
-import AdminLayout from '../admin';
+import ShopLayout from "../../layout/Shop/index"
 import { BiCollection, BiEdit, BiMapPin, BiPhone } from "react-icons/bi";
 import { BsBoxSeam, BsPercent } from "react-icons/bs";
 import { TbReportMoney } from "react-icons/tb";
@@ -8,7 +8,7 @@ import { TfiMoney } from "react-icons/tfi";
 const MyShops = () => {
      return (
     <>
-      <AdminLayout>
+      <ShopLayout>
         <div className="grid grid-cols-12 gap-6 font-sans">
           {/* {!is_active && (
         <div className="col-span-12 rounded-lg bg-red-500 px-5 py-4 text-sm text-light">
@@ -251,7 +251,7 @@ const MyShops = () => {
             </div>
           </div>
         </div>
-      </AdminLayout>
+      </ShopLayout>
     </>
   );
 };

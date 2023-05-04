@@ -1,11 +1,11 @@
 import React from "react";
-import AdminLayout from "../admin";
+import ShopLayout from "../../layout/Shop/index"
 import { Link } from "react-router-dom";
 import { WithdrawlsTable } from "../../comp/withdrawls/withdrawlsTable";
 
 const Withdraws = () => {
   return (
-    <AdminLayout>
+    <ShopLayout>
       <div className="p-3 md:p-6 mb-6 flex shadow flex-col sm:flex-row items-center justify-between bg-white ">
         <div>
           <h1 className="font-serif font-normal text-3xl text-[#248F59]">
@@ -34,7 +34,7 @@ const Withdraws = () => {
         </div>
       </div>
       <WithdrawlsTable />
-    </AdminLayout>
+    </ShopLayout>
   );
 };
 

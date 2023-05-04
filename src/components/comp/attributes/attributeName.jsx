@@ -1,4 +1,5 @@
 import React from "react";
+import ShopLayout from "../../layout/Shop";
 
 const Name = () => {
   return (

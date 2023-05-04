@@ -1,5 +1,5 @@
 import React from "react";
-import AdminLayout from "../../layout/admin";
+import ShopLayout from "../../layout/Shop/index"
 import Description from "../common/discription";
 import Card from "../common/cards";
 import FileInput from "../common/fileInput";
@@ -10,7 +10,7 @@ import SaveButton from "../common/save";
 
 const AddProduct = () => {
   return (
-    <AdminLayout>
+    <ShopLayout>
       {/* {errorMessage ? (
             <Alert
               message={t(`common:${errorMessage}`)}
@@ -89,7 +89,7 @@ const AddProduct = () => {
           
       </form>
       <div className="float-right"> <SaveButton/></div>
-    </AdminLayout>
+    </ShopLayout>
   );
 };
 

@@ -1,4 +1,8 @@
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
+import { UserProvider } from "./context";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+// Pages
 import ForgotPassword from "./components/auth/forgotpassword";
 import Login from "./components/auth/login";
 import Register from "./components/auth/register";
@@ -22,15 +26,21 @@ import Users from "./components/layout/pages/users";
 import Withdraws from "./components/layout/pages/withdraws";
 import NewAttribute from "./components/comp/attributes/attributeForm";
 import AddProduct from "./components/comp/Products/addProduct";
+import RegisterComplete from "./components/auth/register-complete";
+import AccessDenied from "./components/layout/pages/AccessDenied";
 
 
 function App() {
   return (
     <>
-      <Router>
+     <Router>
+    <UserProvider>
+     
         <Routes>
           <Route exact path="/register" element={<Register />} />
+          <Route exact path="/register-complete" element={<RegisterComplete />} />
           <Route exact path="/login" element={<Login />} />
+          <Route exact path="/AccessDenied" element={<AccessDenied />} />
           <Route exact path="/forgot-password" element={<ForgotPassword />} />
           <Route exact path="/" element={<Dashboard />} />
           <Route exact path="/shop" element={<Shops />} />
@@ -53,8 +63,11 @@ function App() {
           <Route exact path="/profile-update" element={<Profile />} />
           <Route exact path="/shop/details" element={<ShopDetails />} />
         </Routes>
+        <ToastContainer/>
+      </UserProvider>
       </Router>
     </>
+
   );
 }
 

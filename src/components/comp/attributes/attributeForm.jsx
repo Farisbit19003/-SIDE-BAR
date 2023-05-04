@@ -1,19 +1,17 @@
 import React from "react";
-import AdminLayout from "../../layout/admin";
 import Description from "../common/discription";
 import Name from "./attributeName";
 import SaveButton from "../common/save";
 import Value from "./attributeValue";
-
+import ShopLayout from "../../layout/Shop";
 const NewAttribute=()=>{
     return (
-      <AdminLayout>
+      <ShopLayout>
         <div className="my-2 flex flex-wrap border-b-2 border-dashed  pb-8 sm:my-8">
           <h1 className="text-[#248F59] font-serif text-3xl font-normal">
             Create New Attribute
           </h1>
         </div>
-        
          {/* Name */}
          <div className="my-2 flex flex-wrap border-b-2 border-dashed  pb-8 sm:my-8">
           <div className="flex sm:pe-4 md:pe-5  w-full px-0 pb-5 sm:w-4/12 sm:py-8 md:w-1/3">
@@ -39,7 +37,7 @@ const NewAttribute=()=>{
           </div>
         </div>
         <div className="float-right"> <SaveButton/></div>
-      </AdminLayout>
+      </ShopLayout>
     );
 }
 export default NewAttribute;

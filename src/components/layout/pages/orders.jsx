@@ -1,11 +1,11 @@
 import React from "react";
-import AdminLayout from "../admin";
+import ShopLayout from "../../layout/Shop/index"
 import { BiSearch } from "react-icons/bi";
 import { OrderTable } from "../../comp/orders/orderTable";
 
 const Orders = () => {
   return (
-    <AdminLayout>
+    <ShopLayout>
       <div className="p-3 md:p-6 mb-6 flex shadow flex-col sm:flex-row items-center justify-between bg-white ">
         <div>
           <h1 className="font-serif font-normal text-3xl text-[#248F59]">
@@ -28,7 +28,7 @@ const Orders = () => {
         </div>
       </div>
       <OrderTable />
-    </AdminLayout>
+    </ShopLayout>
   );
 };
 

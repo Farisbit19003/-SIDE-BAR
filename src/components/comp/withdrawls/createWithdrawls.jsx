@@ -1,12 +1,12 @@
  import React from "react";
-import AdminLayout from "../../layout/admin";
-import Description from "../common/discription";
+ import ShopLayout from "../../layout/Shop/index"
+ import Description from "../common/discription";
 import WithdrawlsDes from "./withdrawDes";
 import SaveButton from "../common/save";
 
  const CreateWithdrawls=()=>{
     return (
-        <AdminLayout>
+        <ShopLayout>
           <div className="my-2 flex flex-wrap border-b-2 border-dashed  pb-8 sm:my-8">
             <h1 className="text-[#248F59] font-serif text-3xl font-normal">
               Request New Withdrawls
@@ -26,7 +26,7 @@ import SaveButton from "../common/save";
             </div>
           </div>
           <div className="float-right"> <SaveButton/></div>
-        </AdminLayout>
+        </ShopLayout>
       );
  } 
  export default CreateWithdrawls;

@@ -1,14 +1,29 @@
-import { Fragment } from "react";
+import { Fragment,useContext } from "react";
 import { Menu, Transition } from "@headlessui/react";
 import { Avatar, Space } from "antd";
 import { UserOutlined } from "@ant-design/icons";
-import { Link } from "react-router-dom";
+import { Link ,useNavigate} from "react-router-dom";
+import { UserContext } from "../../context";
 const AuthorizedMenu = () => {
+  const [state, setState] = useContext(UserContext);
+  const navigate = useNavigate();
+
+  const HandleLogout=()=>{
+    window.localStorage.removeItem("auth");
+    setState({
+      user:{},
+      token:""
+    })
+    navigate("/login");
+  }
   return (
     <Menu as="div" className="relative inline-block text-left ml-5">
       <Menu.Button className="flex items-center focus:outline-none">
-        <Space wrap size={20}>
-          <Avatar icon={<UserOutlined />} />
+        <Space wrap size={40}>
+          <Avatar icon={state&&state.user&&state.user.image?
+            state.user.image.url
+            :
+           <UserOutlined />} />
         </Space>
       </Menu.Button>
 
@@ -30,8 +45,8 @@ const AuthorizedMenu = () => {
               className="flex w-full flex-col space-y-1 rounded-t
              bg-[#248F59] px-4 py-3 text-sm text-[#FFFFFF]"
             >
-              <span className="font-semibold capitalize">kamran</span>
-              <span className="text-xs">Kamran@gmail.com</span>
+              <span className="font-semibold capitalize">{state&&state.user?state.user.name:""}</span>
+              <span className="text-xs">{state&&state.user?state.user.email:""}</span>
             </li>
           </Menu.Item>
 
@@ -44,7 +59,7 @@ const AuthorizedMenu = () => {
             </li>
           </Menu.Item>
           <Menu.Item>
-            <li className="cursor-pointer border-b border-gray-100 last:border-0">
+            <li onClick={HandleLogout} className="cursor-pointer border-b border-gray-100 last:border-0">
               <a
                 className={
                   "block px-4 py-3 text-sm font-semibold capitalize transition duration-200 hover:text-accent"

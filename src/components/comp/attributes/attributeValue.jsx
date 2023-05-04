@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { FaTrash } from 'react-icons/fa';
+import ShopLayout from "../../layout/Shop";
 
 const Value = () => {
     const [values, setValues] = useState([]);

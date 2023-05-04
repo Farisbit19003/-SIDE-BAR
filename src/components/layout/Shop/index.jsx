@@ -9,12 +9,11 @@ import { UserContext } from "../../../context/index";
 import { Link ,useNavigate} from "react-router-dom";
 import {toast} from "react-toastify"
 import {AiOutlineLoading3Quarters} from "react-icons/ai"
-const AdminLayout = ({ children }) => {
+const ShopLayout = ({ children }) => {
   const [open, setOpen] = useState(false);
-  const [state, setState] = useContext(UserContext);
-  console.log("State",state);
-  const navigate = useNavigate();
+  const [state, setState] = useContext(UserContext);;
   const role=state&&state.user&&state.user.role;
+  const navigate = useNavigate()
   // initialize with the first item's id
   const onClose = () => {
     setOpen(false);
@@ -27,7 +26,7 @@ const AdminLayout = ({ children }) => {
         },3000)
     }
     // Redirect to AccessDenied if user is not admin
-    else if (state.user && state.user.role && state.user.role!== 'Admin') {
+    else if (state.user && state.user.role && state.user.role!== 'Seller') {
       setTimeout(()=>{
         navigate("/AccessDenied");
         },3000)
@@ -36,7 +35,7 @@ const AdminLayout = ({ children }) => {
   
   const SidebarItemMap = () => (
     <Fragment>
-      {siteSettings.sidebarLinks.admin.map((s) => (
+      {siteSettings.sidebarLinks.shop.map((s) => (
         <SidebarItem
           key={s.id}
           label={s.label}
@@ -46,7 +45,7 @@ const AdminLayout = ({ children }) => {
       ))}
     </Fragment>
   );
-  return !state||!state.token||role!=="Admin"?(
+  return !state||!state.token||role!=="Seller"?(
     <div className="fixed inset-0 flex items-center justify-center">
   <div className="flex flex-col items-center">
     <AiOutlineLoading3Quarters className="text-6xl w-16 h-16 text-[#248F59] animate-spin" />
@@ -85,4 +84,4 @@ const AdminLayout = ({ children }) => {
   )
 
 };
-export default AdminLayout;
+export default ShopLayout;
