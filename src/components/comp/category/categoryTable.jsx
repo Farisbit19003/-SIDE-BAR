@@ -1,7 +1,7 @@
 import React from "react";
-import { Headings, catTableData } from "./categoryTableData";
-
-const CatTable=()=>{
+import { BiEdit, BiTrash } from "react-icons/bi";
+import { Link } from "react-router-dom";
+const CatTable=({category,handleDelete,keyword,Searched})=>{
   return(
     <>
      <div className="mb-6 flex border w-full bg-white shadow">
@@ -15,25 +15,37 @@ const CatTable=()=>{
         <table className="mx-2 my-2 font-sans shadow">
           <thead>
             <tr className="bg-[#F2F2F2]">
-              {Headings.map((heading, index) => (
-                <th className="px-4 py-2" key={index}>
-                  {heading}
-                </th>
-              ))}
+                <th className="px-4 py-2">Name</th>
+                <th className="px-4 py-2">Slug</th>
+                <th className="px-4 py-2">Details</th>
+                <th className="px-4 py-2">Parent Category</th>
+                <th className="px-4 py-2">Actions</th>
             </tr>
           </thead>
+          {category&&category.length<1?(
+                    <div className="flex  justify-center">
+                    <div className="flex flex-col items-center">
+                      {/* <AiOutlineLoading3Quarters className="text-6xl w-16 h-16 text-[#248F59] animate-spin" /> */}
+                      <span className="mt-4 text-gray-500 text-lg font-semibold">Loading...</span>
+                      <span className="mt-4 text-gray-500 text-lg font-semibold">No Category Found</span>
+                    </div>
+                  </div>
+                ): 
           <tbody>
-            {catTableData.map((item, index) => (
+            {category&&category.filter(Searched(keyword)).map((item, index) => (
               <tr className="bg-white cursor-default whitespace-nowrap hover:!bg-gray-100 border-b-2 font-sans" key={index}>
-                <td className="px-4 py-2">{item.id}</td>
-                <td className="px-4 py-2">{item.Name}</td>
-                <td className="px-4 py-2">{item.Slug}</td>
-                <td className="px-4 py-2">{item.Icon}</td>
-                <td className="px-4 py-2">{item.Group}</td>
-                <td className="px-4 py-2 b gap-2 cursor-pointer flex flex-row">{item.Action}</td>
+                <td className="px-4 py-2">{item.name}</td>
+                <td className="px-4 py-2">{item.slug}</td>
+                <td className="px-4 py-2">{item.details.slice(0,30)}....</td>
+                <td className="px-4 py-2">{item.ParentCategory}</td>
+                <td className="px-4 py-2 b gap-2 cursor-pointer flex flex-row">
+                <BiTrash onClick={()=>handleDelete(item.slug)} size={25} color="red"/>
+               <Link to={`/categories/update/${item.slug}`}> <BiEdit size={25} /></Link>
+                </td>
               </tr>
             ))}
           </tbody>
+}
         </table>
       </div>
     </div>

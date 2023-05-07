@@ -1,17 +1,66 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Card from "../../comp/common/cards";
 import Description from "../../comp/common/discription";
 import FileInput from "../../comp/common/fileInput";
 import SaveButton from "../../comp/common/save";
-const Form = ({ state, avatarInfo }) => {
-  const [email, setEmail] = useState(state && state.user && state.user.email);
-  const [whatsapp, setWhatsapp] = useState(
-    state && state.user && state.user.whatsapp && state.user.whatsapp
-  );
-  const [name, setName] = useState(state && state.user && state.user.name);
+import { toast } from "react-toastify";
+import { UpdateProfile } from "../../auth/auth";
+const Form = ({dispatch,loggedIn,avatarInfo }) => {
+  const [email, setEmail] = useState("");
+  const [whatsapp, setWhatsapp] = useState("");
+  const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [Conpassword, setConPassword] = useState("");
-  const handleSubmit = () => {};
+  const [image, setImage] = useState([]);
+  const [loading, setloading] = useState(false);
+
+  useEffect(() => {
+    if (loggedIn && loggedIn.token) {
+      setEmail(loggedIn.user.email);
+      setName(loggedIn.user.name);
+      setWhatsapp(loggedIn.user.whatsapp);
+      loggedIn.user.image&&setImage([loggedIn.user.image]);
+    }
+  }, [loggedIn && loggedIn.token]);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    try {
+      if (!name) {
+        return toast.error("Please Enter Your Name");
+      }
+      if (password&&password.length < 6) {
+        return toast.error("Please Enter Password atleast 6 characters");
+      }
+      if (password !== Conpassword) {
+        return toast.error("Password Does't match");
+      }
+      setloading(true);
+      UpdateProfile(name, email, password, whatsapp, image).then((res) => {
+        if (res.error) {
+          setloading(false);
+          toast.error(res.error);
+        } else {
+          //update in local Storage
+          let auth = JSON.parse(window.localStorage.getItem("auth"));
+          auth.user = res.user;
+          window.localStorage.setItem("auth", JSON.stringify(auth));
+          //update in state
+          dispatch({
+            type:"LOGGED_IN_USER",
+            payload:{
+              ...loggedIn,
+              user:auth.user,
+            }
+          })
+          setloading(false);
+          toast.success("User Updated");
+        }
+      });
+    } catch (error) {
+      toast.error(error);
+      setloading(false);
+    }
+  };
   return (
     <>
       <form>
@@ -32,6 +81,7 @@ const Form = ({ state, avatarInfo }) => {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 type="email"
+                disabled
                 className="h-10 my-2  bg-white border border-gray-400 rounded-lg px-3 py-2 text-lg font-sans font-normal tracking-normal text-left focus:outline-none focus:ring-2 focus:ring-green-600"
               />
             </div>
@@ -45,7 +95,8 @@ const Form = ({ state, avatarInfo }) => {
           </div>
 
           <Card>
-            <FileInput multiple={true} keyPrefix={"sixth"} />
+            <FileInput loading={loading}
+             setImage={setImage} setloading={setloading} image={image} keyPrefix={"sixth"} />
           </Card>
         </div>
         {/* INFORMATION */}
@@ -104,7 +155,7 @@ const Form = ({ state, avatarInfo }) => {
           </Card>
         </div>
         <div className="flex justify-end">
-          <SaveButton handleSubmit={handleSubmit} />
+          <SaveButton handleSubmit={handleSubmit} loading={loading} />
         </div>
       </form>
     </>

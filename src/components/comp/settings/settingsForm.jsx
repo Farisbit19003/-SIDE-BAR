@@ -1,38 +1,49 @@
-import React from "react"
+import React, { useState } from "react";
 import Description from "../common/discription";
 import Card from "../common/cards";
 import FileInput from "../common/fileInput";
-import SiteInfo from "./siteInfo";
-import SiteSocials from "./siteSocials";
-import SitePayments from "./sitePayments";
 import SiteTime from "./siteTime";
 import SaveButton from "../common/save";
 
-const SettingsForm = () => {
-    const logoInformation = (
-        <span>
-          {"Upload your site logo from here"} <br />
-          {"Dimension of the logo should be"}
-          <span className="font-bold">128x40 Pixel</span>
-        </span>
-      );
-    return (
-        <>
-            <form>
+const SettingsForm = ({
+  values,
+  setValues,
+  setImage,
+  image,
+  setloading,
+  loading,
+  handleSubmit,
+}) => {
+  const handleChange = (e) => {
+    setValues({ ...values, [e.target.name]: e.target.value });
+  };
+  const logoInformation = (
+    <span>
+      {"Upload your site logo from here"} <br />
+      {"Dimension of the logo should be"}
+      <span className="font-bold">128x40 Pixel</span>
+    </span>
+  );
+  return (
+    <>
+      <form>
         {/* Logo */}
         <div className="my-2 flex flex-wrap border-b-2 border-dashed  pb-8 sm:my-8">
           <div className="flex sm:pe-4 md:pe-5  w-full px-0 pb-5 sm:w-4/12 sm:py-8 md:w-1/3">
-            <Description
-              title={"Logo"}
-              details={logoInformation}
-            />
+            <Description title={"Logo"} details={logoInformation} />
           </div>
 
           <Card>
-            <FileInput keyPrefix="fifth" />
+            <FileInput
+              setImage={setImage}
+              image={image}
+              loading={loading}
+              setloading={setloading}
+              keyPrefix="fifth"
+            />
           </Card>
         </div>
-        
+
         {/* Information */}
         <div className="my-2 flex flex-wrap border-b-2 border-dashed  pb-8 sm:my-8">
           <div className="flex sm:pe-4 md:pe-5  w-full px-0 pb-5 sm:w-4/12 sm:py-8 md:w-1/3">
@@ -43,7 +54,27 @@ const SettingsForm = () => {
           </div>
 
           <Card>
-            <SiteInfo />
+            <div className="p-3 font-sans w-full flex flex-col">
+              <label className="font-semibold ">Site Title</label>
+
+              <input
+                value={values.siteTitle}
+                onChange={handleChange}
+                type="text"
+                name="siteTitle"
+                className="h-12 mb-2  bg-white border border-gray-400 rounded-lg px-3 py-2 text-lg font-sans font-normal tracking-normal text-left focus:outline-none focus:ring-2 focus:ring-green-600"
+              />
+
+              <label className="font-semibold ">Site Subtitle</label>
+
+              <input
+                value={values.siteSubtitle}
+                onChange={handleChange}
+                name="siteSubtitle"
+                type="text"
+                className="mb-2  bg-white border border-gray-400 rounded-lg px-3 py-2 text-lg font-sans font-normal tracking-normal text-left focus:outline-none focus:ring-2 focus:ring-green-600"
+              />
+            </div>
           </Card>
         </div>
 
@@ -57,12 +88,22 @@ const SettingsForm = () => {
           </div>
 
           <Card>
-            <SitePayments />
+            <div className="p-3 font-sans w-full flex flex-col">
+              <label className="font-semibold ">Stripe Account ID</label>
+
+              <input
+                value={values.stripe_account_id}
+                onChange={handleChange}
+                name="stripe_account_id"
+                type="text"
+                className="h-12 mb-2  bg-white border border-gray-400 rounded-lg px-3 py-2 text-lg font-sans font-normal tracking-normal text-left focus:outline-none focus:ring-2 focus:ring-green-600"
+              />
+            </div>
           </Card>
         </div>
 
         {/* Delivery Schedule */}
-        <div className="my-2 flex flex-wrap border-b-2 border-dashed  pb-8 sm:my-8">
+        {/* <div className="my-2 flex flex-wrap border-b-2 border-dashed  pb-8 sm:my-8">
           <div className="flex sm:pe-4 md:pe-5  w-full px-0 pb-5 sm:w-4/12 sm:py-8 md:w-1/3">
             <Description
               title={"Delivery Schedule"}
@@ -73,28 +114,14 @@ const SettingsForm = () => {
           <Card>
             <SiteTime />
           </Card>
-        </div>
-
-        {/* Shop Settings */}
-        <div className="my-2 flex flex-wrap border-b-2 border-dashed  pb-8 sm:my-8">
-          <div className="flex sm:pe-4 md:pe-5  w-full px-0 pb-5 sm:w-4/12 sm:py-8 md:w-1/3">
-            <Description
-              title={"Shop Settings"}
-              details={"Add your shop settings information from here"}
-            />
-          </div>
-
-          <Card>
-            <SiteSocials />
-          </Card>
-        </div>
+        </div> */}
 
         <div className="float-right">
-        <SaveButton/>
+          <SaveButton loading={loading} handleSubmit={handleSubmit} />
         </div>
       </form>
-        </>
-    )
-}
+    </>
+  );
+};
 
-export default SettingsForm
+export default SettingsForm;

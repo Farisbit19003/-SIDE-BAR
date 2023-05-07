@@ -1,36 +1,47 @@
-import React, { useState } from "react";
-import { AiOutlineCloudUpload } from "react-icons/ai";
+import {useEffect, useState} from "react";
+import { AiOutlineCloudUpload} from "react-icons/ai";
 import { TiDeleteOutline } from "react-icons/ti";
-
-const FileInput = ({ keyPrefix, multiple }) => {
+import {LoadingOutlined}  from "@ant-design/icons"
+import axios from "axios";
+import { useSelector } from "react-redux";
+const FileInput = ({ keyPrefix, multiple,image ,setImage,setloading,loading}) => {
   const [files, setFiles] = useState([]);
-
-  const handleFileUpload = (event) => {
+  const {loggedIn}=useSelector((state)=>({...state}))
+  const formData = new FormData();
+  const uploadImageToCloud=async(event)=>{
+      setloading(true);
+      const { data } = await axios.post("/image/upload", formData);
+      setImage([{
+        url:data.url,
+        public_id:data.public_id
+      }]);
+      setloading(false);
+      event.target.value = null;
+  }
+  
+  const handleFileUpload =(event) => {
     const newFiles = Array.from(event.target.files);
-    const validFiles = newFiles.filter((file) => {
-      const fileType = file.type.split("/")[1];
-      return fileType === "png" || fileType === "jpg";
-    });
+    let file = event.target.files[0];
+    formData.append("image",file);
     if (multiple) {
-      setFiles([...files, ...validFiles]);
+      setFiles([...files, ...newFiles]);
     } else {
-      setFiles([...validFiles.slice(0, 1)]);
+      setFiles([...newFiles.slice(0, 1)]);
+      uploadImageToCloud(event);
     }
   };
 
   const handleDrop = (event) => {
     event.preventDefault();
     event.stopPropagation();
-
     const newFiles = Array.from(event.dataTransfer.files);
-    const validFiles = newFiles.filter((file) => {
-      const fileType = file.type.split("/")[1];
-      return fileType === "png" || fileType === "jpg";
-    });
+    let file = event.target.files[0];
+    formData.append("image",file);
     if (multiple) {
-      setFiles([...files, ...validFiles]);
+      setFiles([...files, ...newFiles]);
     } else {
-      setFiles([...validFiles.slice(0, 1)]);
+      setFiles([...newFiles.slice(0, 1)]);
+      uploadImageToCloud(event);
     }
   };
 
@@ -39,9 +50,9 @@ const FileInput = ({ keyPrefix, multiple }) => {
     event.stopPropagation();
   };
   const handleRemoveFile = (index) => {
-    const newFiles = [...files];
+    const newFiles = [...image];
     newFiles.splice(index, 1);
-    setFiles(newFiles);
+    setImage(newFiles);
   };
 
   return (
@@ -71,11 +82,10 @@ const FileInput = ({ keyPrefix, multiple }) => {
           {...(multiple ? { multiple: "multiple" } : {})}
         />
         <div className="flex flex-row justify-start ">
-          {files.map((file, index) => (
+          {loading?<LoadingOutlined/>:image&&image.map((file, index) => (
             <div key={index} className="flex flex-row m-2  my-2">
               <div className="flex-1  text-gray-500 font-semibold">
-                {file.name}
-                <span><img src={file.path} height={50} width={50} /></span>
+                <span><img src={file.url}  height={100} width={100} /></span>
               </div>
               <TiDeleteOutline
                 color="red"
@@ -84,7 +94,7 @@ const FileInput = ({ keyPrefix, multiple }) => {
                 onClick={() => handleRemoveFile(index)}
               />
             </div>
-          ))}
+          ))}  
         </div>
       </div>
     </>

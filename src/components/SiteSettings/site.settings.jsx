@@ -11,6 +11,7 @@ import { BsShopWindow } from "react-icons/bs";
 import { HiOutlineReceiptRefund } from "react-icons/hi";
 import { MdOutlineDashboard } from "react-icons/md";
 import { TbCategory } from "react-icons/tb";
+
 export const siteSettings = {
   name: "Bazar.pk",
   //   description: '',

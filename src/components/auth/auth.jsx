@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from "axios"
 import {toast} from "react-toastify"
 export const createSeller = async (name, email, password) => {
   const { data } = await axios.post("/register-seller", {
@@ -8,7 +8,7 @@ export const createSeller = async (name, email, password) => {
   });
   return data;
 };
-export const LOGIN = async (email, password,setState,setloading) => {
+export const LOGIN = async (email, password,setloading,navigate,dispatch) => {
   try{
     const { data } = await axios.post("/login", { email, password });
     if (data.error) {
@@ -21,7 +21,13 @@ export const LOGIN = async (email, password,setState,setloading) => {
         token:data.token
       }
       window.localStorage.setItem("auth",JSON.stringify(auth));
-      setState(auth);
+      dispatch({
+        type:"LOGGED_IN_USER",
+        payload:{
+          user:auth.user,
+          token:auth.token
+        }
+      })
       navigate("/");
     }
 }
@@ -41,5 +47,9 @@ export const registerComplete = async (email, secret) => {
   };
   export const Reset = async (email,Newpassword,secret) => {
     const { data } = await axios.put("/forgot/complete", { email,Newpassword,secret});
+    return data;
+  };
+  export const UpdateProfile = async (name,email,password,whatsapp,image) => {
+    const { data } = await axios.put("profile-update", { name,email,password,whatsapp,image});
     return data;
   };

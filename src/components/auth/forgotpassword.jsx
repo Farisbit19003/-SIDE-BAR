@@ -1,7 +1,7 @@
-import {useEffect,useContext,useState} from "react";
+import {useEffect,useState} from "react";
 import {useNavigate } from "react-router-dom";
 import {AiOutlineLoading3Quarters} from "react-icons/ai"
-import { UserContext } from "../../context";
+import { useSelector } from "react-redux";
 import {LoadingOutlined} from "@ant-design/icons"
 import { ForgotEmail,Reset} from "./auth";
 import { toast } from "react-toastify";
@@ -12,8 +12,8 @@ const ForgotPassword=()=>{
   const [loading, setloading] = useState(false);
   const [ok, setOK] = useState(false);
   const navigate = useNavigate();
-  const [state] = useContext(UserContext);
-const sendResetEmail=(e)=>{
+  const {loggedIn}=useSelector((state)=>({...state}));
+  const sendResetEmail=(e)=>{
   e.preventDefault();
   try {
     if (!email) {
@@ -42,6 +42,9 @@ const ForgotNow=(e)=>{
     if (!email||!Newpassword||!secret) {
       return toast.error("Please Fill all Fields");
     }
+    if (Newpassword.length<6) {
+      return toast.error("Please Enter Strong Password");
+    }
    setloading(true);
    Reset( email,Newpassword,secret).then((res) => {
       if (res.error) {
@@ -60,13 +63,13 @@ const ForgotNow=(e)=>{
 }
 
   useEffect(() => {
-    if (state && state.token) {
+    if (loggedIn && loggedIn.token) {
       setTimeout(() => {
         navigate("/");
       }, 3000); // 5 seconds
     }
-  }, [state && state.token]);
-  return state && state.token ? (
+  }, [loggedIn && loggedIn.token]);
+  return loggedIn && loggedIn.token? (
     <div className="fixed inset-0 flex items-center justify-center">
       <div className="flex flex-col items-center">
         <AiOutlineLoading3Quarters className="text-6xl w-16 h-16 text-[#248F59] animate-spin" />

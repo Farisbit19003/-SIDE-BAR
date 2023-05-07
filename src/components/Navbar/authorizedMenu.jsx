@@ -1,30 +1,24 @@
-import { Fragment,useContext } from "react";
+import { Fragment, useContext } from "react";
 import { Menu, Transition } from "@headlessui/react";
-import { Avatar, Space } from "antd";
-import { UserOutlined } from "@ant-design/icons";
-import { Link ,useNavigate} from "react-router-dom";
-import { UserContext } from "../../context";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { BiUserCircle } from "react-icons/bi";
 const AuthorizedMenu = () => {
-  const [state, setState] = useContext(UserContext);
+  const { loggedIn } = useSelector((state) => ({ ...state }));
   const navigate = useNavigate();
-
-  const HandleLogout=()=>{
+  const dispatch = useDispatch();
+  const HandleLogout = () => {
     window.localStorage.removeItem("auth");
-    setState({
-      user:{},
-      token:""
-    })
+    dispatch({
+      type: "LOGOUT",
+      payload: {},
+    });
     navigate("/login");
-  }
+  };
   return (
     <Menu as="div" className="relative inline-block text-left ml-5">
       <Menu.Button className="flex items-center focus:outline-none">
-        <Space wrap size={40}>
-          <Avatar icon={state&&state.user&&state.user.image?
-            state.user.image.url
-            :
-           <UserOutlined />} />
-        </Space>
+        <BiUserCircle className="text-[#248F59] h-8 w-8" />
       </Menu.Button>
 
       <Transition
@@ -45,21 +39,27 @@ const AuthorizedMenu = () => {
               className="flex w-full flex-col space-y-1 rounded-t
              bg-[#248F59] px-4 py-3 text-sm text-[#FFFFFF]"
             >
-              <span className="font-semibold capitalize">{state&&state.user?state.user.name:""}</span>
-              <span className="text-xs">{state&&state.user?state.user.email:""}</span>
+              <span className="font-semibold capitalize">
+                {loggedIn && loggedIn.user ? loggedIn.user.name : ""}
+              </span>
+              <span className="text-xs">
+                {loggedIn && loggedIn.user ? loggedIn.user.email : ""}
+              </span>
             </li>
           </Menu.Item>
 
           <Menu.Item>
             <li className="cursor-pointer border-b border-gray-100 last:border-0">
-              <div className="block px-4 py-3 text-sm font-semibold capitalize transition duration-200 hover:text-accent"
-                >
+              <div className="block px-4 py-3 text-sm font-semibold capitalize transition duration-200 hover:text-accent">
                 <Link to="/profile-update">Profile</Link>
-                </div>
+              </div>
             </li>
           </Menu.Item>
           <Menu.Item>
-            <li onClick={HandleLogout} className="cursor-pointer border-b border-gray-100 last:border-0">
+            <li
+              onClick={HandleLogout}
+              className="cursor-pointer border-b border-gray-100 last:border-0"
+            >
               <a
                 className={
                   "block px-4 py-3 text-sm font-semibold capitalize transition duration-200 hover:text-accent"

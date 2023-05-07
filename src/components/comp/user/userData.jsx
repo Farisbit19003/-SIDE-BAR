@@ -6,6 +6,8 @@ export const Headings = [
   "Email",
   "Role",
   "Status",
+  "Whatsapp",
+  "Address",
   "Actions",
 ];
 export const UserData = [

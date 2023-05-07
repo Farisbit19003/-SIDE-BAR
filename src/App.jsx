@@ -1,5 +1,4 @@
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
-import { UserProvider } from "./context";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 // Pages
@@ -28,13 +27,32 @@ import NewAttribute from "./components/comp/attributes/attributeForm";
 import AddProduct from "./components/comp/Products/addProduct";
 import RegisterComplete from "./components/auth/register-complete";
 import AccessDenied from "./components/layout/pages/AccessDenied";
-
+import UpdateCategory  from "./components/comp/category/UpdateCategory";
+import { UserProvider } from "./context";
+import { useEffect } from "react";
+import { useDispatch ,useSelector} from "react-redux";
+import { GetSettings } from "./components/comp/settings/functions";
+import { AllUsers } from "./components/comp/user/Userfunction";
+import { AllCategory } from "./components/comp/category/functions";
+import { AllShops } from "./components/comp/Create Shop/functions";
 
 function App() {
+const {loggedIn}=useSelector((state)=>({...state}))
+const dispatch=useDispatch();
+useEffect(()=>{
+AllShops(dispatch);
+GetSettings(dispatch);
+AllCategory(dispatch);
+if(loggedIn&&loggedIn.user&&loggedIn.user.role==="Admin")
+{
+AllUsers(dispatch);
+}
+
+
+},[])
   return (
     <>
      <Router>
-    <UserProvider>
      
         <Routes>
           <Route exact path="/register" element={<Register />} />
@@ -52,6 +70,7 @@ function App() {
           <Route exact path="/orders" element={<Orders />} />
           <Route exact path="/categories" element={<Categories />} />
           <Route exact path="/categories/create" element={<NewCategory />} />
+          <Route exact path="/categories/update/:slug" element={<UpdateCategory />} />
           <Route exact path="/refunds" element={<Refunds />} />
           <Route exact path="/reviews" element={<Reviews />} />
           <Route exact path="/withdraws" element={<Withdraws />} />
@@ -64,7 +83,6 @@ function App() {
           <Route exact path="/shop/details" element={<ShopDetails />} />
         </Routes>
         <ToastContainer/>
-      </UserProvider>
       </Router>
     </>
 

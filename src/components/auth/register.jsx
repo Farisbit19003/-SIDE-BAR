@@ -1,6 +1,6 @@
 import { useState, useContext,useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { UserContext } from "../../context";
+import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { createSeller } from "./auth";
 import { LoadingOutlined } from "@ant-design/icons";
@@ -12,13 +12,15 @@ const Register = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setloading] = useState(false);
-  const [state] = useContext(UserContext);
+  const {loggedIn}=useSelector((state)=>({...state}));
   const navigate = useNavigate();
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       if (!name || !email || !password) {
         return toast.error("Please Fill al Field");
+      }if (password.length<6) {
+        return toast.error("Please Enter Strong Password");
       }
       setloading(true);
       createSeller(name, email, password).then((res) => {
@@ -40,13 +42,13 @@ const Register = () => {
     }
   };
   useEffect(() => {
-    if (state && state.token) {
+    if (loggedIn && loggedIn.token) {
       setTimeout(() => {
         navigate("/");
       }, 3000); // 5 seconds
     }
-  }, [state && state.token]);
-  return state && state.token ? (
+  }, [loggedIn && loggedIn.token]);
+  return loggedIn && loggedIn.token ? (
     <div className="fixed inset-0 flex items-center justify-center">
       <div className="flex flex-col items-center">
         <AiOutlineLoading3Quarters className="text-6xl w-16 h-16 text-[#248F59] animate-spin" />

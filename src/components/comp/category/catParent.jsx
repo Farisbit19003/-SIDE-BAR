@@ -1,9 +1,9 @@
 export const categoryParent = [
   {
-    lable: "Clothes",
+    label: "Clothes",
   },
   {
-    lable: "Furniture",
+    label: "Furniture",
   },
   {
     label: "Fruits and Vegetables",
@@ -19,15 +19,6 @@ export const categoryParent = [
   },
   {
     label: "Sports",
-  },
-  {
-    label: "Food",
-  },
-  {
-    label: "Food",
-  },
-  {
-    label: "Food",
   },
 ];
   

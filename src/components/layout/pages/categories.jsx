@@ -1,14 +1,49 @@
-import React from "react";
+import {useState,useEffect} from "react";
 import AdminLayout from "../admin";
 import { Link } from "react-router-dom";
 import CatTable from "../../comp/category/categoryTable";
 import { BiSearch } from "react-icons/bi";
+import { AllCategory,DeleteCategory } from "../../comp/category/functions";
+import {toast} from "react-toastify"
+import swal from "sweetalert";
+import { useDispatch,useSelector } from "react-redux";
 const Categories = () => {
-  //  function handleSearch({ searchText }:
-  //   { searchText: string }) {
-  //   setSearchTerm(searchText);
-  //   setPage(1);
-  // }
+  const [categories,setCategories]=useState([]);
+  const [keyword, setKeyword] = useState("");
+  const {category}=useSelector((state)=>({...state}))
+
+  useEffect(()=>{
+  if(category&&category.length){
+    setCategories(category);
+  }
+  },[category])
+  
+  const handleDelete=(slug)=>{
+    swal({
+      title: "Are you sure?",
+      text: "Once deleted, you will not be able to recover this",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    })
+      .then((willDelete) => {
+        if (willDelete) {
+          DeleteCategory(slug).then((res) => {
+            swal("Deleted SuccessFully", {
+              icon: "success",
+            });
+            AllCategory();
+          }).catch((error) => {
+            toast.error(error);
+          });
+        }
+      });
+  }
+  const handleSearchInputChange = (e) => {
+    e.preventDefault();
+    setKeyword(e.target.value.toLowerCase());
+};
+const Searched = (keyword) => (c) => c.name.toLowerCase().includes(keyword);
   return (
     <AdminLayout>
       <div className="p-3 md:p-6 mb-6 flex  shadow flex-col sm:flex-row items-center justify-between bg-white ">
@@ -20,6 +55,7 @@ const Categories = () => {
         <div className="flex flex-col px-2 py-2 sm:flex-row gap-3 justify-center  items-center">
           <div className="relative">
             <input
+              onChange={handleSearchInputChange}
               type="search"
               placeholder="Type queries"
               className=" sm:py-3 border border-gray-400 rounded-md focus:outline-none focus:ring-2 focus:ring-green-600 w-full"
@@ -38,10 +74,9 @@ const Categories = () => {
           </div>
         </div>
       </div>
-
       <div className="flex w-full">
         {" "}
-        <CatTable />
+        <CatTable category={categories} handleDelete={handleDelete} Searched={Searched} keyword={keyword}  />
       </div>
     </AdminLayout>
   );

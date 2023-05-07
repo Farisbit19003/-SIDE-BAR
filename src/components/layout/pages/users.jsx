@@ -1,9 +1,50 @@
-import React from "react";
+import {useState,useEffect} from "react";
 import AdminLayout from "../admin";
 import { BiSearch } from "react-icons/bi";
 import { UserTable } from "../../comp/user/userTable";
-
+import { AllUsers, DeleteUser } from "../../comp/user/Userfunction";
+import {toast} from "react-toastify"
+import swal from "sweetalert";
+import { useDispatch ,useSelector} from "react-redux";
 const Users = () => {
+  const [users,setUsers]=useState([]);
+  const [keyword, setKeyword] = useState("");
+  const dispatch=useDispatch();
+  const {allusers}=useSelector((state)=>({...state}))
+  useEffect(()=>{
+if(allusers&&allusers.length)
+{
+  setUsers(allusers);
+}
+  },[allusers])
+  const handleDelete=(id)=>{
+    swal({
+      title: "Are you sure?",
+      text: "Once deleted, you will not be able to recover this",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    })
+      .then((willDelete) => {
+        if (willDelete) {
+          DeleteUser(id).then((res) => {
+            swal("Deleted SuccessFully", {
+              icon: "success",
+            });
+           AllUsers(dispatch);
+          }).catch((error) => {
+            toast.error(error);
+          });
+        }
+      });
+  }
+  const handleSearchInputChange = (e) => {
+      e.preventDefault();
+      setKeyword(e.target.value.toLowerCase());
+  };
+  const Searched = (keyword) => (c) => c.name.toLowerCase().includes(keyword);
+
+  
   return (
     <AdminLayout>
       <div className="p-3 md:p-6 mb-6 flex shadow flex-col sm:flex-row items-center justify-between bg-white ">
@@ -15,6 +56,7 @@ const Users = () => {
 
         <div className="relative w-full max-w-md">
           <input
+          onChange={handleSearchInputChange}
             type="search"
             placeholder="Type queries"
             className="w-full sm:py-3 border border-gray-400 rounded-md focus:outline-none focus:ring-2 focus:ring-green-600"
@@ -27,7 +69,7 @@ const Users = () => {
           </button>
         </div>
       </div>
-      <UserTable/>
+      <UserTable handleDelete={handleDelete} users={users} Searched={Searched} keyword={keyword} />
     </AdminLayout>
   );
 };

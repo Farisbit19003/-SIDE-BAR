@@ -1,0 +1,233 @@
+import React, { useState } from "react";
+import Description from "../common/discription";
+import FileInput from "../common/fileInput";
+import Card from "../common/cards";
+import { AiFillFacebook, AiOutlineInstagram } from "react-icons/ai";
+import SearchField from "./SearchField";
+const coverImageInformation = (
+  <span>
+    {"Upload your shop cover image from here."} <br />
+    {"Dimension of the cover image should be"} <br />
+    <span className="font-bold">1170 x 435</span>
+  </span>
+);
+const ShopForm = ({ categories,values,setValues,setLoading,loading }) => {
+// const [userLocation,setuserLocation]=useState({});
+// const [mapAddress,setMapAddress]=useState("");
+const [mainpic,setMainpic]=useState([]);
+const [coverpic,setCoverpic]=useState([]);
+const {Storename,description,Storewhatsapp,Streetaddress,stripe_account_id,Country,
+City,category,facebook,insta}=values;
+values.main_pic=mainpic[0];
+values.cover_pic=coverpic[0];
+// values.mapAddress=mapAddress;
+// values.location=userLocation;
+const onChange = (e) => {
+  setValues({ ...values, [e.target.name]: e.target.value });
+}
+  return (
+    <>
+      {/* LOGO */}
+      <div className="my-2 flex flex-wrap border-b-2 border-dashed  pb-8 sm:my-8">
+        <div className="flex sm:pe-4 md:pe-5  w-full px-0 pb-5 sm:w-4/12 sm:py-8 md:w-1/3">
+          <Description
+            title={"Logo"}
+            details={"Upload your shop logo from here"}
+          />
+        </div>
+        {/*IMAGE  */}
+        <Card>
+          <FileInput image={mainpic} setImage={setMainpic} loading={loading}
+           setloading={setLoading} keyPrefix="first" />
+        </Card>
+      </div>
+      {/* COVER IMAGE */}
+      <div className="my-2 flex flex-wrap border-b-2 border-dashed  pb-8 sm:my-8">
+        <div className="flex sm:pe-4 md:pe-5  w-full px-0 pb-5 sm:w-4/12 sm:py-8 md:w-1/3">
+          <Description title={"Cover Image"} details={coverImageInformation} />
+        </div>
+        <Card>
+          <FileInput
+           image={coverpic} setImage={setCoverpic} loading={loading}
+           setloading={setLoading}
+           keyPrefix="second" />
+        </Card>
+      </div>
+      {/* Basic Info */}
+      <div className="my-2 flex flex-wrap border-b-2 border-dashed  pb-8 sm:my-8">
+        <div className="flex sm:pe-4 md:pe-5  w-full px-0 pb-5 sm:w-4/12 sm:py-8 md:w-1/3">
+          <Description
+            title={"Basic Info"}
+            details={"Add some basic info about your shop from here"}
+          />
+        </div>
+        <div className="flex w-full bg-white sm:w-8/12 md:w-2/3">
+          <div className="p-3 font-sans w-full flex flex-col">
+            <label className="font-semibold ">Name</label>
+
+            <input
+              value={Storename}
+              name="Storename"
+              onChange={onChange}
+              type="text"
+              className="h-12 mb-2  bg-white border border-gray-400 rounded-lg px-3 py-2 text-lg font-sans font-normal tracking-normal text-left focus:outline-none focus:ring-2 focus:ring-green-600"
+            />
+
+            <label className="font-semibold ">Description</label>
+
+            <textarea
+            value={description}
+            name="description"
+            onChange={onChange}
+             className="mb-2  bg-white border border-gray-400 rounded-lg px-3 py-2 text-lg font-sans font-normal tracking-normal text-left focus:outline-none focus:ring-2 focus:ring-green-600" />
+          </div>
+        </div>
+      </div>
+      <div className="my-2 flex flex-wrap border-b-2 border-dashed  pb-8 sm:my-8">
+        <div className="flex sm:pe-4 md:pe-5  w-full px-0 pb-5 sm:w-4/12 sm:py-8 md:w-1/3">
+          <Description
+            title={"Store Category"}
+            details={"Select Your Store Category"}
+          />
+        </div>
+        <div className="flex w-full bg-white sm:w-8/12 md:w-2/3">
+          <div className="p-3 font-sans w-full flex flex-col">
+            <label className="font-semibold flex">Category</label>
+            <select
+             value={category}
+             onChange={onChange}
+             name="category"
+              className="mb-2  bg-white border border-gray-400 rounded-lg px-3 py-2 text-lg font-sans font-normal tracking-normal text-left focus:outline-none focus:ring-2 focus:ring-green-600"
+            >
+              <option value=""></option>
+              {categories &&
+                categories.map((category) => (
+                  <option key={category._id} value={category._id}>
+                    {category.name}
+                  </option>
+                ))}
+            </select>
+          </div>
+        </div>
+      </div>
+      {/* PAYMENT INFO */}
+      <div className="my-2 flex flex-wrap border-b-2 border-dashed  pb-8 sm:my-8">
+        <div className="flex sm:pe-4 md:pe-5  w-full px-0 pb-5 sm:w-4/12 sm:py-8 md:w-1/3">
+          <Description
+            title={"Payment Info"}
+            details={"Add your payment information from here"}
+          />
+        </div>
+        <div className="flex w-full bg-white sm:w-8/12 md:w-2/3">
+          <div className="p-3 font-sans w-full flex flex-col">
+            <label className="font-semibold ">Stripe Account ID</label>
+
+            <input
+              value={stripe_account_id}
+              name="stripe_account_id"
+              onChange={onChange}
+              type="text"
+              className="h-12 mb-2  bg-white border border-gray-400 rounded-lg px-3 py-2 text-lg font-sans font-normal tracking-normal text-left focus:outline-none focus:ring-2 focus:ring-green-600"
+            />
+          </div>
+        </div>
+      </div>
+      {/* SHOP INFO */}
+      <div className="my-2 flex flex-wrap border-b-2 border-dashed  pb-8 sm:my-8">
+        <div className="flex sm:pe-4 md:pe-5  w-full px-0 pb-5 sm:w-4/12 sm:py-8 md:w-1/3">
+          <Description
+            title={"Shop Address"}
+            details={"Add your physical shop address from here"}
+          />
+        </div>
+        <div className="flex w-full bg-white sm:w-8/12 md:w-2/3">
+          <div className="p-3 font-sans w-full flex flex-col">
+            <label className="font-semibold ">Country</label>
+
+            <input
+            value={Country}
+            name="Country"
+            onChange={onChange}
+              type="text"
+              className="h-12 mb-2  bg-white border border-gray-400 rounded-lg px-3 py-2 text-lg font-sans font-normal tracking-normal text-left focus:outline-none focus:ring-2 focus:ring-green-600"
+            />
+            <label className="font-semibold ">City</label>
+
+            <input
+            value={City}
+            name="City"
+            onChange={onChange}
+              type="text"
+              className="h-12 mb-2  bg-white border border-gray-400 rounded-lg px-3 py-2 text-lg font-sans font-normal tracking-normal text-left focus:outline-none focus:ring-2 focus:ring-green-600"
+            />
+
+            <label className="font-semibold ">Street Address</label>
+
+            <textarea
+            value={Streetaddress}
+            name="Streetaddress"
+            onChange={onChange}
+            className=" mb-2  bg-white border border-gray-400 rounded-lg px-3 py-2 text-lg font-sans font-normal tracking-normal text-left focus:outline-none focus:ring-2 focus:ring-green-600" />
+          </div>
+        </div>
+      </div>
+      {/* SOCIAL INFO */}
+      <div className="my-2 flex flex-wrap border-b-2 border-dashed  pb-8 sm:my-8">
+        <div className="flex sm:pe-4 md:pe-5  w-full px-0 pb-5 sm:w-4/12 sm:py-8 md:w-1/3">
+          <Description
+            title={"Shop Settings"}
+            details={"Add your shop settings information from here"}
+          />
+        </div>
+        <div className="flex w-full bg-white sm:w-8/12 md:w-2/3">
+          <div className="p-3 font-sans w-full flex flex-col">
+            <label className="font-semibold ">Your Location</label>
+
+            <SearchField values={values} setValues={setValues} />
+
+            <label className="font-semibold ">Contact Number</label>
+
+            <input
+             value={Storewhatsapp}
+             name="Storewhatsapp"
+             onChange={onChange}
+              type="number"
+              className="mb-2  bg-white border border-gray-400 rounded-lg px-3 py-2 text-lg font-sans font-normal tracking-normal text-left focus:outline-none focus:ring-2 focus:ring-green-600"
+            />
+
+            <label className="font-semibold flex">
+              Instagram{" "}
+              <AiOutlineInstagram
+                size={25}
+                className="align-middle"
+                color="orange"
+              />
+            </label>
+
+            <input
+            value={insta}
+            name="insta"
+            onChange={onChange}
+              type="url"
+              className="mb-2  bg-white border border-gray-400 rounded-lg px-3 py-2 text-lg font-sans font-normal tracking-normal text-left focus:outline-none focus:ring-2 focus:ring-green-600"
+            />
+            <label className="font-semibold flex">
+              Facebook{" "}
+              <AiFillFacebook size={25} className="align-middle" color="blue" />
+            </label>
+
+            <input
+            value={facebook}
+            name="facebook"
+            onChange={onChange}
+              type="url"
+              className="mb-2  bg-white border border-gray-400 rounded-lg px-3 py-2 text-lg font-sans font-normal tracking-normal text-left focus:outline-none focus:ring-2 focus:ring-green-600"
+            />
+          </div>
+        </div>
+      </div>
+    </>
+  );
+};
+
+export default ShopForm;

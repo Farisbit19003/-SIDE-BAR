@@ -1,12 +1,13 @@
 import React, { useContext } from "react";
-import { UserContext } from "../../../context";
+import { useSelector,useDispatch } from "react-redux";
 import Form from "../../comp/profile/form";
 import ShopLayout from "../Shop";
 import AdminLayout from "../admin";
 
 const Profile = () => {
-  const [state, setState] = useContext(UserContext);
-  const role = state && state.user && state.user.role;
+  const {loggedIn}=useSelector((state)=>({...state}));
+  const role = loggedIn && loggedIn.user && loggedIn.user.role;
+  const dispatch=useDispatch();
   const avatarInfo = (
     <span>
       {"Upload your profile image from here."} <br />
@@ -19,13 +20,13 @@ const Profile = () => {
       {role === "Admin" ? (
         <AdminLayout>
           <>
-            <Form state={state} avatarInfo={avatarInfo} />
+            <Form dispatch={dispatch} loggedIn={loggedIn} avatarInfo={avatarInfo} />
           </>
         </AdminLayout>
       ) : (
         <ShopLayout>
           <>
-            <Form state={state} avatarInfo={avatarInfo} />
+            <Form dispatch={dispatch} loggedIn={loggedIn} avatarInfo={avatarInfo} />
           </>
         </ShopLayout>
       )}
