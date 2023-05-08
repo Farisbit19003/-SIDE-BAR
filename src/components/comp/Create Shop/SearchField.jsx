@@ -1,14 +1,13 @@
 import { Autocomplete, useJsApiLoader } from '@react-google-maps/api';
 import React, { useState } from 'react';
 
-
 const libraries = ['places'];
 const SearchField = ({
-values,setValues
+values,setValues,mapAddress
 }) => {
     const { isLoaded, loadError } = useJsApiLoader({
         id: 'google_map_autocomplete',
-        googleMapsApiKey: "AIzaSyDt8_Al17hTrqLPp0cFKLWWC5PRinf-Zm8",
+        googleMapsApiKey:import.meta.env.API_KEY,
         libraries,
     });
 
@@ -41,6 +40,7 @@ let location={};
 
     return (
         <Autocomplete
+        
             onLoad={onLoad}
             onPlaceChanged={onPlaceChanged}
             onUnmount={onUnmount}
@@ -49,6 +49,7 @@ let location={};
             className='cursor-pointer'
         >
             <input
+            defaultValue={mapAddress}
                 type="text"
                 placeholder="Enter Location From Map"
                 className={`flex h-12 w-full appearance-none items-center rounded border border-border-base px-4 text-sm text-heading transition duration-300 ease-in-out focus:border-accent focus:outline-none focus:ring-0`}

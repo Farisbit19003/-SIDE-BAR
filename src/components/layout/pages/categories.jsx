@@ -10,13 +10,18 @@ import { useDispatch,useSelector } from "react-redux";
 const Categories = () => {
   const [categories,setCategories]=useState([]);
   const [keyword, setKeyword] = useState("");
-  const {category}=useSelector((state)=>({...state}))
-
+  const {category,allShops}=useSelector((state)=>({...state}))
+  const [ok, setOk] = useState([]);
+  const dispatch=useDispatch();
   useEffect(()=>{
   if(category&&category.length){
     setCategories(category);
+    const catWithShop = category?.filter((c) => {
+      return allShops?.some((shop) => shop.category._id === c._id);
+    });
+    setOk(catWithShop);
   }
-  },[category])
+  },[category,allShops])
   
   const handleDelete=(slug)=>{
     swal({
@@ -32,7 +37,7 @@ const Categories = () => {
             swal("Deleted SuccessFully", {
               icon: "success",
             });
-            AllCategory();
+            AllCategory(dispatch);
           }).catch((error) => {
             toast.error(error);
           });
@@ -76,8 +81,8 @@ const Searched = (keyword) => (c) => c.name.toLowerCase().includes(keyword);
       </div>
       <div className="flex w-full">
         {" "}
-        <CatTable category={categories} handleDelete={handleDelete} Searched={Searched} keyword={keyword}  />
       </div>
+      <CatTable ok={ok} category={categories} handleDelete={handleDelete} Searched={Searched} keyword={keyword}  />
     </AdminLayout>
   );
 };

@@ -9,14 +9,19 @@ import { useDispatch ,useSelector} from "react-redux";
 const Users = () => {
   const [users,setUsers]=useState([]);
   const [keyword, setKeyword] = useState("");
+  const [ok, setOk] = useState([]);
+  const {allusers,allShops}=useSelector((state)=>({...state}))
   const dispatch=useDispatch();
-  const {allusers}=useSelector((state)=>({...state}))
   useEffect(()=>{
 if(allusers&&allusers.length)
 {
   setUsers(allusers);
+  const usersWithShop = allusers?.filter((user) => {
+    return allShops?.some((shop) => shop.user._id === user._id);
+  });
+  setOk(usersWithShop);
 }
-  },[allusers])
+  },[allusers,allShops])
   const handleDelete=(id)=>{
     swal({
       title: "Are you sure?",
@@ -69,7 +74,7 @@ if(allusers&&allusers.length)
           </button>
         </div>
       </div>
-      <UserTable handleDelete={handleDelete} users={users} Searched={Searched} keyword={keyword} />
+      <UserTable ok={ok} handleDelete={handleDelete} users={users} Searched={Searched} keyword={keyword} />
     </AdminLayout>
   );
 };

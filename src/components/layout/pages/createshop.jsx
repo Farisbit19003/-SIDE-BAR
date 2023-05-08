@@ -4,7 +4,7 @@ import SaveButton from "../../comp/common/save";
 import ShopForm from "../../comp/Create Shop/ShopForm";
 import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
-import { CreateStore } from "../../comp/Create Shop/functions";
+import { CreateStore,SellerShops } from "../../comp/Create Shop/functions";
 import { useNavigate } from "react-router-dom";
 const CreateShops = () => {
   const [categories, setCategories] = useState([]);
@@ -27,6 +27,7 @@ const CreateShops = () => {
   const [loading, setLoading] = useState(false);
   const { category } = useSelector((state) => ({ ...state }));
   const navigate=useNavigate();
+  const dispatch=useDispatch();
   useEffect(() => {
     if (category) {
       setCategories(category);
@@ -47,9 +48,9 @@ const CreateShops = () => {
       !values.facebook ||
       !values.insta ||
       !values.mapAddress ||
-      Object.keys(values.location).length === 0 ||
-      Object.keys(values.main_pic).length === 0 ||
-      Object.keys(values.cover_pic).length === 0
+      !values.location ||
+      !values.main_pic ||
+      !values.cover_pic
     ) {
       toast.error("Please Fill all Fields");
       setLoading(false);
@@ -81,6 +82,7 @@ const CreateShops = () => {
             cover_pic: {}
         });
           setLoading(false);
+          SellerShops(dispatch);
           navigate("/my-shop")
         }
       });
@@ -91,6 +93,7 @@ const CreateShops = () => {
   return (
     <ShopLayout>
       <>
+      {JSON.stringify(values,null,4)}
               <form>
           <div className="my-2 flex flex-wrap border-b-2 border-dashed  pb-8 sm:my-8">
             <h1 className="text-[#248F59] font-serif text-3xl font-normal">

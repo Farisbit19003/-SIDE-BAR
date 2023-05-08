@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Description from "../common/discription";
 import FileInput from "../common/fileInput";
 import Card from "../common/cards";
@@ -12,16 +12,20 @@ const coverImageInformation = (
   </span>
 );
 const ShopForm = ({ categories,values,setValues,setLoading,loading }) => {
-// const [userLocation,setuserLocation]=useState({});
-// const [mapAddress,setMapAddress]=useState("");
+const {Storename,description,Storewhatsapp,Streetaddress,stripe_account_id,Country,
+City,category,facebook,insta,main_pic,cover_pic,mapAddress}=values;
 const [mainpic,setMainpic]=useState([]);
 const [coverpic,setCoverpic]=useState([]);
-const {Storename,description,Storewhatsapp,Streetaddress,stripe_account_id,Country,
-City,category,facebook,insta}=values;
-values.main_pic=mainpic[0];
-values.cover_pic=coverpic[0];
-// values.mapAddress=mapAddress;
-// values.location=userLocation;
+useEffect(()=>{
+  setValues({...values,main_pic:mainpic[0],cover_pic:coverpic[0]})
+  },[mainpic])
+  useEffect(()=>{
+    setValues({...values,cover_pic:coverpic[0]})
+    },[coverpic])
+useEffect(()=>{
+cover_pic&&setCoverpic([cover_pic]);
+main_pic&&setMainpic([main_pic]);
+},[main_pic||cover_pic])
 const onChange = (e) => {
   setValues({ ...values, [e.target.name]: e.target.value });
 }
@@ -38,7 +42,8 @@ const onChange = (e) => {
         {/*IMAGE  */}
         <Card>
           <FileInput image={mainpic} setImage={setMainpic} loading={loading}
-           setloading={setLoading} keyPrefix="first" />
+           setloading={setLoading} values={values} setValues={setValues} props="main_pic"
+           keyPrefix="first" />
         </Card>
       </div>
       {/* COVER IMAGE */}
@@ -49,7 +54,7 @@ const onChange = (e) => {
         <Card>
           <FileInput
            image={coverpic} setImage={setCoverpic} loading={loading}
-           setloading={setLoading}
+           setloading={setLoading} values={values} setValues={setValues} props="cover_pic"
            keyPrefix="second" />
         </Card>
       </div>
@@ -183,7 +188,7 @@ const onChange = (e) => {
           <div className="p-3 font-sans w-full flex flex-col">
             <label className="font-semibold ">Your Location</label>
 
-            <SearchField values={values} setValues={setValues} />
+            <SearchField values={values} setValues={setValues} mapAddress={mapAddress} />
 
             <label className="font-semibold ">Contact Number</label>
 

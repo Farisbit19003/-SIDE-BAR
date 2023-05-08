@@ -8,7 +8,8 @@ import {
   AddtoCart,
   drawer,
   SiteReducer,
-  AllUsersReducer
+  AllUsersReducer,
+  SellerShopsReducer
 } from "./Reducers";
 
 
@@ -21,7 +22,8 @@ const rootReducers = combineReducers({
   cart: AddtoCart,
   drawer: drawer,
   siteSetting:SiteReducer,
-  allusers:AllUsersReducer
+  allusers:AllUsersReducer,
+  sellerShops:SellerShopsReducer,
 });
 
 export default rootReducers;

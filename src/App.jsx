@@ -1,6 +1,7 @@
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import axios from "axios";
 // Pages
 import ForgotPassword from "./components/auth/forgotpassword";
 import Login from "./components/auth/login";
@@ -34,22 +35,43 @@ import { useDispatch ,useSelector} from "react-redux";
 import { GetSettings } from "./components/comp/settings/functions";
 import { AllUsers } from "./components/comp/user/Userfunction";
 import { AllCategory } from "./components/comp/category/functions";
-import { AllShops } from "./components/comp/Create Shop/functions";
+import { AllShops, SellerShops } from "./components/comp/Create Shop/functions";
+import UpdateShop from "./components/comp/Create Shop/UpdateShop";
 
 function App() {
 const {loggedIn}=useSelector((state)=>({...state}))
 const dispatch=useDispatch();
 useEffect(()=>{
-AllShops(dispatch);
 GetSettings(dispatch);
 AllCategory(dispatch);
 if(loggedIn&&loggedIn.user&&loggedIn.user.role==="Admin")
 {
 AllUsers(dispatch);
+AllShops(dispatch);
 }
-
-
-},[])
+if(loggedIn&&loggedIn.user&&loggedIn.user.role==="Seller")
+{
+SellerShops(dispatch);
+}
+},[loggedIn])
+const PUBLIC_API="http://localhost:10000/api"
+//Default setting
+axios.defaults.baseURL=PUBLIC_API;
+let token=loggedIn?.token;
+axios.defaults.headers.common["Authorization"]=`Bearer ${token}`;
+// When Token Expire Logout automatically
+axios.interceptors.response.use(
+function (response){
+return response;
+},
+function(Error){
+let res=Error.response;
+if(res.status===401&& res.config && !res.config._isRetryREquest){
+    window.localStorage.removeItem("auth");
+    window.location.href="/login"
+}
+}
+);
   return (
     <>
      <Router>
@@ -78,9 +100,11 @@ AllUsers(dispatch);
           <Route exact path="/settings" element={<Settings />} />
           <Route exact path="/shippings" element={<Shippings />} />
           <Route exact path="/users" element={<Users />} />
-          <Route exact path="/shop/create" element={<CreateShops />} />
+          <Route exact path="/my-shop/create" element={<CreateShops />} />
           <Route exact path="/profile-update" element={<Profile />} />
-          <Route exact path="/shop/details" element={<ShopDetails />} />
+          <Route exact path="/shop-detail/:slug" element={<ShopDetails />} />
+          <Route exact path="/update-shop/:slug" element={<UpdateShop />} />
+
         </Routes>
         <ToastContainer/>
       </Router>

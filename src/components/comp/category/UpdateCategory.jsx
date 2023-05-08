@@ -2,12 +2,13 @@ import { useState, useEffect } from "react";
 import AdminLayout from "../../layout/admin";
 import SaveButton from "../common/save";
 import CategoryForm from "./CategoryForm";
-import {AllCategory, UpdateCat } from "./functions";
+import { AllCategory, UpdateCat } from "./functions";
 import { useParams, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { useDispatch,useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 const UpdateCategory = () => {
   const { category } = useSelector((state) => ({ ...state }));
+  const [singleCat, setSingleCat] = useState({});
   const [values, setValues] = useState({
     name: "",
     details: "",
@@ -18,25 +19,24 @@ const UpdateCategory = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   useEffect(() => {
-    if (params && params.slug) {
-      if (category && category.length) {
-        const SingleCategory = category.filter((c) => {
-          return c.slug === params.slug;
-        });
-        if (SingleCategory.length<1) {
-          toast.error("Not Found");
-          navigate("/categories");
-        } else {
-          setValues({
-            ...values,
-            name: SingleCategory[0].name,
-            details: SingleCategory[0].details,
-            ParentCategory: SingleCategory[0].ParentCategory,
-          });
-        }
-      }
+    if (category) {
+      const SingleCategory = category?.filter((c) => {
+        return c.slug === params.slug;
+      });
+      SingleCategory && setSingleCat(SingleCategory[0]);
     }
-  }, [params && params.slug]);
+  }, [category, params.slug]);
+
+  useEffect(() => {
+    if (singleCat) {
+      setValues({
+        ...values,
+        name: singleCat?.name,
+        details: singleCat?.details,
+        ParentCategory: singleCat?.ParentCategory,
+      });
+    }
+  }, [singleCat]);
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!values.name || !values.details || !values.ParentCategory) {
@@ -52,7 +52,7 @@ const UpdateCategory = () => {
           AllCategory(dispatch);
           toast.success("Category Updated");
           setLoading(false);
-          navigate("/categories")
+          navigate("/categories");
         }
       });
     } catch (error) {
@@ -67,11 +67,23 @@ const UpdateCategory = () => {
           Update Category
         </h1>
       </div>
-      <CategoryForm values={values} setValues={setValues} />
-      <div className="float-right">
-        {" "}
-        <SaveButton handleSubmit={handleSubmit} loading={loading} />
-      </div>
+      {!singleCat || category === null ? (
+        <div className="flex flex-col items-center">
+          {/* <AiOutlineLoading3Quarters className="text-6xl w-16 h-16 text-[#248F59] animate-spin" /> */}
+          <span className="mt-4 text-gray-500 text-lg font-semibold">
+            Loading...
+          </span>
+          <span className="mt-4 text-gray-500 text-lg font-semibold">
+            No Category Found
+          </span>
+        </div>
+      ) : (
+        <>
+          <CategoryForm values={values} setValues={setValues} />
+          <SaveButton handleSubmit={handleSubmit} loading={loading} />
+        </>
+      )}
+      <div className="float-right"> </div>
     </AdminLayout>
   );
 };

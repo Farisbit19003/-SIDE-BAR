@@ -4,7 +4,9 @@ import SaveButton from "../common/save";
 import CategoryForm from "./CategoryForm";
 import { toast } from "react-toastify";
 import { CreateCategory } from "./functions";
-
+import { useDispatch } from "react-redux";
+import { AllCategory } from "./functions";
+import { useNavigate } from "react-router-dom";
 const NewCategory = () => {
   const [values, setValues] = useState({
     name: "",
@@ -12,6 +14,8 @@ const NewCategory = () => {
     ParentCategory: "",
   });
   const [loading, setLoading] = useState(false);
+const dispatch=useDispatch();
+const navigate=useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -25,6 +29,7 @@ const NewCategory = () => {
           toast.error(res.error);
           setLoading(false);
         } else {
+          AllCategory(dispatch);
           toast.success("Category Created");
           setValues({
             name: "",
@@ -32,6 +37,7 @@ const NewCategory = () => {
             ParentCategory: "",
           });
           setLoading(false);
+          navigate("/categories")
         }
       });
     } catch (error) {

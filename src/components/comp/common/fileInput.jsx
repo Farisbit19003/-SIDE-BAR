@@ -4,7 +4,7 @@ import { TiDeleteOutline } from "react-icons/ti";
 import {LoadingOutlined}  from "@ant-design/icons"
 import axios from "axios";
 import { useSelector } from "react-redux";
-const FileInput = ({ keyPrefix, multiple,image ,setImage,setloading,loading}) => {
+const FileInput = ({ keyPrefix, multiple,image ,setImage,setloading,loading,values,setValues,props}) => {
   const [files, setFiles] = useState([]);
   const {loggedIn}=useSelector((state)=>({...state}))
   const formData = new FormData();
@@ -31,24 +31,24 @@ const FileInput = ({ keyPrefix, multiple,image ,setImage,setloading,loading}) =>
     }
   };
 
-  const handleDrop = (event) => {
-    event.preventDefault();
-    event.stopPropagation();
-    const newFiles = Array.from(event.dataTransfer.files);
-    let file = event.target.files[0];
-    formData.append("image",file);
-    if (multiple) {
-      setFiles([...files, ...newFiles]);
-    } else {
-      setFiles([...newFiles.slice(0, 1)]);
-      uploadImageToCloud(event);
-    }
-  };
+  // const handleDrop = (event) => {
+  //   event.preventDefault();
+  //   event.stopPropagation();
+  //   const newFiles = Array.from(event.dataTransfer.files);
+  //   let file = event.target.files[0];
+  //   formData.append("image",file);
+  //   if (multiple) {
+  //     setFiles([...files, ...newFiles]);
+  //   } else {
+  //     setFiles([...newFiles.slice(0, 1)]);
+  //     uploadImageToCloud(event);
+  //   }
+  // };
 
-  const handleDragOver = (event) => {
-    event.preventDefault();
-    event.stopPropagation();
-  };
+  // const handleDragOver = (event) => {
+  //   event.preventDefault();
+  //   event.stopPropagation();
+  // };
   const handleRemoveFile = (index) => {
     const newFiles = [...image];
     newFiles.splice(index, 1);
@@ -61,8 +61,8 @@ const FileInput = ({ keyPrefix, multiple,image ,setImage,setloading,loading}) =>
         <label htmlFor={`${keyPrefix}-file-input`}>
           <div
             className="flex items-center cursor-pointer md:w-full justify-center flex-col font-sans rounded-lg p-5"
-            onDragOver={handleDragOver}
-            onDrop={handleDrop}
+            // onDragOver={handleDragOver}
+            // onDrop={handleDrop}
           >
             <AiOutlineCloudUpload size={40} />
             <div className="text-center">

@@ -7,23 +7,6 @@ if(localStorage.getItem("auth"))
 else{
    initialUser={};
 }
-// const PUBLIC_API="http://localhost:10000/api"
-// axios.defaults.baseURL=PUBLIC_API;
-//    //Default setting
-//    axios.defaults.headers.common["Authorization"]=`Bearer ${initialUser.token}`;
-//    //When Token Expire Logout automatically
-//    axios.interceptors.response.use(
-//    function (response){
-//    return response;
-//    },
-//    function(Error){
-//    let res=Error.response;
-//    if(res.status===401&& res.config && !res.config._isRetryREquest){
-//        window.localStorage.removeItem("auth");
-//        window.location.href="/login"
-//    }
-//    }
-//    );
 export const userReducer=(state=initialUser,action)=>{
  switch(action.type){
     case "LOGGED_IN_USER":
@@ -61,6 +44,14 @@ export const AllUsersReducer=(state=null,{type,payload})=>{
 export const ShopsReducer=(state=null,{type,payload})=>{
    switch(type){
       case "GET_SHOPS":
+      return payload;
+      default:
+      return state;
+   }
+}
+export const SellerShopsReducer=(state=null,{type,payload})=>{
+   switch(type){
+      case "YOUR_SHOPS":
       return payload;
       default:
       return state;

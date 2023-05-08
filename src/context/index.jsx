@@ -12,7 +12,7 @@ const[state,setState]=useState({
 const PUBLIC_API="http://localhost:10000/api"
 const token=state && state.token? state.token:"";
 axios.defaults.baseURL=PUBLIC_API;
-axios.defaults.headers.common["Authorization"]=`Bearer ${token}`;
+axios.defaults.headers.common["Authorization"]=`Bearer${token}`;
 const navigate=useNavigate();
 //When Token Expire Logout automatically
 axios.interceptors.response.use(

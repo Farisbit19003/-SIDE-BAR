@@ -24,7 +24,7 @@ const Navbar = ({ setOpen }) => {
 
         <div className="ms-5 me-auto hidden md:flex">
           <Link to="/">
-            <img src={siteSetting?.image?.url} alt="logo" className="object-cover h-8" />
+            <img src={siteSetting?.image?.url?siteSetting.image.url:"http://res.cloudinary.com/die5mkbau/image/upload/v1683410253/zusdxoommia3lwtkzzk4.svg"} alt="logo" className="object-cover h-8" />
           </Link>
         </div>
 
@@ -35,7 +35,7 @@ const Navbar = ({ setOpen }) => {
                inline-flex items-center justify-center flex-shrink-0 font-normal leading-none rounded-lg outline-none transition duration-300 ease-in-out focus:outline-none focus:shadow
                "
             >
-              <Link to="/shop/create">Create Shop</Link>
+              <Link to="/my-shop/create">Create Shop</Link>
             </button>
           ) : (
             ""
