@@ -6,6 +6,7 @@ import { LOGIN } from "./auth";
 import { LoadingOutlined } from "@ant-design/icons";
 import {AiOutlineLoading3Quarters} from "react-icons/ai"
 import { useDispatch } from "react-redux";
+import Logo from "./logo";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -41,7 +42,7 @@ const Login = () => {
       <div className="bg-gray-200 flex flex-wrap h-screen lg:p-4   mx-auto justify-center">
         <div className="bg-white flex flex-col p-4 md:w-fit w-full mx-auto border-2 justify-center shadow">
           {/* LOGO */}
-          <img src="../../src/assets/Logo.svg" className="h-10" alt="" />
+           <Logo/>
           <h1 className="text-gray-400 font-thin flex justify-center items-center italic mb-6 font-sans">
             Login to Admin
           </h1>

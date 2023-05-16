@@ -93,7 +93,6 @@ const CreateShops = () => {
   return (
     <ShopLayout>
       <>
-      {JSON.stringify(values,null,4)}
               <form>
           <div className="my-2 flex flex-wrap border-b-2 border-dashed  pb-8 sm:my-8">
             <h1 className="text-[#248F59] font-serif text-3xl font-normal">

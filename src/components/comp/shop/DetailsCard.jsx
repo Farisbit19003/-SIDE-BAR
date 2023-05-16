@@ -4,16 +4,21 @@ import { BsBoxSeam, BsPercent } from "react-icons/bs";
 import { TbReportMoney } from "react-icons/tb";
 import { TfiMoney } from "react-icons/tfi";
 import { Link, useNavigate } from "react-router-dom";
-import { AllShops, DeleteStore,AdminDeleteStore, SellerShops } from "../Create Shop/functions";
+import {
+  AllShops,
+  DeleteStore,
+  AdminDeleteStore,
+  SellerShops,
+} from "../Create Shop/functions";
 import { useDispatch } from "react-redux";
 import swal from "sweetalert";
-import {toast} from "react-toastify"
-const DetailsCard = ({ page, singleShop }) => {
+import { toast } from "react-toastify";
+const DetailsCard = ({ page, singleShop, ok,proLength }) => {
   const dateStr = singleShop?.createdAt;
   const dateObj = new Date(dateStr);
   const formattedDate = dateObj.toLocaleDateString();
   const dispatch = useDispatch();
-  const navigate=useNavigate();
+  const navigate = useNavigate();
 
   const handleDelete = (_id) => {
     swal({
@@ -24,40 +29,39 @@ const DetailsCard = ({ page, singleShop }) => {
       dangerMode: true,
     }).then((willDelete) => {
       if (willDelete) {
-        if(page=="Admin"){
+        if (page == "Admin") {
           AdminDeleteStore(_id)
-          .then((res) => {
-            if(res.error){
-              toast.error(res.error);
-            }else{
-              swal("Deleted SuccessFully", {
-                icon: "success",
-              });
-              AllShops(dispatch);
-              navigate("/shop")
-            }
-          })
-          .catch((error) => {
-            toast.error(error);
-          });
-        }else{
+            .then((res) => {
+              if (res.error) {
+                toast.error(res.error);
+              } else {
+                swal("Deleted SuccessFully", {
+                  icon: "success",
+                });
+                AllShops(dispatch);
+                navigate("/shop");
+              }
+            })
+            .catch((error) => {
+              toast.error(error);
+            });
+        } else {
           DeleteStore(_id)
-          .then((res) => {
-            if(res.error){
-              toast.error(res.error);
-            }else{
-              swal("Deleted SuccessFully", {
-                icon: "success",
-              });
-              SellerShops(dispatch);
-              navigate("/my-shop")
-            }
-          })
-          .catch((error) => {
-            toast.error(error);
-          });
+            .then((res) => {
+              if (res.error) {
+                toast.error(res.error);
+              } else {
+                swal("Deleted SuccessFully", {
+                  icon: "success",
+                });
+                SellerShops(dispatch);
+                navigate("/my-shop");
+              }
+            })
+            .catch((error) => {
+              toast.error(error);
+            });
         }
-       
       }
     });
   };
@@ -71,9 +75,9 @@ const DetailsCard = ({ page, singleShop }) => {
     </div>
   ) : (
     <div className="grid grid-cols-12 gap-6 font-sans">
-      {singleShop?.status === "InActive" && (
+      {singleShop?.status === "InActive" && page!=="Admin" &&(
         <div className="col-span-12 rounded-lg bg-red-500 px-5 py-4 text-sm text-light">
-          Shop is not Activated
+          Shop is not Activated.It will Approved by Admin.You need to add atleast 5 Products
         </div>
       )}
       {/* about Shop */}
@@ -164,13 +168,13 @@ const DetailsCard = ({ page, singleShop }) => {
             </Link>
           )}
 
-          <button
-          onClick={()=>handleDelete(singleShop?._id)}
+       {proLength?.length !==0&&!ok?"":<button
+            onClick={() => handleDelete(singleShop?._id)}
             className="p-2 start-3  bg-red-600
     text-[#f2f2f2] hover:font-medium  flex flex-row rounded-md ease-in-out absolute top-3"
           >
             <BiEdit size={25} className="me-2 w-4 align-middle" /> Delete Shop
-          </button>
+          </button>}
         </div>
       </div>
 
@@ -189,7 +193,7 @@ const DetailsCard = ({ page, singleShop }) => {
 
                 <div className="ms-3">
                   <p className="mb-0.5 text-lg font-semibold text-sub-heading">
-                    55
+                    {proLength?.length}
                   </p>
                   <p className="mt-0 text-sm text-muted">Products</p>
                 </div>

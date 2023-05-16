@@ -1,12 +1,10 @@
-import {useEffect, useState} from "react";
+import {useState} from "react";
 import { AiOutlineCloudUpload} from "react-icons/ai";
 import { TiDeleteOutline } from "react-icons/ti";
 import {LoadingOutlined}  from "@ant-design/icons"
 import axios from "axios";
-import { useSelector } from "react-redux";
-const FileInput = ({ keyPrefix, multiple,image ,setImage,setloading,loading,values,setValues,props}) => {
+const FileInput = ({ keyPrefix, multiple,image ,setImage,setloading,loading}) => {
   const [files, setFiles] = useState([]);
-  const {loggedIn}=useSelector((state)=>({...state}))
   const formData = new FormData();
   const uploadImageToCloud=async(event)=>{
       setloading(true);
@@ -18,15 +16,32 @@ const FileInput = ({ keyPrefix, multiple,image ,setImage,setloading,loading,valu
       setloading(false);
       event.target.value = null;
   }
+  const uploadMultiImageToCloud = async (event) => {
+    const newFiles = Array.from(event.target.files);
+    setloading(true);
+    for (let index = 0; index < newFiles.length; index++) {
+      formData.append("image", newFiles[index]);
+      const { data } = await axios.post("/image/upload", formData);
+      setImage((prevImage) => [
+        ...prevImage,
+        {
+          url: data.url,
+          public_id: data.public_id,
+        },
+      ]);
+    }
+    setloading(false);
+    event.target.value = null;
+  };
   
   const handleFileUpload =(event) => {
     const newFiles = Array.from(event.target.files);
-    let file = event.target.files[0];
-    formData.append("image",file);
     if (multiple) {
       setFiles([...files, ...newFiles]);
+      uploadMultiImageToCloud(event);
     } else {
-      setFiles([...newFiles.slice(0, 1)]);
+      let file = event.target.files[0];
+      formData.append("image",file);
       uploadImageToCloud(event);
     }
   };
@@ -79,13 +94,14 @@ const FileInput = ({ keyPrefix, multiple,image ,setImage,setloading,loading,valu
           type="file"
           onChange={handleFileUpload}
           style={{ display: "none" }}
-          {...(multiple ? { multiple: "multiple" } : {})}
+          multiple={multiple}
         />
         <div className="flex flex-row justify-start ">
-          {loading?<LoadingOutlined/>:image&&image.map((file, index) => (
+          {loading?<LoadingOutlined/>:image?.map((file, index) => (
             <div key={index} className="flex flex-row m-2  my-2">
               <div className="flex-1  text-gray-500 font-semibold">
-                <span><img src={file.url}  height={100} width={100} /></span>
+                <span><img src={file.url}  height={100} width={100} />
+                </span>
               </div>
               <TiDeleteOutline
                 color="red"

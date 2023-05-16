@@ -17,7 +17,7 @@ City,category,facebook,insta,main_pic,cover_pic,mapAddress}=values;
 const [mainpic,setMainpic]=useState([]);
 const [coverpic,setCoverpic]=useState([]);
 useEffect(()=>{
-  setValues({...values,main_pic:mainpic[0],cover_pic:coverpic[0]})
+  setValues({...values,main_pic:mainpic[0]})
   },[mainpic])
   useEffect(()=>{
     setValues({...values,cover_pic:coverpic[0]})

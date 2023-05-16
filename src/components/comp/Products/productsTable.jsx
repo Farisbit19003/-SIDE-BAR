@@ -1,48 +1,85 @@
 import React from "react";
-import { Headings, ProductsData, } from "./productsData";
-export const ProductsTable = () => {
+import { TiTrash } from "react-icons/ti";
+import { TfiWrite } from "react-icons/tfi";
+import { Link } from "react-router-dom";
+export const ProductsTable = ({
+  handleDelete,
+  keyword,
+  Searched,
+  products,
+}) => {
   return (
     <>
-      <div className="my-6  flex border bg-white shadow">
-        <div className=" mx-auto mt-2 h-fit w-full">
-          <div className="flex flex-row justify-center items-center mx-2 my-2">
-            <p className="flex font-sans font-semibold text-lg ">Products</p>
-          </div>
-          <div className="overflow-x-auto flex flex-col justify-center">
-            <table className="mx-2 my-2 font-sans shadow">
-              <thead>
-                <tr className="bg-[#F2F2F2]">
-                  {Headings.map((heading, index) => (
-                    <th className="px-4 py-2" key={index}>
-                      {heading}
-                    </th>
-                  ))}
-                </tr>
-              </thead>
-
-              <tbody>
-                {ProductsData.map((item, index) => (
-                  <tr
-                    className="bg-white cursor-default hover:!bg-gray-100 border-b-2 font-sans"
-                    key={index}
-                  >
-                    <td className="px-4 py-2">{item.Image}</td>
-                    <td className="px-4 py-2">{item.Name}</td>
-                    <td className="px-4 py-2">{item.Group}</td>
-                    <td className="px-4 py-2">{item.Shop}</td>
-                    <td className="px-4 py-2">{item.Price}</td>
-                    <td className="px-4 py-2">{item.Quantity}</td>
-                    <td className="px-4 py-2 text-[#248F59]">{item.Status}</td>
-                    <td className="px-4 py-2 cursor-pointer flex gap-2">{item.Action}</td>
-
-                    
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+      {!products || products.length === 0 ? (
+        <div className="flex  justify-center">
+          <div className="flex flex-col items-center">
+            {/* <AiOutlineLoading3Quarters className="text-6xl w-16 h-16 text-[#248F59] animate-spin" /> */}
+            <span className="mt-4 text-gray-500 text-lg font-semibold">
+              Loading...
+            </span>
+            <span className="mt-4 text-gray-500 text-lg font-semibold">
+              No Product Found
+            </span>
           </div>
         </div>
-      </div>
+      ) : (
+        <>
+          <div className="my-6  flex border bg-white shadow">
+            <div className=" mx-auto mt-2 h-fit w-full">
+              <div className="flex flex-row justify-center items-center mx-2 my-2">
+                <p className="flex font-sans font-semibold text-lg ">
+                  Products
+                </p>
+              </div>
+              <div className="overflow-x-auto flex flex-col justify-center">
+                <table className="mx-2 my-2 font-sans shadow">
+                  <thead>
+                    <tr className="bg-[#F2F2F2]">
+                      <th className="px-4 py-2">Image</th>
+                      <th className="px-4 py-2">Name</th>
+                      <th className="px-4 py-2">Discription</th>
+                      <th className="px-4 py-2">Catgeory</th>
+                      <th className="px-4 py-2">Store</th>
+                      <th className="px-4 py-2">SalesPrice</th>
+                      <th className="px-4 py-2">PurchasePrice</th>
+                      <th className="px-4 py-2">Quantity</th>
+                      <th className="px-4 py-2">Sold</th>
+                      <th className="px-4 py-2">Unit</th>
+                      <th className="px-4 py-2">Actions</th>
+                    </tr>
+                  </thead>
+
+                  <tbody>
+                    {products&&products.filter(Searched(keyword)).map((item, index) => (
+                      <tr
+                        className="bg-white cursor-default hover:!bg-gray-100 border-b-2 font-sans"
+                        key={item._id}
+                      >
+                        <td className="px-4 py-2">
+                          <img src={item.feature_pic.url} className="h-30 w-30" />
+                          </td>
+                        <td className="px-4 py-2">{item.name}</td>
+                        <td className="px-4 py-2">{item.discription.slice(0,30)}.....</td>
+                        <td className="px-4 py-2">{item.category.name}</td>
+                        <td className="px-4 py-2">{item.store.Storename}</td>
+                        <td className="px-4 py-2">{item.salePrice}</td>
+                        <td className="px-4 py-2">{item.purchasePrice}</td> 
+                        <td className="px-4 py-2">{item.quantity}</td>
+                        <td className="px-4 py-2">{item.totalSold}</td>
+                        <td className="px-4 py-2">{item?.unit}</td>
+                        <td className="px-4 py-2 cursor-pointer flex gap-2">
+                          <TiTrash onClick={()=>handleDelete(item)} size={25} color="red" />,
+                        <Link to={`/products/update/${item.slug}`}><TfiWrite size={22} /></Link>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </>
+      )}
     </>
   );
 };

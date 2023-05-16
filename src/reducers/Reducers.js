@@ -1,4 +1,3 @@
-import axios from "axios";
 let initialUser={};
 if(localStorage.getItem("auth"))
 {
@@ -59,42 +58,18 @@ export const SellerShopsReducer=(state=null,{type,payload})=>{
 }
 export const ProductReducer=(state=null,{type,payload})=>{
    switch(type){
-      case "GET_PRODUCTS":
+      case "PRODUCTS":
       return payload;
       default:
       return state;
    }
 }
-let initial=[];
-if(localStorage.getItem("cart"))
-{
-   initial=JSON.parse(window.localStorage.getItem("cart"));
+export const AllProductsReducer=(state=null,{type,payload})=>{
+   switch(type){
+      case "All_PRODUCTS":
+      return payload;
+      default:
+      return state;
+   }
+}
 
-}
-else{
-   initial=[];
-}
-export const AddtoCart=(state=initial,{type,payload})=>{
-   switch(type){
-      case "Cart":
-      return payload;
-      default:
-      return state;
-   }
-}
-export const SearchReducer=(state={text:""},{type,payload})=>{
-   switch(type){
-      case "Search":
-      return {...state,...payload};
-      default:
-      return state;
-   }
-}
-export const drawer=(state=false,{type,payload})=>{
-   switch(type){
-      case "Visible":
-      return payload;
-      default:
-      return state;
-   }
-}

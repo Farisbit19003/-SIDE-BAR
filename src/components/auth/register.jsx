@@ -6,6 +6,7 @@ import { createSeller } from "./auth";
 import { LoadingOutlined } from "@ant-design/icons";
 import swal from "sweetalert";
 import {AiOutlineLoading3Quarters} from "react-icons/ai"
+import Logo from "./logo";
 
 const Register = () => {
   const [name, setName] = useState("");
@@ -60,8 +61,8 @@ const Register = () => {
   ) : (
     <>
       <div className="bg-gray-200 flex flex-wrap h-screen lg:p-4  mx-auto justify-center">
-        <div className="bg-white flex flex-col p-4 md:w-fit w-full mx-auto border-2 justify-center shadow">
-          <img src="../../src/assets/Logo.svg" className="h-10" alt="" />
+        <div className="bg-white flex flex-col p-8 md:w-fit w-full mx-auto border-2 justify-center shadow">
+<Logo/>
           <h1 className="text-gray-400 font-thin flex justify-center items-center italic mb-6 font-sans">
             Register New Account
           </h1>

@@ -37,6 +37,9 @@ import { AllUsers } from "./components/comp/user/Userfunction";
 import { AllCategory } from "./components/comp/category/functions";
 import { AllShops, SellerShops } from "./components/comp/Create Shop/functions";
 import UpdateShop from "./components/comp/Create Shop/UpdateShop";
+import NotFound from "./components/layout/pages/404";
+import { AllProducts, SellerProducts } from "./components/comp/Products/functions";
+import UpdateProducts from "./components/comp/Products/UpdateProduct";
 
 function App() {
 const {loggedIn}=useSelector((state)=>({...state}))
@@ -48,10 +51,12 @@ if(loggedIn&&loggedIn.user&&loggedIn.user.role==="Admin")
 {
 AllUsers(dispatch);
 AllShops(dispatch);
+AllProducts(dispatch);
 }
 if(loggedIn&&loggedIn.user&&loggedIn.user.role==="Seller")
 {
 SellerShops(dispatch);
+SellerProducts(dispatch);
 }
 },[loggedIn])
 const PUBLIC_API="http://localhost:10000/api"
@@ -86,6 +91,7 @@ if(res.status===401&& res.config && !res.config._isRetryREquest){
           <Route exact path="/shop" element={<Shops />} />
           <Route exact path="/products" element={<Products />} />
           <Route exact path="/products/add" element={<AddProduct />} />
+          <Route exact path="/products/update/:slug" element={<UpdateProducts />} />
           <Route exact path="/my-shop" element={<MyShops />} />
           <Route exact path="/attributes" element={<Attributes />} />
           <Route exact path="/attributes/create" element={<NewAttribute />} />
@@ -104,7 +110,7 @@ if(res.status===401&& res.config && !res.config._isRetryREquest){
           <Route exact path="/profile-update" element={<Profile />} />
           <Route exact path="/shop-detail/:slug" element={<ShopDetails />} />
           <Route exact path="/update-shop/:slug" element={<UpdateShop />} />
-
+          <Route path="*" Component={NotFound} />
         </Routes>
         <ToastContainer/>
       </Router>

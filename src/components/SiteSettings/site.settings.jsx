@@ -98,24 +98,24 @@ export const siteSettings = {
         icon: <ShoppingOutlined />,
         to: "/products",
       },
-      {
-        id: 5,
-        label: "Attributes",
-        icon: <TagsOutlined />,
-        to: "/attributes",
-      },
+      // {
+      //   id: 5,
+      //   label: "Attributes",
+      //   icon: <TagsOutlined />,
+      //   to: "/attributes",
+      // },
       {
         id: 7,
         label: "Orders",
         icon: <AiOutlineUnorderedList />,
         to: "/orders",
       },
-     {
-       id: 11,
-       label: "Withdraws",
-       icon: <BiMoneyWithdraw/>,
-       to:"/withdraws"
-     },
+    //  {
+    //    id: 11,
+    //    label: "Withdraws",
+    //    icon: <BiMoneyWithdraw/>,
+    //    to:"/withdraws"
+    //  },
       {
         id: 13,
         label: "Reviews",

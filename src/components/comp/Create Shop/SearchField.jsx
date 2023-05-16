@@ -45,7 +45,6 @@ let location={};
             onPlaceChanged={onPlaceChanged}
             onUnmount={onUnmount}
             fields={['address_components', 'geometry.location', 'formatted_address']}
-            types={['address']}
             className='cursor-pointer'
         >
             <input

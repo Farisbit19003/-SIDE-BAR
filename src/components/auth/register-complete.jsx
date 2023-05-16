@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import { registerComplete } from "./auth";
 import { LoadingOutlined } from "@ant-design/icons";
 import {AiOutlineLoading3Quarters} from "react-icons/ai"
+import Logo from "./logo";
 
 const RegisterComplete = () => {
   const [email, setEmail] = useState("");
@@ -62,7 +63,7 @@ const RegisterComplete = () => {
       <div className="bg-gray-200 flex flex-wrap h-screen lg:p-4   mx-auto justify-center">
         <div className="bg-white flex flex-col p-4 md:w-fit w-full mx-auto border-2 justify-center shadow">
           {/* LOGO */}
-          <img src="../../src/assets/Logo.svg" className="h-10" alt="" />
+<Logo/>
           <h1 className="text-gray-400 font-thin flex justify-center items-center italic mb-6 font-sans">
            Complete Registration
           </h1>

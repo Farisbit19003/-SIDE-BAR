@@ -4,12 +4,10 @@ import {
   CategoryReducer,
   ShopsReducer,
   ProductReducer,
-  SearchReducer,
-  AddtoCart,
-  drawer,
   SiteReducer,
   AllUsersReducer,
-  SellerShopsReducer
+  SellerShopsReducer,
+  AllProductsReducer
 } from "./Reducers";
 
 
@@ -18,12 +16,10 @@ const rootReducers = combineReducers({
   category: CategoryReducer,
   allShops:ShopsReducer,
   product: ProductReducer,
-  search: SearchReducer,
-  cart: AddtoCart,
-  drawer: drawer,
   siteSetting:SiteReducer,
   allusers:AllUsersReducer,
   sellerShops:SellerShopsReducer,
+  allProducts:AllProductsReducer
 });
 
 export default rootReducers;
