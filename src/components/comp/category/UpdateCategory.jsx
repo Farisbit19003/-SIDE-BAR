@@ -12,7 +12,7 @@ const UpdateCategory = () => {
   const [values, setValues] = useState({
     name: "",
     details: "",
-    ParentCategory: "",
+  
   });
   const [loading, setLoading] = useState(false);
   const params = useParams();
@@ -33,14 +33,13 @@ const UpdateCategory = () => {
         ...values,
         name: singleCat?.name,
         details: singleCat?.details,
-        ParentCategory: singleCat?.ParentCategory,
       });
     }
   }, [singleCat]);
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!values.name || !values.details || !values.ParentCategory) {
-      return toast.error("ALl Fields are Required");
+      return toast.error("All Fields are Required");
     }
     try {
       setLoading(true);
@@ -73,7 +72,7 @@ const UpdateCategory = () => {
           <span className="mt-4 text-gray-500 text-lg font-semibold">
             Loading...
           </span>
-          <span className="mt-4 text-gray-500 text-lg font-semibold">
+          <span className="mt-4 text-[#248F59] font-serif text-3xl font-semibold">
             No Category Found
           </span>
         </div>

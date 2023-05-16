@@ -11,7 +11,6 @@ const NewCategory = () => {
   const [values, setValues] = useState({
     name: "",
     details: "",
-    ParentCategory: "",
   });
   const [loading, setLoading] = useState(false);
 const dispatch=useDispatch();
@@ -19,8 +18,8 @@ const navigate=useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!values.name || !values.details || !values.ParentCategory) {
-      return toast.error("ALl Fields are Required");
+    if (!values.name || !values.details) {
+      return toast.error("All Fields are Required");
     }
     try {
       setLoading(true);
@@ -34,7 +33,6 @@ const navigate=useNavigate();
           setValues({
             name: "",
             details: "",
-            ParentCategory: "",
           });
           setLoading(false);
           navigate("/categories")
