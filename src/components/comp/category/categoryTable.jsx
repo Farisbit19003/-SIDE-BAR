@@ -8,7 +8,7 @@ const CatTable=({category,handleDelete,keyword,Searched,ok})=>{
    <div className="flex flex-col items-center">
      {/* <AiOutlineLoading3Quarters className="text-6xl w-16 h-16 text-[#248F59] animate-spin" /> */}
      <span className="mt-4 text-gray-500 text-lg font-semibold">Loading...</span>
-     <span className="mt-4 text-gray-500 text-lg font-semibold">No Category Found</span>
+     <span className="mt-4 text-[#248F59] text-lg font-serif font-semibold">No Category Found</span>
    </div>
  </div>: <>
      <div className="mb-6 flex border w-full bg-white shadow">
@@ -25,7 +25,6 @@ const CatTable=({category,handleDelete,keyword,Searched,ok})=>{
                 <th className="px-4 py-2">Name</th>
                 <th className="px-4 py-2">Slug</th>
                 <th className="px-4 py-2">Details</th>
-                <th className="px-4 py-2">Parent Category</th>
                 <th className="px-4 py-2">Actions</th>
             </tr>
           </thead>
@@ -36,7 +35,6 @@ const CatTable=({category,handleDelete,keyword,Searched,ok})=>{
                 <td className="px-4 py-2">{item.name}</td>
                 <td className="px-4 py-2">{item.slug}</td>
                 <td className="px-4 py-2">{item.details.slice(0,30)}....</td>
-                <td className="px-4 py-2">{item.ParentCategory}</td>
                 <td className="px-4 py-2 b gap-2 cursor-pointer flex flex-row">
                {ok.includes(item)?"":<BiTrash onClick={()=>handleDelete(item.slug)} size={25} color="red"/>}
                <Link to={`/categories/update/${item.slug}`}> <BiEdit size={25} /></Link>
