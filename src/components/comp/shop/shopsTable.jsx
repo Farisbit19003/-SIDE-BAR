@@ -78,7 +78,7 @@ export const ShopTable = ({ page, shops, Searched, keyword }) => {
             <span className="mt-4 text-gray-500 text-lg font-semibold">
               Loading...
             </span>
-            <span className="mt-4 text-gray-500 text-lg font-semibold">
+            <span className="mt-4 text-[#248F59] font-serif text-3xl font-semibold">
               No Shops Found
             </span>
           </div>
@@ -136,7 +136,7 @@ export const ShopTable = ({ page, shops, Searched, keyword }) => {
                           {item.status}
                         </td>
 
-                        <td className="px-4 cursor-pointer py-2 gap-3 flex flex-row">
+                        <td className="px-4 cursor-pointer py-2 gap-3 items-center justify-center flex flex-row">
                           {page === "Admin" ? (
                             <>
                               {" "}
