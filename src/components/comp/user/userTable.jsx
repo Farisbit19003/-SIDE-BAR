@@ -10,7 +10,7 @@ export const UserTable = ({ handleDelete, users, keyword, Searched, ok }) => {
             <span className="mt-4 text-gray-500 text-lg font-semibold">
               Loading...
             </span>
-            <span className="mt-4 text-gray-500 text-lg font-semibold">
+            <span className="mt-4 text-[#248F59] font-serif text-3xl font-normal">
               No User Found
             </span>
           </div>

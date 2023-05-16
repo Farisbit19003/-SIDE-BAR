@@ -12,7 +12,6 @@ const UpdateCategory = () => {
   const [values, setValues] = useState({
     name: "",
     details: "",
-  
   });
   const [loading, setLoading] = useState(false);
   const params = useParams();

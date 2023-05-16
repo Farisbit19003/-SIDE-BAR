@@ -13,8 +13,8 @@ const NewCategory = () => {
     details: "",
   });
   const [loading, setLoading] = useState(false);
-const dispatch=useDispatch();
-const navigate=useNavigate();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -35,7 +35,7 @@ const navigate=useNavigate();
             details: "",
           });
           setLoading(false);
-          navigate("/categories")
+          navigate("/categories");
         }
       });
     } catch (error) {

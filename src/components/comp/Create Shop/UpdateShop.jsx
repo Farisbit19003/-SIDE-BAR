@@ -33,14 +33,14 @@ const UpdateShop = () => {
   const role = loggedIn && loggedIn.user && loggedIn.user.role;
   const navigate = useNavigate();
   const params = useParams();
-  const dispatch=useDispatch();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (category) {
       setCategories(category);
     }
   }, [category]);
-  
+
   useEffect(() => {
     if (role === "Seller" && sellerShops) {
       const filtered = sellerShops?.filter((s) => {
@@ -49,7 +49,7 @@ const UpdateShop = () => {
       filtered && setSingleShop(filtered[0]);
     }
   }, [sellerShops, params.slug]);
-  
+
   useEffect(() => {
     if (!singleShop) {
       const timeoutId = setTimeout(() => {
@@ -59,25 +59,24 @@ const UpdateShop = () => {
     }
     if (singleShop) {
       setValues({
-        Storename:singleShop?.Storename,
-        description:singleShop?.description,
-        Storewhatsapp:singleShop?.Storewhatsapp,
+        Storename: singleShop?.Storename,
+        description: singleShop?.description,
+        Storewhatsapp: singleShop?.Storewhatsapp,
         Streetaddress: singleShop?.Streetaddress,
-        stripe_account_id:singleShop?.stripe_account_id,
+        stripe_account_id: singleShop?.stripe_account_id,
         Country: singleShop?.Country,
-        City:singleShop?.City,
-        category:singleShop?.category?._id,
-        facebook:singleShop?.facebook,
-        insta:singleShop?.insta,
-        mapAddress:singleShop?.mapAddress,
-        location:singleShop?.location,
-        main_pic:singleShop?.main_pic,
-        cover_pic:singleShop?.cover_pic,
+        City: singleShop?.City,
+        category: singleShop?.category?._id,
+        facebook: singleShop?.facebook,
+        insta: singleShop?.insta,
+        mapAddress: singleShop?.mapAddress,
+        location: singleShop?.location,
+        main_pic: singleShop?.main_pic,
+        cover_pic: singleShop?.cover_pic,
       });
     }
   }, [singleShop]);
-  
-  
+
   //handleSubmit
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -94,8 +93,8 @@ const UpdateShop = () => {
       !values.insta ||
       !values.mapAddress ||
       !values.location ||
-       !values.main_pic ||
-       !values.cover_pic
+      !values.main_pic ||
+      !values.cover_pic
     ) {
       toast.error("Please Fill all Fields");
       setLoading(false);
@@ -104,7 +103,7 @@ const UpdateShop = () => {
 
     try {
       setLoading(true);
-      UpdateStore(singleShop?._id,values).then((res) => {
+      UpdateStore(singleShop?._id, values).then((res) => {
         if (res.error) {
           toast.error(res.error);
           setLoading(false);
@@ -121,12 +120,12 @@ const UpdateShop = () => {
   };
   return (
     <ShopLayout>
-      {!singleShop || sellerShops===null ? (
+      {!singleShop || sellerShops === null ? (
         <div className=" inset-0 flex items-center justify-center">
           <div className="flex flex-col items-center">
-          <AiOutlineLoading3Quarters className="text-6xl w-16 h-16 text-[#248F59] animate-spin" />
+            <AiOutlineLoading3Quarters className="text-6xl w-16 h-16 text-[#248F59] animate-spin" />
             <span className="mt-16 text-gray-500 text-lg font-semibold">
-             Loading ....................................
+              Loading ....................................
             </span>
           </div>
         </div>

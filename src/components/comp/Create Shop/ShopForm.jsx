@@ -11,24 +11,37 @@ const coverImageInformation = (
     <span className="font-bold">1170 x 435</span>
   </span>
 );
-const ShopForm = ({ categories,values,setValues,setLoading,loading }) => {
-const {Storename,description,Storewhatsapp,Streetaddress,stripe_account_id,Country,
-City,category,facebook,insta,main_pic,cover_pic,mapAddress}=values;
-const [mainpic,setMainpic]=useState([]);
-const [coverpic,setCoverpic]=useState([]);
-useEffect(()=>{
-  setValues({...values,main_pic:mainpic[0]})
-  },[mainpic])
-  useEffect(()=>{
-    setValues({...values,cover_pic:coverpic[0]})
-    },[coverpic])
-useEffect(()=>{
-cover_pic&&setCoverpic([cover_pic]);
-main_pic&&setMainpic([main_pic]);
-},[main_pic||cover_pic])
-const onChange = (e) => {
-  setValues({ ...values, [e.target.name]: e.target.value });
-}
+const ShopForm = ({ categories, values, setValues, setLoading, loading }) => {
+  const {
+    Storename,
+    description,
+    Storewhatsapp,
+    Streetaddress,
+    stripe_account_id,
+    Country,
+    City,
+    category,
+    facebook,
+    insta,
+    main_pic,
+    cover_pic,
+    mapAddress,
+  } = values;
+  const [mainpic, setMainpic] = useState([]);
+  const [coverpic, setCoverpic] = useState([]);
+  useEffect(() => {
+    setValues({ ...values, main_pic: mainpic[0] });
+  }, [mainpic]);
+  useEffect(() => {
+    setValues({ ...values, cover_pic: coverpic[0] });
+  }, [coverpic]);
+  useEffect(() => {
+    cover_pic && setCoverpic([cover_pic]);
+    main_pic && setMainpic([main_pic]);
+  }, [main_pic || cover_pic]);
+  const onChange = (e) => {
+    setValues({ ...values, [e.target.name]: e.target.value });
+  };
   return (
     <>
       {/* LOGO */}
@@ -41,9 +54,16 @@ const onChange = (e) => {
         </div>
         {/*IMAGE  */}
         <Card>
-          <FileInput image={mainpic} setImage={setMainpic} loading={loading}
-           setloading={setLoading} values={values} setValues={setValues} props="main_pic"
-           keyPrefix="first" />
+          <FileInput
+            image={mainpic}
+            setImage={setMainpic}
+            loading={loading}
+            setloading={setLoading}
+            values={values}
+            setValues={setValues}
+            props="main_pic"
+            keyPrefix="first"
+          />
         </Card>
       </div>
       {/* COVER IMAGE */}
@@ -53,9 +73,15 @@ const onChange = (e) => {
         </div>
         <Card>
           <FileInput
-           image={coverpic} setImage={setCoverpic} loading={loading}
-           setloading={setLoading} values={values} setValues={setValues} props="cover_pic"
-           keyPrefix="second" />
+            image={coverpic}
+            setImage={setCoverpic}
+            loading={loading}
+            setloading={setLoading}
+            values={values}
+            setValues={setValues}
+            props="cover_pic"
+            keyPrefix="second"
+          />
         </Card>
       </div>
       {/* Basic Info */}
@@ -81,10 +107,11 @@ const onChange = (e) => {
             <label className="font-semibold ">Description</label>
 
             <textarea
-            value={description}
-            name="description"
-            onChange={onChange}
-             className="mb-2  bg-white border border-gray-400 rounded-lg px-3 py-2 text-lg font-sans font-normal tracking-normal text-left focus:outline-none focus:ring-2 focus:ring-green-600" />
+              value={description}
+              name="description"
+              onChange={onChange}
+              className="mb-2  bg-white border border-gray-400 rounded-lg px-3 py-2 text-lg font-sans font-normal tracking-normal text-left focus:outline-none focus:ring-2 focus:ring-green-600"
+            />
           </div>
         </div>
       </div>
@@ -99,9 +126,9 @@ const onChange = (e) => {
           <div className="p-3 font-sans w-full flex flex-col">
             <label className="font-semibold flex">Category</label>
             <select
-             value={category}
-             onChange={onChange}
-             name="category"
+              value={category}
+              onChange={onChange}
+              name="category"
               className="mb-2  bg-white border border-gray-400 rounded-lg px-3 py-2 text-lg font-sans font-normal tracking-normal text-left focus:outline-none focus:ring-2 focus:ring-green-600"
             >
               <option value=""></option>
@@ -150,18 +177,18 @@ const onChange = (e) => {
             <label className="font-semibold ">Country</label>
 
             <input
-            value={Country}
-            name="Country"
-            onChange={onChange}
+              value={Country}
+              name="Country"
+              onChange={onChange}
               type="text"
               className="h-12 mb-2  bg-white border border-gray-400 rounded-lg px-3 py-2 text-lg font-sans font-normal tracking-normal text-left focus:outline-none focus:ring-2 focus:ring-green-600"
             />
             <label className="font-semibold ">City</label>
 
             <input
-            value={City}
-            name="City"
-            onChange={onChange}
+              value={City}
+              name="City"
+              onChange={onChange}
               type="text"
               className="h-12 mb-2  bg-white border border-gray-400 rounded-lg px-3 py-2 text-lg font-sans font-normal tracking-normal text-left focus:outline-none focus:ring-2 focus:ring-green-600"
             />
@@ -169,10 +196,11 @@ const onChange = (e) => {
             <label className="font-semibold ">Street Address</label>
 
             <textarea
-            value={Streetaddress}
-            name="Streetaddress"
-            onChange={onChange}
-            className=" mb-2  bg-white border border-gray-400 rounded-lg px-3 py-2 text-lg font-sans font-normal tracking-normal text-left focus:outline-none focus:ring-2 focus:ring-green-600" />
+              value={Streetaddress}
+              name="Streetaddress"
+              onChange={onChange}
+              className=" mb-2  bg-white border border-gray-400 rounded-lg px-3 py-2 text-lg font-sans font-normal tracking-normal text-left focus:outline-none focus:ring-2 focus:ring-green-600"
+            />
           </div>
         </div>
       </div>
@@ -188,14 +216,18 @@ const onChange = (e) => {
           <div className="p-3 font-sans w-full flex flex-col">
             <label className="font-semibold ">Your Location</label>
 
-            <SearchField values={values} setValues={setValues} mapAddress={mapAddress} />
+            <SearchField
+              values={values}
+              setValues={setValues}
+              mapAddress={mapAddress}
+            />
 
             <label className="font-semibold ">Contact Number</label>
 
             <input
-             value={Storewhatsapp}
-             name="Storewhatsapp"
-             onChange={onChange}
+              value={Storewhatsapp}
+              name="Storewhatsapp"
+              onChange={onChange}
               type="number"
               className="mb-2  bg-white border border-gray-400 rounded-lg px-3 py-2 text-lg font-sans font-normal tracking-normal text-left focus:outline-none focus:ring-2 focus:ring-green-600"
             />
@@ -210,9 +242,9 @@ const onChange = (e) => {
             </label>
 
             <input
-            value={insta}
-            name="insta"
-            onChange={onChange}
+              value={insta}
+              name="insta"
+              onChange={onChange}
               type="url"
               className="mb-2  bg-white border border-gray-400 rounded-lg px-3 py-2 text-lg font-sans font-normal tracking-normal text-left focus:outline-none focus:ring-2 focus:ring-green-600"
             />
@@ -222,9 +254,9 @@ const onChange = (e) => {
             </label>
 
             <input
-            value={facebook}
-            name="facebook"
-            onChange={onChange}
+              value={facebook}
+              name="facebook"
+              onChange={onChange}
               type="url"
               className="mb-2  bg-white border border-gray-400 rounded-lg px-3 py-2 text-lg font-sans font-normal tracking-normal text-left focus:outline-none focus:ring-2 focus:ring-green-600"
             />

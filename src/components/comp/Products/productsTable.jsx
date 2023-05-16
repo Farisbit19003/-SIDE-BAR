@@ -17,7 +17,7 @@ export const ProductsTable = ({
             <span className="mt-4 text-gray-500 text-lg font-semibold">
               Loading...
             </span>
-            <span className="mt-4 text-gray-500 text-lg font-semibold">
+            <span className="mt-4 text-[#248F59] font-serif text-3xl font-normal">
               No Product Found
             </span>
           </div>
@@ -56,7 +56,7 @@ export const ProductsTable = ({
                         key={item._id}
                       >
                         <td className="px-4 py-2">
-                          <img src={item.feature_pic.url} className="h-30 w-30" />
+                          <img src={item?.feature_pic?.url} className="h-30 w-30" />
                           </td>
                         <td className="px-4 py-2">{item.name}</td>
                         <td className="px-4 py-2">{item.discription.slice(0,30)}.....</td>
