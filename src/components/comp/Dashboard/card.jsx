@@ -110,7 +110,7 @@ const Card = () => {
                 />
               }
               iconBgStyle={{ backgroundColor: "#ffe8b2" }}
-              price={product.length}
+              price={product?.length}
             />
           </div>
         )}
