@@ -44,15 +44,21 @@ const Card = () => {
     <>
       <div className="mb-1 grid w-full grid-cols-1 gap-1 sm:grid-cols-2 xl:grid-cols-4">
         <div className="w-full ">
-          <StickerCard
-            titleTransKey="Total Revenue"
-            subtitleTransKey="(Last 30 Days)"
-            icon={
-              <TfiMoney size={30} className=" align-middle text-[#047857]" />
-            }
-            iconBgStyle={{ backgroundColor: "#A7F3D0" }}
-            price={787}
-          />
+        {role === "Seller" && (
+          <div className="mb-4">
+            <StickerCard
+              titleTransKey="Total Products"
+              icon={
+                <AiOutlineShopping
+                  size={35}
+                  className="align-middle text-[#ffb300]"
+                />
+              }
+              iconBgStyle={{ backgroundColor: "#ffe8b2" }}
+              price={product?.length}
+            />
+          </div>
+        )}
         </div>
         <div className="w-full ">
           <StickerCard
@@ -97,23 +103,6 @@ const Card = () => {
             }
           />
         </div>
-      </div>
-      <div className="w-full col-span-4 md!:col-span-2 sm!:col-span-1">
-        {role === "Seller" && (
-          <div className="mb-4">
-            <StickerCard
-              titleTransKey="Total Products"
-              icon={
-                <AiOutlineShopping
-                  size={35}
-                  className="align-middle text-[#ffb300]"
-                />
-              }
-              iconBgStyle={{ backgroundColor: "#ffe8b2" }}
-              price={product?.length}
-            />
-          </div>
-        )}
       </div>
     </>
   );
