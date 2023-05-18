@@ -1,5 +1,6 @@
 import React from "react";
 import { Headings, OrderData } from "./orderData";
+import { Link } from "react-router-dom";
 
 export const OrderTable = () => {
   function handleMouseEnter(event) {
@@ -37,7 +38,7 @@ export const OrderTable = () => {
     }
   }
   return (
-      <>
+    <>
       <div className="my-6  flex border   bg-white shadow">
         <div className=" mx-auto mt-2 h-fit w-full">
           <div className="flex flex-row justify-center items-center mx-2 my-2">
@@ -76,9 +77,12 @@ export const OrderTable = () => {
                       className="px-4 py-2 text-ellipsis overflow-hidden max-w-xs"
                       onMouseEnter={handleMouseEnter}
                       onMouseLeave={handleMouseLeave}
-                    >{item.address}</td>
-                    <td className="px-4 py-2 flex items-center  justify-center">{item.Action}</td>
-                    
+                    >
+                      {item.address}
+                    </td>
+                    <td className="px-4 py-2 flex items-center  justify-center">
+                    <Link to="/order/detail">  {item.Action}</Link>
+                    </td>
                   </tr>
                 ))}
               </tbody>

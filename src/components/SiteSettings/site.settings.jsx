@@ -1,13 +1,12 @@
 import {
-  AuditOutlined, SettingOutlined,
+  AuditOutlined,
+  SettingOutlined,
   ShopOutlined,
   ShoppingOutlined,
-  TagsOutlined,
-  UserOutlined
+  UserOutlined,
 } from "@ant-design/icons";
 import { AiOutlineUnorderedList } from "react-icons/ai";
-import { BiMoneyWithdraw } from "react-icons/bi";
-import { BsShopWindow } from "react-icons/bs";
+import { BsShopWindow, BsCardChecklist } from "react-icons/bs";
 import { HiOutlineReceiptRefund } from "react-icons/hi";
 import { MdOutlineDashboard } from "react-icons/md";
 import { TbCategory } from "react-icons/tb";
@@ -53,7 +52,8 @@ export const siteSettings = {
         label: "Shops",
         icon: <ShopOutlined />,
         to: "/shop",
-      },,
+      },
+      ,
       {
         id: 6,
         label: "Categories",
@@ -110,12 +110,12 @@ export const siteSettings = {
         icon: <AiOutlineUnorderedList />,
         to: "/orders",
       },
-    //  {
-    //    id: 11,
-    //    label: "Withdraws",
-    //    icon: <BiMoneyWithdraw/>,
-    //    to:"/withdraws"
-    //  },
+      {
+        id: 11,
+        label: "Purchase",
+        icon: <BsCardChecklist />,
+        to: "/purchase",
+      },
       {
         id: 13,
         label: "Reviews",
@@ -124,5 +124,4 @@ export const siteSettings = {
       },
     ],
   },
-
 };

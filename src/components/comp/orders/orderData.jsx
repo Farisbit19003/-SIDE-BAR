@@ -1,4 +1,4 @@
-import { BiTrash } from "react-icons/bi";
+import { AiOutlineEye } from "react-icons/ai";
 
 export const Headings = [
   "Tracking Number",
@@ -17,7 +17,7 @@ export const OrderData = [
     address:"H#991 st#35 Moh kasmirian Gakhar Gujranwal Punjab Pakistan",
     OrderDate:"10/12/12",
     Status:"Order Pending",
-    Action: <BiTrash size={25} color="red"/>
+    Action: <AiOutlineEye size={25} />
   },
   {
     deliveryFee:500,
@@ -26,7 +26,7 @@ export const OrderData = [
     address:"Gujranwal Punjab Pakistan",
     OrderDate:"10/12/12",
     Status:"Order Processing",
-    Action: <BiTrash size={25} color="red"/>
+    Action: <AiOutlineEye size={25} />
   },
   {
     email:"faris@faris.com",
@@ -35,7 +35,7 @@ export const OrderData = [
     created:"12/12/12",
     OrderDate:"10/12/12",
     Status: "Order At Local Facility",
-    Action: <BiTrash size={25} color="red"/>
+    Action: <AiOutlineEye size={25} />
   },
   {
     email:"faris@faris.com",
@@ -44,7 +44,7 @@ export const OrderData = [
     created:"12/12/12",
     OrderDate:"10/12/12",
     Status: "Order Out For Delivery",
-    Action: <BiTrash size={25} color="red"/>
+    Action: <AiOutlineEye size={25} />
   },
   {
     email:"faris@faris.com",
@@ -53,7 +53,7 @@ export const OrderData = [
     created:"12/12/12",
     OrderDate:"10/12/12",
     Status: "Order Completed",
-    Action: <BiTrash size={25} color="red"/>
+    Action: <AiOutlineEye size={25} />
   },
   {
     email:"faris@faris.com",
@@ -62,7 +62,7 @@ export const OrderData = [
     created:"12/12/12",
     OrderDate:"10/12/12",
     Status: "Order Cancelled",
-    Action: <BiTrash size={25} color="red"/>
+    Action: <AiOutlineEye size={25} />
   },{
     email:"faris@faris.com",
     amount:"2500",
@@ -70,7 +70,7 @@ export const OrderData = [
     created:"12/12/12",
     OrderDate:"10/12/12",
     Status: "Order Refund",
-    Action: <BiTrash size={25} color="red"/>
+    Action: <AiOutlineEye size={25} />
   },{
     email:"faris@faris.com",
     amount:"2500",
@@ -78,6 +78,6 @@ export const OrderData = [
     created:"12/12/12",
     OrderDate:"10/12/12",
     Status: "Order Failed",
-    Action: <BiTrash size={25} color="red"/>
+    Action: <AiOutlineEye size={25} />
   },
 ];

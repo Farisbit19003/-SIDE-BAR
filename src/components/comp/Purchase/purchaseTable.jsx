@@ -2,7 +2,7 @@ import React from "react";
 import { TiTrash } from "react-icons/ti";
 import { TfiWrite } from "react-icons/tfi";
 import { Link } from "react-router-dom";
-export const ProductsTable = ({
+export const PurchaseTable = ({
   handleDelete,
   keyword,
   Searched,
@@ -18,7 +18,7 @@ export const ProductsTable = ({
               Loading...
             </span>
             <span className="mt-4 text-[#248F59] font-serif text-3xl font-normal">
-              No Product Found
+              No Purchase Found
             </span>
           </div>
         </div>
@@ -28,7 +28,7 @@ export const ProductsTable = ({
             <div className=" mx-auto mt-2 h-fit w-full">
               <div className="flex flex-row justify-center items-center mx-2 my-2">
                 <p className="flex font-sans font-semibold text-lg ">
-                  Products
+                  Purchase
                 </p>
               </div>
               <div className="overflow-x-auto flex flex-col justify-center">
@@ -37,15 +37,11 @@ export const ProductsTable = ({
                     <tr className="bg-[#F2F2F2]">
                       <th className="px-4 py-2">Image</th>
                       <th className="px-4 py-2">Name</th>
-                      <th className="px-4 py-2">Discription</th>
                       <th className="px-4 py-2">Catgeory</th>
                       <th className="px-4 py-2">Store</th>
-                      <th className="px-4 py-2">SalesPrice</th>
                       <th className="px-4 py-2">PurchasePrice</th>
                       <th className="px-4 py-2">Quantity</th>
-                      <th className="px-4 py-2">Sold</th>
                       <th className="px-4 py-2">Unit</th>
-                      <th className="px-4 py-2">Actions</th>
                     </tr>
                   </thead>
 
@@ -63,26 +59,11 @@ export const ProductsTable = ({
                             />
                           </td>
                           <td className="px-4 py-2">{item.name}</td>
-                          <td className="px-4 py-2">
-                            {item.discription.slice(0, 30)}.....
-                          </td>
                           <td className="px-4 py-2">{item.category.name}</td>
                           <td className="px-4 py-2">{item.store.Storename}</td>
-                          <td className="px-4 py-2">{item.salePrice}</td>
                           <td className="px-4 py-2">{item.purchasePrice}</td>
                           <td className="px-4 py-2">{item.quantity}</td>
-                          <td className="px-4 py-2">{item.totalSold}</td>
                           <td className="px-4 py-2">{item?.unit}</td>
-                          <td className="px-4 py-2 cursor-pointer flex mx-auto my-auto mt-4 gap-2">
-                            <TiTrash
-                              onClick={() => handleDelete(item)}
-                              size={25}
-                              color="red"              
-                            />
-                            <Link to={`/products/update/${item.slug}`}>
-                              <TfiWrite size={22} />
-                            </Link>
-                          </td>
                         </tr>
                       ))}
                   </tbody>

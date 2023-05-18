@@ -1,14 +1,12 @@
-import { useState, useEffect } from "react";
-import ShopLayout from "../../layout/Shop/index";
+import React, {useEffect, useState} from "react";
+import ShopLayout from "../Shop/index"
 import { BiSearch } from "react-icons/bi";
-import { ProductsTable } from "../../comp/Products/productsTable";
 import { Link } from "react-router-dom";
-import { toast } from "react-toastify";
-import swal from "sweetalert";
-import { useDispatch, useSelector } from "react-redux";
-import { DeleteProduct, SellerProducts } from "../../comp/Products/functions";
+import { PurchaseTable } from "../../comp/Purchase/purchaseTable";
+import { useDispatch,useSelector } from "react-redux";
 
-const Products = () => {
+
+const Purchase = () => {
   const [products, setProducts] = useState([]);
   const [keyword, setKeyword] = useState("");
   const { product } = useSelector((state) => ({ ...state }));
@@ -58,7 +56,7 @@ const Products = () => {
       <div className="p-3 md:p-6 mb-6 flex shadow flex-col sm:flex-row items-center justify-between bg-white ">
         <div>
           <h1 className="font-serif font-normal text-3xl text-[#248F59]">
-            Products
+            Purchase
           </h1>
         </div>
 
@@ -79,16 +77,19 @@ const Products = () => {
           </div>
           <div className=" flex ">
             <button className="bg-[#248F59] w-full px-4 py-2 sm:py-3 rounded-md text-sm sm:text-base whitespace-nowrap flex justify-center items-center font-sans uppercase text-[#f2f2f2]">
-              <Link to="/products/add">Add Products</Link>
+              <Link to="/purchase/add">Add Purchase</Link>
             </button>
           </div>
         </div>
       </div>
-      <ProductsTable
-      products={products} handleDelete={handleDelete} Searched={Searched} keyword={keyword}
+      <PurchaseTable
+        products={products}
+        handleDelete={handleDelete}
+        Searched={Searched}
+        keyword={keyword}
       />
     </ShopLayout>
   );
 };
 
-export default Products;
+export default Purchase;

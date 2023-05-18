@@ -40,6 +40,9 @@ import UpdateShop from "./components/comp/Create Shop/UpdateShop";
 import NotFound from "./components/layout/pages/404";
 import { AllProducts, SellerProducts } from "./components/comp/Products/functions";
 import UpdateProducts from "./components/comp/Products/UpdateProduct";
+import Purchase from "./components/layout/pages/purchase";
+import AddPurchase from "./components/comp/Purchase/addPurchase";
+import OrderDetail from "./components/comp/orders/order-detail";
 
 function App() {
 const {loggedIn}=useSelector((state)=>({...state}))
@@ -96,6 +99,9 @@ if(res.status===401&& res.config && !res.config._isRetryREquest){
           <Route exact path="/attributes" element={<Attributes />} />
           <Route exact path="/attributes/create" element={<NewAttribute />} />
           <Route exact path="/orders" element={<Orders />} />
+          <Route exact path="/order/detail" element={<OrderDetail/>}/>
+          <Route exact path="/purchase" element={<Purchase/>}/> 
+          <Route exact path="/purchase/add" element={<AddPurchase/>}/> 
           <Route exact path="/categories" element={<Categories />} />
           <Route exact path="/categories/create" element={<NewCategory />} />
           <Route exact path="/categories/update/:slug" element={<UpdateCategory />} />
