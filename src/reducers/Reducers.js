@@ -73,3 +73,11 @@ export const AllProductsReducer=(state=null,{type,payload})=>{
    }
 }
 
+export const OrderReducer=(state=null,{type,payload})=>{
+   switch(type){
+      case "YOUR_ORDERS":
+      return payload;
+      default:
+      return state;
+   }
+}

@@ -42,10 +42,10 @@ const Card = () => {
 
   return (
     <>
-      <div className="mb-1 grid w-full grid-cols-1 gap-1 sm:grid-cols-2 xl:grid-cols-4">
+      <div className="mb-1 grid w-full grid-cols-1 gap-2 sm:grid-cols-2 xl:grid-cols-4">
         <div className="w-full ">
         {role === "Seller" && (
-          <div className="mb-4">
+          
             <StickerCard
               titleTransKey="Total Products"
               icon={
@@ -57,7 +57,7 @@ const Card = () => {
               iconBgStyle={{ backgroundColor: "#ffe8b2" }}
               price={product?.length}
             />
-          </div>
+      
         )}
         </div>
         <div className="w-full ">

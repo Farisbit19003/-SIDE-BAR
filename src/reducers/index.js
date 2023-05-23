@@ -7,7 +7,8 @@ import {
   SiteReducer,
   AllUsersReducer,
   SellerShopsReducer,
-  AllProductsReducer
+  AllProductsReducer,
+  OrderReducer
 } from "./Reducers";
 
 
@@ -19,7 +20,8 @@ const rootReducers = combineReducers({
   siteSetting:SiteReducer,
   allusers:AllUsersReducer,
   sellerShops:SellerShopsReducer,
-  allProducts:AllProductsReducer
+  allProducts:AllProductsReducer,
+  allOrders:OrderReducer,
 });
 
 export default rootReducers;

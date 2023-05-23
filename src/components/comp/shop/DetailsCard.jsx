@@ -13,7 +13,7 @@ import {
 import { useDispatch } from "react-redux";
 import swal from "sweetalert";
 import { toast } from "react-toastify";
-const DetailsCard = ({ page, singleShop, ok,proLength }) => {
+const DetailsCard = ({ page, singleShop, ok, proLength }) => {
   const dateStr = singleShop?.createdAt;
   const dateObj = new Date(dateStr);
   const formattedDate = dateObj.toLocaleDateString();
@@ -75,9 +75,10 @@ const DetailsCard = ({ page, singleShop, ok,proLength }) => {
     </div>
   ) : (
     <div className="grid grid-cols-12 gap-6 font-sans">
-      {singleShop?.status === "InActive" && page!=="Admin" &&(
+      {singleShop?.status === "InActive" && page !== "Admin" && (
         <div className="col-span-12 rounded-lg bg-red-500 px-5 py-4 text-sm text-light">
-          Shop is not Activated.It will Approved by Admin.You need to add atleast 5 Products
+          Shop is not Activated.It will Approved by Admin.You need to add
+          atleast 5 Products
         </div>
       )}
       {/* about Shop */}
@@ -168,13 +169,17 @@ const DetailsCard = ({ page, singleShop, ok,proLength }) => {
             </Link>
           )}
 
-       {proLength?.length !==0&&!ok?"":<button
-            onClick={() => handleDelete(singleShop?._id)}
-            className="p-2 start-3  bg-red-600
+          {proLength?.length !== 0 && !ok ? (
+            ""
+          ) : (
+            <button
+              onClick={() => handleDelete(singleShop?._id)}
+              className="p-2 start-3  bg-red-600
     text-[#f2f2f2] hover:font-medium  flex flex-row rounded-md ease-in-out absolute top-3"
-          >
-            <BiEdit size={25} className="me-2 w-4 align-middle" /> Delete Shop
-          </button>}
+            >
+              <BiEdit size={25} className="me-2 w-4 align-middle" /> Delete Shop
+            </button>
+          )}
         </div>
       </div>
 

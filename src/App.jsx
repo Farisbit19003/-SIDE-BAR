@@ -35,7 +35,7 @@ import { useDispatch ,useSelector} from "react-redux";
 import { GetSettings } from "./components/comp/settings/functions";
 import { AllUsers } from "./components/comp/user/Userfunction";
 import { AllCategory } from "./components/comp/category/functions";
-import { AllShops, SellerShops } from "./components/comp/Create Shop/functions";
+import { AllShops, SellerShops, SellerOrders } from "./components/comp/Create Shop/functions";
 import UpdateShop from "./components/comp/Create Shop/UpdateShop";
 import NotFound from "./components/layout/pages/404";
 import { AllProducts, SellerProducts } from "./components/comp/Products/functions";
@@ -60,6 +60,7 @@ if(loggedIn&&loggedIn.user&&loggedIn.user.role==="Seller")
 {
 SellerShops(dispatch);
 SellerProducts(dispatch);
+SellerOrders(dispatch);
 }
 },[loggedIn])
 const PUBLIC_API="http://localhost:10000/api"

@@ -5,14 +5,20 @@ import DetailPack from "./orderdetail/detailpack";
 import { OrderDetailTable } from "./orderdetail/orderDetailTable";
 
 const OrderDetail=()=>{
-    return(
-        <>
+    return (
+      <>
         <ShopLayout>
-        <OrderViewHeader/>
-        <OrderDetailTable/>
-        <DetailPack/>
+          <OrderViewHeader />
+          <OrderDetailTable
+            handleDelete={handleDelete}
+            keyword={keyword}
+            Searched={Searched}
+            products={products}
+            orders={orders}
+          />
+          <DetailPack />
         </ShopLayout>
-        </>
+      </>
     );
 }
 export default OrderDetail;

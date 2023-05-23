@@ -46,3 +46,15 @@ export const DisApproveStore = async (_id) => {
   const { data } = await axios.put(`/shop/disapprove/${_id}`);
   return data;
 };
+
+export const SellerOrders = async (dispatch) => {
+  const { data } = await axios.get(`/sellerOrders`);
+  if (data.error) {
+    toast.error(data.error);
+  } else {
+    dispatch({
+      type: "YOUR_ORDERS",
+      payload: data.orders,
+    });
+  }
+};

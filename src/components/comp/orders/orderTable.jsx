@@ -1,8 +1,15 @@
-import React from "react";
-import { Headings, OrderData } from "./orderData";
+import React, { useEffect, useState } from "react";
+import { Headings } from "./orderData.jsx";
+import { AiOutlineEye } from "react-icons/ai";
 import { Link } from "react-router-dom";
 
-export const OrderTable = () => {
+export const OrderTable = ({ orders, keyword , Searched}) => {
+ 
+
+  
+
+  
+
   function handleMouseEnter(event) {
     const cell = event.currentTarget;
     const review = cell.textContent;
@@ -15,9 +22,11 @@ export const OrderTable = () => {
     cell.removeAttribute("title");
     cell.classList.remove("show-review");
   }
+  
+
   function getStatusColorClass(status) {
     switch (status) {
-     case "Order Processing":
+      case "Order Processing":
         return "text-[#EAB308]";
       case "Order Completed":
         return "text-[green]";
@@ -25,71 +34,99 @@ export const OrderTable = () => {
         return "text-pink-500";
       case "Order Failed":
         return "text-red-500";
-        case "Order Refund":
+      case "Order Refund":
         return "text-amber-800";
       case "Order At Local Facility":
         return "text-slate-800";
-        case "Order Out For Delivery":
-          return "text-emerald-500";
-          case "Order Pending":
+      case "Order Out For Delivery":
+        return "text-emerald-500";
+      case "Order Pending":
         return "text-orange-600";
       default:
         return "";
     }
   }
+
   return (
     <>
-      <div className="my-6  flex border   bg-white shadow">
-        <div className=" mx-auto mt-2 h-fit w-full">
-          <div className="flex flex-row justify-center items-center mx-2 my-2">
-            <p className="flex font-sans font-semibold text-lg ">Orders</p>
-          </div>
-          <div className="overflow-x-auto flex flex-col justify-center">
-            <table className="mx-2 my-2 font-sans shadow">
-              <thead>
-                <tr className="bg-[#F2F2F2]">
-                  {Headings.map((heading, index) => (
-                    <th className="px-4 whitespace-nowrap py-2" key={index}>
-                      {heading}
-                    </th>
-                  ))}
-                </tr>
-              </thead>
-
-              <tbody>
-                {OrderData.map((item, index) => (
-                  <tr
-                    className="bg-white cursor-default whitespace-nowrap hover:!bg-gray-100 border-b-2 font-sans"
-                    key={index}
-                  >
-                    <td className="px-4 py-2">{item.trackingNO}</td>
-                    <td className="px-4 py-2">{item.deliveryFee}</td>
-                    <td className="px-4 py-2">{item.total}</td>
-                    <td className="px-4 py-2">{item.OrderDate}</td>
-                    <td
-                      className={`px-4 py-2 font-semibold  ${getStatusColorClass(
-                        item.Status
-                      )}`}
-                    >
-                      {item.Status}
-                    </td>
-                    <td
-                      className="px-4 py-2 text-ellipsis overflow-hidden max-w-xs"
-                      onMouseEnter={handleMouseEnter}
-                      onMouseLeave={handleMouseLeave}
-                    >
-                      {item.address}
-                    </td>
-                    <td className="px-4 py-2 flex items-center  justify-center">
-                    <Link to="/order/detail">  {item.Action}</Link>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+      {!orders || orders.length === 0 ? (
+        <div className="flex justify-center">
+          <div className="flex flex-col items-center">
+            {/* <AiOutlineLoading3Quarters className="text-6xl w-16 h-16 text-[#248F59] animate-spin" /> */}
+            <span className="mt-4 text-gray-500 text-lg font-semibold">
+              Loading...
+            </span>
+            <span className="mt-4 text-[#248F59] font-serif text-3xl font-normal">
+              No Order Found
+            </span>
           </div>
         </div>
-      </div>
+      ) : (
+        <>
+          <div className="my-6 flex border bg-white shadow">
+            <div className="mx-auto mt-2 h-fit w-full">
+              <div className="flex flex-row justify-center items-center mx-2 my-2">
+                <p className="flex font-sans font-semibold text-lg ">Orders</p>
+              </div>
+              <div className="overflow-x-auto flex flex-col justify-center">
+                <table className="mx-2 my-2 font-sans shadow">
+                  <thead>
+                    <tr className="bg-[#F2F2F2]">
+                      <th className="px-4 whitespace-nowrap py-2">
+                        Tracking ID
+                      </th>
+                      <th className="px-4 whitespace-nowrap py-2">Date</th>
+                      <th className="px-4 whitespace-nowrap py-2">Status</th>
+                      <th className="px-4 whitespace-nowrap py-2">
+                        Order Type
+                      </th>
+                      <th className="px-4 whitespace-nowrap py-2">Quantity</th>
+                      <th className="px-4 whitespace-nowrap py-2">Order By</th>
+                      <th className="px-4 whitespace-nowrap py-2">Store</th>
+                      <th className="px-4 whitespace-nowrap py-2">Total</th>
+                      <th className="px-4 whitespace-nowrap py-2">Action</th>
+                    </tr>
+                  </thead>
+
+                  <tbody>
+                    {orders &&
+                      orders.filter(Searched(keyword)).map((item, index) => (
+                        <tr
+                          className="bg-white cursor-default whitespace-nowrap hover:!bg-gray-100 border-b-2 font-sans"
+                          key={index}
+                        >
+                          <td className="px-4 py-2">{item._id}</td>
+                          {/* <td className="px-4 py-2">{.total}</td> */}
+                          <td className="px-4 py-2">{item.OrderDate}</td>
+                          <td
+                            className={`px-4 py-2 font-semibold  ${getStatusColorClass(
+                              orders.orderStatus
+                            )}`}
+                          >
+                            {item.orderStatus}
+                          </td>
+                          <td className="px-4 py-2">{orders.orderType}</td>
+                          <td
+                            className="px-4 py-2 text-ellipsis overflow-hidden max-w-xs"
+                            onMouseEnter={handleMouseEnter}
+                            onMouseLeave={handleMouseLeave}
+                          >
+                            {item.order_address}
+                          </td>
+                          <td className="px-4 py-2 flex items-center justify-center">
+                            <Link to={`/order/detail/${item._id}`}>
+                              <AiOutlineEye />
+                            </Link>
+                          </td>
+                        </tr>
+                      ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </>
+      )}
     </>
   );
 };
