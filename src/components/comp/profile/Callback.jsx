@@ -14,6 +14,7 @@ const handleStatus=async()=>{
     const {data}= await axios.post("/get-account-status");
     if(data.error){
         toast.error(data.error);
+        navigate("/profile-update")
     }else{
         let auth = JSON.parse(window.localStorage.getItem("auth"));
         auth.user = data.user;
@@ -26,6 +27,7 @@ const handleStatus=async()=>{
             user:auth.user,
           }
         })
+        toast("Stripe Payout Successfully Setup");
         navigate("/");
     }
       }

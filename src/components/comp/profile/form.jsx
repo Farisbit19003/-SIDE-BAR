@@ -147,7 +147,7 @@ const Form = ({dispatch,loggedIn,avatarInfo }) => {
                 type="number"
                 className="h-10 my-2  bg-white border border-gray-400 rounded-lg px-3 py-2 text-lg font-sans font-normal tracking-normal text-left focus:outline-none focus:ring-2 focus:ring-green-600"
               />
-               {stripe_account_id?(<> 
+               {loggedIn?.user?.stripeSeller?(<> 
               <label className="font-semibold ">Stripe Payment ID</label>
               <input
                 value={stripe_account_id}
