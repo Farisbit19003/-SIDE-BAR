@@ -17,7 +17,6 @@ const ShopForm = ({ categories, values, setValues, setLoading, loading }) => {
     description,
     Storewhatsapp,
     Streetaddress,
-    stripe_account_id,
     Country,
     City,
     category,
@@ -150,19 +149,7 @@ const ShopForm = ({ categories, values, setValues, setLoading, loading }) => {
             details={"Add your payment information from here"}
           />
         </div>
-        <div className="flex w-full bg-white sm:w-8/12 md:w-2/3">
-          <div className="p-3 font-sans w-full flex flex-col">
-            <label className="font-semibold ">Stripe Account ID</label>
-
-            <input
-              value={stripe_account_id}
-              name="stripe_account_id"
-              onChange={onChange}
-              type="text"
-              className="h-12 mb-2  bg-white border border-gray-400 rounded-lg px-3 py-2 text-lg font-sans font-normal tracking-normal text-left focus:outline-none focus:ring-2 focus:ring-green-600"
-            />
-          </div>
-        </div>
+      
       </div>
       {/* SHOP INFO */}
       <div className="my-2 flex flex-wrap border-b-2 border-dashed  pb-8 sm:my-8">

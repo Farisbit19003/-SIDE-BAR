@@ -15,7 +15,6 @@ const UpdateShop = () => {
     description: "",
     Storewhatsapp: "",
     Streetaddress: "",
-    stripe_account_id: "",
     Country: "",
     City: "",
     category: "",
@@ -63,7 +62,6 @@ const UpdateShop = () => {
         description: singleShop?.description,
         Storewhatsapp: singleShop?.Storewhatsapp,
         Streetaddress: singleShop?.Streetaddress,
-        stripe_account_id: singleShop?.stripe_account_id,
         Country: singleShop?.Country,
         City: singleShop?.City,
         category: singleShop?.category?._id,
@@ -85,7 +83,6 @@ const UpdateShop = () => {
       !values.description ||
       !values.Storewhatsapp ||
       !values.Streetaddress ||
-      !values.stripe_account_id ||
       !values.Country ||
       !values.City ||
       !values.category ||

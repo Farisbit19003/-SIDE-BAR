@@ -1,7 +1,7 @@
 import { Drawer } from "antd";
 import React, { Fragment, useEffect, useState } from "react";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import logo from "../../../assets/Logo.svg";
 import Navbar from "../../Navbar";
@@ -12,6 +12,7 @@ const ShopLayout = ({ children }) => {
   const { loggedIn } = useSelector((state) => ({ ...state }));
   const role = loggedIn && loggedIn.user && loggedIn.user.role;
   const navigate = useNavigate();
+  const dispatch=useDispatch();
   // initialize with the first item's id
   const onClose = () => {
     setOpen(false);
@@ -31,6 +32,11 @@ const ShopLayout = ({ children }) => {
     ) {
       setTimeout(() => {
         navigate("/AccessDenied");
+        dispatch({
+          type: "LOGOUT",
+          payload: {},
+        });
+        navigate("/login");
       }, 3000);
     }
   }, [loggedIn]);

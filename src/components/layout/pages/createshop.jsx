@@ -13,7 +13,6 @@ const CreateShops = () => {
     description: "",
     Storewhatsapp: "",
     Streetaddress: "",
-    stripe_account_id: "",
     Country: "",
     City: "",
     category: "",
@@ -41,7 +40,6 @@ const CreateShops = () => {
       !values.description ||
       !values.Storewhatsapp ||
       !values.Streetaddress ||
-      !values.stripe_account_id ||
       !values.Country ||
       !values.City ||
       !values.category ||
@@ -70,7 +68,6 @@ const CreateShops = () => {
             description: "",
             Storewhatsapp: "",
             Streetaddress: "",
-            stripe_account_id: "",
             Country: "",
             City: "",
             category: "",
