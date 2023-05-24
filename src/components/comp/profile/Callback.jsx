@@ -3,9 +3,11 @@ import axios from 'axios';
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import {AiOutlineLoading3Quarters} from "react-icons/ai"
+import { useNavigate } from "react-router-dom";
 const StripeCallback = () => {
 const{loggedIn}=useSelector((state)=>({...state}));
 const dispatch=useDispatch();
+const navigate=useNavigate();
 const handleStatus=async()=>{
   if(loggedIn)
       {
@@ -14,7 +16,7 @@ const handleStatus=async()=>{
         toast.error(data.error);
     }else{
         let auth = JSON.parse(window.localStorage.getItem("auth"));
-        auth.user = res.user;
+        auth.user = data.user;
         window.localStorage.setItem("auth", JSON.stringify(auth));
         //update in state
         dispatch({
@@ -24,6 +26,7 @@ const handleStatus=async()=>{
             user:auth.user,
           }
         })
+        navigate("/");
     }
       }
 }
