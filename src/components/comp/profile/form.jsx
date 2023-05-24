@@ -5,6 +5,7 @@ import FileInput from "../../comp/common/fileInput";
 import SaveButton from "../../comp/common/save";
 import { toast } from "react-toastify";
 import { BecomeSeller, UpdateProfile } from "../../auth/auth";
+import { LoadingOutlined } from "@ant-design/icons";
 const Form = ({dispatch,loggedIn,avatarInfo }) => {
   const [email, setEmail] = useState("");
   const [whatsapp, setWhatsapp] = useState("");
@@ -65,7 +66,7 @@ const Form = ({dispatch,loggedIn,avatarInfo }) => {
     }
   };
 
-  const handleStripe=()=>{
+  const handleStripe=(e)=>{
     e.preventDefault();
     try {
       setloading(true);
@@ -162,7 +163,7 @@ const Form = ({dispatch,loggedIn,avatarInfo }) => {
               onClick={handleStripe}
               className="bg-[#248F59] mt-2 text-white py-3 px-3 rounded">
                  
-                    Complete Stripe OnBoarding
+                 {loading?<LoadingOutlined/>: "  Complete Stripe OnBoarding"}
                  
                 </button>
             </>
