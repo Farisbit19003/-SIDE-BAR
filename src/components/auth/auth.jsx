@@ -53,3 +53,7 @@ export const registerComplete = async (email, secret) => {
     const { data } = await axios.put("profile-update", { name,email,password,whatsapp,image});
     return data;
   };
+  export const BecomeSeller = async () => {
+    const { data } = await axios.post("become-seller");
+    return data;
+  };

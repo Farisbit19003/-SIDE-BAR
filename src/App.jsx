@@ -43,7 +43,7 @@ import UpdateProducts from "./components/comp/Products/UpdateProduct";
 import Purchase from "./components/layout/pages/purchase";
 import AddPurchase from "./components/comp/Purchase/addPurchase";
 import OrderDetail from "./components/comp/orders/order-detail";
-
+import StripeCallBack from "./components/comp/profile/Callback"
 function App() {
 const {loggedIn}=useSelector((state)=>({...state}))
 const dispatch=useDispatch();
@@ -90,6 +90,7 @@ if(res.status===401&& res.config && !res.config._isRetryREquest){
           <Route exact path="/register-complete" element={<RegisterComplete />} />
           <Route exact path="/login" element={<Login />} />
           <Route exact path="/AccessDenied" element={<AccessDenied />} />
+          <Route exact path="/callback" element={<StripeCallBack />} />
           <Route exact path="/forgot-password" element={<ForgotPassword />} />
           <Route exact path="/" element={<Dashboard />} />
           <Route exact path="/shop" element={<Shops />} />

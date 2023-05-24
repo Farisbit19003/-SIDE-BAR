@@ -4,7 +4,7 @@ import { AiOutlineEye } from "react-icons/ai";
 import { Link } from "react-router-dom";
 
 export const OrderTable = ({ orders, keyword , Searched}) => {
- 
+ let row=1;
 
   
 
@@ -72,6 +72,9 @@ export const OrderTable = ({ orders, keyword , Searched}) => {
                 <table className="mx-2 my-2 font-sans shadow">
                   <thead>
                     <tr className="bg-[#F2F2F2]">
+                       <th className="px-4 whitespace-nowrap py-2">
+                        Sr#
+                      </th>
                       <th className="px-4 whitespace-nowrap py-2">
                         Tracking ID
                       </th>
@@ -95,6 +98,7 @@ export const OrderTable = ({ orders, keyword , Searched}) => {
                           className="bg-white cursor-default whitespace-nowrap hover:!bg-gray-100 border-b-2 font-sans"
                           key={index}
                         >
+                           <td className="px-4 py-2">{row}</td>
                           <td className="px-4 py-2">{item._id}</td>
                           {/* <td className="px-4 py-2">{.total}</td> */}
                           <td className="px-4 py-2">{item.OrderDate}</td>
@@ -118,7 +122,9 @@ export const OrderTable = ({ orders, keyword , Searched}) => {
                               <AiOutlineEye />
                             </Link>
                           </td>
+                          { row++}
                         </tr>
+                       
                       ))}
                   </tbody>
                 </table>
