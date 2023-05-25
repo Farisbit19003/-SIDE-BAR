@@ -9,11 +9,12 @@ import {
   DeleteStore,
   AdminDeleteStore,
   SellerShops,
+
 } from "../Create Shop/functions";
 import { useDispatch } from "react-redux";
 import swal from "sweetalert";
 import { toast } from "react-toastify";
-const DetailsCard = ({ page, singleShop, ok, proLength }) => {
+const DetailsCard = ({ page, singleShop, ok, proLength,OrdersLength,GrandTotal }) => {
   const dateStr = singleShop?.createdAt;
   const dateObj = new Date(dateStr);
   const formattedDate = dateObj.toLocaleDateString();
@@ -130,7 +131,7 @@ const DetailsCard = ({ page, singleShop, ok, proLength }) => {
 
           <div className="mt-7 grid w-full grid-cols-1">
             <a
-              href={`https://bazakr-pk-frontend.vercel.app/shops/${singleShop?.slug}`}
+              href={`https://bazakr-pk-frontend.vercel.app/shop/${singleShop?.slug}`}
               target="_blank"
               className="inline-flex h-12 flex-shrink-0 items-center justify-center rounded !bg-gray-100 px-5 py-0 !font-normal leading-none !text-heading outline-none transition duration-300 ease-in-out hover:!bg-accent hover:!text-light focus:shadow focus:outline-none focus:ring-1 focus:ring-accent-700"
               rel="noreferrer"
@@ -212,7 +213,7 @@ const DetailsCard = ({ page, singleShop, ok, proLength }) => {
 
                 <div className="ms-3">
                   <p className="mb-0.5 text-lg font-semibold text-sub-heading">
-                    100
+                   {OrdersLength?.length}
                   </p>
                   <p className="mt-0 text-sm text-muted">Orders</p>
                 </div>
@@ -231,22 +232,12 @@ const DetailsCard = ({ page, singleShop, ok, proLength }) => {
                 </div>
 
                 <div className="ms-3">
-                  <p className="mb-0.5 text-md font-semibold">7895$</p>
+                  <p className="mb-0.5 text-md font-semibold">{GrandTotal}/Pkr</p>
                   <p className="mt-0 text-sm  text-muted">gross-sales</p>
                 </div>
               </div>
 
-              <div className="flex items-center py-3 px-4">
-                <div className="flex items-center justify-center rounded-full bg-[#FFA7AE] p-3 text-light">
-                  {/* <DollarIcon width={12} /> */}
-                  <TfiMoney size={25} />
-                </div>
-
-                <div className="ms-3">
-                  <p className="mb-0.5 text-md font-semibold ">7895$</p>
-                  <p className="mt-0 text-sm  text-muted">current-balance</p>
-                </div>
-              </div>
+            
             </div>
           </div>
 

@@ -5,47 +5,65 @@ import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { AiOutlineDollarCircle, AiOutlineShopping } from "react-icons/ai";
 import { BiCartDownload } from "react-icons/bi";
-import { TfiMoney } from "react-icons/tfi";
 import { BsShop } from "react-icons/bs";
 
 const Card = () => {
-  const [singleProduct, setSingleProduct] = useState({});
-  const { loggedIn, allShops, product, sellerShops } = useSelector((state) => ({
-    ...state,
-  }));
+  const { loggedIn, allShops, product, sellerShops, allOrders } = useSelector(
+    (state) => ({
+      ...state,
+    })
+  );
   const role = loggedIn && loggedIn.user && loggedIn.user.role;
-  const params = useParams();
-  const navigate = useNavigate();
-  useEffect(() => {
-    if (role === "Admin" && allShops && params?.slug) {
-      const filtered = allShops?.filter((s) => {
-        return s.slug === params.slug;
-      });
-      filtered && setSingleShop(filtered[0]);
-    }
 
-    if (role === "Seller" && sellerShops && params?.slug) {
-      const filtered = sellerShops?.filter((s) => {
-        return s.slug === params.slug;
-      });
-      filtered && setSingleShop(filtered[0]);
+  const currentDate = new Date();
+  const thirtyDaysAgo = new Date();
+  thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+  const SellerRevenue = allOrders?.filter((order) => order.orderType === "Sales") // Filter orders with orderType "Sales"
+  .map((order) => {
+    const orderDate = new Date(order.createdAt);
+    if (orderDate >= thirtyDaysAgo && orderDate <= currentDate) {
+      const orderTotal = order.Products?.reduce((acc, product) => {
+        return acc + product.Product.salePrice * product.order_quantity;
+      }, 0);
+      return orderTotal * (role === "Admin" ? 0.1 : 0.9);
+    } else {
+      return 0;
     }
+  });
 
-    if (role === "Seller" && product) {
-      const filtered = product?.filter((p) => {
-        return p.slug === params.slug;
-      });
-      filtered && setSingleProduct(filtered[0]);
-    }
-  }, [role, allShops, product, sellerShops, params, params.slug]);
+  const SellertotalRevenue = SellerRevenue?.reduce((acc, orderTotal) => {
+    return acc + orderTotal;
+  }, 0);
+
+
+
+  const today = new Date(); // Get the current date
+  const todayOrders = allOrders?.filter((order) => {
+    const orderDate = new Date(order.createdAt); // Assuming 'date' property contains the order date
+    return orderDate.toDateString() === today.toDateString(); // Compare the order date with today's date
+  });
+  const SellerTodayRevenue = todayOrders?.filter((order) => order.orderType === "Sales")
+  .map((order) => {
+    const orderTotal = order.Products?.reduce((acc, product) => {
+      return acc + product.Product.salePrice * product.order_quantity;
+    }, 0);
+
+    return orderTotal * (role==="Admin"?0.1:0.9); // Subtracting 10% from the order total
+  });
+
+  const SellerTodaytotalRevenue = SellerTodayRevenue?.reduce(
+    (acc, orderTotal) => {
+      return acc + orderTotal;
+    },
+    0
+  );
 
 
   return (
     <>
       <div className="mb-1 grid w-full grid-cols-1 gap-2 sm:grid-cols-2 xl:grid-cols-4">
         <div className="w-full ">
-        {role === "Seller" && (
-          
+          {role === "Seller" && (
             <StickerCard
               titleTransKey="Total Products"
               icon={
@@ -57,12 +75,11 @@ const Card = () => {
               iconBgStyle={{ backgroundColor: "#ffe8b2" }}
               price={product?.length}
             />
-      
-        )}
+          )}
         </div>
         <div className="w-full ">
           <StickerCard
-            titleTransKey="Total Order"
+            titleTransKey="Total Revenue"
             subtitleTransKey="(Last 30 Days)"
             icon={
               <BiCartDownload
@@ -71,7 +88,7 @@ const Card = () => {
               />
             }
             iconBgStyle={{ backgroundColor: "#facaca" }}
-            price={767}
+            price={`${SellertotalRevenue}/PKR`}
           />
         </div>
         <div className="w-full ">
@@ -84,7 +101,7 @@ const Card = () => {
               />
             }
             iconBgStyle={{ backgroundColor: "#ffe8b2" }}
-            price={878}
+            price={`${SellerTodaytotalRevenue}/PKR`}
           />
         </div>
         <div className="w-full ">

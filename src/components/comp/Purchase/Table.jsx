@@ -2,14 +2,14 @@ import React, { useEffect, useState } from "react";
 import { AiOutlineEye } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import moment from "moment";
-export const OrderTable = ({ orders, keyword, Searched }) => {
+export const PurchaseOrderTable = ({ orders, keyword, Searched }) => {
   let row = 1;
   const Revenue = orders?.map((order) => {
     const orderTotal = order.Products?.reduce((acc, product) => {
-      return acc + product.Product.salePrice * product.order_quantity;
+      return acc + product.Product.purchasePrice * product.order_quantity;
     }, 0);
     
-    return orderTotal * 0.9; // Subtracting 10% from the order total
+    return orderTotal; // Subtracting 10% from the order total
   });
   
   const totalRevenue = Revenue?.reduce((acc, orderTotal) => {
@@ -137,9 +137,9 @@ export const OrderTable = ({ orders, keyword, Searched }) => {
                             <td className="px-4 py-2">
                               {item?.Products?.reduce((acc, p) => {
                                 return (
-                                  acc + p.Product.salePrice * p.order_quantity
+                                  acc + p.Product.purchasePrice * p.order_quantity
                                 );
-                              }, 0) * 0.9}
+                              }, 0)}
                             </td>
                             <td className="px-4 py-2 flex items-center justify-center">
                               <Link to={`/order/detail/${item._id}`}>

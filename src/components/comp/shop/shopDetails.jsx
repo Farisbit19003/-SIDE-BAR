@@ -9,8 +9,10 @@ import { useNavigate } from "react-router-dom";
 const ShopDetails = () => {
   const [singleShop, setSingleShop] = useState({});
   const [productLength, setProductLength] = useState([]);
+  const [OrdersLength, setOrdersLength] = useState([]);
+  const [GrandTotal,setGrandTotal]=useState("");
   const [ok, setOk] = useState(true);
-  const { loggedIn, allShops, sellerShops, product, allProducts } = useSelector(
+  const { loggedIn, allShops,allOrders ,sellerShops, product, allProducts } = useSelector(
     (state) => ({ ...state })
   );
   const role = loggedIn && loggedIn.user && loggedIn.user.role;
@@ -46,6 +48,28 @@ const ShopDetails = () => {
     setOk(false);
   }, [singleShop,product,allProducts]);
   useEffect(() => {
+    const salesOrders = allOrders?.filter((order) => {
+      return order.store._id === singleShop?._id && order.orderType === "Sales";
+    });
+    
+    setOrdersLength(salesOrders);
+    
+    const revenue = salesOrders?.map((order) => {
+      const orderTotal = order.Products?.reduce((acc, product) => {
+        return acc + product.Product.salePrice * product.order_quantity;
+      }, 0);
+    
+      return orderTotal * 0.9; // Subtracting 10% from the order total
+    });
+    
+    const total = revenue?.reduce((acc, orderTotal) => {
+      return acc + orderTotal;
+    }, 0);
+    
+      setGrandTotal(total);
+  }, [singleShop,allShops,sellerShops,allOrders]);
+
+  useEffect(() => {
     if (!singleShop) {
       const timeoutId = setTimeout(() => {
         navigate("/");
@@ -72,6 +96,8 @@ const ShopDetails = () => {
               page="Admin"
               singleShop={singleShop}
               proLength={productLength}
+              OrdersLength={OrdersLength}
+              GrandTotal={GrandTotal}
             />
           )}
         </AdminLayout>
@@ -91,6 +117,9 @@ const ShopDetails = () => {
               ok={ok}
               singleShop={singleShop}
               proLength={productLength}
+              OrdersLength={OrdersLength}
+              GrandTotal={GrandTotal}
+
             />
           )}
         </ShopLayout>

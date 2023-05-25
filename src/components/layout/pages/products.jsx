@@ -11,10 +11,26 @@ import { DeleteProduct, SellerProducts } from "../../comp/Products/functions";
 const Products = () => {
   const [products, setProducts] = useState([]);
   const [keyword, setKeyword] = useState("");
-  const { product } = useSelector((state) => ({ ...state }));
+  const { product, sellerShops, category } = useSelector((state) => ({
+    ...state,
+  }));
   const [ok, setOk] = useState([]);
   const dispatch = useDispatch();
-
+  const onShopChange = (e) => {
+    if (e.target.value === "select") {
+      setProducts(product);
+    }
+    const filter = product?.filter((p) => {
+      return p.store._id === e.target.value;
+    });
+    filter && setProducts(filter);
+  };
+  const onCatChange = (e) => {
+    const filter = product?.filter((p) => {
+      return p.category._id === e.target.value;
+    });
+    filter && setProducts(filter);
+  };
   useEffect(() => {
     if (product && product.length) {
       setProducts(product);
@@ -39,7 +55,7 @@ const Products = () => {
             swal("Deleted SuccessFully", {
               icon: "success",
             });
-           SellerProducts(dispatch)
+            SellerProducts(dispatch);
           })
           .catch((error) => {
             toast.error(error);
@@ -77,6 +93,7 @@ const Products = () => {
               <BiSearch size={25} className="inline-block align-middle" />
             </button>
           </div>
+
           <div className=" flex ">
             <button className="bg-[#248F59] w-full px-4 py-2 sm:py-3 rounded-md text-sm sm:text-base whitespace-nowrap flex justify-center items-center font-sans uppercase text-[#f2f2f2]">
               <Link to="/products/add">Add Products</Link>
@@ -84,8 +101,51 @@ const Products = () => {
           </div>
         </div>
       </div>
+      <div className="p-3 md:p-6 mb-6 flex shadow flex-col sm:flex-row items-center justify-between bg-white ">
+        <div>
+          <h1 className="font-serif font-normal text-3xl text-[#248F59]">
+            Filter
+          </h1>
+        </div>
+
+        <div className="flex flex-col px-2 py-2 sm:flex-row gap-3 justify-center  items-center">
+          <label className="font-semibold mr-2">Shops</label>
+
+          <select
+            type="text"
+            onChange={onShopChange}
+            name="store"
+            className="h-12 mb-2  text-md bg-white border-gray-400 rounded-lg px-3 py-2  font-sans font-normal tracking-normal text-left focus:outline-none focus:ring-2 focus:ring-green-600"
+          >
+            <option value="select">--Select--</option>
+            {sellerShops?.map((shop) => (
+              <option key={shop._id} value={shop._id}>
+                {shop.Storename}
+              </option>
+            ))}
+          </select>
+          <label className="font-semibold mr-2">Category</label>
+
+          <select
+            type="text"
+            onChange={onCatChange}
+            name="store"
+            className="h-12 mb-2  text-md bg-white border-gray-400 rounded-lg px-3 py-2  font-sans font-normal tracking-normal text-left focus:outline-none focus:ring-2 focus:ring-green-600"
+          >
+            <option value="select">--Select--</option>
+            {category?.map((c) => (
+              <option key={c._id} value={c._id}>
+                {c.name}
+              </option>
+            ))}
+          </select>
+        </div>
+      </div>
       <ProductsTable
-      products={products} handleDelete={handleDelete} Searched={Searched} keyword={keyword}
+        products={products}
+        handleDelete={handleDelete}
+        Searched={Searched}
+        keyword={keyword}
       />
     </ShopLayout>
   );

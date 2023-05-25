@@ -13,10 +13,18 @@ const Orders = () => {
 
   useEffect(() => {
     if (allOrders && allOrders.length) {
-       const update = allOrders?.filter((c) => {
-         return c.orderType==="Sales";
+      const update = allOrders?.filter((c) => {
+        return c.orderType === "Sales";
       });
-      setOrders(update);
+      
+      const sortedOrders = update?.sort((a, b) => {
+        const dateA = new Date(a.createdAt);
+        const dateB = new Date(b.createdAt);
+        return dateB - dateA; // Compare the dates in descending order for newest orders on top
+      });
+      
+      setOrders(sortedOrders);
+      
       // const catWithShop = category?.filter((c) => {
       //   return allShops?.some((shop) => shop.category._id === c._id);
       // });

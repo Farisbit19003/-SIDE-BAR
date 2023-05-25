@@ -35,3 +35,14 @@ export const AllProducts = async (dispatch) => {
       })
     }
   };
+  export const AllOrders = async (dispatch) => {
+    const { data } = await axios.get(`/allorders`);
+    if(data.error){
+      toast.error(data.error);
+    }else{
+      dispatch({
+        type:"YOUR_ORDERS",
+        payload:data.orders
+      })
+    }
+  };

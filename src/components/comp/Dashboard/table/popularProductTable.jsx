@@ -1,7 +1,6 @@
 import React from "react";
-import { Headings, PopularProductData } from "./popularProductData";
 
-export const PopularProductTable=()=>{
+export const PopularProductTable=({products})=>{
     return(
         <>
          <div className="mb-6 flex border bg-white shadow">
@@ -15,20 +14,28 @@ export const PopularProductTable=()=>{
             <table className="mx-2 my-2 font-sans shadow">
               <thead>
                 <tr className="bg-[#F2F2F2]">
-                  {Headings.map((heading, index) => (
-                    <th className="px-4 py-2" key={index}>
-                      {heading}
-                    </th>
-                  ))}
+                 
+                    <th className="px-4 py-2" >
+                     Name
+                   </th>
+                   <th className="px-4 py-2" >
+                    Shop
+                   </th>
+                   <th className="px-4 py-2" >
+                    Price
+                   </th>
+                   <th className="px-4 py-2" >
+                    Quantity
+                   </th>
                 </tr>
               </thead>
               <tbody>
-                {PopularProductData.map((item, index) => (
+                {products?.map((item, index) => (
                   <tr className="bg-white cursor-default hover:!bg-gray-100 border-b-2" key={index}>
-                    <td className="px-4 py-2">{item.Name}</td>
-                    <td className="px-4 py-2">{item.Shop}</td>
-                    <td className="px-4 py-2">{item.Price}</td>
-                    <td className="px-4 py-2">{item.Quantity}</td>
+                    <td className="px-4 py-2">{item.name}</td>
+                    <td className="px-4 py-2">{item.store?.Storename}</td>
+                    <td className="px-4 py-2">{item.salePrice}</td>
+                    <td className="px-4 py-2">{item.quantity}</td>
                   </tr>
                 ))}
               </tbody>

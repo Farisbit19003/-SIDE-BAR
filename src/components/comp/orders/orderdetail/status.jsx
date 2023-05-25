@@ -2,18 +2,16 @@ import React from 'react';
 import Select from 'react-select';
 
 const options = [
-  { value: 'pending', label: 'Order Pending' },
   { value: 'processing', label: 'Order Processing' },
-  { value: 'local', label: 'Order At Local Facility' },
-  { value: 'delivery', label: 'Order Out For Delivery' },
-  { value: 'completed', label: 'Order Completed' },
-  { value: 'canceled', label: 'Order Canceled' }
+  { value: 'delivered', label: 'Delivered' },
+  { value: 'confirmed', label: 'Order Confirmed' },
+  { value: 'cancelled', label: 'Order Cancelled' }
 ];
 
-const Dropdown = () => {
+const Dropdown = ({status,setStatus}) => {
   const handleChange = (selectedOption) => {
-    console.log(`Selected option: ${selectedOption.label}`);
-    // Do something with the selected option
+   setStatus(selectedOption?.value);
+  
   };
 
   const customStyles = {

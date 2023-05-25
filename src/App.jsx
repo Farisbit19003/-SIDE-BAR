@@ -38,7 +38,7 @@ import { AllCategory } from "./components/comp/category/functions";
 import { AllShops, SellerShops, SellerOrders } from "./components/comp/Create Shop/functions";
 import UpdateShop from "./components/comp/Create Shop/UpdateShop";
 import NotFound from "./components/layout/pages/404";
-import { AllProducts, SellerProducts } from "./components/comp/Products/functions";
+import { AllOrders, AllProducts, SellerProducts } from "./components/comp/Products/functions";
 import UpdateProducts from "./components/comp/Products/UpdateProduct";
 import Purchase from "./components/layout/pages/purchase";
 import AddPurchase from "./components/comp/Purchase/addPurchase";
@@ -55,6 +55,7 @@ if(loggedIn&&loggedIn.user&&loggedIn.user.role==="Admin")
 AllUsers(dispatch);
 AllShops(dispatch);
 AllProducts(dispatch);
+AllOrders(dispatch);
 }
 if(loggedIn&&loggedIn.user&&loggedIn.user.role==="Seller")
 {
@@ -101,7 +102,7 @@ if(res.status===401&& res.config && !res.config._isRetryREquest){
           <Route exact path="/attributes" element={<Attributes />} />
           <Route exact path="/attributes/create" element={<NewAttribute />} />
           <Route exact path="/orders" element={<Orders />} />
-          <Route exact path="/order/detail" element={<OrderDetail/>}/>
+          <Route exact path="/order/detail/:_id" element={<OrderDetail/>}/>
           <Route exact path="/purchase" element={<Purchase/>}/> 
           <Route exact path="/purchase/add" element={<AddPurchase/>}/> 
           <Route exact path="/categories" element={<Categories />} />

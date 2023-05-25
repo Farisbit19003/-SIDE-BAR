@@ -4,10 +4,21 @@ import { TfiWrite } from "react-icons/tfi";
 import { Link } from "react-router-dom";
 export const PurchaseTable = ({
   handleDelete,
-  keyword,
-  Searched,
   products,
 }) => {
+  const calculateTotal = () => {
+    let total = 0;
+    products?.forEach((product) => {
+        const price = product.purchasePrice;
+        const subtotal = price *product.quantity;
+        total += subtotal;
+    });
+  
+    return total;
+  };
+  
+ 
+ 
   return (
     <>
       {!products || products.length === 0 ? (
@@ -41,13 +52,13 @@ export const PurchaseTable = ({
                       <th className="px-4 py-2">Store</th>
                       <th className="px-4 py-2">PurchasePrice</th>
                       <th className="px-4 py-2">Quantity</th>
-                      <th className="px-4 py-2">Unit</th>
+                      <th className="px-4 py-2">Total</th>
                     </tr>
                   </thead>
 
                   <tbody>
-                    {products &&
-                      products.filter(Searched(keyword)).map((item, index) => (
+                    {
+                      products?.map((item, index) => (
                         <tr
                           className="bg-white cursor-default hover:!bg-gray-100 border-b-2 font-sans"
                           key={item._id}
@@ -55,7 +66,7 @@ export const PurchaseTable = ({
                           <td className="px-4 py-2">
                             <img
                               src={item?.feature_pic?.url}
-                              className="h-30 w-30"
+                              className="h-16 w-16"
                             />
                           </td>
                           <td className="px-4 py-2">{item.name}</td>
@@ -63,9 +74,18 @@ export const PurchaseTable = ({
                           <td className="px-4 py-2">{item.store.Storename}</td>
                           <td className="px-4 py-2">{item.purchasePrice}</td>
                           <td className="px-4 py-2">{item.quantity}</td>
-                          <td className="px-4 py-2">{item?.unit}</td>
+                          <td className="px-4 py-2">{item.quantity*item.purchasePrice}</td>
                         </tr>
                       ))}
+                  <tr
+                          className="bg-white font-bold cursor-default hover:!bg-gray-100 border-b-2 font-sans"
+                          
+                        >
+                          <td className="px-4 py-2">
+                        Total Amount:{calculateTotal()}/PKR
+                          </td>
+
+                    </tr>
                   </tbody>
                 </table>
               </div>

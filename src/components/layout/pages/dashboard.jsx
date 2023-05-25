@@ -16,7 +16,7 @@ const role=loggedIn&&loggedIn.user&&loggedIn.user.role;
       {/* GRAPH */}
       <Graph />
       {/* TABLE */}
-      <Table />
+     
     </AdminLayout>
     :
     <ShopLayout>

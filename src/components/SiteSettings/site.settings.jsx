@@ -106,7 +106,7 @@ export const siteSettings = {
       // },
       {
         id: 7,
-        label: "Orders",
+        label: "Sales Orders",
         icon: <AiOutlineUnorderedList />,
         to: "/orders",
       },

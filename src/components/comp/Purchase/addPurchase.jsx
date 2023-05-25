@@ -4,23 +4,25 @@ import SaveButton from "../common/save";
 import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
-import { CreateProduct, SellerProducts } from "./functions";
 import { useNavigate } from "react-router-dom";
 import PurchaseForm from "./PurchaseForm";
+import { SellerOrders } from "../Create Shop/functions";
+import { CreateOrder } from "./functions";
 const AddPurchase = () => {
   const [shops, setShops] = useState([]);
-  const {sellerShops } = useSelector((state) => ({ ...state }));
+  const {sellerShops,product } = useSelector((state) => ({ ...state }));
   const [values, setValues] = useState({
-    name: "",
-    discription: "",
+    Products: [
+      {
+        Product: "",
+        order_quantity: "",
+      },
+    ],
     store: "",
-    category: "",
-    salePrice: "",
-    purchasePrice: "",
-    quantity: "",
-    unit: "",
-    gallery_pics: [],
-    feature_pic: {},
+    orderType: "Purchase",
+    orderStatus:"confirmed",
+    order_address: "",
+    paymentType: "COD",
   });
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
@@ -31,50 +33,31 @@ const AddPurchase = () => {
     }
   }, [sellerShops]);
   //handleSubmit
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (
-      !values.name ||
-      !values.discription ||
-      !values.store ||
-      !values.category ||
-      !values.salePrice ||
-      !values.purchasePrice ||
-      !values.quantity ||
-      !values.feature_pic
-    ) {
-      toast.error("Please Fill all Fields");
-      setLoading(false);
-      return;
+  const handleSubmit = () => {
+    if (!values.store) {
+      return toast.error("Please Select Store");
     }
-    if (values.gallery_pics.length < 3) {
-      toast.error("Please add at least Three Gallery Images");
-      setLoading(false);
-      return;
+    if (!values.Products.length) {
+      return toast.error("Please Add Products");
     }
+    if (!values.order_address) {
+      return toast.error("Please Add Your Address");
+    }
+      hanldeCod();
+  };
+  const hanldeCod = () => {
     try {
       setLoading(true);
-      CreateProduct(values).then((res) => {
+      CreateOrder(values).then((res) => {
         if (res.error) {
           toast.error(res.error);
           setLoading(false);
         } else {
-          toast.success("Product Created");
-          setValues({
-            name: "",
-            discription: "",
-            store: "",
-            category: "",
-            salePrice: "",
-            purchasePrice: "",
-            quantity: "",
-            unit: "",
-            gallery_pics: {},
-            feature_pic: {},
-          });
+          console.log(res.order);
+          toast.success("Order Placed SuccessFully");
           setLoading(false);
-          SellerProducts(dispatch);
-          navigate("/products");
+          SellerOrders(dispatch);
+          navigate(`/purchase`);
         }
       });
     } catch (error) {
@@ -90,10 +73,10 @@ const AddPurchase = () => {
       </div>
       <PurchaseForm
         shops={shops}
+        product={product}
         values={values}
         setValues={setValues}
-        setLoading={setLoading}
-        loading={loading}
+        
       />
       <div className="float-right">
         {" "}
