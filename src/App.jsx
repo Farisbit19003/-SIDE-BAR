@@ -66,7 +66,7 @@ SellerProducts(dispatch);
 SellerOrders(dispatch);
 }
 },[loggedIn])
-const PUBLIC_API="http://localhost:10000/api"
+const PUBLIC_API="https://bazarpk.herokuapp.com/api"
 //Default setting
 axios.defaults.baseURL=PUBLIC_API;
 let token=loggedIn?.token;
