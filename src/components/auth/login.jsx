@@ -1,17 +1,18 @@
-import { useState, useContext,useEffect } from "react";
+import { useState, useContext, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { LOGIN } from "./auth";
 import { LoadingOutlined } from "@ant-design/icons";
-import {AiOutlineLoading3Quarters} from "react-icons/ai"
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { useDispatch } from "react-redux";
 import Logo from "./logo";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setloading] = useState(false);
-  const {loggedIn}=useSelector((state)=>({...state}));
+  const { loggedIn } = useSelector((state) => ({ ...state }));
+  const [emailError, setEmailError] = useState("");
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -20,29 +21,50 @@ const Login = () => {
     if (!email || !password) {
       return toast.error("Please Fill al Field");
     }
-    setloading(true);
-    LOGIN(email, password,setloading,navigate,dispatch);
-  };
-  useEffect(()=>{
-    if(loggedIn && loggedIn.token){
-    setTimeout(() => {
-      navigate("/");
-    }, 3000); // 5 seconds
+    if (emailError) {
+      return toast.error("Please Add Valid Email");
     }
-},[loggedIn && loggedIn.token]);
-  return loggedIn && loggedIn.token?(
+    setloading(true);
+    LOGIN(email, password, setloading, navigate, dispatch);
+  };
+  useEffect(() => {
+    if (loggedIn && loggedIn.token) {
+      setTimeout(() => {
+        navigate("/");
+      }, 3000); // 5 seconds
+    }
+  }, [loggedIn && loggedIn.token]);
+  const validateEmail = (email) => {
+    // Regular expression pattern for email validation
+    const emailPattern = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
+
+    return emailPattern.test(email);
+  };
+  const handleEmailChange = (e) => {
+    const enteredEmail = e.target.value;
+    setEmail(enteredEmail);
+
+    if (enteredEmail && !validateEmail(enteredEmail)) {
+      setEmailError("Invalid email");
+    } else {
+      setEmailError("");
+    }
+  };
+  return loggedIn && loggedIn.token ? (
     <div className="fixed inset-0 flex items-center justify-center">
-  <div className="flex flex-col items-center">
-    <AiOutlineLoading3Quarters className="text-6xl w-16 h-16 text-[#248F59] animate-spin" />
-    <span className="mt-4 text-gray-500 text-lg font-semibold">Redirecting to Homepage...</span>
-  </div>
-</div>
-  ) :(
+      <div className="flex flex-col items-center">
+        <AiOutlineLoading3Quarters className="text-6xl w-16 h-16 text-[#248F59] animate-spin" />
+        <span className="mt-4 text-gray-500 text-lg font-semibold">
+          Redirecting to Homepage...
+        </span>
+      </div>
+    </div>
+  ) : (
     <>
       <div className="bg-gray-200 flex flex-wrap h-screen lg:p-4   mx-auto justify-center">
         <div className="bg-white flex flex-col p-4 md:w-fit w-full mx-auto border-2 justify-center shadow">
           {/* LOGO */}
-           <Logo/>
+          <Logo />
           <h1 className="text-gray-400 font-thin flex justify-center items-center italic mb-6 font-sans">
             Login to Admin
           </h1>
@@ -52,10 +74,12 @@ const Login = () => {
           </label>
           <input
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={handleEmailChange}
             type="email"
             className="h-12 mb-4 flex flex-wrap bg-white border border-gray-400 rounded-lg px-3 py-2 text-lg font-sans font-normal tracking-normal text-left focus:outline-none focus:ring-2 focus:ring-green-600"
           />
+          {emailError && <p className="text-red-500">{emailError}</p>}
+
           {/* PASSWORD */}
           <label className="mb-3 block text-sm font-semibold leading-none text-body-dark">
             Password

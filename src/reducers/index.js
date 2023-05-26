@@ -8,7 +8,8 @@ import {
   AllUsersReducer,
   SellerShopsReducer,
   AllProductsReducer,
-  OrderReducer
+  OrderReducer,
+  ContactReducer
 } from "./Reducers";
 
 
@@ -22,6 +23,7 @@ const rootReducers = combineReducers({
   sellerShops:SellerShopsReducer,
   allProducts:AllProductsReducer,
   allOrders:OrderReducer,
+  allContacts:ContactReducer
 });
 
 export default rootReducers;

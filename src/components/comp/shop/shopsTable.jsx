@@ -100,7 +100,6 @@ export const ShopTable = ({ page, shops, Searched, keyword }) => {
                     <th className="px-4 py-2">Whatspp</th>
                     <th className="px-4 py-2">Address</th>
                     <th className="px-4 py-2">City</th>
-                    <th className="px-4 py-2">Stripe ID</th>
                     <th className="px-4 py-2">Status</th>
                     <th className="px-4 py-2">Action</th>
                   </tr>
@@ -125,7 +124,6 @@ export const ShopTable = ({ page, shops, Searched, keyword }) => {
                           {item.mapAddress.slice(0, 30)}....
                         </td>
                         <td className="px-4 py-2">{item.City}</td>
-                        <td className="px-4 py-2">{item.stripe_account_id}</td>
                         <td
                           className={`px-4 py-2 font-medium  ${
                             item.status === "Active"

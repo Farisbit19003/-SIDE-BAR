@@ -12,6 +12,18 @@ export const AllUsers = async (dispatch) => {
     )
   }
 };
+export const AllContacts = async (dispatch) => {
+  const { data } = await axios.get("/contacts");
+  if(data.error){
+    toast.error(data.error);
+  }else{
+    dispatch({
+      type:"CONTACTS",
+      payload:data.contacts
+    }
+    )
+  }
+};
 export const DeleteUser = async (id) => {
     const { data } = await axios.delete(`/delete-users/${id}`);
     return data;

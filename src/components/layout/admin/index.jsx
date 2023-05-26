@@ -1,7 +1,7 @@
 import { Drawer } from "antd";
 import React, { Fragment, useEffect, useState } from "react";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
-import { useSelector } from "react-redux";
+import { useSelector,useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import logo from "../../../assets/Logo.svg";
 import Navbar from "../../Navbar";
@@ -10,7 +10,7 @@ import { siteSettings } from "../../SiteSettings/site.settings";
 const AdminLayout = ({ children }) => {
   const [open, setOpen] = useState(false);
   const { loggedIn } = useSelector((state) => ({ ...state }));
-
+  const dispatch=useDispatch();
   const navigate = useNavigate();
   const role = loggedIn && loggedIn.user && loggedIn.user.role;
   // initialize with the first item's id
@@ -32,6 +32,11 @@ const AdminLayout = ({ children }) => {
     ) {
       setTimeout(() => {
         navigate("/AccessDenied");
+        dispatch({
+          type: "LOGOUT",
+          payload: {},
+        });
+        navigate("/login");
       }, 3000);
     }
   }, [loggedIn]);

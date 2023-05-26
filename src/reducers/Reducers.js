@@ -24,6 +24,14 @@ export const SiteReducer=(state=null,{type,payload})=>{
       return state;
    }
 }
+export const ContactReducer=(state=null,{type,payload})=>{
+   switch(type){
+      case "CONTACTS":
+      return payload;
+      default:
+      return state;
+   }
+}
 export const CategoryReducer=(state=null,{type,payload})=>{
    switch(type){
       case "GET_CATEGORY":

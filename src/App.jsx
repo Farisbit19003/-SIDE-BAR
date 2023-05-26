@@ -33,7 +33,7 @@ import { UserProvider } from "./context";
 import { useEffect } from "react";
 import { useDispatch ,useSelector} from "react-redux";
 import { GetSettings } from "./components/comp/settings/functions";
-import { AllUsers } from "./components/comp/user/Userfunction";
+import { AllContacts, AllUsers } from "./components/comp/user/Userfunction";
 import { AllCategory } from "./components/comp/category/functions";
 import { AllShops, SellerShops, SellerOrders } from "./components/comp/Create Shop/functions";
 import UpdateShop from "./components/comp/Create Shop/UpdateShop";
@@ -44,6 +44,7 @@ import Purchase from "./components/layout/pages/purchase";
 import AddPurchase from "./components/comp/Purchase/addPurchase";
 import OrderDetail from "./components/comp/orders/order-detail";
 import StripeCallBack from "./components/comp/profile/Callback"
+import Contact from "./components/layout/pages/Contact";
 function App() {
 const {loggedIn}=useSelector((state)=>({...state}))
 const dispatch=useDispatch();
@@ -53,6 +54,7 @@ AllCategory(dispatch);
 if(loggedIn&&loggedIn.user&&loggedIn.user.role==="Admin")
 {
 AllUsers(dispatch);
+AllContacts(dispatch);
 AllShops(dispatch);
 AllProducts(dispatch);
 AllOrders(dispatch);
@@ -90,6 +92,7 @@ if(res.status===401&& res.config && !res.config._isRetryREquest){
           <Route exact path="/register" element={<Register />} />
           <Route exact path="/register-complete" element={<RegisterComplete />} />
           <Route exact path="/login" element={<Login />} />
+          <Route exact path="/contacts" element={<Contact />} />
           <Route exact path="/AccessDenied" element={<AccessDenied />} />
           <Route exact path="/callback" element={<StripeCallBack />} />
           <Route exact path="/forgot-password" element={<ForgotPassword />} />

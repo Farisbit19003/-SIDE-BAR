@@ -1,5 +1,6 @@
 import {
   AuditOutlined,
+  ContactsOutlined,
   SettingOutlined,
   ShopOutlined,
   ShoppingOutlined,
@@ -71,6 +72,12 @@ export const siteSettings = {
         label: "Refunds",
         icon: <HiOutlineReceiptRefund />,
         to: "/refunds",
+      },
+      {
+        id: 14,
+        label: "Contact Us",
+        icon: <ContactsOutlined />,
+        to: "/contacts",
       },
       {
         id: 14,
