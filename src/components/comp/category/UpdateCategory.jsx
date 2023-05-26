@@ -37,7 +37,7 @@ const UpdateCategory = () => {
   }, [singleCat]);
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!values.name || !values.details || !values.ParentCategory) {
+    if (!values.name || !values.details ) {
       return toast.error("All Fields are Required");
     }
     try {
