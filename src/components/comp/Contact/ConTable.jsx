@@ -1,5 +1,6 @@
 import React from "react";
 import { BiEdit, BiTrash } from "react-icons/bi";
+import { AiOutlineEye } from "react-icons/ai";
 import { Link } from "react-router-dom";
 const ConTable=({contacts,handleDelete,keyword,Searched,ok})=>{
 let row=1;
@@ -56,13 +57,13 @@ let row=1;
                           <td className="px-4 py-2 b gap-2 cursor-pointer flex flex-row">
                             
                               <BiTrash
-                                onClick={() => handleDelete()}
+                                onClick={() => handleDelete(item._id)}
                                 size={25}
                                 color="red"
                               />
-                            <Link to={`/categories/update/`}>
+                            <Link to={`/contact/${item._id}`}>
                               {" "}
-                              <BiEdit size={25} />
+                              <AiOutlineEye size={25} />
                             </Link>
                           </td>
                         </tr>
