@@ -12,7 +12,7 @@ const Graph = () => {
     if (orderType === "Sales") { // Filter orders with orderType "Sales"
       const orderMonth = new Date(createdAt).toLocaleString("default", { month: "long" });
       const monthlyRevenue = Products.reduce((totalRevenue, product) => {
-        return totalRevenue + product.Product.salePrice * product.order_quantity;
+        return totalRevenue + product?.Product?.salePrice * product?.order_quantity;
       }, 0) * (role === "Admin" ? 0.1 : 0.9);
   
       const existingMonth = revenueByMonth.find((entry) => entry.month === orderMonth);

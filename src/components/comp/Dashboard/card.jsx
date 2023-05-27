@@ -23,7 +23,7 @@ const Card = () => {
     const orderDate = new Date(order.createdAt);
     if (orderDate >= thirtyDaysAgo && orderDate <= currentDate) {
       const orderTotal = order.Products?.reduce((acc, product) => {
-        return acc + product.Product.salePrice * product.order_quantity;
+        return acc + product?.Product?.salePrice * product?.order_quantity;
       }, 0);
       return orderTotal * (role === "Admin" ? 0.1 : 0.9);
     } else {
@@ -45,7 +45,7 @@ const Card = () => {
   const SellerTodayRevenue = todayOrders?.filter((order) => order.orderType === "Sales")
   .map((order) => {
     const orderTotal = order.Products?.reduce((acc, product) => {
-      return acc + product.Product.salePrice * product.order_quantity;
+      return acc + product?.Product?.salePrice * product?.order_quantity;
     }, 0);
 
     return orderTotal * (role==="Admin"?0.1:0.9); // Subtracting 10% from the order total

@@ -13,7 +13,6 @@ export const PurchaseTable = ({
         const subtotal = price *product.quantity;
         total += subtotal;
     });
-  
     return total;
   };
   

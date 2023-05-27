@@ -21,6 +21,7 @@ const FileInput = ({ keyPrefix, multiple,image ,setImage,setloading,loading}) =>
     setloading(true);
     for (let index = 0; index < newFiles.length; index++) {
       formData.append("image", newFiles[index]);
+      console.log("Form ",formData);
       const { data } = await axios.post("/image/upload", formData);
       setImage((prevImage) => [
         ...prevImage,

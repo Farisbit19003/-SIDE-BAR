@@ -15,7 +15,7 @@ const OrderDetail=()=>{
   const params=useParams();
   const navigate=useNavigate();
   let GrandTotal =singleOrder?.orderType=="Sales"?singleOrder?.Products?.reduce((acc, p) => {
-    return acc + (p?.Product.salePrice * p.order_quantity);
+    return acc + (p?.Product?.salePrice * p.order_quantity);
   }, 0):singleOrder?.Products?.reduce((acc, p) => {
     return acc + (p?.Product.purchasePrice * p.order_quantity);
   }, 0);
