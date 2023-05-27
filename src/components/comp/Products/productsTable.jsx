@@ -7,6 +7,7 @@ export const ProductsTable = ({
   keyword,
   Searched,
   products,
+  ok
 }) => {
   return (
     <>
@@ -74,11 +75,11 @@ export const ProductsTable = ({
                           <td className="px-4 py-2">{item.totalSold}</td>
                           <td className="px-4 py-2">{item?.unit}</td>
                           <td className="px-4 py-2 cursor-pointer flex mx-auto my-auto mt-4 gap-2">
-                            <TiTrash
+                     {ok.includes(item)? "":      <TiTrash
                               onClick={() => handleDelete(item)}
                               size={25}
                               color="red"              
-                            />
+                            />}
                             <Link to={`/products/update/${item.slug}`}>
                               <TfiWrite size={22} />
                             </Link>

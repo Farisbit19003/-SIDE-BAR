@@ -10,16 +10,20 @@ const Users = () => {
   const [users,setUsers]=useState([]);
   const [keyword, setKeyword] = useState("");
   const [ok, setOk] = useState([]);
-  const {allusers,allShops}=useSelector((state)=>({...state}))
+  const {allusers,allShops,allOrders}=useSelector((state)=>({...state}))
   const dispatch=useDispatch();
   useEffect(()=>{
 if(allusers&&allusers.length)
 {
   setUsers(allusers);
-  const usersWithShop = allusers?.filter((user) => {
-    return allShops?.some((shop) => shop.user._id === user._id);
+  const usersWithShopAndOrders = allusers?.filter((user) => {
+    const hasAssociatedShop = allShops.some((shop) => shop.user._id === user._id);
+    const hasAssociatedOrder = allOrders.some((order) => order?.orderBy?._id === user._id);
+    return hasAssociatedShop || hasAssociatedOrder;
   });
-  setOk(usersWithShop);
+  
+  setOk(usersWithShopAndOrders);
+  
 }
   },[allusers,allShops])
   const handleDelete=(id)=>{

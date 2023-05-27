@@ -53,7 +53,6 @@ const OrderDetail = () => {
       <ShopLayout>
         <OrderViewHeader singleOrder={singleOrder} GrandTotal={GrandTotal} />
         <OrderDetailTable
-          handleDelete={handleDelete}
           singleOrder={singleOrder}
         />
         <DetailPack singleOrder={singleOrder} GrandTotal={GrandTotal} />

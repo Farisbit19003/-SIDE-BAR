@@ -7,7 +7,6 @@ const PurchaseForm = ({shops,values,setValues,product}) => {
 const [products, setProducts] = useState([]);
 const {store,order_address}=values;
 
-
 const onShopChange = (e) => {
   setValues({...values,[e.target.name]:e.target.value});
   const filter = product?.filter((p) => {
@@ -65,7 +64,9 @@ const onChange = (e) => {
                 ))}
             </select>
             <label className="font-semibold ">Products</label>
-            <PurchaseTable products={products} />
+            <PurchaseTable products={products} values={values}
+            setValues={setValues}
+            />
             {/* <select
               onChange={onProductChange}
               name="products"

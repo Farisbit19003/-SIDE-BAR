@@ -76,7 +76,6 @@ const AddPurchase = () => {
         product={product}
         values={values}
         setValues={setValues}
-        
       />
       <div className="float-right">
         {" "}

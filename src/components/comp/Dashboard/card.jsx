@@ -88,7 +88,7 @@ const Card = () => {
               />
             }
             iconBgStyle={{ backgroundColor: "#facaca" }}
-            price={`${SellertotalRevenue}/PKR`}
+            price={`${SellertotalRevenue?SellertotalRevenue:0}/PKR`}
           />
         </div>
         <div className="w-full ">
@@ -101,7 +101,7 @@ const Card = () => {
               />
             }
             iconBgStyle={{ backgroundColor: "#ffe8b2" }}
-            price={`${SellerTodaytotalRevenue}/PKR`}
+            price={`${SellerTodaytotalRevenue?SellerTodaytotalRevenue:0}/PKR`}
           />
         </div>
         <div className="w-full ">

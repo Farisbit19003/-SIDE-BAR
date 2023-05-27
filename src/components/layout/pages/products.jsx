@@ -11,7 +11,7 @@ import { DeleteProduct, SellerProducts } from "../../comp/Products/functions";
 const Products = () => {
   const [products, setProducts] = useState([]);
   const [keyword, setKeyword] = useState("");
-  const { product, sellerShops, category } = useSelector((state) => ({
+  const { product, sellerShops, category,allOrders } = useSelector((state) => ({
     ...state,
   }));
   const [ok, setOk] = useState([]);
@@ -34,10 +34,13 @@ const Products = () => {
   useEffect(() => {
     if (product && product.length) {
       setProducts(product);
-      // const catWithShop = category?.filter((c) => {
-      //   return allShops?.some((shop) => shop.category._id === c._id);
-      // });
-      // setOk(catWithShop);
+      const productWithOrder = product?.filter((p) => {
+        const hasAssociatedOrder = allOrders?.some((order) =>
+          order?.Products?.some((pro) => pro?.Product?._id=== p?._id)
+        );
+        return hasAssociatedOrder;
+      });
+      setOk(productWithOrder);
     }
   }, [product]);
 
@@ -146,6 +149,7 @@ const Products = () => {
         handleDelete={handleDelete}
         Searched={Searched}
         keyword={keyword}
+        ok={ok}
       />
     </ShopLayout>
   );

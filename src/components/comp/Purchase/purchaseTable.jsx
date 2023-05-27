@@ -1,12 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { TiDelete } from "react-icons/ti";
-import { toast } from "react-toastify";
-import swal from "sweetalert";
-import { DeleteProduct } from "./functions";
 
-export const PurchaseTable = ({ products }) => {
-  const [updatedProducts, setUpdatedProducts] = useState(products);
+export const PurchaseTable = ({ products, values, setValues }) => {
+  const [updatedProducts, setUpdatedProducts] = useState([]);
 
+  useEffect(() => {
+    setUpdatedProducts(products);
+  }, [products]);
   const calculateTotal = () => {
     let total = 0;
     updatedProducts?.forEach((product) => {
@@ -17,29 +17,23 @@ export const PurchaseTable = ({ products }) => {
     return total;
   };
 
-  const handleDelete = (item) => {
-    swal({
-      title: "Are you sure?",
-      text: "This item will be removed from the table.",
-      icon: "warning",
-      buttons: true,
-      dangerMode: true,
-    }).then((willDelete) => {
-      if (willDelete) {
-        // Remove the item from the updatedProducts array
-        const updatedList = updatedProducts.filter(
-          (product) => product._id !== item._id
-        );
-        setUpdatedProducts(updatedList);
+  const handleDelete = (item, index) => {
+    const updatedList = updatedProducts.filter(
+      (product) => product._id !== item._id
+    );
+    setUpdatedProducts(updatedList);
 
-        swal("Deleted Successfully", {
-          icon: "success",
-        });
-      }
+    setValues((prevState) => {
+      const updatedProducts = prevState.Products.filter(
+        (p) => p.Product !== item._id
+      );
+      return {
+        ...prevState,
+        Products: updatedProducts,
+      };
     });
   };
 
-  console.log(products);
   return (
     <>
       {!updatedProducts || updatedProducts.length === 0 ? (
@@ -81,7 +75,11 @@ export const PurchaseTable = ({ products }) => {
                         key={item._id}
                       >
                         <td className="px-4 py-2">
-                          <img src={item?.feature_pic?.url} className="h-16 w-16" alt="Product" />
+                          <img
+                            src={item?.feature_pic?.url}
+                            className="h-16 w-16"
+                            alt="Product"
+                          />
                         </td>
                         <td className="px-4 py-2">{item.name}</td>
                         <td className="px-4 py-2">{item.category.name}</td>
@@ -95,7 +93,7 @@ export const PurchaseTable = ({ products }) => {
                           <TiDelete
                             size={25}
                             color="red"
-                            onClick={() => handleDelete(item)}
+                            onClick={() => handleDelete(item, index)}
                           />
                         </td>
                       </tr>
