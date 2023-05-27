@@ -6,7 +6,7 @@ import { useDispatch } from "react-redux";
 import { SellerOrders } from "../../Create Shop/functions";
 import { LoadingOutlined } from "@ant-design/icons";
 import { UpdateOrderStatus } from "../functions";
-const OrderViewHeader = ({ singleOrder }) => {
+const OrderViewHeader = ({singleOrder,GrandTotal}) => {
   const [status, setStatus] = useState("");
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
@@ -70,7 +70,7 @@ const OrderViewHeader = ({ singleOrder }) => {
         </div>
 
         <div className="mb-2 justify-center flex">
-          <InvoicePDF />
+          <InvoicePDF singleOrder={singleOrder} GrandTotal={GrandTotal}/>
         </div>
         <div className="p-3 md:p-6 mb-6 flex shadow flex-col sm:flex-row items-center justify-between ">
           <div>
@@ -79,17 +79,19 @@ const OrderViewHeader = ({ singleOrder }) => {
             </h1>
           </div>
 
-       {singleOrder?.orderType==="Sales"&&<div className="flex flex-col px-2 py-2 sm:flex-row gap-3 justify-center  items-center">
-            <Dropdown status={status} setStatus={setStatus} />
-            <div className=" flex ">
-              <button
-                onClick={handleStatus}
-                className="bg-[#248F59] w-full px-4 py-2 sm:py-3 rounded-md text-sm sm:text-base whitespace-nowrap flex justify-center items-center font-sans uppercase text-[#f2f2f2]"
-              >
-                {loading ? <LoadingOutlined /> : "Change Status"}
-              </button>
+          {singleOrder?.orderType === "Sales" && (
+            <div className="flex flex-col px-2 py-2 sm:flex-row gap-3 justify-center  items-center">
+              <Dropdown status={status} setStatus={setStatus} />
+              <div className=" flex ">
+                <button
+                  onClick={handleStatus}
+                  className="bg-[#248F59] w-full px-4 py-2 sm:py-3 rounded-md text-sm sm:text-base whitespace-nowrap flex justify-center items-center font-sans uppercase text-[#f2f2f2]"
+                >
+                  {loading ? <LoadingOutlined /> : "Change Status"}
+                </button>
+              </div>
             </div>
-          </div>}
+          )}
         </div>
       </div>
     </>

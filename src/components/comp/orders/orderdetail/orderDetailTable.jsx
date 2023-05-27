@@ -11,22 +11,13 @@ export const OrderDetailTable = ({singleOrder}) => {
             <table className="mx-2 my-2 font-sans shadow">
               <thead>
                 <tr className="bg-[#F2F2F2]">
-                 
-                    <th className="px-4 whitespace-nowrap py-2">
-                      Item
-                    </th>
-                    <th className="px-4 whitespace-nowrap py-2">
-                      Image
-                    </th>
-                    <th className="px-4 whitespace-nowrap py-2">
-                      Ordered_Quantity
-                    </th>
-                    <th className="px-4 whitespace-nowrap py-2">
-                     Price
-                    </th>
-                    <th className="px-4 whitespace-nowrap py-2">
-                    Total
-                    </th>
+                  <th className="px-4 whitespace-nowrap py-2">Item</th>
+                  <th className="px-4 whitespace-nowrap py-2">Image</th>
+                  <th className="px-4 whitespace-nowrap py-2">
+                    Ordered_Quantity
+                  </th>
+                  <th className="px-4 whitespace-nowrap py-2">Price</th>
+                  <th className="px-4 whitespace-nowrap py-2">Total</th>
                 </tr>
               </thead>
 
@@ -38,20 +29,24 @@ export const OrderDetailTable = ({singleOrder}) => {
                   >
                     <td className="px-4 py-2">{item?.Product?.name}</td>
                     <td className="px-4 py-2">
-                <img src={item?.Product?.feature_pic?.url} 
-                className="h-8 w-8"
-                /></td>
+                      <img
+                        src={item?.Product?.feature_pic?.url}
+                        className="h-8 w-8"
+                      />
+                    </td>
                     <td className="px-4 py-2">{item?.order_quantity}</td>
                     <td className="px-4 py-2">
-                      
-                      Rs:{singleOrder?.orderType==="Sales"?item?.Product?.salePrice:
-                      item?.Product?.purchasePrice
-                      }</td>
+                      Rs:
+                      {singleOrder?.orderType === "Sales"
+                        ? item?.Product?.salePrice
+                        : item?.Product?.purchasePrice}
+                    </td>
                     <td className="px-4 py-2">
-                     Rs:{singleOrder?.orderType==="Sales"?item?.Product?.salePrice*
-                      item?.order_quantity:item?.Product?.purchasePrice*
-                      item?.order_quantity
-                    }</td>
+                      Rs:
+                      {singleOrder?.orderType === "Sales"
+                        ? item?.Product?.salePrice * item?.order_quantity
+                        : item?.Product?.purchasePrice * item?.order_quantity}
+                    </td>
                   </tr>
                 ))}
               </tbody>
