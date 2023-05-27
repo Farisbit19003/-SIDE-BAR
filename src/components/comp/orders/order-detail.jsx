@@ -6,7 +6,6 @@ import { OrderDetailTable } from "./orderdetail/orderDetailTable";
 import { useSelector } from "react-redux";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { Link, useNavigate, useParams } from "react-router-dom";
-const handleDelete = () => {};
 const OrderDetail = () => {
   const { allOrders, loggedIn } = useSelector((state) => ({ ...state }));
   const [singleOrder, setSingleOrder] = useState({});
@@ -20,22 +19,7 @@ const OrderDetail = () => {
       : singleOrder?.Products?.reduce((acc, p) => {
           return acc + p?.Product.purchasePrice * p.order_quantity;
         }, 0);
-
-<<<<<<< HEAD
-}
-const OrderDetail=()=>{
-  const {allOrders,loggedIn}=useSelector((state)=>({...state}));
-  const [singleOrder,setSingleOrder]=useState({});
-  const params=useParams();
-  const navigate=useNavigate();
-  let GrandTotal =singleOrder?.orderType=="Sales"?singleOrder?.Products?.reduce((acc, p) => {
-    return acc + (p?.Product?.salePrice * p.order_quantity);
-  }, 0):singleOrder?.Products?.reduce((acc, p) => {
-    return acc + (p?.Product.purchasePrice * p.order_quantity);
-  }, 0);
  
-=======
->>>>>>> b56f4a18ab968e4adbac3a498f92465deddd76c2
   const LoadOrder = () => {
     const updated = allOrders?.filter((o) => {
       return params._id === o._id;
