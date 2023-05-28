@@ -8,7 +8,7 @@ import { BiCartDownload } from "react-icons/bi";
 import { BsShop } from "react-icons/bs";
 
 const Card = () => {
-  const { loggedIn, allShops, product, sellerShops, allOrders } = useSelector(
+  const { loggedIn, allShops, product, sellerShops, allOrders,allusers } = useSelector(
     (state) => ({
       ...state,
     })
@@ -58,12 +58,29 @@ const Card = () => {
     0
   );
 
+  
+  const profitRevenue = allOrders?.filter((order) => order.orderType === "Sales")
+  .map((order) => {
+    const orderTotal = order.Products?.reduce((acc, product) => {
+      const productTotal = (product?.Product?.salePrice * product?.order_quantity)*0.9;
+      const purchaseTotal = product?.Product?.purchasePrice * product?.order_quantity;
+      const profit = productTotal - purchaseTotal;
+      return acc + profit;
+    }, 0);
+  
+    return orderTotal; // Subtracting 10% from the order total
+  });
+  
+  const profit= profitRevenue?.reduce((acc, orderTotal) => {
+    return acc + orderTotal;
+  }, 0);
+  const sellersLength = allusers?.filter((user) => user.role === "Seller");
 
   return (
     <>
       <div className="mb-1 grid w-full grid-cols-1 gap-2 sm:grid-cols-2 xl:grid-cols-4">
         <div className="w-full ">
-          {role === "Seller" && (
+          {role === "Seller"? (
             <StickerCard
               titleTransKey="Total Products"
               icon={
@@ -74,6 +91,18 @@ const Card = () => {
               }
               iconBgStyle={{ backgroundColor: "#ffe8b2" }}
               price={product?.length}
+            />
+          ):(
+            <StickerCard
+              titleTransKey="Total Sellers"
+              icon={
+                <AiOutlineShopping
+                  size={35}
+                  className="align-middle text-[#ffb300]"
+                />
+              }
+              iconBgStyle={{ backgroundColor: "#ffe8b2" }}
+              price={sellersLength?.length}
             />
           )}
         </div>
@@ -104,6 +133,19 @@ const Card = () => {
             price={`${SellerTodaytotalRevenue?SellerTodaytotalRevenue:0}/PKR`}
           />
         </div>
+  {role==="Seller"&&      <div className="w-full ">
+          <StickerCard
+            titleTransKey="Today Profit"
+            icon={
+              <AiOutlineDollarCircle
+                size={35}
+                className=" align-middle text-[#ffb300]"
+              />
+            }
+            iconBgStyle={{ backgroundColor: "#ffe8b2" }}
+            price={`${profit?profit:0}/PKR`}
+          />
+        </div>}
         <div className="w-full ">
           <StickerCard
             titleTransKey={role === "Admin" ? "Total Shops" : "My Shops"}

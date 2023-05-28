@@ -1,72 +1,64 @@
-import React, { useState, useEffect } from "react";
-import ShopLayout from "../../layout/Shop/index";
+import React,{useState, useEffect} from "react";
+import ShopLayout from "../../layout/Shop/index"
 import { BiSearch } from "react-icons/bi";
 import { OrderTable } from "../../comp/orders/orderTable";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
-import { PurchaseOrderTable } from "../../comp/Purchase/Table";
-const Purchase = () => {
+import { ProfitTable } from "../../comp/Profit/ProfitTable";
+
+const ProfitandLoss = () => {
   const [orders, setOrders] = useState([]);
   const [keyword, setKeyword] = useState("");
   const [products, setProducts] = useState([]);
   const dispatch = useDispatch();
-  const { sellerShops, allOrders, product } = useSelector((state) => ({
+  const {sellerShops,allOrders,product } = useSelector((state) => ({
     ...state,
   }));
   const update = allOrders?.filter((c) => {
-    return c.orderType === "Purchase";
+    return c.orderType === "Sales";
   });
   const onShopChange = (e) => {
     if (e.target.value === "select") {
-      update && setOrders(update);
+      update&&setOrders(update);
       setProducts(product);
       document.getElementById("productSelect").value = "select";
       return;
     }
     const filter = allOrders?.filter((p) => {
-      return p.store._id === e.target.value && p.orderType === "Purchase";
+      return p.store._id === e.target.value &&p.orderType==="Sales";
     });
     filter && setOrders(filter);
     const profilter = product?.filter((p) => {
       return p.store._id === e.target.value;
     });
-    profilter && setProducts(profilter);
+    profilter&&setProducts(profilter);
   };
   const onProductChange = (e) => {
     if (e.target.value === "select") {
-      return update && setOrders(update);
+      return update&&setOrders(update);
     }
     const filter = update?.filter((order) => {
       return order?.Products?.some((p) => p.Product?._id === e.target.value);
     });
     filter && setOrders(filter);
   };
-
-  useEffect(() => {
-    setProducts(product);
-  }, [product]);
-
+  
+useEffect(()=>{
+setProducts(product);
+},[product])
   useEffect(() => {
     if (allOrders && allOrders.length) {
       const update = allOrders?.filter((c) => {
-        return c.orderType === "Purchase";
+        return c.orderType === "Sales";
       });
-
       const sortedOrders = update?.sort((a, b) => {
         const dateA = new Date(a.createdAt);
         const dateB = new Date(b.createdAt);
         return dateB - dateA; // Compare the dates in descending order for newest orders on top
-      });
-
+      }); 
       setOrders(sortedOrders);
-
-      // const catWithShop = category?.filter((c) => {
-      //   return allShops?.some((shop) => shop.category._id === c._id);
-      // });
-      // setOk(catWithShop);
     }
   }, [allOrders]);
-
+  
   const handleSearchInputChange = (e) => {
     e.preventDefault();
     setKeyword(e.target.value.toLowerCase());
@@ -78,7 +70,7 @@ const Purchase = () => {
       <div className="p-3 md:p-6 mb-6 flex shadow flex-col sm:flex-row items-center justify-between bg-white ">
         <div>
           <h1 className="font-serif font-normal text-3xl text-[#248F59]">
-            Purchase Report
+           Profit and Loss Report
           </h1>
         </div>
 
@@ -95,11 +87,7 @@ const Purchase = () => {
           >
             <BiSearch size={25} className="inline-block align-middle" />
           </button>
-        </div>
-        <div className=" flex ">
-          <button className="bg-[#248F59] w-full px-4 py-2 sm:py-3 rounded-md text-sm sm:text-base whitespace-nowrap flex justify-center items-center font-sans uppercase text-[#f2f2f2]">
-            <Link to="/purchase/add">Add Purchase</Link>
-          </button>
+
         </div>
       </div>
       <div className="p-3 md:p-6 mb-6 flex shadow flex-col sm:flex-row items-center justify-between bg-white ">
@@ -126,32 +114,29 @@ const Purchase = () => {
               </option>
             ))}
           </select>
-
+      
           <label className="font-semibold mr-2">Products</label>
 
-          <select
-            type="text"
-            onChange={onProductChange}
-            name="store"
-            id="productSelect"
-            className="h-12 mb-2  text-md bg-white border-gray-400 rounded-lg px-3 py-2  font-sans font-normal tracking-normal text-left focus:outline-none focus:ring-2 focus:ring-green-600"
-          >
-            <option value="select">--Select--</option>
-            {products?.map((p) => (
-              <option key={p._id} value={p._id}>
-                {p.name}
-              </option>
-            ))}
-          </select>
+<select
+  type="text"
+  onChange={onProductChange}
+  name="store"
+  id="productSelect"
+  className="h-12 mb-2  text-md bg-white border-gray-400 rounded-lg px-3 py-2  font-sans font-normal tracking-normal text-left focus:outline-none focus:ring-2 focus:ring-green-600"
+>
+  <option value="select">--Select--</option>
+  {products?.map((p) => (
+    <option key={p._id} value={p._id}>
+      {p.name}
+    </option>
+  ))}
+</select>
+
         </div>
       </div>
-      <PurchaseOrderTable
-        orders={orders}
-        Searched={Searched}
-        keyword={keyword}
-      />
+      <ProfitTable orders={orders} Searched={Searched} keyword={keyword} />
     </ShopLayout>
   );
 };
 
-export default Purchase;
+export default ProfitandLoss;

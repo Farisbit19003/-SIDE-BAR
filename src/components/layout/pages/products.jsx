@@ -11,6 +11,8 @@ import { DeleteProduct, SellerProducts } from "../../comp/Products/functions";
 const Products = () => {
   const [products, setProducts] = useState([]);
   const [keyword, setKeyword] = useState("");
+  const [Shops,setShops]=useState([])
+  const [categories,setCategories]=useState([])
   const { product, sellerShops, category,allOrders } = useSelector((state) => ({
     ...state,
   }));
@@ -18,19 +20,29 @@ const Products = () => {
   const dispatch = useDispatch();
   const onShopChange = (e) => {
     if (e.target.value === "select") {
-      setProducts(product);
+     return setProducts(product);
     }
     const filter = product?.filter((p) => {
       return p.store._id === e.target.value;
     });
     filter && setProducts(filter);
+    document.getElementById("categorySelect").value = "select";
+
   };
   const onCatChange = (e) => {
+    if (e.target.value === "select") {
+      return setProducts(product);
+     }
     const filter = product?.filter((p) => {
       return p.category._id === e.target.value;
     });
     filter && setProducts(filter);
+    document.getElementById("shopSelect").value = "select";
   };
+useEffect(()=>{
+setCategories(category);
+setShops(sellerShops);
+},[sellerShops,category])
   useEffect(() => {
     if (product && product.length) {
       setProducts(product);
@@ -118,10 +130,11 @@ const Products = () => {
             type="text"
             onChange={onShopChange}
             name="store"
+            id="shopSelect"
             className="h-12 mb-2  text-md bg-white border-gray-400 rounded-lg px-3 py-2  font-sans font-normal tracking-normal text-left focus:outline-none focus:ring-2 focus:ring-green-600"
           >
             <option value="select">--Select--</option>
-            {sellerShops?.map((shop) => (
+            {Shops?.map((shop) => (
               <option key={shop._id} value={shop._id}>
                 {shop.Storename}
               </option>
@@ -133,15 +146,17 @@ const Products = () => {
             type="text"
             onChange={onCatChange}
             name="store"
+            id="categorySelect"
             className="h-12 mb-2  text-md bg-white border-gray-400 rounded-lg px-3 py-2  font-sans font-normal tracking-normal text-left focus:outline-none focus:ring-2 focus:ring-green-600"
           >
             <option value="select">--Select--</option>
-            {category?.map((c) => (
+            {categories?.map((c) => (
               <option key={c._id} value={c._id}>
                 {c.name}
               </option>
             ))}
           </select>
+         
         </div>
       </div>
       <ProductsTable

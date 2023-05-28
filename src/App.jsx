@@ -45,6 +45,7 @@ import AddPurchase from "./components/comp/Purchase/addPurchase";
 import OrderDetail from "./components/comp/orders/order-detail";
 import StripeCallBack from "./components/comp/profile/Callback"
 import Contact from "./components/layout/pages/Contact";
+import ProfitandLoss from "./components/layout/pages/ProfitandLoss";
 function App() {
 const {loggedIn}=useSelector((state)=>({...state}))
 const dispatch=useDispatch();
@@ -89,6 +90,7 @@ if(res.status===401&& res.config && !res.config._isRetryREquest){
      <Router>
      
         <Routes>
+        <Route exact path="/profit" element={<ProfitandLoss />} />
           <Route exact path="/register" element={<Register />} />
           <Route exact path="/register-complete" element={<RegisterComplete />} />
           <Route exact path="/login" element={<Login />} />

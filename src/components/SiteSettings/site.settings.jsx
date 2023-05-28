@@ -80,7 +80,7 @@ export const siteSettings = {
         to: "/contacts",
       },
       {
-        id: 14,
+        id: 15,
         label: "Settings",
         icon: <SettingOutlined />,
         to: "/settings",
@@ -113,15 +113,21 @@ export const siteSettings = {
       // },
       {
         id: 7,
-        label: "Sales Orders",
+        label: "Sales Report",
         icon: <AiOutlineUnorderedList />,
         to: "/orders",
       },
       {
         id: 11,
-        label: "Purchase",
+        label: "Purchase Report",
         icon: <BsCardChecklist />,
         to: "/purchase",
+      },
+      {
+        id: 11,
+        label: "Profit and Loss Report",
+        icon: <BsCardChecklist />,
+        to: "/profit",
       },
       {
         id: 13,
