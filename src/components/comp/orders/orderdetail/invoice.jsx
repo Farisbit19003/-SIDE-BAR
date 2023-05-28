@@ -104,7 +104,7 @@ const InvoicePDF = ({ singleOrder, GrandTotal }) => {
     <div className="flex flex-row justify-end p-2">
       <button
         onClick={printInvoice}
-        className="bg-[#248f58] flex flex-row gap-2 rounded-md shadow text-[#f2f2f2] font-normal font-sans py-2 px-4 mt-4"
+        className="bg-[#248f58] flex flex-row gap-2 whitespace-nowrap rounded-md shadow text-[#f2f2f2] font-normal font-sans py-2 px-4 mt-4"
       >
         <BsPrinter className="align-middle" size={20} />
         Print Invoice 
