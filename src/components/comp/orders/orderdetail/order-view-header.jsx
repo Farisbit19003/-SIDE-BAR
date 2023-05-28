@@ -74,7 +74,7 @@ const OrderViewHeader = ({singleOrder,GrandTotal}) => {
         </div>
         <div className="p-3 md:p-6 mb-6 flex shadow flex-col sm:flex-row items-center justify-between ">
           <div>
-            <h1 className="font-serif font-normal text-3xl text-[#248F59]">
+            <h1 className="font-serif font-normal lg:text-3xl sm:text-base text-[#248F59]">
               OrderId- #{singleOrder?._id}
             </h1>
           </div>
