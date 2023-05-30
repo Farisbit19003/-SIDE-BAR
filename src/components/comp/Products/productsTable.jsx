@@ -33,7 +33,7 @@ export const ProductsTable = ({
                 </p>
               </div>
               <div className="overflow-x-auto flex flex-col justify-center">
-                <table className="mx-2 my-2 font-sans shadow">
+                <table className="mx-2 my-2 font-sans whitespace-nowrap shadow">
                   <thead>
                     <tr className="bg-[#F2F2F2]">
                       <th className="px-4 py-2">Image</th>
@@ -41,8 +41,8 @@ export const ProductsTable = ({
                       <th className="px-4 py-2">Discription</th>
                       <th className="px-4 py-2">Catgeory</th>
                       <th className="px-4 py-2">Store</th>
-                      <th className="px-4 py-2">SalesPrice</th>
-                      <th className="px-4 py-2">PurchasePrice</th>
+                      <th className="px-4 py-2">Sales Price</th>
+                      <th className="px-4 py-2">Purchase Price</th>
                       <th className="px-4 py-2">Quantity</th>
                       <th className="px-4 py-2">Sold</th>
                       <th className="px-4 py-2">Unit</th>
