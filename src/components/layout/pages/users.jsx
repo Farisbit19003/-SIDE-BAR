@@ -17,8 +17,8 @@ if(allusers&&allusers.length)
 {
   setUsers(allusers);
   const usersWithShopAndOrders = allusers?.filter((user) => {
-    const hasAssociatedShop = allShops.some((shop) => shop.user._id === user._id);
-    const hasAssociatedOrder = allOrders.some((order) => order?.orderBy?._id === user._id);
+    const hasAssociatedShop = allShops?.some((shop) => shop.user._id === user._id);
+    const hasAssociatedOrder = allOrders?.some((order) => order?.orderBy?._id === user._id);
     return hasAssociatedShop || hasAssociatedOrder;
   });
   
