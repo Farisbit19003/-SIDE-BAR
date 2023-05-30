@@ -11,44 +11,45 @@ import { DeleteProduct, SellerProducts } from "../../comp/Products/functions";
 const Products = () => {
   const [products, setProducts] = useState([]);
   const [keyword, setKeyword] = useState("");
-  const [Shops,setShops]=useState([])
-  const [categories,setCategories]=useState([])
-  const { product, sellerShops, category,allOrders } = useSelector((state) => ({
-    ...state,
-  }));
+  const [Shops, setShops] = useState([]);
+  const [categories, setCategories] = useState([]);
+  const { product, sellerShops, category, allOrders } = useSelector(
+    (state) => ({
+      ...state,
+    })
+  );
   const [ok, setOk] = useState([]);
   const dispatch = useDispatch();
   const onShopChange = (e) => {
     if (e.target.value === "select") {
-     return setProducts(product);
+      return setProducts(product);
     }
     const filter = product?.filter((p) => {
       return p.store._id === e.target.value;
     });
     filter && setProducts(filter);
     document.getElementById("categorySelect").value = "select";
-
   };
   const onCatChange = (e) => {
     if (e.target.value === "select") {
       return setProducts(product);
-     }
+    }
     const filter = product?.filter((p) => {
       return p.category._id === e.target.value;
     });
     filter && setProducts(filter);
     document.getElementById("shopSelect").value = "select";
   };
-useEffect(()=>{
-setCategories(category);
-setShops(sellerShops);
-},[sellerShops,category])
+  useEffect(() => {
+    setCategories(category);
+    setShops(sellerShops);
+  }, [sellerShops, category]);
   useEffect(() => {
     if (product && product.length) {
       setProducts(product);
       const productWithOrder = product?.filter((p) => {
         const hasAssociatedOrder = allOrders?.some((order) =>
-          order?.Products?.some((pro) => pro?.Product?._id=== p?._id)
+          order?.Products?.some((pro) => pro?.Product?._id === p?._id)
         );
         return hasAssociatedOrder;
       });
@@ -123,7 +124,7 @@ setShops(sellerShops);
           </h1>
         </div>
 
-        <div className="flex flex-col px-2 py-2 sm:flex-row gap-3 justify-center  items-center">
+        <div className="flex flex-col px-2 py-2 md:flex-row gap-2 justify-center  items-center">
           <label className="font-semibold mr-2">Shops</label>
 
           <select
@@ -156,7 +157,6 @@ setShops(sellerShops);
               </option>
             ))}
           </select>
-         
         </div>
       </div>
       <ProductsTable

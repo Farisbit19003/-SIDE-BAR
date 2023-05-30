@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from "react";
-import ShopLayout from "../../layout/Shop/index";
+import React, { useEffect, useState } from "react";
 import { BiSearch } from "react-icons/bi";
-import { OrderTable } from "../../comp/orders/orderTable";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { PurchaseOrderTable } from "../../comp/Purchase/Table";
+import ShopLayout from "../../layout/Shop/index";
 const Purchase = () => {
   const [orders, setOrders] = useState([]);
   const [keyword, setKeyword] = useState("");
@@ -75,7 +74,7 @@ const Purchase = () => {
 
   return (
     <ShopLayout>
-      <div className="p-3 md:p-6 mb-6 flex shadow flex-col sm:flex-row items-center justify-between bg-white ">
+      <div className="p-3 md:p-6 mb-6 flex shadow md:gap-2 sm:gap-3 flex-col sm:flex-row items-center justify-between bg-white ">
         <div>
           <h1 className="font-serif font-normal text-3xl text-[#248F59]">
             Purchase Report
@@ -97,7 +96,7 @@ const Purchase = () => {
           </button>
         </div>
         <div className=" flex ">
-          <button className="bg-[#248F59] w-full px-4 py-2 sm:py-3 rounded-md text-sm sm:text-base whitespace-nowrap flex justify-center items-center font-sans uppercase text-[#f2f2f2]">
+          <button className="bg-[#248F59] w-full px-4 py-2 sm:py-3 rounded-md text-base sm:text-sm whitespace-nowrap flex justify-center items-center font-sans uppercase text-[#f2f2f2]">
             <Link to="/purchase/add">Add Purchase</Link>
           </button>
         </div>
@@ -105,11 +104,11 @@ const Purchase = () => {
       <div className="p-3 md:p-6 mb-6 flex shadow flex-col sm:flex-row items-center justify-between bg-white ">
         <div>
           <h1 className="font-serif font-normal text-3xl text-[#248F59]">
-            Filter
+            Filter By
           </h1>
         </div>
 
-        <div className="flex flex-col px-2 py-2 sm:flex-row gap-3 justify-center  items-center">
+        <div className="flex flex-col px-2 py-2 gap-3 justify-center  items-center">
           <label className="font-semibold mr-2">Shops</label>
 
           <select
