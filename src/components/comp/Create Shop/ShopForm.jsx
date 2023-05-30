@@ -141,16 +141,7 @@ const ShopForm = ({ categories, values, setValues, setLoading, loading }) => {
           </div>
         </div>
       </div>
-      {/* PAYMENT INFO */}
-      <div className="my-2 flex flex-wrap border-b-2 border-dashed  pb-8 sm:my-8">
-        <div className="flex sm:pe-4 md:pe-5  w-full px-0 pb-5 sm:w-4/12 sm:py-8 md:w-1/3">
-          <Description
-            title={"Payment Info"}
-            details={"Add your payment information from here"}
-          />
-        </div>
-      
-      </div>
+
       {/* SHOP INFO */}
       <div className="my-2 flex flex-wrap border-b-2 border-dashed  pb-8 sm:my-8">
         <div className="flex sm:pe-4 md:pe-5  w-full px-0 pb-5 sm:w-4/12 sm:py-8 md:w-1/3">
