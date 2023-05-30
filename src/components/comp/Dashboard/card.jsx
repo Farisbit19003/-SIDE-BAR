@@ -135,7 +135,7 @@ const Card = () => {
         </div>
   {role==="Seller"&&      <div className="w-full ">
           <StickerCard
-            titleTransKey="Today Profit"
+            titleTransKey="Total Profit"
             icon={
               <AiOutlineDollarCircle
                 size={35}
