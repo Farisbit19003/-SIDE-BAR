@@ -8,7 +8,6 @@ import {
 } from "@ant-design/icons";
 import { AiOutlineUnorderedList } from "react-icons/ai";
 import { BsShopWindow, BsCardChecklist } from "react-icons/bs";
-import { HiOutlineReceiptRefund } from "react-icons/hi";
 import { MdOutlineDashboard } from "react-icons/md";
 import { TbCategory } from "react-icons/tb";
 
@@ -66,12 +65,6 @@ export const siteSettings = {
         label: "Users",
         icon: <UserOutlined />,
         to: "/users",
-      },
-      {
-        id: 12,
-        label: "Refunds",
-        icon: <HiOutlineReceiptRefund />,
-        to: "/refunds",
       },
       {
         id: 14,
