@@ -117,7 +117,7 @@ const Card = () => {
               />
             }
             iconBgStyle={{ backgroundColor: "#facaca" }}
-            price={`${SellertotalRevenue?SellertotalRevenue:0}/PKR`}
+            price={`${SellertotalRevenue?Math.round(SellertotalRevenue):0}/PKR`}
           />
         </div>
         <div className="w-full ">
@@ -130,7 +130,7 @@ const Card = () => {
               />
             }
             iconBgStyle={{ backgroundColor: "#ffe8b2" }}
-            price={`${SellerTodaytotalRevenue?SellerTodaytotalRevenue:0}/PKR`}
+            price={`${SellerTodaytotalRevenue?Math.round(SellerTodaytotalRevenue):0}/PKR`}
           />
         </div>
   {role==="Seller"&&      <div className="w-full ">
