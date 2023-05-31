@@ -17,7 +17,6 @@ import Dashboard from "./components/layout/pages/dashboard";
 import MyShops from "./components/layout/pages/my-shops";
 import Orders from "./components/layout/pages/orders";
 import Products from "./components/layout/pages/products";
-import Refunds from "./components/layout/pages/refunds";
 import Reviews from "./components/layout/pages/reviews";
 import Settings from "./components/layout/pages/settings";
 import Shippings from "./components/layout/pages/shippings";
@@ -29,7 +28,6 @@ import AddProduct from "./components/comp/Products/addProduct";
 import RegisterComplete from "./components/auth/register-complete";
 import AccessDenied from "./components/layout/pages/AccessDenied";
 import UpdateCategory  from "./components/comp/category/UpdateCategory";
-import { UserProvider } from "./context";
 import { useEffect } from "react";
 import { useDispatch ,useSelector} from "react-redux";
 import { GetSettings } from "./components/comp/settings/functions";
@@ -113,7 +111,6 @@ if(res.status===401&& res.config && !res.config._isRetryREquest){
           <Route exact path="/categories" element={<Categories />} />
           <Route exact path="/categories/create" element={<NewCategory />} />
           <Route exact path="/categories/update/:slug" element={<UpdateCategory />} />
-          <Route exact path="/refunds" element={<Refunds />} />
           <Route exact path="/reviews" element={<Reviews />} />
           <Route exact path="/withdraws" element={<Withdraws />} />
           <Route exact path="/withdrawls/request" element={<CreateWithdrawls />} />
