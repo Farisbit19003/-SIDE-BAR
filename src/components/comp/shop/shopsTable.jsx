@@ -12,6 +12,7 @@ import {
   DisApproveStore,
 } from "../Create Shop/functions";
 export const ShopTable = ({ page, shops, Searched, keyword }) => {
+  let row=1;
   const dispatch = useDispatch();
   const handleApprove = (_id) => {
     try {
@@ -93,6 +94,7 @@ export const ShopTable = ({ page, shops, Searched, keyword }) => {
               <table className="mx-2 my-2 font-sans whitespace-nowrap shadow">
                 <thead>
                   <tr className="bg-[#F2F2F2]">
+                  <th className="px-4 py-2">Sr#</th>
                     <th className="px-4 py-2">Name</th>
                     <th className="px-4 py-2">Slug</th>
                     <th className="px-4 py-2">Category</th>
@@ -112,6 +114,7 @@ export const ShopTable = ({ page, shops, Searched, keyword }) => {
                         className="bg-white cursor-default hover:!bg-gray-100 border-b-2 font-sans"
                         key={index}
                       >
+                        <td className="px-4 py-2">{row++}</td>
                         <td className="px-4 py-2">{item.Storename}</td>
                         <td className="cursor-pointer px-4 py-2">
                           {item.slug}

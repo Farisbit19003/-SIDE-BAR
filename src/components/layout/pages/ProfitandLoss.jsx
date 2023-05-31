@@ -33,7 +33,8 @@ const ProfitandLoss = () => {
   };
   const onProductChange = (e) => {
     if (e.target.value === "select") {
-      return update && setOrders(update);
+      update && setOrders(update);
+      return;
     }
     const filter = update?.filter((order) => {
       return order?.Products?.some((p) => p.Product?._id === e.target.value);

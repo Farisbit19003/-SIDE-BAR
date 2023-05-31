@@ -7,8 +7,19 @@ export const ProductsTable = ({
   keyword,
   Searched,
   products,
-  ok
+  ok,
+  page,
 }) => {
+let row=1;
+
+const TotalStock=products?.reduce((acc,p)=>{
+  const stock=p.quantity;
+  return acc+stock;
+},0)
+const TotalStold=products?.reduce((acc,p)=>{
+  const stock=p.totalSold;
+  return acc+stock;
+},0)
   return (
     <>
       {!products || products.length === 0 ? (
@@ -27,26 +38,49 @@ export const ProductsTable = ({
         <>
           <div className="my-6  flex border bg-white shadow">
             <div className=" mx-auto mt-2 h-fit w-full">
-              <div className="flex flex-row justify-center items-center mx-2 my-2">
+              <div className="flex flex-row justify-between items-center mx-2 my-2">
                 <p className="flex font-sans font-semibold text-lg ">
-                  Products
+                  Total Stock :{TotalStock}
+                </p>
+                <p className="flex font-sans font-semibold text-lg ">
+                  Stock Report
+                </p>
+                <p className="flex font-sans font-semibold text-lg ">
+                 Total Sold:{TotalStold}
                 </p>
               </div>
               <div className="overflow-x-auto flex flex-col justify-center">
                 <table className="mx-2 my-2 font-sans whitespace-nowrap shadow">
                   <thead>
                     <tr className="bg-[#F2F2F2]">
+                     <th className="px-4 py-2">Sr#</th>
                       <th className="px-4 py-2">Image</th>
                       <th className="px-4 py-2">Name</th>
-                      <th className="px-4 py-2">Discription</th>
-                      <th className="px-4 py-2">Catgeory</th>
+                      {page === "Stock" ? (
+                        ""
+                      ) : (
+                        <>
+                          {" "}
+                          <th className="px-4 py-2">Discription</th>
+                          <th className="px-4 py-2">Catgeory</th>
+                        </>
+                      )}
                       <th className="px-4 py-2">Store</th>
                       <th className="px-4 py-2">Sales Price</th>
                       <th className="px-4 py-2">Purchase Price</th>
-                      <th className="px-4 py-2">Quantity</th>
+                      <th className="px-4 py-2">
+                        {page === "Stock" ? "Stock" : "Quantity"}
+                      </th>
                       <th className="px-4 py-2">Sold</th>
-                      <th className="px-4 py-2">Unit</th>
-                      <th className="px-4 py-2">Actions</th>
+                      {page == "Stock" ? (
+                        ""
+                      ) : (
+                        <>
+                          {" "}
+                          <th className="px-4 py-2">Unit</th>
+                          <th className="px-4 py-2">Actions</th>
+                        </>
+                      )}
                     </tr>
                   </thead>
 
@@ -57,6 +91,10 @@ export const ProductsTable = ({
                           className="bg-white cursor-default hover:!bg-gray-100 border-b-2 font-sans"
                           key={item._id}
                         >
+                          
+                          <td className="px-4 py-2">
+                            {row++}
+                          </td>
                           <td className="px-4 py-2">
                             <img
                               src={item?.feature_pic?.url}
@@ -64,28 +102,60 @@ export const ProductsTable = ({
                             />
                           </td>
                           <td className="px-4 py-2">{item.name}</td>
-                          <td className="px-4 py-2">
-                            {item.discription.slice(0, 30)}.....
-                          </td>
-                          <td className="px-4 py-2">{item.category.name}</td>
+                          {page == "Stock" ? (
+                            ""
+                          ) : (
+                            <>
+                              {" "}
+                              <td className="px-4 py-2">
+                                {item.discription.slice(0, 30)}.....
+                              </td>
+                              <td className="px-4 py-2">
+                                {item.category.name}
+                              </td>
+                            </>
+                          )}
                           <td className="px-4 py-2">{item.store.Storename}</td>
                           <td className="px-4 py-2">{item.salePrice}</td>
                           <td className="px-4 py-2">{item.purchasePrice}</td>
                           <td className="px-4 py-2">{item.quantity}</td>
                           <td className="px-4 py-2">{item.totalSold}</td>
-                          <td className="px-4 py-2">{item?.unit}</td>
-                          <td className="px-4 py-2 cursor-pointer flex mx-auto my-auto mt-4 gap-2">
-                     {ok.includes(item)? "":      <TiTrash
-                              onClick={() => handleDelete(item)}
-                              size={25}
-                              color="red"              
-                            />}
-                            <Link to={`/products/update/${item.slug}`}>
-                              <TfiWrite size={22} />
-                            </Link>
-                          </td>
+                          {page == "Stock" ? (
+                            ""
+                          ) : (
+                            <>
+                              {" "}
+                              <td className="px-4 py-2">{item?.unit}</td>
+                              <td className="px-4 py-2 cursor-pointer flex mx-auto my-auto mt-4 gap-2">
+                                {ok.includes(item) ? (
+                                  ""
+                                ) : (
+                                  <TiTrash
+                                    onClick={() => handleDelete(item)}
+                                    size={25}
+                                    color="red"
+                                  />
+                                )}
+                                <Link to={`/products/update/${item.slug}`}>
+                                  <TfiWrite size={22} />
+                                </Link>
+                              </td>
+                            </>
+                          )}
                         </tr>
                       ))}
+                    <tr className="bg-white cursor-default hover:!bg-gray-100 border-b-2 font-sans">
+                {page==="Stock" ?<><td className="px-4 py-2"></td>
+                    <td className="px-4 py-2"></td>
+                    <td className="px-4 py-2"></td>
+                    <td className="px-4 py-2"></td>
+                    <td className="px-4 py-2"></td>
+                    <td className="px-4 py-2"></td>
+                    <td className="px-4 py-2 font-bold">Total Stock:{TotalStock}</td>
+                    <td className="px-4 py-2 font-bold" >Total Sold:{TotalStold}</td>
+                    </> :""
+}
+                    </tr>
                   </tbody>
                 </table>
               </div>

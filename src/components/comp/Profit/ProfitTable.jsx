@@ -38,8 +38,9 @@ export const ProfitTable = ({ orders, keyword, Searched }) => {
         <>
           <div className="my-6 flex border bg-white shadow">
             <div className="mx-auto mt-2 h-fit w-full">
-              <div className="flex flex-row justify-center items-center mx-2 my-2">
+              <div className="flex flex-row justify-between items-center mx-2 my-2">
                 <p className="flex font-sans font-semibold text-lg ">Orders</p>
+                <p className="flex font-sans font-semibold text-lg ">NetProfit:{totalRevenue}/PKR</p>
               </div>
               <div className="overflow-x-auto flex flex-col justify-center">
                 <table className="mx-2 my-2 font-sans shadow">

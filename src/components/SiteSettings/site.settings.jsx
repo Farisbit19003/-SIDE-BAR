@@ -124,13 +124,19 @@ export const siteSettings = {
         to: "/purchase",
       },
       {
-        id: 11,
+        id: 12,
         label: "Profit and Loss Report",
         icon: <BsCardChecklist />,
         to: "/profit",
       },
       {
         id: 13,
+        label: "Stock Report",
+        icon: <BsCardChecklist />,
+        to: "/stock-report",
+      },
+      {
+        id: 14,
         label: "Reviews",
         icon: <AuditOutlined />,
         to: "/reviews",
