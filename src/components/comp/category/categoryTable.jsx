@@ -2,6 +2,7 @@ import React from "react";
 import { BiEdit, BiTrash } from "react-icons/bi";
 import { Link } from "react-router-dom";
 const CatTable=({category,handleDelete,keyword,Searched,ok})=>{
+let row=1;
   return (
     <>
       {!category || category.length === 0 ? (
@@ -29,6 +30,7 @@ const CatTable=({category,handleDelete,keyword,Searched,ok})=>{
                 <table className="mx-2 my-2 font-sans shadow">
                   <thead>
                     <tr className="bg-[#F2F2F2]">
+                    <th className="px-4 py-2">Sr#</th>
                       <th className="px-4 py-2">Name</th>
                       <th className="px-4 py-2">Slug</th>
                       <th className="px-4 py-2">Details</th>
@@ -43,6 +45,7 @@ const CatTable=({category,handleDelete,keyword,Searched,ok})=>{
                           className="bg-white cursor-default whitespace-nowrap hover:!bg-gray-100 border-b-2 font-sans"
                           key={index}
                         >
+                          <td className="px-4 py-2">{row++}</td>
                           <td className="px-4 py-2">{item.name}</td>
                           <td className="px-4 py-2">{item.slug}</td>
                           <td className="px-4 py-2">

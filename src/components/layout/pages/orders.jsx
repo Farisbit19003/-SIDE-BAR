@@ -3,18 +3,39 @@ import { BiSearch } from "react-icons/bi";
 import { useDispatch, useSelector } from "react-redux";
 import { OrderTable } from "../../comp/orders/orderTable";
 import ShopLayout from "../../layout/Shop/index";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 const Orders = () => {
   const [orders, setOrders] = useState([]);
   const [keyword, setKeyword] = useState("");
   const [products, setProducts] = useState([]);
+  const [startDate, setStartDate] = useState(null);
+  const [endDate, setEndDate] = useState(null);
+  const onChange = (dates) => {
+    const [start, end] = dates;
+    setStartDate(start);
+    setEndDate(end);
+    if (start && end) {
+      const filter = update?.filter((o) => {
+        const orderDate = new Date(o.createdAt);
+        return orderDate >= start && orderDate <= end;
+      });
+      setOrders(filter);
+    }
+  };
+  
   const dispatch = useDispatch();
   const { sellerShops, allOrders, product } = useSelector((state) => ({
     ...state,
   }));
   const update = allOrders?.filter((c) => {
     return c.orderType === "Sales";
-  });
+  }).sort((a, b) => {
+    const dateA = new Date(a.createdAt);
+    const dateB = new Date(b.createdAt);
+    return dateB - dateA; // Compare the dates in descending order for newest orders on top
+  });;
   const onShopChange = (e) => {
     if (e.target.value === "select") {
       update && setOrders(update);
@@ -129,6 +150,16 @@ const Orders = () => {
               </option>
             ))}
           </select>
+          <label className="font-semibold mr-2">Date Range</label>
+          <DatePicker
+            selected={startDate}
+            onChange={onChange}
+            startDate={startDate}
+            endDate={endDate}
+            maxDate={new Date()}
+            selectsRange
+            className="h-12 mb-2  text-md bg-white border-gray-400 rounded-lg px-3 py-2  font-sans font-normal tracking-normal text-left focus:outline-none focus:ring-2 focus:ring-green-600"
+          />
         </div>
       </div>
       <OrderTable orders={orders} Searched={Searched} keyword={keyword} />

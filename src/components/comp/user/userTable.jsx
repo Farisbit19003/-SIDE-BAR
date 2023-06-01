@@ -1,6 +1,7 @@
 import { BiTrash } from "react-icons/bi";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 export const UserTable = ({ handleDelete, users, keyword, Searched, ok }) => {
+ let row=1;
   return (
     <>
       {!users || users.length === 0 ? (
@@ -25,6 +26,7 @@ export const UserTable = ({ handleDelete, users, keyword, Searched, ok }) => {
               <table className="mx-2 my-2 font-sans shadow">
                 <thead>
                   <tr className="bg-[#F2F2F2]">
+                  <th className="px-4 whitespace-nowrap py-2">Sr#</th>
                     <th className="px-4 whitespace-nowrap py-2">Name</th>
                     <th className="px-4 whitespace-nowrap py-2">Email</th>
                     <th className="px-4 whitespace-nowrap py-2">Role</th>
@@ -42,6 +44,7 @@ export const UserTable = ({ handleDelete, users, keyword, Searched, ok }) => {
                         className="bg-white cursor-default whitespace-nowrap hover:!bg-gray-100 border-b-2 font-sans"
                         key={index}
                       >
+                         <td className="px-4 py-2">{row++}</td>
                         <td className="px-4 py-2">{item.name}</td>
                         <td className="px-4 py-2 ">{item.email}</td>
                         <td className="px-4 py-2">{item.role}</td>
