@@ -4,13 +4,16 @@ import { Link } from "react-router-dom";
 import moment from "moment";
 export const OrderTable = ({ orders, keyword, Searched }) => {
   let row = 1;
-  const Revenue = orders?.map((order) => {
+  const Revenue = orders
+  ?.filter((order) => order.orderStatus !== "cancelled")
+  .map((order) => {
     const orderTotal = order.Products?.reduce((acc, product) => {
-      return acc + product?.Product?.salePrice * product?.order_quantity;
+      return acc + (product?.Product?.salePrice * product?.order_quantity || 0);
     }, 0);
     
     return orderTotal * 0.9; // Subtracting 10% from the order total
   });
+
   
   const totalRevenue = Revenue?.reduce((acc, orderTotal) => {
     return acc + orderTotal;

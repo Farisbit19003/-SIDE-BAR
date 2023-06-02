@@ -18,7 +18,7 @@ const Card = () => {
   const currentDate = new Date();
   const thirtyDaysAgo = new Date();
   thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
-  const SellerRevenue = allOrders?.filter((order) => order.orderType === "Sales") // Filter orders with orderType "Sales"
+  const SellerRevenue = allOrders?.filter((order) => order.orderType === "Sales"&&order.orderStatus!=="cancelled") // Filter orders with orderType "Sales"
   .map((order) => {
     const orderDate = new Date(order.createdAt);
     if (orderDate >= thirtyDaysAgo && orderDate <= currentDate) {
@@ -42,7 +42,7 @@ const Card = () => {
     const orderDate = new Date(order.createdAt); // Assuming 'date' property contains the order date
     return orderDate.toDateString() === today.toDateString(); // Compare the order date with today's date
   });
-  const SellerTodayRevenue = todayOrders?.filter((order) => order.orderType === "Sales")
+  const SellerTodayRevenue = todayOrders?.filter((order) => order.orderType === "Sales"&&order.orderStatus!=="cancelled")
   .map((order) => {
     const orderTotal = order.Products?.reduce((acc, product) => {
       return acc + product?.Product?.salePrice * product?.order_quantity;
@@ -59,7 +59,7 @@ const Card = () => {
   );
 
   
-  const profitRevenue = allOrders?.filter((order) => order.orderType === "Sales")
+  const profitRevenue = allOrders?.filter((order) => order.orderType === "Sales"&&order.orderStatus!=="cancelled")
   .map((order) => {
     const orderTotal = order.Products?.reduce((acc, product) => {
       const productTotal = (product?.Product?.salePrice * product?.order_quantity)*0.9;

@@ -79,7 +79,7 @@ const OrderViewHeader = ({singleOrder,GrandTotal}) => {
             </h1>
           </div>
 
-          {singleOrder?.orderType === "Sales" && (
+          {singleOrder?.orderType === "Sales"&&singleOrder.orderStatus!=="cancelled" && (
             <div className="flex flex-col px-2 py-2 sm:flex-row gap-3 justify-center  items-center">
               <Dropdown status={status} setStatus={setStatus} />
               <div className=" flex ">

@@ -8,8 +8,8 @@ const Graph = () => {
   const revenueByMonth = [];
   const role = loggedIn && loggedIn.user && loggedIn.user.role;
   allOrders?.forEach((order) => {
-    const { createdAt, Products, orderType } = order;
-    if (orderType === "Sales") {
+    const { createdAt, Products, orderType,orderStatus } = order;
+    if (orderType === "Sales"&&orderStatus!=="cancelled") {
       // Filter orders with orderType "Sales"
       let orderMonth;
       if(selectedvalue==="day"){

@@ -13,7 +13,7 @@ const ProfitandLoss = () => {
     ...state,
   }));
   const update = allOrders?.filter((c) => {
-    return c.orderType === "Sales";
+    return c.orderType === "Sales"&&c.orderStatus!=="cancelled";
   });
   const onShopChange = (e) => {
     if (e.target.value === "select") {
@@ -23,7 +23,7 @@ const ProfitandLoss = () => {
       return;
     }
     const filter = allOrders?.filter((p) => {
-      return p.store._id === e.target.value && p.orderType === "Sales";
+      return p.store._id === e.target.value && p.orderType === "Sales"&&p.orderStatus!=="cancelled";
     });
     filter && setOrders(filter);
     const profilter = product?.filter((p) => {
@@ -48,7 +48,7 @@ const ProfitandLoss = () => {
   useEffect(() => {
     if (allOrders && allOrders.length) {
       const update = allOrders?.filter((c) => {
-        return c.orderType === "Sales";
+        return c.orderType === "Sales"&&c.orderStatus!=="cancelled";
       });
       const sortedOrders = update?.sort((a, b) => {
         const dateA = new Date(a.createdAt);

@@ -28,3 +28,7 @@ export const DeleteUser = async (id) => {
     const { data } = await axios.delete(`/delete-users/${id}`);
     return data;
   };
+  export const DeleteContact = async (id) => {
+    const { data } = await axios.delete(`/delete-contact/${id}`);
+    return data;
+  };

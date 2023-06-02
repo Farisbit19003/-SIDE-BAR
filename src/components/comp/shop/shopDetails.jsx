@@ -49,7 +49,8 @@ const ShopDetails = () => {
   }, [singleShop,product,allProducts]);
   useEffect(() => {
     const salesOrders = allOrders?.filter((order) => {
-      return order.store._id === singleShop?._id && order.orderType === "Sales";
+      return order.store._id === singleShop?._id && order.orderType === "Sales"
+      &&order.orderStatus!=="cancelled";
     });
     
     setOrdersLength(salesOrders);

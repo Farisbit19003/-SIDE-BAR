@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import AdminLayout from "../admin";
 import ConTable from "../../comp/Contact/ConTable";
 import { BiSearch } from "react-icons/bi";
-import { AllCategory, DeleteCategory } from "../../comp/category/functions";
+import { AllContacts, DeleteContact } from "../../comp/user/Userfunction";
 import { toast } from "react-toastify";
 import swal from "sweetalert";
 import { useDispatch, useSelector } from "react-redux";
@@ -27,12 +27,12 @@ const Contact = () => {
       dangerMode: true,
     }).then((willDelete) => {
       if (willDelete) {
-        DeleteCategory(id)
+       DeleteContact(id)
           .then((res) => {
             swal("Deleted SuccessFully", {
               icon: "success",
             });
-            AllCategory(dispatch);
+           AllContacts(dispatch);
           })
           .catch((error) => {
             toast.error(error);
