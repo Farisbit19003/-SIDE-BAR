@@ -17,13 +17,16 @@ const Orders = () => {
     setStartDate(start);
     setEndDate(end);
     if (start && end) {
+      const startOfDay = new Date(start.getFullYear(), start.getMonth(), start.getDate(), 0, 0, 0);
+      const endOfDay = new Date(end.getFullYear(), end.getMonth(), end.getDate(), 23, 59, 59);
       const filter = update?.filter((o) => {
         const orderDate = new Date(o.createdAt);
-        return orderDate >= start && orderDate <= end;
+        return orderDate >= startOfDay && orderDate <= endOfDay;
       });
       setOrders(filter);
     }
   };
+  
   
   const dispatch = useDispatch();
   const { sellerShops, allOrders, product } = useSelector((state) => ({
