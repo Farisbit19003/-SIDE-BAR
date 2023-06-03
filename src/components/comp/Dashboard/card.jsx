@@ -8,48 +8,53 @@ import { BiCartDownload } from "react-icons/bi";
 import { BsShop } from "react-icons/bs";
 
 const Card = () => {
-  const { loggedIn, allShops, product, sellerShops, allOrders,allusers } = useSelector(
-    (state) => ({
+  const { loggedIn, allShops, product, sellerShops, allOrders, allusers } =
+    useSelector((state) => ({
       ...state,
-    })
-  );
+    }));
   const role = loggedIn && loggedIn.user && loggedIn.user.role;
 
   const currentDate = new Date();
   const thirtyDaysAgo = new Date();
   thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
-  const SellerRevenue = allOrders?.filter((order) => order.orderType === "Sales"&&order.orderStatus!=="cancelled") // Filter orders with orderType "Sales"
-  .map((order) => {
-    const orderDate = new Date(order.createdAt);
-    if (orderDate >= thirtyDaysAgo && orderDate <= currentDate) {
-      const orderTotal = order.Products?.reduce((acc, product) => {
-        return acc + product?.Product?.salePrice * product?.order_quantity;
-      }, 0);
-      return orderTotal * (role === "Admin" ? 0.1 : 0.9);
-    } else {
-      return 0;
-    }
-  });
+  const SellerRevenue = allOrders
+    ?.filter(
+      (order) =>
+        order.orderType === "Sales" && order.orderStatus !== "cancelled"
+    ) // Filter orders with orderType "Sales"
+    .map((order) => {
+      const orderDate = new Date(order.createdAt);
+      if (orderDate >= thirtyDaysAgo && orderDate <= currentDate) {
+        const orderTotal = order.Products?.reduce((acc, product) => {
+          return acc + product?.Product?.salePrice * product?.order_quantity;
+        }, 0);
+        return orderTotal * (role === "Admin" ? 0.1 : 0.9);
+      } else {
+        return 0;
+      }
+    });
 
   const SellertotalRevenue = SellerRevenue?.reduce((acc, orderTotal) => {
     return acc + orderTotal;
   }, 0);
-
-
 
   const today = new Date(); // Get the current date
   const todayOrders = allOrders?.filter((order) => {
     const orderDate = new Date(order.createdAt); // Assuming 'date' property contains the order date
     return orderDate.toDateString() === today.toDateString(); // Compare the order date with today's date
   });
-  const SellerTodayRevenue = todayOrders?.filter((order) => order.orderType === "Sales"&&order.orderStatus!=="cancelled")
-  .map((order) => {
-    const orderTotal = order.Products?.reduce((acc, product) => {
-      return acc + product?.Product?.salePrice * product?.order_quantity;
-    }, 0);
+  const SellerTodayRevenue = todayOrders
+    ?.filter(
+      (order) =>
+        order.orderType === "Sales" && order.orderStatus !== "cancelled"
+    )
+    .map((order) => {
+      const orderTotal = order.Products?.reduce((acc, product) => {
+        return acc + product?.Product?.salePrice * product?.order_quantity;
+      }, 0);
 
-    return orderTotal * (role==="Admin"?0.1:0.9); // Subtracting 10% from the order total
-  });
+      return orderTotal * (role === "Admin" ? 0.1 : 0.9); // Subtracting 10% from the order total
+    });
 
   const SellerTodaytotalRevenue = SellerTodayRevenue?.reduce(
     (acc, orderTotal) => {
@@ -58,20 +63,25 @@ const Card = () => {
     0
   );
 
-  
-  const profitRevenue = allOrders?.filter((order) => order.orderType === "Sales"&&order.orderStatus!=="cancelled")
-  .map((order) => {
-    const orderTotal = order.Products?.reduce((acc, product) => {
-      const productTotal = (product?.Product?.salePrice * product?.order_quantity)*0.9;
-      const purchaseTotal = product?.Product?.purchasePrice * product?.order_quantity;
-      const profit = productTotal - purchaseTotal;
-      return acc + profit;
-    }, 0);
-  
-    return orderTotal; // Subtracting 10% from the order total
-  });
-  
-  const profit= profitRevenue?.reduce((acc, orderTotal) => {
+  const profitRevenue = allOrders
+    ?.filter(
+      (order) =>
+        order.orderType === "Sales" && order.orderStatus !== "cancelled"
+    )
+    .map((order) => {
+      const orderTotal = order.Products?.reduce((acc, product) => {
+        const productTotal =
+          product?.Product?.salePrice * product?.order_quantity * 0.9;
+        const purchaseTotal =
+          product?.Product?.purchasePrice * product?.order_quantity;
+        const profit = productTotal - purchaseTotal;
+        return acc + profit;
+      }, 0);
+
+      return orderTotal; // Subtracting 10% from the order total
+    });
+
+  const profit = profitRevenue?.reduce((acc, orderTotal) => {
     return acc + orderTotal;
   }, 0);
   const sellersLength = allusers?.filter((user) => user.role === "Seller");
@@ -80,7 +90,7 @@ const Card = () => {
     <>
       <div className="mb-1 grid w-full grid-cols-1 gap-2 sm:grid-cols-2 xl:grid-cols-4">
         <div className="w-full ">
-          {role === "Seller"? (
+          {role === "Seller" ? (
             <StickerCard
               titleTransKey="Total Products"
               icon={
@@ -92,7 +102,7 @@ const Card = () => {
               iconBgStyle={{ backgroundColor: "#ffe8b2" }}
               price={product?.length}
             />
-          ):(
+          ) : (
             <StickerCard
               titleTransKey="Total Sellers"
               icon={
@@ -117,7 +127,14 @@ const Card = () => {
               />
             }
             iconBgStyle={{ backgroundColor: "#facaca" }}
-            price={`${SellertotalRevenue?Math.round(SellertotalRevenue):0}/PKR`}
+            price={`${
+              SellertotalRevenue
+                ? Math.round(SellertotalRevenue).toLocaleString("en-US", {
+                    style: "currency",
+                    currency: "PKR",
+                  })
+                : 0
+            }`}
           />
         </div>
         <div className="w-full ">
@@ -130,22 +147,38 @@ const Card = () => {
               />
             }
             iconBgStyle={{ backgroundColor: "#ffe8b2" }}
-            price={`${SellerTodaytotalRevenue?Math.round(SellerTodaytotalRevenue):0}/PKR`}
+            price={`${
+              SellerTodaytotalRevenue
+                ? Math.round(SellerTodaytotalRevenue).toLocaleString("en-US", {
+                    style: "currency",
+                    currency: "PKR",
+                  })
+                : 0
+            }`}
           />
         </div>
-  {role==="Seller"&&      <div className="w-full ">
-          <StickerCard
-            titleTransKey="Total Profit"
-            icon={
-              <AiOutlineDollarCircle
-                size={35}
-                className=" align-middle text-[#ffb300]"
-              />
-            }
-            iconBgStyle={{ backgroundColor: "#ffe8b2" }}
-            price={`${profit?profit:0}/PKR`}
-          />
-        </div>}
+        {role === "Seller" && (
+          <div className="w-full ">
+            <StickerCard
+              titleTransKey="Total Profit"
+              icon={
+                <AiOutlineDollarCircle
+                  size={35}
+                  className=" align-middle text-[#ffb300]"
+                />
+              }
+              iconBgStyle={{ backgroundColor: "#ffe8b2" }}
+              price={`${
+                profit
+                  ? Math.round(profit).toLocaleString("en-US", {
+                      style: "currency",
+                      currency: "PKR",
+                    })
+                  : 0
+              }`}
+            />
+          </div>
+        )}
         <div className="w-full ">
           <StickerCard
             titleTransKey={role === "Admin" ? "Total Shops" : "My Shops"}

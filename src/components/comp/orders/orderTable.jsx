@@ -5,20 +5,21 @@ import moment from "moment";
 export const OrderTable = ({ orders, keyword, Searched }) => {
   let row = 1;
   const Revenue = orders
-  ?.filter((order) => order.orderStatus !== "cancelled")
-  .map((order) => {
-    const orderTotal = order.Products?.reduce((acc, product) => {
-      return acc + (product?.Product?.salePrice * product?.order_quantity || 0);
-    }, 0);
-    
-    return orderTotal * 0.9; // Subtracting 10% from the order total
-  });
+    ?.filter((order) => order.orderStatus !== "cancelled")
+    .map((order) => {
+      const orderTotal = order.Products?.reduce((acc, product) => {
+        return (
+          acc + (product?.Product?.salePrice * product?.order_quantity || 0)
+        );
+      }, 0);
 
-  
+      return orderTotal * 0.9; // Subtracting 10% from the order total
+    });
+
   const totalRevenue = Revenue?.reduce((acc, orderTotal) => {
     return acc + orderTotal;
   }, 0);
-  
+
   function handleMouseEnter(event) {
     const cell = event.currentTarget;
     const review = cell.textContent;
@@ -71,7 +72,7 @@ export const OrderTable = ({ orders, keyword, Searched }) => {
         </div>
       ) : (
         <>
-          <div className="my-6 flex border bg-white shadow" >
+          <div className="my-6 flex border bg-white shadow">
             <div className="mx-auto mt-2 h-fit w-full">
               <div className="flex flex-row justify-center items-center mx-2 my-2">
                 <p className="flex font-sans font-semibold text-lg ">Orders</p>
@@ -153,7 +154,13 @@ export const OrderTable = ({ orders, keyword, Searched }) => {
                         </>
                       ))}
                     <tr className="bg-white cursor-default whitespace-nowrap hover:!bg-gray-100 border-b-2 font-sans">
-                      <td className="px-4 py-2 font-bold">Total:{totalRevenue}/PKR</td>
+                      <td className="px-4 py-2 font-bold">
+                        Total:
+                        {Math.round(totalRevenue).toLocaleString("en-US", {
+                          style: "currency",
+                          currency: "PKR",
+                        })}
+                      </td>
                     </tr>
                   </tbody>
                 </table>

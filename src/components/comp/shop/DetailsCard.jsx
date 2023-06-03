@@ -232,7 +232,7 @@ const DetailsCard = ({ page, singleShop, ok, proLength,OrdersLength,GrandTotal }
                 </div>
 
                 <div className="ms-3">
-                  <p className="mb-0.5 text-md font-semibold">{GrandTotal}/Pkr</p>
+                  <p className="mb-0.5 text-md font-semibold">{Math.round( GrandTotal)}/Pkr</p>
                   <p className="mt-0 text-sm  text-muted">gross-sales</p>
                 </div>
               </div>

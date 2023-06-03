@@ -6,20 +6,21 @@ export const ProfitTable = ({ orders, keyword, Searched }) => {
   let row = 1;
   const Revenue = orders?.map((order) => {
     const orderTotal = order.Products?.reduce((acc, product) => {
-      const productTotal = (product?.Product?.salePrice * product?.order_quantity)*0.9;
-      const purchaseTotal = product?.Product?.purchasePrice * product?.order_quantity;
+      const productTotal =
+        product?.Product?.salePrice * product?.order_quantity * 0.9;
+      const purchaseTotal =
+        product?.Product?.purchasePrice * product?.order_quantity;
       const profit = productTotal - purchaseTotal;
       return acc + profit;
     }, 0);
-  
+
     return orderTotal; // Subtracting 10% from the order total
   });
-  
+
   const totalRevenue = Revenue?.reduce((acc, orderTotal) => {
     return acc + orderTotal;
   }, 0);
-  
-  
+
   return (
     <>
       {!orders || orders.length === 0 ? (
@@ -40,7 +41,13 @@ export const ProfitTable = ({ orders, keyword, Searched }) => {
             <div className="mx-auto mt-2 h-fit w-full">
               <div className="flex flex-row justify-between items-center mx-2 my-2">
                 <p className="flex font-sans font-semibold text-lg ">Orders</p>
-                <p className="flex font-sans font-semibold text-lg ">NetProfit:{totalRevenue}/PKR</p>
+                <p className="flex font-sans font-semibold text-lg ">
+                  NetProfit:
+                  {Math.round(totalRevenue).toLocaleString("en-US", {
+                    style: "currency",
+                    currency: "PKR",
+                  })}
+                </p>
               </div>
               <div className="overflow-x-auto flex flex-col justify-center">
                 <table className="mx-2 my-2 font-sans shadow">
@@ -51,15 +58,20 @@ export const ProfitTable = ({ orders, keyword, Searched }) => {
                         Tracking ID
                       </th>
                       <th className="px-4 whitespace-nowrap py-2">Date</th>
-                     
-                     
+
                       <th className="px-4 whitespace-nowrap py-2">Order By</th>
                       <th className="px-4 whitespace-nowrap py-2">Store</th>
                       <th className="px-4 whitespace-nowrap py-2">Quantity</th>
-                     
-                      <th className="px-4 whitespace-nowrap py-2">Sale Amount-10%</th>
-                      <th className="px-4 whitespace-nowrap py-2">Purchase Amount</th>
-                      <th className="px-4 whitespace-nowrap py-2">Total Profit</th>
+
+                      <th className="px-4 whitespace-nowrap py-2">
+                        Sale Amount-10%
+                      </th>
+                      <th className="px-4 whitespace-nowrap py-2">
+                        Purchase Amount
+                      </th>
+                      <th className="px-4 whitespace-nowrap py-2">
+                        Total Profit
+                      </th>
                       <th className="px-4 whitespace-nowrap py-2">Action</th>
                     </tr>
                   </thead>
@@ -77,8 +89,7 @@ export const ProfitTable = ({ orders, keyword, Searched }) => {
                             <td className="px-4 py-2">
                               {moment(item?.createdAt).format("MMMM D, YYYY")}
                             </td>
-                          
-                           
+
                             <td className="px-4 py-2">{item?.orderBy?.name}</td>
                             <td className="px-4 py-2">
                               {item?.store?.Storename}
@@ -98,22 +109,31 @@ export const ProfitTable = ({ orders, keyword, Searched }) => {
                             <td className="px-4 py-2">
                               {item?.Products?.reduce((acc, p) => {
                                 return (
-                                  acc + p.Product?.purchasePrice * p.order_quantity
+                                  acc +
+                                  p.Product?.purchasePrice * p.order_quantity
                                 );
                               }, 0)}
                             </td>
                             <td className="px-4 py-2">
-                              {Math.round((item?.Products?.reduce((acc, p) => {
-                                return (
-                                  acc + p.Product?.salePrice * p.order_quantity
-                                );
-                              }, 0) * 0.9)-(item?.Products?.reduce((acc, p) => {
-                                return (
-                                  acc + p.Product?.purchasePrice * p.order_quantity
-                                );
-                              }, 0)))}/PKr
+                              {Math.round(
+                                item?.Products?.reduce((acc, p) => {
+                                  return (
+                                    acc +
+                                    p.Product?.salePrice * p.order_quantity
+                                  );
+                                }, 0) *
+                                  0.9 -
+                                  item?.Products?.reduce((acc, p) => {
+                                    return (
+                                      acc +
+                                      p.Product?.purchasePrice *
+                                        p.order_quantity
+                                    );
+                                  }, 0)
+                              )}
+                              /PKr
                             </td>
-                         
+
                             <td className="px-4 py-2 flex items-center justify-center">
                               <Link to={`/order/detail/${item._id}`}>
                                 <AiOutlineEye />
@@ -131,8 +151,9 @@ export const ProfitTable = ({ orders, keyword, Searched }) => {
                       <td className="px-4 py-2 font-bold"></td>
                       <td className="px-4 py-2 font-bold"></td>
                       <td className="px-4 py-2 font-bold"></td>
-                      <td className="px-4 py-2 font-bold">Net Proft:{totalRevenue}</td>
-                      
+                      <td className="px-4 py-2 font-bold">
+                        Net Proft:{totalRevenue}
+                      </td>
                     </tr>
                   </tbody>
                 </table>

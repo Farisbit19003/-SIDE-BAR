@@ -223,7 +223,7 @@ const handlePrint = () => {
           </button> */}
         </div>
       </div>
-      <div id="orderTable" style={{ overflow: "auto", maxHeight: "500px" }}>
+      <div id="orderTable">
 
         <OrderTable orders={orders} Searched={Searched} keyword={keyword} />
       </div>    </ShopLayout>

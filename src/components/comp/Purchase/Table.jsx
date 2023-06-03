@@ -8,14 +8,14 @@ export const PurchaseOrderTable = ({ orders, keyword, Searched }) => {
     const orderTotal = order.Products?.reduce((acc, product) => {
       return acc + product.Product.purchasePrice * product.order_quantity;
     }, 0);
-    
+
     return orderTotal; // Subtracting 10% from the order total
   });
-  
+
   const totalRevenue = Revenue?.reduce((acc, orderTotal) => {
     return acc + orderTotal;
   }, 0);
-  
+
   function handleMouseEnter(event) {
     const cell = event.currentTarget;
     const review = cell.textContent;
@@ -137,7 +137,8 @@ export const PurchaseOrderTable = ({ orders, keyword, Searched }) => {
                             <td className="px-4 py-2">
                               {item?.Products?.reduce((acc, p) => {
                                 return (
-                                  acc + p.Product.purchasePrice * p.order_quantity
+                                  acc +
+                                  p.Product.purchasePrice * p.order_quantity
                                 );
                               }, 0)}
                             </td>
@@ -150,7 +151,13 @@ export const PurchaseOrderTable = ({ orders, keyword, Searched }) => {
                         </>
                       ))}
                     <tr className="bg-white cursor-default whitespace-nowrap hover:!bg-gray-100 border-b-2 font-sans">
-                      <td className="px-4 py-2 font-bold">Total:{totalRevenue}/PKR</td>
+                      <td className="px-4 py-2 font-bold">
+                        Total:
+                        {Math.round(totalRevenue).toLocaleString("en-US", {
+                          style: "currency",
+                          currency: "PKR",
+                        })}
+                      </td>
                     </tr>
                   </tbody>
                 </table>
