@@ -7,7 +7,8 @@ import { toast } from "react-toastify";
 import swal from "sweetalert";
 import { useDispatch, useSelector } from "react-redux";
 import { DeleteProduct, SellerProducts } from "../../comp/Products/functions";
-
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 const StockReport = () => {
   const [products, setProducts] = useState([]);
   const [listproducts, setListProducts] = useState([]);
@@ -20,6 +21,7 @@ const StockReport = () => {
   );
   const [ok, setOk] = useState([]);
   const dispatch = useDispatch();
+  
   const onShopChange = (e) => {
     if (e.target.value === "select") {
         product&& setProducts(product);

@@ -17,35 +17,68 @@ const Orders = () => {
     setStartDate(start);
     setEndDate(end);
     if (start && end) {
-      const startOfDay = new Date(start.getFullYear(), start.getMonth(), start.getDate(), 0, 0, 0);
-      const endOfDay = new Date(end.getFullYear(), end.getMonth(), end.getDate(), 23, 59, 59);
+      const startOfDay = new Date(
+        start.getFullYear(),
+        start.getMonth(),
+        start.getDate(),
+        0,
+        0,
+        0
+      );
+      const endOfDay = new Date(
+        end.getFullYear(),
+        end.getMonth(),
+        end.getDate(),
+        23,
+        59,
+        59
+      );
+      if(document.getElementById("productSelect").value !== "select" ||
+      document.getElementById("shopSelect").value !== "select")
+      {
+      const filter = orders?.filter((o) => {
+        const orderDate = new Date(o.createdAt);
+        return orderDate >= startOfDay && orderDate <= endOfDay;
+      }).sort((a, b) => {
+        const dateA = new Date(a.createdAt);
+        const dateB = new Date(b.createdAt);
+        return dateB - dateA; // Compare the dates in descending order for newest orders on top
+      });
+      setOrders(filter);
+    }else{
       const filter = update?.filter((o) => {
         const orderDate = new Date(o.createdAt);
         return orderDate >= startOfDay && orderDate <= endOfDay;
       });
       setOrders(filter);
     }
+    }
   };
-  
-  
+
   const dispatch = useDispatch();
   const { sellerShops, allOrders, product } = useSelector((state) => ({
     ...state,
   }));
-  const update = allOrders?.filter((c) => {
-    return c.orderType === "Sales";
-  }).sort((a, b) => {
-    const dateA = new Date(a.createdAt);
-    const dateB = new Date(b.createdAt);
-    return dateB - dateA; // Compare the dates in descending order for newest orders on top
-  });;
+  const update = allOrders
+    ?.filter((c) => {
+      return c.orderType === "Sales";
+    })
+    .sort((a, b) => {
+      const dateA = new Date(a.createdAt);
+      const dateB = new Date(b.createdAt);
+      return dateB - dateA; // Compare the dates in descending order for newest orders on top
+    });
   const onShopChange = (e) => {
     if (e.target.value === "select") {
       update && setOrders(update);
       setProducts(product);
       document.getElementById("productSelect").value = "select";
+      setStartDate(null); // Reset the startDate
+      setEndDate(null); // Reset the endDate
       return;
     }
+    setStartDate(null); // Reset the startDate
+    setEndDate(null); // Reset the endDate
     const filter = allOrders?.filter((p) => {
       return p.store._id === e.target.value && p.orderType === "Sales";
     });
@@ -59,6 +92,8 @@ const Orders = () => {
     if (e.target.value === "select") {
       return update && setOrders(update);
     }
+    setStartDate(null); // Reset the startDate
+    setEndDate(null); // Reset the endDate
     const filter = update?.filter((order) => {
       return order?.Products?.some((p) => p.Product?._id === e.target.value);
     });
@@ -88,6 +123,23 @@ const Orders = () => {
   };
   const Searched = (keyword) => (c) => c._id.includes(keyword);
 
+  const handleReset=(e)=>{
+e.preventDefault();
+setStartDate(null)
+setEndDate(null)
+document.getElementById("productSelect").value = "select";
+document.getElementById("shopSelect").value = "select";
+setOrders(update);
+}
+
+const handlePrint = () => {
+  const printContents = document.getElementById("orderTable").innerHTML;
+  const originalContents = document.body.innerHTML;
+
+  document.body.innerHTML = printContents;
+  window.print();
+  document.body.innerHTML = originalContents;
+}
   return (
     <ShopLayout>
       <div className="p-3 md:p-6 mb-6 flex shadow flex-col sm:flex-row items-center justify-between bg-white ">
@@ -163,10 +215,18 @@ const Orders = () => {
             selectsRange
             className="h-12 mb-2  text-md bg-white border-gray-400 rounded-lg px-3 py-2  font-sans font-normal tracking-normal text-left focus:outline-none focus:ring-2 focus:ring-green-600"
           />
+          <button onClick={handleReset} className="bg-[#248F59] w-full px-4 py-2 sm:py-3 rounded-md text-sm sm:text-base whitespace-nowrap flex justify-center items-center font-sans uppercase text-[#f2f2f2]">
+            Reset
+          </button>
+          {/* <button onClick={handlePrint} className="bg-[#248F59] w-full px-4 py-2 sm:py-3 rounded-md text-sm sm:text-base whitespace-nowrap flex justify-center items-center font-sans uppercase text-[#f2f2f2]">
+            Print
+          </button> */}
         </div>
       </div>
-      <OrderTable orders={orders} Searched={Searched} keyword={keyword} />
-    </ShopLayout>
+      <div id="orderTable" style={{ overflow: "auto", maxHeight: "500px" }}>
+
+        <OrderTable orders={orders} Searched={Searched} keyword={keyword} />
+      </div>    </ShopLayout>
   );
 };
 

@@ -71,7 +71,7 @@ export const OrderTable = ({ orders, keyword, Searched }) => {
         </div>
       ) : (
         <>
-          <div className="my-6 flex border bg-white shadow">
+          <div className="my-6 flex border bg-white shadow" >
             <div className="mx-auto mt-2 h-fit w-full">
               <div className="flex flex-row justify-center items-center mx-2 my-2">
                 <p className="flex font-sans font-semibold text-lg ">Orders</p>

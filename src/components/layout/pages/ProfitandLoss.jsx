@@ -3,7 +3,8 @@ import { BiSearch } from "react-icons/bi";
 import { useDispatch, useSelector } from "react-redux";
 import { ProfitTable } from "../../comp/Profit/ProfitTable";
 import ShopLayout from "../../layout/Shop/index";
-
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 const ProfitandLoss = () => {
   const [orders, setOrders] = useState([]);
   const [keyword, setKeyword] = useState("");
@@ -12,18 +13,75 @@ const ProfitandLoss = () => {
   const { sellerShops, allOrders, product } = useSelector((state) => ({
     ...state,
   }));
-  const update = allOrders?.filter((c) => {
-    return c.orderType === "Sales"&&c.orderStatus!=="cancelled";
-  });
+  const [startDate, setStartDate] = useState(null);
+  const [endDate, setEndDate] = useState(null);
+  const onChange = (dates) => {
+    const [start, end] = dates;
+    setStartDate(start);
+    setEndDate(end);
+    if (start && end) {
+      const startOfDay = new Date(
+        start.getFullYear(),
+        start.getMonth(),
+        start.getDate(),
+        0,
+        0,
+        0
+      );
+      const endOfDay = new Date(
+        end.getFullYear(),
+        end.getMonth(),
+        end.getDate(),
+        23,
+        59,
+        59
+      );
+      if (
+        document.getElementById("productSelect").value !== "select" ||
+        document.getElementById("shopSelect").value !== "select"
+      ) {
+        const filter = orders
+          ?.filter((o) => {
+            const orderDate = new Date(o.createdAt);
+            return orderDate >= startOfDay && orderDate <= endOfDay;
+          })
+          .sort((a, b) => {
+            const dateA = new Date(a.createdAt);
+            const dateB = new Date(b.createdAt);
+            return dateB - dateA; // Compare the dates in descending order for newest orders on top
+          });
+        setOrders(filter);
+      } else {
+        const filter = update?.filter((o) => {
+          const orderDate = new Date(o.createdAt);
+          return orderDate >= startOfDay && orderDate <= endOfDay;
+        });
+        setOrders(filter);
+      }
+    }
+  };
+  const update = allOrders
+    ?.filter((c) => {
+      return c.orderType === "Sales" && c.orderStatus !== "cancelled";
+    })
+    .sort((a, b) => {
+      const dateA = new Date(a.createdAt);
+      const dateB = new Date(b.createdAt);
+      return dateB - dateA; // Compare the dates in descending order for newest orders on top
+    });
   const onShopChange = (e) => {
     if (e.target.value === "select") {
       update && setOrders(update);
       setProducts(product);
+      setStartDate(null); // Reset the startDate
+      setEndDate(null); // Reset the endDate
       document.getElementById("productSelect").value = "select";
       return;
     }
-    const filter = allOrders?.filter((p) => {
-      return p.store._id === e.target.value && p.orderType === "Sales"&&p.orderStatus!=="cancelled";
+    setStartDate(null); // Reset the startDate
+    setEndDate(null); // Reset the endDate
+    const filter = update?.filter((p) => {
+      return p.store._id === e.target.value;
     });
     filter && setOrders(filter);
     const profilter = product?.filter((p) => {
@@ -36,6 +94,8 @@ const ProfitandLoss = () => {
       update && setOrders(update);
       return;
     }
+    setStartDate(null); // Reset the startDate
+    setEndDate(null); // Reset the endDate
     const filter = update?.filter((order) => {
       return order?.Products?.some((p) => p.Product?._id === e.target.value);
     });
@@ -48,7 +108,7 @@ const ProfitandLoss = () => {
   useEffect(() => {
     if (allOrders && allOrders.length) {
       const update = allOrders?.filter((c) => {
-        return c.orderType === "Sales"&&c.orderStatus!=="cancelled";
+        return c.orderType === "Sales" && c.orderStatus !== "cancelled";
       });
       const sortedOrders = update?.sort((a, b) => {
         const dateA = new Date(a.createdAt);
@@ -64,7 +124,14 @@ const ProfitandLoss = () => {
     setKeyword(e.target.value.toLowerCase());
   };
   const Searched = (keyword) => (c) => c._id.includes(keyword);
-
+  const handleReset = (e) => {
+    e.preventDefault();
+    setStartDate(null);
+    setEndDate(null);
+    document.getElementById("productSelect").value = "select";
+    document.getElementById("shopSelect").value = "select";
+    setOrders(update);
+  };
   return (
     <ShopLayout>
       <div className="p-3 md:p-6 mb-6 flex shadow flex-col sm:flex-row items-center justify-between bg-white ">
@@ -130,6 +197,22 @@ const ProfitandLoss = () => {
               </option>
             ))}
           </select>
+          <label className="font-semibold mr-2">Date Range</label>
+          <DatePicker
+            selected={startDate}
+            onChange={onChange}
+            startDate={startDate}
+            endDate={endDate}
+            maxDate={new Date()}
+            selectsRange
+            className="h-12 mb-2  text-md bg-white border-gray-400 rounded-lg px-3 py-2  font-sans font-normal tracking-normal text-left focus:outline-none focus:ring-2 focus:ring-green-600"
+          />
+          <button
+            onClick={handleReset}
+            className="bg-[#248F59] w-full px-4 py-2 sm:py-3 rounded-md text-sm sm:text-base whitespace-nowrap flex justify-center items-center font-sans uppercase text-[#f2f2f2]"
+          >
+            Reset
+          </button>
         </div>
       </div>
       <ProfitTable orders={orders} Searched={Searched} keyword={keyword} />
