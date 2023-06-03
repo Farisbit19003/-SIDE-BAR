@@ -51,16 +51,16 @@ const Graph = () => {
    setSelectedValue(e.target.value);
   }
   return (
-    <div className="mb-6 flex w-full flex-wrap md:flex-nowrap bg-white">
-      <div className="pt-2 flex justify-end">
-      <label className="font-semibold mr-2 mt-2">Filter By</label>
+    <div className="mb-6 p-2 flex w-full flex-wrap md:flex-nowrap bg-white">
+      <div className="pt-2 w-full flex justify-end">
+      <label className="font-semibold font-sans text-lg m-2 p-2">Filter By</label>
         <select
           type="text"
           name="store"
           id="shopSelect"
           value={selectedvalue}
           onChange={handlChange}
-          className="h-12 mb-2 text-md bg-white border-gray-400 rounded-lg px-3 py-2 font-sans font-normal tracking-normal text-left focus:outline-none focus:ring-2 focus:ring-green-600"
+          className="h-12 mb-2 text-md bg-white outline-none border-[#f2f2f2] rounded-lg px-3 py-2 font-sans font-normal tracking-normal text-left focus:outline-none focus:ring-2 focus:ring-green-600"
         >
           <option value="select">--Select--</option>
           <option value="month">Monthly</option>

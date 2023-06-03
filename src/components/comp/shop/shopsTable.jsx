@@ -12,7 +12,20 @@ import {
   DisApproveStore,
 } from "../Create Shop/functions";
 export const ShopTable = ({ page, shops, Searched, keyword }) => {
-  let row=1;
+  let row = 1;
+
+  function handleMouseEnter(event) {
+    const cell = event.currentTarget;
+    const review = cell.textContent;
+    cell.setAttribute("title", review);
+    cell.classList.add("show-review");
+  }
+
+  function handleMouseLeave(event) {
+    const cell = event.currentTarget;
+    cell.removeAttribute("title");
+    cell.classList.remove("show-review");
+  }
   const dispatch = useDispatch();
   const handleApprove = (_id) => {
     try {
@@ -94,7 +107,7 @@ export const ShopTable = ({ page, shops, Searched, keyword }) => {
               <table className="mx-2 my-2 font-sans whitespace-nowrap shadow">
                 <thead>
                   <tr className="bg-[#F2F2F2]">
-                  <th className="px-4 py-2">Sr#</th>
+                    <th className="px-4 py-2">Sr#</th>
                     <th className="px-4 py-2">Name</th>
                     <th className="px-4 py-2">Slug</th>
                     <th className="px-4 py-2">Category</th>
@@ -123,8 +136,12 @@ export const ShopTable = ({ page, shops, Searched, keyword }) => {
                         <td className="px-4 py-2">{item.user?.name}</td>
 
                         <td className="px-4 py-2">{item.Storewhatsapp}</td>
-                        <td className="px-4 py-2">
-                          {item.mapAddress.slice(0, 30)}....
+                        <td
+                          className="px-4 py-2 text-ellipsis overflow-hidden max-w-xs"
+                          onMouseEnter={handleMouseEnter}
+                          onMouseLeave={handleMouseLeave}
+                        >
+                          {item.mapAddress}
                         </td>
                         <td className="px-4 py-2">{item.City}</td>
                         <td

@@ -1,6 +1,18 @@
 import { BiTrash } from "react-icons/bi";
 export const UserTable = ({ handleDelete, users, keyword, Searched, ok }) => {
   let row = 1;
+  function handleMouseEnter(event) {
+    const cell = event.currentTarget;
+    const review = cell.textContent;
+    cell.setAttribute("title", review);
+    cell.classList.add("show-review");
+  }
+
+  function handleMouseLeave(event) {
+    const cell = event.currentTarget;
+    cell.removeAttribute("title");
+    cell.classList.remove("show-review");
+  }
   return (
     <>
       {!users || users.length === 0 ? (
@@ -59,7 +71,11 @@ export const UserTable = ({ handleDelete, users, keyword, Searched, ok }) => {
                         <td className="px-4 py-2">
                           {item.whatsapp && item.whatsapp}
                         </td>
-                        <td className="px-4 py-2">
+                        <td
+                          className="px-4 py-2 text-ellipsis overflow-hidden max-w-xs"
+                          onMouseEnter={handleMouseEnter}
+                          onMouseLeave={handleMouseLeave}
+                        >
                           {item.address && item.address}
                         </td>
 

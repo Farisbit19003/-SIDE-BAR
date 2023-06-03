@@ -156,60 +156,70 @@ const ProfitandLoss = () => {
           </button>
         </div>
       </div>
-      <div className="p-3 md:p-6 mb-6 flex shadow flex-col sm:flex-row items-center justify-between bg-white ">
-        <div>
+      <div className="p-3 md:p-6 mb-6 flex flex-col items-center justify-between bg-white shadow">
+        <div className="flex justify-center items-center">
           <h1 className="font-serif font-normal text-3xl text-[#248F59]">
             Filter By
           </h1>
         </div>
 
-        <div className="flex flex-col px-2 py-2 gap-3 justify-center  items-center">
-          <label className="font-semibold mr-2">Shops</label>
+        <div className="flex flex-col md:flex-row px-2 py-2 w-full gap-2 justify-between items-center">
+          <div className="flex flex-col items-center gap-2 md:flex-row">
+            <label className="font-semibold font-sans">Shops</label>
+            <select
+              type="text"
+              onChange={onShopChange}
+              name="store"
+              id="shopSelect"
+              className="w-full md:w-auto h-12 mb-2 bg-white border-gray-400 rounded-lg px-3 py-2 font-sans font-normal tracking-normal text-left focus:outline-none focus:ring-2 focus:ring-green-600"
+            >
+              <option value="select">--Select--</option>
+              {sellerShops?.map((shop) => (
+                <option key={shop._id} value={shop._id}>
+                  {shop.Storename}
+                </option>
+              ))}
+            </select>
+          </div>
 
-          <select
-            type="text"
-            onChange={onShopChange}
-            name="store"
-            id="shopSelect"
-            className="h-12 mb-2  text-md bg-white border-gray-400 rounded-lg px-3 py-2  font-sans font-normal tracking-normal text-left focus:outline-none focus:ring-2 focus:ring-green-600"
-          >
-            <option value="select">--Select--</option>
-            {sellerShops?.map((shop) => (
-              <option key={shop._id} value={shop._id}>
-                {shop.Storename}
-              </option>
-            ))}
-          </select>
+          <div className="flex flex-col items-center gap-2 md:flex-row">
+            <label className="font-semibold font-sans">Products</label>
+            <select
+              type="text"
+              onChange={onProductChange}
+              name="store"
+              id="productSelect"
+              className="w-full md:w-auto h-12 mb-2 text-md bg-white border-gray-400 rounded-lg px-3 py-2 font-sans font-normal tracking-normal text-left focus:outline-none focus:ring-2 focus:ring-green-600"
+            >
+              <option value="select">--Select--</option>
+              {products?.map((p) => (
+                <option key={p._id} value={p._id}>
+                  {p.name}
+                </option>
+              ))}
+            </select>
+          </div>
+        </div>
 
-          <label className="font-semibold mr-2">Products</label>
+        <div className="flex flex-col md:flex-row px-2 py-2 w-full gap-2 justify-between items-center">
+          <div className="flex flex-col items-center gap-2 md:flex-row">
+            <label className="font-semibold whitespace-nowrap">
+              Date Range
+            </label>
+            <DatePicker
+              selected={startDate}
+              onChange={onChange}
+              startDate={startDate}
+              endDate={endDate}
+              maxDate={new Date()}
+              selectsRange
+              className="w-full md:w-auto h-12 mb-2 text-md bg-white border-gray-400 rounded-lg px-3 py-2 font-sans font-normal tracking-normal text-left focus:outline-none focus:ring-2 focus:ring-green-600"
+            />
+          </div>
 
-          <select
-            type="text"
-            onChange={onProductChange}
-            name="store"
-            id="productSelect"
-            className="h-12 mb-2  text-md bg-white border-gray-400 rounded-lg px-3 py-2  font-sans font-normal tracking-normal text-left focus:outline-none focus:ring-2 focus:ring-green-600"
-          >
-            <option value="select">--Select--</option>
-            {products?.map((p) => (
-              <option key={p._id} value={p._id}>
-                {p.name}
-              </option>
-            ))}
-          </select>
-          <label className="font-semibold mr-2">Date Range</label>
-          <DatePicker
-            selected={startDate}
-            onChange={onChange}
-            startDate={startDate}
-            endDate={endDate}
-            maxDate={new Date()}
-            selectsRange
-            className="h-12 mb-2  text-md bg-white border-gray-400 rounded-lg px-3 py-2  font-sans font-normal tracking-normal text-left focus:outline-none focus:ring-2 focus:ring-green-600"
-          />
           <button
             onClick={handleReset}
-            className="bg-[#248F59] w-full px-4 py-2 sm:py-3 rounded-md text-sm sm:text-base whitespace-nowrap flex justify-center items-center font-sans uppercase text-[#f2f2f2]"
+            className="bg-[#248F59] transition-transform hover:scale-95 hover:text-white w-full md:w-auto px-4 py-2 sm:py-3 rounded-md text-sm sm:text-base whitespace-nowrap flex justify-center items-center font-sans uppercase text-[#f2f2f2]"
           >
             Reset
           </button>

@@ -10,16 +10,27 @@ export const ProductsTable = ({
   ok,
   page,
 }) => {
-let row=1;
+  let row = 1;
+  function handleMouseEnter(event) {
+    const cell = event.currentTarget;
+    const review = cell.textContent;
+    cell.setAttribute("title", review);
+    cell.classList.add("show-review");
+  }
 
-const TotalStock=products?.reduce((acc,p)=>{
-  const stock=p.quantity;
-  return acc+stock;
-},0)
-const TotalStold=products?.reduce((acc,p)=>{
-  const stock=p.totalSold;
-  return acc+stock;
-},0)
+  function handleMouseLeave(event) {
+    const cell = event.currentTarget;
+    cell.removeAttribute("title");
+    cell.classList.remove("show-review");
+  }
+  const TotalStock = products?.reduce((acc, p) => {
+    const stock = p.quantity;
+    return acc + stock;
+  }, 0);
+  const TotalStold = products?.reduce((acc, p) => {
+    const stock = p.totalSold;
+    return acc + stock;
+  }, 0);
   return (
     <>
       {!products || products.length === 0 ? (
@@ -46,14 +57,14 @@ const TotalStold=products?.reduce((acc,p)=>{
                   Stock Report
                 </p>
                 <p className="flex font-sans font-semibold text-lg ">
-                 Total Sold:{TotalStold}
+                  Total Sold:{TotalStold}
                 </p>
               </div>
               <div className="overflow-x-auto flex flex-col justify-center">
                 <table className="mx-2 my-2 font-sans whitespace-nowrap shadow">
                   <thead>
                     <tr className="bg-[#F2F2F2]">
-                     <th className="px-4 py-2">Sr#</th>
+                      <th className="px-4 py-2">Sr#</th>
                       <th className="px-4 py-2">Image</th>
                       <th className="px-4 py-2">Name</th>
                       {page === "Stock" ? (
@@ -91,10 +102,7 @@ const TotalStold=products?.reduce((acc,p)=>{
                           className="bg-white cursor-default hover:!bg-gray-100 border-b-2 font-sans"
                           key={item._id}
                         >
-                          
-                          <td className="px-4 py-2">
-                            {row++}
-                          </td>
+                          <td className="px-4 py-2">{row++}</td>
                           <td className="px-4 py-2">
                             <img
                               src={item?.feature_pic?.url}
@@ -107,8 +115,12 @@ const TotalStold=products?.reduce((acc,p)=>{
                           ) : (
                             <>
                               {" "}
-                              <td className="px-4 py-2">
-                                {item.discription.slice(0, 30)}.....
+                              <td
+                                className="px-4 py-2 text-ellipsis overflow-hidden max-w-xs"
+                                onMouseEnter={handleMouseEnter}
+                                onMouseLeave={handleMouseLeave}
+                              >
+                                {item.discription}
                               </td>
                               <td className="px-4 py-2">
                                 {item.category.name}
@@ -145,16 +157,24 @@ const TotalStold=products?.reduce((acc,p)=>{
                         </tr>
                       ))}
                     <tr className="bg-white cursor-default hover:!bg-gray-100 border-b-2 font-sans">
-                {page==="Stock" ?<><td className="px-4 py-2"></td>
-                    <td className="px-4 py-2"></td>
-                    <td className="px-4 py-2"></td>
-                    <td className="px-4 py-2"></td>
-                    <td className="px-4 py-2"></td>
-                    <td className="px-4 py-2"></td>
-                    <td className="px-4 py-2 font-bold">Total Stock:{TotalStock}</td>
-                    <td className="px-4 py-2 font-bold" >Total Sold:{TotalStold}</td>
-                    </> :""
-}
+                      {page === "Stock" ? (
+                        <>
+                          <td className="px-4 py-2"></td>
+                          <td className="px-4 py-2"></td>
+                          <td className="px-4 py-2"></td>
+                          <td className="px-4 py-2"></td>
+                          <td className="px-4 py-2"></td>
+                          <td className="px-4 py-2"></td>
+                          <td className="px-4 py-2 font-bold">
+                            Total Stock:{TotalStock}
+                          </td>
+                          <td className="px-4 py-2 font-bold">
+                            Total Sold:{TotalStold}
+                          </td>
+                        </>
+                      ) : (
+                        ""
+                      )}
                     </tr>
                   </tbody>
                 </table>
