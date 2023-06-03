@@ -1,10 +1,16 @@
 import React, { useState } from "react";
 import { BiEdit, BiTrash } from "react-icons/bi";
 import { AiOutlineMessage } from "react-icons/ai";
+import { toast } from "react-toastify";
+import { SendMessage } from "./function";
+import { LoadingOutlined } from "@ant-design/icons";
 
 const ConTable = ({ contacts, handleDelete, keyword, Searched, ok }) => {
   const [selectedContact, setSelectedContact] = useState(null);
+  const [message, setMessage] = useState("");
   const [showModal, setShowModal] = useState(false);
+  const [loading, setLoading] = useState(false);
+
   const openModal = (contact) => {
     setSelectedContact(contact);
     setShowModal(true);
@@ -15,9 +21,28 @@ const ConTable = ({ contacts, handleDelete, keyword, Searched, ok }) => {
     setShowModal(false);
     document.documentElement.classList.remove("modal-open");
   };
-
   let row = 1;
+  
+  const handleMessage=(e)=>{
+    e.preventDefault();
+    if(!message){
+      return toast.error("Please Add Message");
+    }
+    setLoading(true)
+    SendMessage(selectedContact,message).then((res)=>{
+      if(res.error){
+        toast.error(res.error)
+        setLoading(false)
 
+      }else{
+        toast.success("Message Send Succesfully");
+        setShowModal(false);
+        setLoading(false)
+        document.documentElement.classList.remove("modal-open");
+      }
+    })
+
+  }
   return (
     <>
       {!contacts || contacts.length === 0 ? (
@@ -122,9 +147,11 @@ const ConTable = ({ contacts, handleDelete, keyword, Searched, ok }) => {
                     <h2 className="font-sans font-semibold p-2 my-1">
                       Message
                     </h2>
-                    <textarea className="border h-12 outline-none rounded w-full focus:ring-green-600 " />
-                    <button className="bg-[#248f59] my-2 text-white hover:text-white hover:scale-95 transition-transform font-semibold font-sans uppercase py-2 px-4 rounded">
-                      Send
+                    <textarea
+                    onChange={(e)=>setMessage(e.target.value)}
+                    className="border h-12 outline-none rounded w-full focus:ring-green-600 " />
+                    <button onClick={handleMessage} className="bg-[#248f59] my-2 text-white hover:text-white hover:scale-95 transition-transform font-semibold font-sans uppercase py-2 px-4 rounded">
+                      {loading? <LoadingOutlined/>: "Send"}
                     </button>
                   </div>
                 </div>
