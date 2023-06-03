@@ -66,7 +66,7 @@ const Login = () => {
           {/* LOGO */}
           <Logo />
           <h1 className="text-gray-400 font-thin flex justify-center items-center italic mb-6 font-sans">
-            Login to Admin
+            Login
           </h1>
           {/* EMAIL */}
           <label className="mb-3 block text-sm font-semibold leading-none text-body-dark">

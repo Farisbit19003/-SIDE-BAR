@@ -6,10 +6,12 @@ import {
   ShoppingOutlined,
   UserOutlined,
 } from "@ant-design/icons";
-import { AiOutlineUnorderedList } from "react-icons/ai";
-import { BsShopWindow, BsCardChecklist } from "react-icons/bs";
+import { AiOutlineBarChart } from "react-icons/ai";
+import { BiBarChart } from "react-icons/bi";
+import { BsShopWindow } from "react-icons/bs";
 import { MdOutlineDashboard } from "react-icons/md";
-import { TbCategory } from "react-icons/tb";
+import { TbCategory, TbReceiptTax } from "react-icons/tb";
+import { TfiReceipt } from "react-icons/tfi";
 
 export const siteSettings = {
   name: "Bazar.pk",
@@ -44,38 +46,38 @@ export const siteSettings = {
       {
         id: 1,
         label: "Dashboard",
-        icon: <MdOutlineDashboard />,
+        icon: <MdOutlineDashboard size={20} />,
         to: "/",
       },
       {
         id: 2,
         label: "Shops",
-        icon: <ShopOutlined />,
+        icon: <ShopOutlined size={20} />,
         to: "/shop",
       },
       ,
       {
         id: 6,
         label: "Categories",
-        icon: <TbCategory />,
+        icon: <TbCategory size={20} />,
         to: "/categories",
       },
       {
         id: 9,
         label: "Users",
-        icon: <UserOutlined />,
+        icon: <UserOutlined size={20} />,
         to: "/users",
       },
       {
         id: 14,
         label: "Contact Us",
-        icon: <ContactsOutlined />,
+        icon: <ContactsOutlined size={20} />,
         to: "/contacts",
       },
       {
         id: 15,
         label: "Settings",
-        icon: <SettingOutlined />,
+        icon: <SettingOutlined size={20} />,
         to: "/settings",
       },
     ],
@@ -83,19 +85,19 @@ export const siteSettings = {
       {
         id: 1,
         label: "Dashboard",
-        icon: <MdOutlineDashboard />,
+        icon: <MdOutlineDashboard size={20} />,
         to: "/",
       },
       {
         id: 3,
         label: "My-Shops",
-        icon: <BsShopWindow />,
+        icon: <BsShopWindow size={20} />,
         to: "/my-shop",
       },
       {
         id: 4,
         label: "Products",
-        icon: <ShoppingOutlined />,
+        icon: <ShoppingOutlined size={20} />,
         to: "/products",
       },
       // {
@@ -107,31 +109,31 @@ export const siteSettings = {
       {
         id: 7,
         label: "Sales Report",
-        icon: <AiOutlineUnorderedList />,
+        icon: <AiOutlineBarChart size={20} />,
         to: "/orders",
       },
       {
         id: 11,
         label: "Purchase Report",
-        icon: <BsCardChecklist />,
+        icon: <TfiReceipt size={20} />,
         to: "/purchase",
       },
       {
         id: 12,
         label: "Profit and Loss Report",
-        icon: <BsCardChecklist />,
+        icon: <TbReceiptTax  size={20} />,
         to: "/profit",
       },
       {
         id: 13,
         label: "Stock Report",
-        icon: <BsCardChecklist />,
+        icon: <BiBarChart size={20} />,
         to: "/stock-report",
       },
       {
         id: 14,
         label: "Reviews",
-        icon: <AuditOutlined />,
+        icon: <AuditOutlined size={20} />,
         to: "/reviews",
       },
     ],
