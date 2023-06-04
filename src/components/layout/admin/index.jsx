@@ -32,11 +32,11 @@ const AdminLayout = ({ children }) => {
     ) {
       setTimeout(() => {
         navigate("/AccessDenied");
-        dispatch({
-          type: "LOGOUT",
-          payload: {},
-        });
-        navigate("/login");
+        // dispatch({
+        //   type: "LOGOUT",
+        //   payload: {},
+        // });
+        // navigate("/login");
       }, 3000);
     }
   }, [loggedIn]);
