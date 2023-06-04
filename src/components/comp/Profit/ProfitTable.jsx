@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
+import moment from "moment";
+import React from "react";
 import { AiOutlineEye } from "react-icons/ai";
 import { Link } from "react-router-dom";
-import moment from "moment";
 export const ProfitTable = ({ orders, keyword, Searched }) => {
   let row = 1;
   const Revenue = orders?.map((order) => {
@@ -37,12 +37,14 @@ export const ProfitTable = ({ orders, keyword, Searched }) => {
         </div>
       ) : (
         <>
-          <div className="my-6 flex border bg-white shadow">
+          <div className="my-6 p-3 flex border bg-white  rounded border-[#f2f2f2]">
             <div className="mx-auto mt-2 h-fit w-full">
               <div className="flex flex-row justify-between items-center mx-2 my-2">
-                <p className="flex font-sans font-semibold text-lg ">Orders</p>
                 <p className="flex font-sans font-semibold text-lg ">
-                  NetProfit:
+                  Profit / Loss
+                </p>
+                <p className="flex font-serif text-[#248f59] text-xl ">
+                  Net Profit:
                   {Math.round(totalRevenue).toLocaleString("en-US", {
                     style: "currency",
                     currency: "PKR",
@@ -50,29 +52,19 @@ export const ProfitTable = ({ orders, keyword, Searched }) => {
                 </p>
               </div>
               <div className="overflow-x-auto flex flex-col justify-center">
-                <table className="mx-2 my-2 font-sans shadow">
+                <table className="mx-2 my-2 border border-[#f2f2f2] rounded whitespace-nowrap font-sans shadow">
                   <thead>
                     <tr className="bg-[#F2F2F2]">
-                      <th className="px-4 whitespace-nowrap py-2">Sr#</th>
-                      <th className="px-4 whitespace-nowrap py-2">
-                        Tracking ID
-                      </th>
-                      <th className="px-4 whitespace-nowrap py-2">Date</th>
-
-                      <th className="px-4 whitespace-nowrap py-2">Order By</th>
-                      <th className="px-4 whitespace-nowrap py-2">Store</th>
-                      <th className="px-4 whitespace-nowrap py-2">Quantity</th>
-
-                      <th className="px-4 whitespace-nowrap py-2">
-                        Sale Amount-10%
-                      </th>
-                      <th className="px-4 whitespace-nowrap py-2">
-                        Purchase Amount
-                      </th>
-                      <th className="px-4 whitespace-nowrap py-2">
-                        Total Profit
-                      </th>
-                      <th className="px-4 whitespace-nowrap py-2">Action</th>
+                      <th className="px-4 py-2">Sr#</th>
+                      <th className="px-4 py-2">Tracking ID</th>
+                      <th className="px-4 py-2">Date</th>
+                      <th className="px-4 py-2">Order By</th>
+                      <th className="px-4 py-2">Store</th>
+                      <th className="px-4 py-2">Quantity</th>
+                      <th className="px-4 py-2">Sale Amount-10%</th>
+                      <th className="px-4 py-2">Purchase Amount</th>
+                      <th className="px-4 py-2">Total Profit</th>
+                      <th className="px-4 py-2">Action</th>
                     </tr>
                   </thead>
 
@@ -131,12 +123,12 @@ export const ProfitTable = ({ orders, keyword, Searched }) => {
                                     );
                                   }, 0)
                               )}
-                              /PKr
+                              /<span className="text-xs font-bold">PKR</span>
                             </td>
 
                             <td className="px-4 py-2 flex items-center justify-center">
                               <Link to={`/order/detail/${item._id}`}>
-                                <AiOutlineEye />
+                                <AiOutlineEye size={25} color="green" />
                               </Link>
                             </td>
                           </tr>
@@ -151,9 +143,6 @@ export const ProfitTable = ({ orders, keyword, Searched }) => {
                       <td className="px-4 py-2 font-bold"></td>
                       <td className="px-4 py-2 font-bold"></td>
                       <td className="px-4 py-2 font-bold"></td>
-                      <td className="px-4 py-2 font-bold">
-                        Net Proft:{totalRevenue}
-                      </td>
                     </tr>
                   </tbody>
                 </table>

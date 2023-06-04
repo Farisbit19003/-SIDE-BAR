@@ -1,11 +1,9 @@
-import React, { useEffect, useState } from "react";
-import StickerCard from "./StickerCards";
-import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import React from "react";
 import { AiOutlineDollarCircle, AiOutlineShopping } from "react-icons/ai";
 import { BiCartDownload } from "react-icons/bi";
 import { BsShop } from "react-icons/bs";
+import { useSelector } from "react-redux";
+import StickerCard from "./StickerCards";
 
 const Card = () => {
   const { loggedIn, allShops, product, sellerShops, allOrders, allusers } =

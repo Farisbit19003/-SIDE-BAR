@@ -1,9 +1,9 @@
+import { LoadingOutlined } from "@ant-design/icons";
 import React, { useState } from "react";
-import { BiEdit, BiTrash } from "react-icons/bi";
 import { AiOutlineMessage } from "react-icons/ai";
+import { BiTrash } from "react-icons/bi";
 import { toast } from "react-toastify";
 import { SendMessage } from "./function";
-import { LoadingOutlined } from "@ant-design/icons";
 
 const ConTable = ({ contacts, handleDelete, keyword, Searched, ok }) => {
   const [selectedContact, setSelectedContact] = useState(null);
@@ -67,17 +67,17 @@ const ConTable = ({ contacts, handleDelete, keyword, Searched, ok }) => {
         </div>
       ) : (
         <>
-          <div className="mb-6 flex border w-full bg-white shadow">
+          <div className="mb-6 p-3 flex border rounded border-[#f2f2f2] w-full bg-white">
             <div className="mx-auto mt-2 h-fit w-full">
               <div className="flex flex-row justify-center items-center mx-2 my-2">
                 <p className="flex font-sans font-semibold text-lg ">
-                  Contacts us
+                  Contact Us
                 </p>
               </div>
-              <div className="overflow-x-auto flex flex-col justify-center">
-                <table className="mx-2 my-2 font-sans shadow">
+              <div className="overflow-x-auto  flex flex-col justify-center">
+                <table className="mx-2 my-2 font-sans whitespace-nowrap rounded border-[#f2f2f2] shadow">
                   <thead>
-                    <tr className="bg-gray-200">
+                    <tr className="bg-[#f2f2f2] rounded">
                       <th className="px-4 py-2">Sr#</th>
                       <th className="px-4 py-2">Name</th>
                       <th className="px-4 py-2">Email</th>
@@ -90,7 +90,7 @@ const ConTable = ({ contacts, handleDelete, keyword, Searched, ok }) => {
                     {contacts &&
                       contacts.filter(Searched(keyword)).map((item, index) => (
                         <tr
-                          className="bg-white cursor-default whitespace-nowrap hover:bg-gray-100 border-b-2 font-sans"
+                          className="bg-white cursor-default whitespace-nowrap hover:!bg-gray-100 border-b-2 font-sans"
                           key={index}
                         >
                           <td className="px-4 py-2">{row++}</td>

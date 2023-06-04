@@ -1,11 +1,11 @@
-import { useState, useEffect } from "react";
-import AdminLayout from "../admin";
-import ConTable from "../../comp/Contact/ConTable";
+import { useEffect, useState } from "react";
 import { BiSearch } from "react-icons/bi";
-import { AllContacts, DeleteContact } from "../../comp/user/Userfunction";
+import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import swal from "sweetalert";
-import { useDispatch, useSelector } from "react-redux";
+import ConTable from "../../comp/Contact/ConTable";
+import { AllContacts, DeleteContact } from "../../comp/user/Userfunction";
+import AdminLayout from "../admin";
 const Contact = () => {
   const [contacts, setContacts] = useState([]);
   const [keyword, setKeyword] = useState("");
@@ -27,12 +27,12 @@ const Contact = () => {
       dangerMode: true,
     }).then((willDelete) => {
       if (willDelete) {
-       DeleteContact(id)
+        DeleteContact(id)
           .then((res) => {
             swal("Deleted SuccessFully", {
               icon: "success",
             });
-           AllContacts(dispatch);
+            AllContacts(dispatch);
           })
           .catch((error) => {
             toast.error(error);
@@ -47,10 +47,10 @@ const Contact = () => {
   const Searched = (keyword) => (c) => c.name.toLowerCase().includes(keyword);
   return (
     <AdminLayout>
-      <div className="p-3 md:p-6 mb-6 flex  shadow flex-col sm:flex-row items-center justify-between bg-white ">
+      <div className="p-3 md:p-6 mb-6 flex  border rounded border-[#f2f2f2] flex-col sm:flex-row items-center justify-between bg-white ">
         <div>
           <h1 className="font-serif font-normal text-3xl text-[#248F59]">
-            Contact us List
+            Contact Us List
           </h1>
         </div>
         <div className="flex flex-col px-2 py-2 sm:flex-row gap-3 justify-center  items-center">

@@ -15,7 +15,7 @@ const CategoryForm = ({ values, setValues }) => {
           }
         />
       </div>
-      <div className="flex w-full sm:whitespace-nowrap bg-white sm:w-8/12 md:w-2/3">
+      <div className="flex w-full border rounded border-[#f2f2f2] sm:whitespace-nowrap bg-white sm:w-8/12 md:w-2/3">
         <div className="p-3 font-sans w-full flex flex-col">
           <label className="font-semibold ">Name</label>
 
@@ -24,7 +24,7 @@ const CategoryForm = ({ values, setValues }) => {
             onChange={handleChange}
             type="text"
             name="name"
-            className="h-12 mb-2  bg-white border border-gray-400 rounded-lg px-3 py-2 text-lg font-sans font-normal tracking-normal text-left focus:outline-none focus:ring-2 focus:ring-green-600"
+            className="h-12 mb-2  bg-white border  border-[#f2f2f2] rounded-lg px-3 py-2 text-lg font-sans font-normal tracking-normal text-left focus:outline-none focus:ring-2 focus:ring-green-600"
           />
 
           <label className="font-semibold ">Detail</label>
@@ -33,7 +33,7 @@ const CategoryForm = ({ values, setValues }) => {
             value={details}
             onChange={handleChange}
             name="details"
-            className="mb-2  bg-white border border-gray-400 rounded-lg px-3 py-2 text-lg font-sans font-normal tracking-normal text-left focus:outline-none focus:ring-2 focus:ring-green-600"
+            className="mb-2  bg-white border border-[#f2f2f2] rounded-lg px-3 py-2 text-lg font-sans font-normal tracking-normal text-left focus:outline-none focus:ring-2 focus:ring-green-600"
           />
         </div>
       </div>

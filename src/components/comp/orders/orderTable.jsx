@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
+import moment from "moment";
+import React from "react";
 import { AiOutlineEye } from "react-icons/ai";
 import { Link } from "react-router-dom";
-import moment from "moment";
 export const OrderTable = ({ orders, keyword, Searched }) => {
   let row = 1;
   const Revenue = orders
@@ -72,32 +72,28 @@ export const OrderTable = ({ orders, keyword, Searched }) => {
         </div>
       ) : (
         <>
-          <div className="my-6 flex border bg-white shadow">
+          <div className="my-6 p-3 flex bg-white border rounded border-[#f2f2f2]">
             <div className="mx-auto mt-2 h-fit w-full">
               <div className="flex flex-row justify-center items-center mx-2 my-2">
-                <p className="flex font-sans font-semibold text-lg ">Orders</p>
+                <p className="flex font-sans font-semibold text-lg ">
+                  Sales Orders
+                </p>
               </div>
               <div className="overflow-x-auto flex flex-col justify-center">
-                <table className="mx-2 my-2 font-sans shadow">
+                <table className="mx-2 my-2 border rounded border-[#f2f2f2] whitespace-nowrap font-sans shadow">
                   <thead>
                     <tr className="bg-[#F2F2F2]">
-                      <th className="px-4 whitespace-nowrap py-2">Sr#</th>
-                      <th className="px-4 whitespace-nowrap py-2">
-                        Tracking ID
-                      </th>
-                      <th className="px-4 whitespace-nowrap py-2">Date</th>
-                      <th className="px-4 whitespace-nowrap py-2">Status</th>
-                      <th className="px-4 whitespace-nowrap py-2">
-                        Order Type
-                      </th>
-                      <th className="px-4 whitespace-nowrap py-2">
-                        Order Address
-                      </th>
-                      <th className="px-4 whitespace-nowrap py-2">Quantity</th>
-                      <th className="px-4 whitespace-nowrap py-2">Order By</th>
-                      <th className="px-4 whitespace-nowrap py-2">Store</th>
-                      <th className="px-4 whitespace-nowrap py-2">Total</th>
-                      <th className="px-4 whitespace-nowrap py-2">Action</th>
+                      <th className="px-4 py-2">Sr#</th>
+                      <th className="px-4 py-2">Tracking ID</th>
+                      <th className="px-4 py-2">Date</th>
+                      <th className="px-4 py-2">Status</th>
+                      <th className="px-4 py-2">Order Type</th>
+                      <th className="px-4 py-2">Order Address</th>
+                      <th className="px-4 py-2">Quantity</th>
+                      <th className="px-4 py-2">Order By</th>
+                      <th className="px-4 py-2">Store</th>
+                      <th className="px-4 py-2">Total</th>
+                      <th className="px-4 py-2">Action</th>
                     </tr>
                   </thead>
 
@@ -106,7 +102,7 @@ export const OrderTable = ({ orders, keyword, Searched }) => {
                       orders.filter(Searched(keyword)).map((item, index) => (
                         <>
                           <tr
-                            className="bg-white cursor-default whitespace-nowrap hover:!bg-gray-100 border-b-2 font-sans"
+                            className="bg-white cursor-default hover:!bg-gray-100 border-b-2 font-sans"
                             key={index}
                           >
                             <td className="px-4 py-2">{row++}</td>
@@ -147,14 +143,14 @@ export const OrderTable = ({ orders, keyword, Searched }) => {
                             </td>
                             <td className="px-4 py-2 flex items-center justify-center">
                               <Link to={`/order/detail/${item._id}`}>
-                                <AiOutlineEye />
+                                <AiOutlineEye size={25} color="green" />
                               </Link>
                             </td>
                           </tr>
                         </>
                       ))}
-                    <tr className="bg-white cursor-default whitespace-nowrap hover:!bg-gray-100 border-b-2 font-sans">
-                      <td className="px-4 py-2 font-bold">
+                    <tr className="hover:bg-gray-100 flex items-center cursor-default whitespace-nowrap font-sans">
+                      <td className="px-4 py-2  font-serif text-lg text-[#248f59] font-normal">
                         Total:
                         {Math.round(totalRevenue).toLocaleString("en-US", {
                           style: "currency",

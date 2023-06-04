@@ -1,32 +1,35 @@
-import { useState, useEffect } from "react";
-import ShopLayout from "../../layout/Shop/index";
+import { useEffect, useState } from "react";
+import "react-datepicker/dist/react-datepicker.css";
 import { BiSearch } from "react-icons/bi";
-import { ProductsTable } from "../../comp/Products/productsTable";
-import { Link } from "react-router-dom";
+import { BsFilterSquare } from "react-icons/bs";
+import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import swal from "sweetalert";
-import { useDispatch, useSelector } from "react-redux";
 import { DeleteProduct, SellerProducts } from "../../comp/Products/functions";
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
+import { ProductsTable } from "../../comp/Products/productsTable";
+import ShopLayout from "../../layout/Shop/index";
 const StockReport = () => {
   const [products, setProducts] = useState([]);
   const [listproducts, setListProducts] = useState([]);
   const [keyword, setKeyword] = useState("");
   const [Shops, setShops] = useState([]);
-  const { product, sellerShops, allOrders } = useSelector(
-    (state) => ({
-      ...state,
-    })
-  );
+  const { product, sellerShops, allOrders } = useSelector((state) => ({
+    ...state,
+  }));
   const [ok, setOk] = useState([]);
   const dispatch = useDispatch();
-  
+  const [isHidden, setIsHidden] = useState(true); // State to control visibility
+
+  // Function to toggle visibility
+  const toggleVisibility = () => {
+    setIsHidden(!isHidden);
+  };
+
   const onShopChange = (e) => {
     if (e.target.value === "select") {
-        product&& setProducts(product);
-        product&& setListProducts(product);
-        return;
+      product && setProducts(product);
+      product && setListProducts(product);
+      return;
     }
     const filter = product?.filter((p) => {
       return p.store._id === e.target.value;
@@ -36,12 +39,12 @@ const StockReport = () => {
   };
   const onProductChange = (e) => {
     if (e.target.value === "select") {
-        product&& setProducts(listproducts);
-       product&& setListProducts(listproducts);
-       return;
+      product && setProducts(listproducts);
+      product && setListProducts(listproducts);
+      return;
     }
     const filter = product?.filter((p) => {
-      return p._id===e.target.value;
+      return p._id === e.target.value;
     });
     filter && setProducts(filter);
   };
@@ -52,7 +55,7 @@ const StockReport = () => {
   useEffect(() => {
     if (product && product.length) {
       setProducts(product);
-      setListProducts(product)
+      setListProducts(product);
       const productWithOrder = product?.filter((p) => {
         const hasAssociatedOrder = allOrders?.some((order) =>
           order?.Products?.some((pro) => pro?.Product?._id === p?._id)
@@ -93,10 +96,10 @@ const StockReport = () => {
   const Searched = (keyword) => (c) => c.name.toLowerCase().includes(keyword);
   return (
     <ShopLayout>
-      <div className="p-3 md:p-6 mb-6 flex shadow flex-col sm:flex-row items-center justify-between bg-white ">
+      <div className="p-3 md:p-6 mb-6 flex border border-[#f2f2f2] rounded flex-col sm:flex-row items-center justify-between bg-white ">
         <div>
           <h1 className="font-serif font-normal text-3xl text-[#248F59]">
-           Stock Report
+            Stock Report
           </h1>
         </div>
 
@@ -117,48 +120,56 @@ const StockReport = () => {
           </div>
         </div>
       </div>
-      <div className="p-3 md:p-6 mb-6 flex shadow flex-col sm:flex-row items-center justify-between bg-white ">
-        <div>
-          <h1 className="font-serif font-normal text-3xl text-[#248F59]">
-            Filter
-          </h1>
-        </div>
-
-        <div className="flex flex-col px-2 py-2 md:flex-row gap-2 justify-center  items-center">
-          <label className="font-semibold mr-2">Shops</label>
-
-          <select
-            type="text"
-            onChange={onShopChange}
-            name="store"
-            id="shopSelect"
-            className="h-12 mb-2  text-md bg-white border-gray-400 rounded-lg px-3 py-2  font-sans font-normal tracking-normal text-left focus:outline-none focus:ring-2 focus:ring-green-600"
-          >
-            <option value="select">--Select--</option>
-            {Shops?.map((shop) => (
-              <option key={shop._id} value={shop._id}>
-                {shop.Storename}
-              </option>
-            ))}
-          </select>
-          <label className="font-semibold mr-2">Products</label>
-
-<select
-  type="text"
-  onChange={onProductChange}
-  name="store"
-  id="productSelect"
-  className="h-12 mb-2  text-md bg-white border-gray-400 rounded-lg px-3 py-2  font-sans font-normal tracking-normal text-left focus:outline-none focus:ring-2 focus:ring-green-600"
->
-  <option value="select">--Select--</option>
-  {listproducts?.map((p) => (
-    <option key={p._id} value={p._id}>
-      {p.name}
-    </option>
-  ))}
-</select>
-        </div>
+      {/* Button to toggle visibility */}
+      <div className="flex items-center mb-2 justify-end">
+        <button onClick={toggleVisibility}>
+          <BsFilterSquare color="green" size={25} />
+        </button>
       </div>
+      {isHidden ? null : (
+        <div className="p-3 md:p-6 mb-6 flex border border-[#f2f2f2] rounded flex-col sm:flex-row items-center justify-between bg-white ">
+          <div>
+            <h1 className="font-serif font-normal text-3xl text-[#248F59]">
+              Filter By:
+            </h1>
+          </div>
+
+          <div className="flex flex-col px-2 py-2 md:flex-row gap-2 justify-center  items-center">
+            <label className="font-semibold mr-2">Shops</label>
+
+            <select
+              type="text"
+              onChange={onShopChange}
+              name="store"
+              id="shopSelect"
+              className="h-12 mb-2  text-md bg-white border-gray-400 rounded-lg px-3 py-2  font-sans font-normal tracking-normal text-left focus:outline-none focus:ring-2 focus:ring-green-600"
+            >
+              <option value="select">--Select--</option>
+              {Shops?.map((shop) => (
+                <option key={shop._id} value={shop._id}>
+                  {shop.Storename}
+                </option>
+              ))}
+            </select>
+            <label className="font-semibold mr-2">Products</label>
+
+            <select
+              type="text"
+              onChange={onProductChange}
+              name="store"
+              id="productSelect"
+              className="h-12 mb-2  text-md bg-white border-gray-400 rounded-lg px-3 py-2  font-sans font-normal tracking-normal text-left focus:outline-none focus:ring-2 focus:ring-green-600"
+            >
+              <option value="select">--Select--</option>
+              {listproducts?.map((p) => (
+                <option key={p._id} value={p._id}>
+                  {p.name}
+                </option>
+              ))}
+            </select>
+          </div>
+        </div>
+      )}
       <ProductsTable
         products={products}
         handleDelete={handleDelete}

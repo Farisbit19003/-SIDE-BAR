@@ -1,12 +1,13 @@
-import { useState, useEffect } from "react";
-import ShopLayout from "../../layout/Shop/index";
+import { useEffect, useState } from "react";
 import { BiSearch } from "react-icons/bi";
-import { ProductsTable } from "../../comp/Products/productsTable";
+import { BsFilterSquare } from "react-icons/bs";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import swal from "sweetalert";
-import { useDispatch, useSelector } from "react-redux";
 import { DeleteProduct, SellerProducts } from "../../comp/Products/functions";
+import { ProductsTable } from "../../comp/Products/productsTable";
+import ShopLayout from "../../layout/Shop/index";
 
 const Products = () => {
   const [products, setProducts] = useState([]);
@@ -79,7 +80,12 @@ const Products = () => {
       }
     });
   };
+  const [isHidden, setIsHidden] = useState(true); // State to control visibility
 
+  // Function to toggle visibility
+  const toggleVisibility = () => {
+    setIsHidden(!isHidden);
+  };
   const handleSearchInputChange = (e) => {
     e.preventDefault();
     setKeyword(e.target.value.toLowerCase());
@@ -87,7 +93,7 @@ const Products = () => {
   const Searched = (keyword) => (c) => c.name.toLowerCase().includes(keyword);
   return (
     <ShopLayout>
-      <div className="p-3 md:p-6 mb-6 flex shadow flex-col sm:flex-row items-center justify-between bg-white ">
+      <div className="p-3 md:p-6 mb-6 flex border rounded border-[#f2f2f2] flex-col sm:flex-row items-center justify-between bg-white ">
         <div>
           <h1 className="font-serif font-normal text-3xl text-[#248F59]">
             Products
@@ -111,54 +117,63 @@ const Products = () => {
           </div>
 
           <div className=" flex ">
-            <button className="bg-[#248F59] w-full px-4 py-2 sm:py-3 rounded-md text-sm sm:text-base whitespace-nowrap flex justify-center items-center font-sans uppercase text-[#f2f2f2]">
+            <button className="bg-[#248F59] transition-transform hover:scale-95 w-full px-4 py-2 sm:py-3 rounded-md text-sm sm:text-base whitespace-nowrap flex justify-center items-center font-sans uppercase hover:text-white text-[#f2f2f2]">
               <Link to="/products/add">Add Products</Link>
             </button>
           </div>
         </div>
       </div>
-      <div className="p-3 md:p-6 mb-6 flex shadow flex-col sm:flex-row items-center justify-between bg-white ">
-        <div>
-          <h1 className="font-serif font-normal text-3xl text-[#248F59]">
-            Filter
-          </h1>
-        </div>
-
-        <div className="flex flex-col px-2 py-2 md:flex-row gap-2 justify-center  items-center">
-          <label className="font-semibold mr-2">Shops</label>
-
-          <select
-            type="text"
-            onChange={onShopChange}
-            name="store"
-            id="shopSelect"
-            className="h-12 mb-2  text-md bg-white border-gray-400 rounded-lg px-3 py-2  font-sans font-normal tracking-normal text-left focus:outline-none focus:ring-2 focus:ring-green-600"
-          >
-            <option value="select">--Select--</option>
-            {Shops?.map((shop) => (
-              <option key={shop._id} value={shop._id}>
-                {shop.Storename}
-              </option>
-            ))}
-          </select>
-          <label className="font-semibold mr-2">Category</label>
-
-          <select
-            type="text"
-            onChange={onCatChange}
-            name="store"
-            id="categorySelect"
-            className="h-12 mb-2  text-md bg-white border-gray-400 rounded-lg px-3 py-2  font-sans font-normal tracking-normal text-left focus:outline-none focus:ring-2 focus:ring-green-600"
-          >
-            <option value="select">--Select--</option>
-            {categories?.map((c) => (
-              <option key={c._id} value={c._id}>
-                {c.name}
-              </option>
-            ))}
-          </select>
-        </div>
+      {/* Button to toggle visibility */}
+      <div className="flex items-center mb-1 justify-end">
+        <button onClick={toggleVisibility}>
+          <BsFilterSquare color="green" size={25} />
+        </button>
       </div>
+
+      {isHidden ? null : (
+        <div className="p-3 md:p-6 mb-6 flex border rounded border-[#f2f2f2] flex-col sm:flex-row items-center justify-between bg-white ">
+          <div>
+            <h1 className="font-serif font-normal text-3xl text-[#248F59]">
+              Filter By
+            </h1>
+          </div>
+
+          <div className="flex flex-col px-2 py-2 md:flex-row gap-2 justify-center  items-center">
+            <label className="font-semibold mr-2">Shops</label>
+
+            <select
+              type="text"
+              onChange={onShopChange}
+              name="store"
+              id="shopSelect"
+              className="h-12 mb-2  text-md bg-white border-gray-400 rounded-lg px-3 py-2  font-sans font-normal tracking-normal text-left focus:outline-none focus:ring-2 focus:ring-green-600"
+            >
+              <option value="select">--Select--</option>
+              {Shops?.map((shop) => (
+                <option key={shop._id} value={shop._id}>
+                  {shop.Storename}
+                </option>
+              ))}
+            </select>
+            <label className="font-semibold mr-2">Category</label>
+
+            <select
+              type="text"
+              onChange={onCatChange}
+              name="store"
+              id="categorySelect"
+              className="h-12 mb-2  text-md bg-white border-gray-400 rounded-lg px-3 py-2  font-sans font-normal tracking-normal text-left focus:outline-none focus:ring-2 focus:ring-green-600"
+            >
+              <option value="select">--Select--</option>
+              {categories?.map((c) => (
+                <option key={c._id} value={c._id}>
+                  {c.name}
+                </option>
+              ))}
+            </select>
+          </div>
+        </div>
+      )}
       <ProductsTable
         products={products}
         handleDelete={handleDelete}

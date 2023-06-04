@@ -1,8 +1,20 @@
 import React from "react";
 import { BiEdit, BiTrash } from "react-icons/bi";
 import { Link } from "react-router-dom";
-const CatTable=({category,handleDelete,keyword,Searched,ok})=>{
-let row=1;
+const CatTable = ({ category, handleDelete, keyword, Searched, ok }) => {
+  let row = 1;
+  function handleMouseEnter(event) {
+    const cell = event.currentTarget;
+    const review = cell.textContent;
+    cell.setAttribute("title", review);
+    cell.classList.add("show-review");
+  }
+
+  function handleMouseLeave(event) {
+    const cell = event.currentTarget;
+    cell.removeAttribute("title");
+    cell.classList.remove("show-review");
+  }
   return (
     <>
       {!category || category.length === 0 ? (
@@ -19,7 +31,7 @@ let row=1;
         </div>
       ) : (
         <>
-          <div className="mb-6 flex border w-full bg-white shadow">
+          <div className="mb-6 flex border rounded border-[#f2f2f2] w-full bg-white ">
             <div className=" mx-auto mt-2 h-fit w-full">
               <div className="flex flex-row justify-center items-center mx-2 my-2">
                 <p className="flex font-sans font-semibold text-lg ">
@@ -27,10 +39,10 @@ let row=1;
                 </p>
               </div>
               <div className="overflow-x-auto flex flex-col justify-center">
-                <table className="mx-2 my-2 font-sans shadow">
+                <table className="mx-2 my-2 border rounded border-[#f2f2f2] font-sans shadow-sm">
                   <thead>
                     <tr className="bg-[#F2F2F2]">
-                    <th className="px-4 py-2">Sr#</th>
+                      <th className="px-4 py-2">Sr#</th>
                       <th className="px-4 py-2">Name</th>
                       <th className="px-4 py-2">Slug</th>
                       <th className="px-4 py-2">Details</th>
@@ -48,10 +60,14 @@ let row=1;
                           <td className="px-4 py-2">{row++}</td>
                           <td className="px-4 py-2">{item.name}</td>
                           <td className="px-4 py-2">{item.slug}</td>
-                          <td className="px-4 py-2">
-                            {item.details.slice(0, 30)}....
+                          <td
+                            className="px-4 py-2 text-ellipsis overflow-hidden max-w-xs"
+                            onMouseEnter={handleMouseEnter}
+                            onMouseLeave={handleMouseLeave}
+                          >
+                            {item.details}
                           </td>
-                          <td className="px-4 py-2 b gap-2 cursor-pointer flex flex-row">
+                          <td className="px-4 py-2 b gap-2 cursor-pointer items-center justify-center flex flex-row">
                             {ok.includes(item) ? (
                               ""
                             ) : (
@@ -77,5 +93,5 @@ let row=1;
       )}
     </>
   );
-}
+};
 export default CatTable;

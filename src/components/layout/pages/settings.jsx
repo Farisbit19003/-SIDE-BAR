@@ -1,9 +1,9 @@
-import { useState, useEffect } from "react";
-import AdminLayout from "../admin";
-import SettingsForm from "../../comp/settings/settingsForm";
-import { UpdateSetting } from "../../comp/settings/functions";
-import { toast } from "react-toastify";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { toast } from "react-toastify";
+import { UpdateSetting } from "../../comp/settings/functions";
+import SettingsForm from "../../comp/settings/settingsForm";
+import AdminLayout from "../admin";
 const Settings = () => {
   const { siteSetting } = useSelector((state) => ({ ...state }));
   const [image, setImage] = useState([]);
@@ -15,18 +15,17 @@ const Settings = () => {
   const [id, setId] = useState("");
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
-  useEffect(()=>{
-    if(siteSetting)
-    {
+  useEffect(() => {
+    if (siteSetting) {
       setValues({
-        siteTitle:siteSetting.siteTitle,
-        siteSubtitle:siteSetting.siteSubtitle,
-        stripe_account_id:siteSetting.stripe_account_id,
+        siteTitle: siteSetting.siteTitle,
+        siteSubtitle: siteSetting.siteSubtitle,
+        stripe_account_id: siteSetting.stripe_account_id,
       });
       setImage([siteSetting.image]);
       setId([siteSetting._id]);
     }
-      },[siteSetting])
+  }, [siteSetting]);
   values.image = image[0];
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -60,7 +59,7 @@ const Settings = () => {
   };
   return (
     <AdminLayout>
-      <div className="p-3 md:p-6 mb-6 flex shadow flex-col sm:flex-row items-center justify-center bg-white ">
+      <div className="p-3 md:p-6 mb-6 flex border border-[#f2f2f2] rounded flex-col sm:flex-row items-center justify-center bg-white ">
         <div>
           <h1 className="font-serif font-normal text-3xl text-[#248F59]">
             Settings

@@ -4,7 +4,7 @@ export const RecentPurchasesTable = ({ recentOrders }) => {
   let row = 1;
   return (
     <>
-      <div className="mb-6 flex border bg-white shadow">
+      <div className="mb-6 p-3 border rounded border-[#f2f2f2] flex  bg-white ">
         <div className=" mx-auto mt-2 h-fit w-full">
           <div className="flex flex-row justify-center items-center mx-2 my-2">
             <p className="flex font-sans font-semibold text-lg ">
@@ -12,9 +12,9 @@ export const RecentPurchasesTable = ({ recentOrders }) => {
             </p>
           </div>
           <div className="overflow-x-auto flex flex-col justify-center">
-            <table className="mx-2 my-2 font-sans shadow">
+            <table className="mx-2 my-2 border whitespace-nowrap rounded border-[#f2f2f2] font-sans shadow">
               <thead>
-                <tr className="bg-[#F2F2F2] whitespace-nowrap">
+                <tr className="bg-[#F2F2F2]">
                   <th className="px-4 py-2">Sr#</th>
                   <th className="px-4 py-2">OrderID</th>
                   <th className="px-4 py-2">Date</th>
@@ -27,7 +27,7 @@ export const RecentPurchasesTable = ({ recentOrders }) => {
               <tbody>
                 {recentOrders?.map((item, index) => (
                   <tr
-                    className="bg-white whitespace-nowrap cursor-default hover:!bg-gray-100 border-b-2"
+                    className="bg-white cursor-default hover:!bg-gray-100 border-b-2"
                     key={index}
                   >
                     <td className="px-4 py-2">{row++}</td>

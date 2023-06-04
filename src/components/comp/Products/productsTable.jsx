@@ -1,6 +1,6 @@
 import React from "react";
-import { TiTrash } from "react-icons/ti";
 import { TfiWrite } from "react-icons/tfi";
+import { TiTrash } from "react-icons/ti";
 import { Link } from "react-router-dom";
 export const ProductsTable = ({
   handleDelete,
@@ -47,16 +47,24 @@ export const ProductsTable = ({
         </div>
       ) : (
         <>
-          <div className="my-6  flex border bg-white shadow">
+          <div className="my-6 p-3 flex border bg-white rounded border-[#f2f2f2]">
             <div className=" mx-auto mt-2 h-fit w-full">
               <div className="flex flex-row justify-between items-center mx-2 my-2">
-                <p className="flex font-sans font-semibold text-lg ">
+                <p className="flex font-serif text-[#248f59] text-lg ">
                   Total Stock :{TotalStock}
                 </p>
-                <p className="flex font-sans font-semibold text-lg ">
-                  Stock Report
-                </p>
-                <p className="flex font-sans font-semibold text-lg ">
+                <div>
+                  {page === "Stock" ? (
+                    <p className="flex font-sans font-semibold text-lg">
+                      Stock Report
+                    </p>
+                  ) : (
+                    <p className="flex font-sans font-semibold text-lg">
+                      Product
+                    </p>
+                  )}
+                </div>
+                <p className="flex font-serif text-[#248f59] text-lg ">
                   Total Sold:{TotalStold}
                 </p>
               </div>
@@ -138,7 +146,7 @@ export const ProductsTable = ({
                             <>
                               {" "}
                               <td className="px-4 py-2">{item?.unit}</td>
-                              <td className="px-4 py-2 cursor-pointer flex mx-auto my-auto mt-4 gap-2">
+                              <td className="px-4 py-2 cursor-pointer flex items-center justify-center mx-auto my-auto mt-4 gap-2">
                                 {ok.includes(item) ? (
                                   ""
                                 ) : (

@@ -1,5 +1,4 @@
 import React from "react";
-import { Headings, ReviewData } from "./reviewdata";
 import { AiOutlineEye } from "react-icons/ai";
 
 export const ReviewTable = ({ keyword, Searched, products }) => {
@@ -30,23 +29,21 @@ export const ReviewTable = ({ keyword, Searched, products }) => {
     </div>
   ) : (
     <>
-      <div className="my-6  flex border bg-white shadow">
+      <div className="my-6 p-3 flex bg-white border border-[#f2f2f2] rounded">
         <div className=" mx-auto mt-2 h-fit w-full">
           <div className="flex flex-row justify-center items-center mx-2 my-2">
             <p className="flex font-sans font-semibold text-lg ">Reviews</p>
           </div>
           <div className="overflow-x-auto flex flex-col justify-center">
-            <table className="mx-2 my-2 font-sans shadow">
+            <table className="mx-2 my-2 font-sans border border-[#f2f2f2] rounded">
               <thead>
                 <tr className="bg-[#F2F2F2]">
-                  <th className="px-4 whitespace-nowrap py-2">Sr#</th>
-                  <th className="px-4 whitespace-nowrap py-2">Image</th>
-                  <th className="px-4 whitespace-nowrap py-2">Name</th>
-                  <th className="px-4 whitespace-nowrap py-2">
-                    Average Rating
-                  </th>
-                  <th className="px-4 whitespace-nowrap py-2">No oF rating</th>
-                  <th className="px-4 whitespace-nowrap py-2">View</th>
+                  <th className="px-4 py-2">Sr#</th>
+                  <th className="px-4 py-2">Image</th>
+                  <th className="px-4 py-2">Name</th>
+                  <th className="px-4 py-2">Rating</th>
+                  <th className="px-4 py-2">Review Count</th>
+                  <th className="px-4 py-2">View</th>
                 </tr>
               </thead>
 
@@ -54,7 +51,7 @@ export const ReviewTable = ({ keyword, Searched, products }) => {
                 {products &&
                   products.filter(Searched(keyword)).map((item, index) => (
                     <tr
-                      className="bg-white cursor-default whitespace-nowrap hover:!bg-gray-100 border-b-2 font-sans"
+                      className="bg-white cursor-default hover:!bg-gray-100 border-b-2 font-sans"
                       key={index}
                     >
                       <td className="px-4 py-2">{row++}</td>
@@ -62,17 +59,21 @@ export const ReviewTable = ({ keyword, Searched, products }) => {
                         <img className="h-6 w-6" src={item?.feature_pic?.url} />
                       </td>
                       <td className="px-4 py-2">{item.name}</td>
-                      <td className="px-4 py-2 text-ellipsis overflow-hidden max-w-xs">
-                        { item.rating?.reduce((total, r) => total + r?.star, 0)/item.rating?.length}
-                      </td>
-                      <td className="px-4 py-2">{item.rating?.length}</td>
                       <td className="px-4 py-2">
-                        <a href={`https://bazakr-pk-frontend.vercel.app/product/${item.slug}`}
-                        target="_blank"
+                        {item.rating?.reduce((total, r) => total + r?.star, 0) /
+                          item.rating?.length}
+                      </td>
+                      <td className="px-4 flex items-center justify-center py-2">
+                        {item.rating?.length}
+                      </td>
+                      <td className="px-4 py-2">
+                        <a
+                          href={`https://bazakr-pk-frontend.vercel.app/product/${item.slug}`}
+                          target="_blank"
                         >
-                        <AiOutlineEye/>
+                          <AiOutlineEye color="green" size={20} />
                         </a>
-                        </td>
+                      </td>
                     </tr>
                   ))}
               </tbody>

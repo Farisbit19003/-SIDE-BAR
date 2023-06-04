@@ -4,21 +4,21 @@ import BarChart from "./column-chart";
 
 const Graph = () => {
   const { loggedIn, allOrders } = useSelector((state) => ({ ...state }));
-  const [selectedvalue,setSelectedValue]=useState("day");
+  const [selectedvalue, setSelectedValue] = useState("day");
   const revenueByMonth = [];
   const role = loggedIn && loggedIn.user && loggedIn.user.role;
   allOrders?.forEach((order) => {
-    const { createdAt, Products, orderType,orderStatus } = order;
-    if (orderType === "Sales"&&orderStatus!=="cancelled") {
+    const { createdAt, Products, orderType, orderStatus } = order;
+    if (orderType === "Sales" && orderStatus !== "cancelled") {
       // Filter orders with orderType "Sales"
       let orderMonth;
-      if(selectedvalue==="day"){
-        orderMonth =new Date(createdAt).toLocaleString("default", {
+      if (selectedvalue === "day") {
+        orderMonth = new Date(createdAt).toLocaleString("default", {
           dateStyle: "long",
-        })
-      }else{
-        orderMonth=new Date(createdAt).toLocaleString("default", {
-          month:"long",
+        });
+      } else {
+        orderMonth = new Date(createdAt).toLocaleString("default", {
+          month: "long",
         });
       }
 
@@ -44,23 +44,25 @@ const Graph = () => {
   const series = revenueByMonth.map((entry) => entry.revenue);
   const categories = revenueByMonth.map((entry) => entry.month);
 
-  const handlChange=(e)=>{
-  if(e.target.value==="select"){
-    return setSelectedValue("day");
-  }
-   setSelectedValue(e.target.value);
-  }
+  const handlChange = (e) => {
+    if (e.target.value === "select") {
+      return setSelectedValue("day");
+    }
+    setSelectedValue(e.target.value);
+  };
   return (
-    <div className="mb-6 p-2 flex w-full flex-wrap md:flex-nowrap bg-white">
-      <div className="pt-2 w-full flex justify-end">
-      <label className="font-semibold font-sans text-lg m-2 p-2">Filter By</label>
+    <div className="mb-6 p-3  flex w-full border border-[#f2f2f2] rounded flex-wrap md:flex-nowrap bg-white">
+      <div className="pt-2 mb-2 w-full flex items-center justify-center md:justify-end">
+        <label className="font-normal font-sans opacity-80 text-lg m-2 p-2">
+          Filter by:
+        </label>
         <select
           type="text"
           name="store"
           id="shopSelect"
           value={selectedvalue}
           onChange={handlChange}
-          className="h-12 mb-2 text-md bg-white outline-none border-[#f2f2f2] rounded-lg px-3 py-2 font-sans font-normal tracking-normal text-left focus:outline-none focus:ring-2 focus:ring-green-600"
+          className="h-12 my-2  bg-white border !outline-none border-[#f2f2f2] rounded-lg px-3 py-2 text-lg font-sans font-normal tracking-normal text-left focus:outline-none focus:ring-2 focus:ring-green-600"
         >
           <option value="select">--Select--</option>
           <option value="month">Monthly</option>

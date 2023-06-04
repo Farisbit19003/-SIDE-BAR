@@ -1,8 +1,8 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { BiSearch } from "react-icons/bi";
-import ShopLayout from "../../layout/Shop/index"
+import { useSelector } from "react-redux";
 import { ReviewTable } from "../../comp/reviews/reviewTable";
-import { useDispatch, useSelector } from "react-redux";
+import ShopLayout from "../../layout/Shop/index";
 
 const Reviews = () => {
   const [products, setProducts] = useState([]);
@@ -14,14 +14,13 @@ const Reviews = () => {
   );
   useEffect(() => {
     if (product && product.length) {
-      const filter=product?.filter((r)=>{
-        return r?.rating?.length>0;
-      })
-     filter&& setProducts(filter);
+      const filter = product?.filter((r) => {
+        return r?.rating?.length > 0;
+      });
+      filter && setProducts(filter);
     }
   }, [product]);
 
-  
   const handleSearchInputChange = (e) => {
     e.preventDefault();
     setKeyword(e.target.value.toLowerCase());
@@ -29,10 +28,10 @@ const Reviews = () => {
   const Searched = (keyword) => (c) => c.name.toLowerCase().includes(keyword);
   return (
     <ShopLayout>
-       <div className="p-3 md:p-6 mb-6 flex shadow flex-col sm:flex-row items-center justify-between bg-white ">
+      <div className="p-3 md:p-6 mb-6 flex border border-[#f2f2f2] rounded flex-col sm:flex-row items-center justify-between bg-white ">
         <div>
           <h1 className="font-serif font-normal text-3xl text-[#248F59]">
-           Reviews
+            Reviews
           </h1>
         </div>
 
@@ -51,15 +50,9 @@ const Reviews = () => {
               <BiSearch size={25} className="inline-block align-middle" />
             </button>
           </div>
-
-          
         </div>
       </div>
-      <ReviewTable 
-      products={products}
-      Searched={Searched}
-      keyword={keyword}
-      />
+      <ReviewTable products={products} Searched={Searched} keyword={keyword} />
     </ShopLayout>
   );
 };

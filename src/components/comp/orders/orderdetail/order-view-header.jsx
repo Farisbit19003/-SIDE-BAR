@@ -1,12 +1,12 @@
-import React, { useState } from "react";
-import { toast } from "react-toastify";
-import Dropdown from "./status";
-import InvoicePDF from "./invoice";
-import { useDispatch } from "react-redux";
-import { SellerOrders } from "../../Create Shop/functions";
 import { LoadingOutlined } from "@ant-design/icons";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { toast } from "react-toastify";
+import { SellerOrders } from "../../Create Shop/functions";
 import { UpdateOrderStatus } from "../functions";
-const OrderViewHeader = ({singleOrder,GrandTotal}) => {
+import InvoicePDF from "./invoice";
+import Dropdown from "./status";
+const OrderViewHeader = ({ singleOrder, GrandTotal }) => {
   const [status, setStatus] = useState("");
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
@@ -35,63 +35,54 @@ const OrderViewHeader = ({singleOrder,GrandTotal}) => {
       toast.error(error);
     }
   };
-  // const isPaymentCOD = [PaymentGateway.COD, PaymentGateway.CASH].includes(order?.payment_gateway);
-  // const isOrderPending = ![OrderStatus.CANCELLED, OrderStatus.FAILED].includes(order?.order_status);
-  // const isPaymentActionPending = !isPaymentCOD && isOrderPending && order?.payment_status !== PaymentStatus.SUCCESS;
 
   return (
     <>
-      <div className="px-11 py-5 bg-white">
+      <div className="px-11 py-5 border border-[#f2f2f2] rounded bg-white">
         <div className="mb-2 flex flex-col flex-wrap items-center justify-between gap-x-8 text-base font-bold text-heading sm:flex-row lg:flex-nowrap">
-          <div className="flex flex-col sm:!flex-row">
-            <span className="mb-2 block lg:mb-0 font-sans lg:inline-block lg:ltr:mr-4 lg:rtl:ml-4">
+          <div className="flex mb-2 p-2 items-center justify-center flex-row">
+            <span className="mr-2 block lg:mb-0 font-sans lg:inline-block lg:ltr:mr-4 lg:rtl:ml-4">
               Order-status :
             </span>
-            <span className="bg-[#248F59] flex items-center justify-center rounded-lg text-base font-normal ml-1 p-2 text-[#f2f2f2] font-sans h-fit">
+            <span className="bg-[#248F59] hover:scale-95 transition-transform uppercase rounded cursor-default hover:text-white flex items-center justify-center text-base font-normal ml-1 p-2 text-[#f2f2f2] font-sans h-fit">
               {singleOrder?.orderStatus}
             </span>
-            {/* <Badge
-              text={(order?.order_status)}
-              color={StatusColor(order?.order_status)}
-            /> */}
           </div>
-          <div className="flex flex-col sm:!flex-row">
-            <span className="mb-2 block lg:mb-0 font-sans lg:inline-block lg:ltr:mr-4 lg:rtl:ml-4">
+          <div className="flex mb-2 p-2 items-center justify-center flex-row">
+            <span className="mr-2 block lg:mb-0 font-sans lg:inline-block lg:ltr:mr-4 lg:rtl:ml-4">
               Payment-Mode :
             </span>
-            <span className="bg-[#248F59] uppercase rounded-lg flex items-center justify-center text-base font-normal ml-1 p-2 text-[#f2f2f2] font-sans h-fit">
+            <span className="bg-[#248F59] hover:scale-95 transition-transform uppercase cursor-default rounded flex items-center justify-center text-base font-normal ml-1 p-2 text-[#f2f2f2] font-sans h-fit">
               {singleOrder?.paymentType}
             </span>
-            {/* <Badge
-              text={t(order?.payment_status)}
-              color={StatusColor(order?.payment_status)}
-            /> */}
           </div>
         </div>
 
         <div className="mb-2 justify-center flex">
-          <InvoicePDF singleOrder={singleOrder} GrandTotal={GrandTotal}/>
+          <InvoicePDF singleOrder={singleOrder} GrandTotal={GrandTotal} />
         </div>
-        <div className="p-3 md:p-6 mb-6 flex shadow flex-col sm:flex-row items-center justify-between ">
+
+        <div className="p-3 md:p-6 mb-6 flex border border-[#f2f2f2] rounded shadow-sm flex-col sm:flex-row items-center justify-between ">
           <div>
             <h1 className="font-serif font-normal lg:text-3xl sm:text-base text-[#248F59]">
-              OrderId- #{singleOrder?._id}
+              Order Id- #{singleOrder?._id}
             </h1>
           </div>
 
-          {singleOrder?.orderType === "Sales"&&singleOrder.orderStatus!=="cancelled" && (
-            <div className="flex flex-col px-2 py-2 sm:flex-row gap-3 justify-center  items-center">
-              <Dropdown status={status} setStatus={setStatus} />
-              <div className=" flex ">
-                <button
-                  onClick={handleStatus}
-                  className="bg-[#248F59] w-full px-4 py-2 sm:py-3 rounded-md text-sm sm:text-base whitespace-nowrap flex justify-center items-center font-sans uppercase text-[#f2f2f2]"
-                >
-                  {loading ? <LoadingOutlined /> : "Change Status"}
-                </button>
+          {singleOrder?.orderType === "Sales" &&
+            singleOrder.orderStatus !== "cancelled" && (
+              <div className="flex flex-col px-2 py-2 sm:flex-row gap-3 justify-center  items-center">
+                <Dropdown status={status} setStatus={setStatus} />
+                <div className=" flex ">
+                  <button
+                    onClick={handleStatus}
+                    className="bg-[#248F59] hover:scale-95 transition-transform hover:text-white w-full px-4 py-2 sm:py-3 rounded-md text-sm sm:text-base whitespace-nowrap flex justify-center items-center font-sans uppercase text-[#f2f2f2]"
+                  >
+                    {loading ? <LoadingOutlined /> : "Change Status"}
+                  </button>
+                </div>
               </div>
-            </div>
-          )}
+            )}
         </div>
       </div>
     </>

@@ -1,10 +1,10 @@
 import React from "react";
 
 export const PopularProductTable = ({ products }) => {
-let row=1;
+  let row = 1;
   return (
     <>
-      <div className="mb-6 flex border bg-white shadow">
+      <div className="mb-6 p-3 flex border bg-white rounded border-[#f2f2f2]">
         <div className=" mx-auto mt-2 h-fit w-full">
           <div className="flex flex-row justify-center items-center mx-2 my-2">
             <p className="flex font-sans font-semibold text-lg ">
@@ -12,10 +12,10 @@ let row=1;
             </p>
           </div>
           <div className="overflow-x-auto flex flex-col justify-center">
-            <table className="mx-2 my-2 font-sans shadow">
+            <table className="mx-2 my-2 whitespace-nowrap border rounded border-[#f2f2f2] font-sans shadow">
               <thead>
                 <tr className="bg-[#F2F2F2]">
-                <th className="px-4 py-2">Sr#</th>
+                  <th className="px-4 py-2">Sr#</th>
                   <th className="px-4 py-2">Name</th>
                   <th className="px-4 py-2">Shop</th>
                   <th className="px-4 py-2">Price</th>
@@ -25,7 +25,7 @@ let row=1;
               <tbody>
                 {products?.map((item, index) => (
                   <tr
-                    className="bg-white whitespace-nowrap cursor-default hover:!bg-gray-100 border-b-2"
+                    className="bg-white cursor-default hover:!bg-gray-100 border-b-2"
                     key={index}
                   >
                     <td className="px-4 py-2">{row++}</td>

@@ -28,23 +28,23 @@ export const UserTable = ({ handleDelete, users, keyword, Searched, ok }) => {
           </div>
         </div>
       ) : (
-        <div className="my-6  flex border bg-white shadow">
+        <div className="my-6 p-3 flex border rounded border-[#f2f2f2] bg-white shadow">
           <div className=" mx-auto mt-2 h-fit w-full">
             <div className="flex flex-row justify-center items-center mx-2 my-2">
               <p className="flex font-sans font-semibold text-lg ">Users</p>
             </div>
             <div className="overflow-x-auto flex flex-col justify-center">
-              <table className="mx-2 my-2 font-sans shadow">
+              <table className="mx-2 my-2 border rounded border-[#f2f2f2] font-sans shadow whitespace-nowrap ">
                 <thead>
                   <tr className="bg-[#F2F2F2]">
-                    <th className="px-4 whitespace-nowrap py-2">Sr#</th>
-                    <th className="px-4 whitespace-nowrap py-2">Name</th>
-                    <th className="px-4 whitespace-nowrap py-2">Email</th>
-                    <th className="px-4 whitespace-nowrap py-2">Role</th>
-                    <th className="px-4 whitespace-nowrap py-2">Status</th>
-                    <th className="px-4 whitespace-nowrap py-2">Whatsapp</th>
-                    <th className="px-4 whitespace-nowrap py-2">Address</th>
-                    <th className="px-4 whitespace-nowrap py-2">Action</th>
+                    <th className="px-4 py-2">Sr#</th>
+                    <th className="px-4 py-2">Name</th>
+                    <th className="px-4 py-2">Email</th>
+                    <th className="px-4 py-2">Role</th>
+                    <th className="px-4 py-2">Status</th>
+                    <th className="px-4 py-2">Whatsapp</th>
+                    <th className="px-4 py-2">Address</th>
+                    <th className="px-4 py-2">Action</th>
                   </tr>
                 </thead>
 
@@ -52,7 +52,7 @@ export const UserTable = ({ handleDelete, users, keyword, Searched, ok }) => {
                   {users &&
                     users.filter(Searched(keyword)).map((item, index) => (
                       <tr
-                        className="bg-white cursor-default whitespace-nowrap hover:!bg-gray-100 border-b-2 font-sans"
+                        className="bg-white cursor-default hover:!bg-gray-100 border-b-2 font-sans"
                         key={index}
                       >
                         <td className="px-4 py-2">{row++}</td>

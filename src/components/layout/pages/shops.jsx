@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import AdminLayout from "../admin";
 import { BiSearch } from "react-icons/bi";
-import { ShopTable } from "../../comp/shop/shopsTable";
 import { useSelector } from "react-redux";
+import { ShopTable } from "../../comp/shop/shopsTable";
+import AdminLayout from "../admin";
 
 const Shops = () => {
   const [shops, setShops] = useState([]);
@@ -23,7 +23,7 @@ const Shops = () => {
   const Searched = (keyword) => (c) => c.Storename.toLowerCase().includes(keyword);
   return (
     <AdminLayout>
-      <div className="p-3 md:p-6 mb-6 flex shadow flex-col sm:flex-row items-center justify-between bg-white ">
+      <div className="p-3 md:p-6 mb-6 flex border border-[#f2f2f2] rounded flex-col sm:flex-row items-center justify-between bg-white ">
         <div>
           <h1 className="font-serif font-normal text-3xl text-[#248F59]">
             All Shops

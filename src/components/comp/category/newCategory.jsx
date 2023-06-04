@@ -50,8 +50,7 @@ const NewCategory = () => {
         </h1>
       </div>
       <CategoryForm values={values} setValues={setValues} />
-      <div className="float-right">
-        {" "}
+      <div className="flex items-center justify-end">
         <SaveButton handleSubmit={handleSubmit} loading={loading} />
       </div>
     </AdminLayout>

@@ -17,7 +17,7 @@ const AuthorizedMenu = () => {
   };
   return (
     <Menu as="div" className="relative inline-block text-left ml-5">
-      <Menu.Button className="flex items-center focus:outline-none">
+      <Menu.Button className="flex items-center focus:outline-none transition-transform hover:scale-95">
         <BiUserCircle className="text-[#248F59] h-8 w-8" />
       </Menu.Button>
 

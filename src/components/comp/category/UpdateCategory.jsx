@@ -78,10 +78,11 @@ const UpdateCategory = () => {
       ) : (
         <>
           <CategoryForm values={values} setValues={setValues} />
-          <SaveButton handleSubmit={handleSubmit} loading={loading} />
+          <div className="flex items-center justify-end">
+            <SaveButton handleSubmit={handleSubmit} loading={loading} />
+          </div>
         </>
       )}
-      <div className="float-right"> </div>
     </AdminLayout>
   );
 };

@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from "react";
-import OrderViewHeader from "./orderdetail/order-view-header";
+import React, { useEffect, useState } from "react";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
+import { useSelector } from "react-redux";
+import { useNavigate, useParams } from "react-router-dom";
 import ShopLayout from "../../layout/Shop";
 import DetailPack from "./orderdetail/detailpack";
+import OrderViewHeader from "./orderdetail/order-view-header";
 import { OrderDetailTable } from "./orderdetail/orderDetailTable";
-import { useSelector } from "react-redux";
-import { AiOutlineLoading3Quarters } from "react-icons/ai";
-import { Link, useNavigate, useParams } from "react-router-dom";
 const OrderDetail = () => {
   const { allOrders, loggedIn } = useSelector((state) => ({ ...state }));
   const [singleOrder, setSingleOrder] = useState({});
@@ -19,7 +19,7 @@ const OrderDetail = () => {
       : singleOrder?.Products?.reduce((acc, p) => {
           return acc + p?.Product.purchasePrice * p.order_quantity;
         }, 0);
- 
+
   const LoadOrder = () => {
     const updated = allOrders?.filter((o) => {
       return params._id === o._id;
@@ -52,9 +52,7 @@ const OrderDetail = () => {
     <>
       <ShopLayout>
         <OrderViewHeader singleOrder={singleOrder} GrandTotal={GrandTotal} />
-        <OrderDetailTable
-          singleOrder={singleOrder}
-        />
+        <OrderDetailTable singleOrder={singleOrder} />
         <DetailPack singleOrder={singleOrder} GrandTotal={GrandTotal} />
       </ShopLayout>
     </>

@@ -73,9 +73,9 @@ const BarChart = ({
   };
 
   return (
-    <div className="h-full w-full rounded bg-white shadow-sm">
-      <div className="flex items-center justify-between p-8">
-        <h3 className="text-sm text-heading">{widgetTitle}</h3>
+    <div className="h-full w-full border border-[#f2f2f2] rounded bg-white shadow-sm">
+      <div className="flex items-center justify-between px-3 py-8">
+        <h3 className="text-lg font-semibold font-sans ">{widgetTitle}</h3>
 
         {/* <div className="flex flex-col">
           <span className="text-lg font-semibold text-green-500">

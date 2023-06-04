@@ -1,12 +1,12 @@
 import {
-  AuditOutlined,
-  ContactsOutlined,
-  SettingOutlined,
-  ShopOutlined,
-  ShoppingOutlined,
-  UserOutlined,
-} from "@ant-design/icons";
-import { AiOutlineBarChart } from "react-icons/ai";
+  AiOutlineAudit,
+  AiOutlineBarChart,
+  AiOutlineContacts,
+  AiOutlineSetting,
+  AiOutlineShop,
+  AiOutlineShopping,
+  AiOutlineUser,
+} from "react-icons/ai";
 import { BiBarChart } from "react-icons/bi";
 import { BsShopWindow } from "react-icons/bs";
 import { MdOutlineDashboard } from "react-icons/md";
@@ -52,7 +52,7 @@ export const siteSettings = {
       {
         id: 2,
         label: "Shops",
-        icon: <ShopOutlined size={20} />,
+        icon: <AiOutlineShop size={20} />,
         to: "/shop",
       },
       ,
@@ -65,19 +65,19 @@ export const siteSettings = {
       {
         id: 9,
         label: "Users",
-        icon: <UserOutlined size={20} />,
+        icon: <AiOutlineUser size={20} />,
         to: "/users",
       },
       {
         id: 14,
         label: "Contact Us",
-        icon: <ContactsOutlined size={20} />,
+        icon: <AiOutlineContacts size={20} />,
         to: "/contacts",
       },
       {
         id: 15,
         label: "Settings",
-        icon: <SettingOutlined size={20} />,
+        icon: <AiOutlineSetting size={20} />,
         to: "/settings",
       },
     ],
@@ -97,7 +97,7 @@ export const siteSettings = {
       {
         id: 4,
         label: "Products",
-        icon: <ShoppingOutlined size={20} />,
+        icon: <AiOutlineShopping size={20} />,
         to: "/products",
       },
       // {
@@ -121,7 +121,7 @@ export const siteSettings = {
       {
         id: 12,
         label: "Profit and Loss Report",
-        icon: <TbReceiptTax  size={20} />,
+        icon: <TbReceiptTax size={20} />,
         to: "/profit",
       },
       {
@@ -133,7 +133,7 @@ export const siteSettings = {
       {
         id: 14,
         label: "Reviews",
-        icon: <AuditOutlined size={20} />,
+        icon: <AiOutlineAudit size={20} />,
         to: "/reviews",
       },
     ],
