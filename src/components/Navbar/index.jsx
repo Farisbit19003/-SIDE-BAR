@@ -23,7 +23,7 @@ const Navbar = ({ setOpen }) => {
         </motion.button>
 
         <div className="ms-5 me-auto hidden md:flex">
-          <Link to="/">
+          <a href="https://bazakr-pk-frontend.vercel.app/">
             <img
               src={
                 siteSetting?.image?.url
@@ -33,7 +33,7 @@ const Navbar = ({ setOpen }) => {
               alt="logo"
               className="object-cover h-8"
             />
-          </Link>
+          </a>
         </div>
 
         <div className="space-s-8 flex items-center">
