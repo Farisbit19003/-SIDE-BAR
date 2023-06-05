@@ -18,7 +18,9 @@ const StockReport = () => {
   const [ok, setOk] = useState([]);
   const dispatch = useDispatch();
   const [isHidden, setIsHidden] = useState(true); // State to control visibility
-
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   // Function to toggle visibility
   const toggleVisibility = () => {
     setIsHidden(!isHidden);

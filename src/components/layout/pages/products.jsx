@@ -41,6 +41,9 @@ const Products = () => {
     document.getElementById("shopSelect").value = "select";
   };
   useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+  useEffect(() => {
     setCategories(category);
     setShops(sellerShops);
   }, [sellerShops, category]);

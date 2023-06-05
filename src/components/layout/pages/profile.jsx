@@ -5,6 +5,9 @@ import ShopLayout from "../Shop";
 import AdminLayout from "../admin";
 
 const Profile = () => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   const {loggedIn}=useSelector((state)=>({...state}));
   const role = loggedIn && loggedIn.user && loggedIn.user.role;
   const dispatch=useDispatch();

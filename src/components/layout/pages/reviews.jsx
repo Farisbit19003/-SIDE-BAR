@@ -13,6 +13,9 @@ const Reviews = () => {
     })
   );
   useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+  useEffect(() => {
     if (product && product.length) {
       const filter = product?.filter((r) => {
         return r?.rating?.length > 0;

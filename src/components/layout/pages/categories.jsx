@@ -13,6 +13,9 @@ const Categories = () => {
   const [ok, setOk] = useState([]);
   const dispatch = useDispatch();
   useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+  useEffect(() => {
     if (category && category.length) {
       setCategories(category);
       const catWithShop = category?.filter((c) => {

@@ -7,6 +7,9 @@ import { PurchaseOrderTable } from "../../comp/Purchase/Table";
 import Filters from "../../comp/common/filter";
 import ShopLayout from "../../layout/Shop/index";
 const Purchase = () => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   const [orders, setOrders] = useState([]);
   const [keyword, setKeyword] = useState("");
   const [products, setProducts] = useState([]);

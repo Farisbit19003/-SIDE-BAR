@@ -6,9 +6,10 @@ import AdminLayout from "../admin";
 const Shops = () => {
   const [shops, setShops] = useState([]);
   const [keyword, setKeyword] = useState("");
-
   const { allShops } = useSelector((state) => ({ ...state }));
-
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   useEffect(() => {
     if (allShops && allShops.length) {
       setShops(allShops);

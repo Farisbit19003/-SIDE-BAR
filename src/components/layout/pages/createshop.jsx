@@ -32,6 +32,9 @@ const CreateShops = () => {
       setCategories(category);
     }
   }, [category]);
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   //handleSubmit
   const handleSubmit = (e) => {
     e.preventDefault();

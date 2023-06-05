@@ -18,6 +18,9 @@ const Orders = () => {
   const toggleVisibility = () => {
     setIsHidden(!isHidden);
   };
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   const onChange = (dates) => {
     const [start, end] = dates;
     setStartDate(start);

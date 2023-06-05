@@ -7,7 +7,9 @@ const MyShops = () => {
   const [keyword, setKeyword] = useState("");
 
   const { sellerShops } = useSelector((state) => ({ ...state }));
-
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   useEffect(() => {
     if (sellerShops && sellerShops.length) {
       setShops(sellerShops);

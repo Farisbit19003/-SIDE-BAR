@@ -14,6 +14,9 @@ const Users = () => {
   }));
   const dispatch = useDispatch();
   useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+  useEffect(() => {
     if (allusers && allusers.length) {
       setUsers(allusers);
       const usersWithShopAndOrders = allusers?.filter((user) => {

@@ -12,6 +12,9 @@ const Contact = () => {
   const [ok, setOk] = useState([]);
   const dispatch = useDispatch();
   useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+  useEffect(() => {
     if (allContacts?.length) {
       setContacts(allContacts);
     }

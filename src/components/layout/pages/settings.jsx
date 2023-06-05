@@ -16,6 +16,9 @@ const Settings = () => {
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+  useEffect(() => {
     if (siteSetting) {
       setValues({
         siteTitle: siteSetting.siteTitle,
