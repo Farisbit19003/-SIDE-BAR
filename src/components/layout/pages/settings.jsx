@@ -62,7 +62,7 @@ const Settings = () => {
       <div className="p-3 md:p-6 mb-6 flex border border-[#f2f2f2] rounded flex-col sm:flex-row items-center justify-center bg-white ">
         <div>
           <h1 className="font-serif font-normal text-3xl text-[#248F59]">
-            Settings
+            Site Settings
           </h1>
         </div>
       </div>

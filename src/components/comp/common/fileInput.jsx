@@ -1,28 +1,30 @@
-import {useState} from "react";
-import { AiOutlineCloudUpload} from "react-icons/ai";
+import { useState } from "react";
+import { AiOutlineCloudUpload } from "react-icons/ai";
 import { TiDeleteOutline } from "react-icons/ti";
-import {LoadingOutlined}  from "@ant-design/icons"
+import { LoadingOutlined } from "@ant-design/icons";
 import axios from "axios";
-const FileInput = ({ keyPrefix, multiple,image ,setImage}) => {
-  const [loading,setloading]=useState(false);
+const FileInput = ({ keyPrefix, multiple, image, setImage }) => {
+  const [loading, setloading] = useState(false);
   const [files, setFiles] = useState([]);
   const formData = new FormData();
-  const uploadImageToCloud=async(event)=>{
-      setloading(true);
-      const { data } = await axios.post("/image/upload", formData);
-      setImage([{
-        url:data.url,
-        public_id:data.public_id
-      }]);
-      setloading(false);
-      event.target.value = null;
-  }
+  const uploadImageToCloud = async (event) => {
+    setloading(true);
+    const { data } = await axios.post("/image/upload", formData);
+    setImage([
+      {
+        url: data.url,
+        public_id: data.public_id,
+      },
+    ]);
+    setloading(false);
+    event.target.value = null;
+  };
   const uploadMultiImageToCloud = async (event) => {
     const newFiles = Array.from(event.target.files);
     setloading(true);
     for (let index = 0; index < newFiles.length; index++) {
       formData.append("image", newFiles[index]);
-      console.log("Form ",formData);
+      console.log("Form ", formData);
       const { data } = await axios.post("/image/upload", formData);
       setImage((prevImage) => [
         ...prevImage,
@@ -35,15 +37,15 @@ const FileInput = ({ keyPrefix, multiple,image ,setImage}) => {
     setloading(false);
     event.target.value = null;
   };
-  
-  const handleFileUpload =(event) => {
+
+  const handleFileUpload = (event) => {
     const newFiles = Array.from(event.target.files);
     if (multiple) {
       setFiles([...files, ...newFiles]);
       uploadMultiImageToCloud(event);
     } else {
       let file = event.target.files[0];
-      formData.append("image",file);
+      formData.append("image", file);
       uploadImageToCloud(event);
     }
   };
@@ -99,20 +101,25 @@ const FileInput = ({ keyPrefix, multiple,image ,setImage}) => {
           multiple={multiple}
         />
         <div className="flex flex-row justify-start ">
-          {loading?<LoadingOutlined/>:image?.map((file, index) => (
-            <div key={index} className="flex flex-row m-2  my-2">
-              <div className="flex-1  text-gray-500 font-semibold">
-                <span><img src={file.url}  height={100} width={100} />
-                </span>
+          {loading ? (
+            <LoadingOutlined />
+          ) : (
+            image?.map((file, index) => (
+              <div key={index} className="flex flex-row m-2  my-2">
+                <div className="flex-1  text-gray-500 font-semibold">
+                  <span>
+                    <img src={file.url} height={100} width={100} />
+                  </span>
+                </div>
+                <TiDeleteOutline
+                  color="red"
+                  className="cursor-pointer"
+                  size={20}
+                  onClick={() => handleRemoveFile(index)}
+                />
               </div>
-              <TiDeleteOutline
-                color="red"
-                className="cursor-pointer"
-                size={20}
-                onClick={() => handleRemoveFile(index)}
-              />
-            </div>
-          ))}  
+            ))
+          )}
         </div>
       </div>
     </>

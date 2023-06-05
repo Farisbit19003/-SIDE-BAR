@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import Description from "../common/discription";
 import Card from "../common/cards";
 import FileInput from "../common/fileInput";
-import SiteTime from "./siteTime";
 import SaveButton from "../common/save";
 
 const SettingsForm = ({
@@ -20,8 +19,8 @@ const SettingsForm = ({
   const logoInformation = (
     <span>
       {"Upload your site logo from here"} <br />
-      {"Dimension of the logo should be"}
-      <span className="font-bold">128x40 Pixel</span>
+      {"Dimension of the logo should be"} <br />
+      <span className="font-bold">128 x 40 Pixel</span>
     </span>
   );
   return (
@@ -102,21 +101,7 @@ const SettingsForm = ({
           </Card>
         </div>
 
-        {/* Delivery Schedule */}
-        {/* <div className="my-2 flex flex-wrap border-b-2 border-dashed  pb-8 sm:my-8">
-          <div className="flex sm:pe-4 md:pe-5  w-full px-0 pb-5 sm:w-4/12 sm:py-8 md:w-1/3">
-            <Description
-              title={"Delivery Schedule"}
-              details={"Add your delivery schedule time with proper description from here"}
-            />
-          </div>
-
-          <Card>
-            <SiteTime />
-          </Card>
-        </div> */}
-
-        <div className="float-right">
+        <div className="flex items-center justify-end">
           <SaveButton loading={loading} handleSubmit={handleSubmit} />
         </div>
       </form>

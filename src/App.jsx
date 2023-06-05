@@ -19,10 +19,8 @@ import Orders from "./components/layout/pages/orders";
 import Products from "./components/layout/pages/products";
 import Reviews from "./components/layout/pages/reviews";
 import Settings from "./components/layout/pages/settings";
-import Shippings from "./components/layout/pages/shippings";
 import Shops from "./components/layout/pages/shops";
 import Users from "./components/layout/pages/users";
-import Withdraws from "./components/layout/pages/withdraws";
 import NewAttribute from "./components/comp/attributes/attributeForm";
 import AddProduct from "./components/comp/Products/addProduct";
 import RegisterComplete from "./components/auth/register-complete";
@@ -114,10 +112,8 @@ if(res.status===401&& res.config && !res.config._isRetryREquest){
           <Route exact path="/categories/create" element={<NewCategory />} />
           <Route exact path="/categories/update/:slug" element={<UpdateCategory />} />
           <Route exact path="/reviews" element={<Reviews />} />
-          <Route exact path="/withdraws" element={<Withdraws />} />
           <Route exact path="/withdrawls/request" element={<CreateWithdrawls />} />
           <Route exact path="/settings" element={<Settings />} />
-          <Route exact path="/shippings" element={<Shippings />} />
           <Route exact path="/users" element={<Users />} />
           <Route exact path="/my-shop/create" element={<CreateShops />} />
           <Route exact path="/profile-update" element={<Profile />} />

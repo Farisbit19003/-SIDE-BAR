@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import "react-datepicker/dist/react-datepicker.css";
-import { BiSearch } from "react-icons/bi";
 import { BsFilterSquare } from "react-icons/bs";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
@@ -102,22 +101,13 @@ const StockReport = () => {
             Stock Report
           </h1>
         </div>
-
-        <div className="flex flex-col px-2 py-2 sm:flex-row gap-3 justify-center  items-center">
-          <div className="relative">
-            <input
-              onChange={handleSearchInputChange}
-              type="search"
-              placeholder="Type queries"
-              className=" sm:py-3 border border-gray-400 rounded-md focus:outline-none focus:ring-2 focus:ring-green-600 w-full"
-            />
-            <button
-              type="submit"
-              className="absolute top-0 right-0 px-3 sm:px-4 whitespace-pre-wrap  my-2 text-gray-400 outline-none focus:outline-none active:outline-none"
-            >
-              <BiSearch size={25} className="inline-block align-middle" />
-            </button>
-          </div>
+        <div className="relative w-full max-w-md">
+          <input
+            onChange={handleSearchInputChange}
+            type="search"
+            placeholder="Type queries"
+            className="w-full sm:py-3 border border-gray-400 rounded-md focus:outline-none focus:ring-2 focus:ring-green-600"
+          />
         </div>
       </div>
       {/* Button to toggle visibility */}

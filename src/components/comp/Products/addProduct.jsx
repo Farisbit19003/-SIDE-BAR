@@ -1,15 +1,14 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import ShopLayout from "../../layout/Shop/index";
 import SaveButton from "../common/save";
-import { useState, useEffect } from "react";
 import ProductForm from "./ProductForm";
-import { toast } from "react-toastify";
-import { useDispatch, useSelector } from "react-redux";
 import { CreateProduct, SellerProducts } from "./functions";
-import { useNavigate } from "react-router-dom";
 const AddProduct = () => {
   const [shops, setShops] = useState([]);
-  const {sellerShops } = useSelector((state) => ({ ...state }));
+  const { sellerShops } = useSelector((state) => ({ ...state }));
   const [values, setValues] = useState({
     name: "",
     discription: "",
@@ -42,8 +41,7 @@ const AddProduct = () => {
       !values.purchasePrice ||
       !values.quantity ||
       !values.feature_pic
-     ) 
-    {
+    ) {
       toast.error("Please Fill all Fields");
       setLoading(false);
       return;
@@ -53,7 +51,7 @@ const AddProduct = () => {
       setLoading(false);
       return;
     }
-    if(values.purchasePrice>=values.salePrice){
+    if (values.purchasePrice >= values.salePrice) {
       toast.error("Purchase Price must be smaller than Sale Price");
       setLoading(false);
       return;
@@ -63,7 +61,7 @@ const AddProduct = () => {
       setLoading(false);
       return;
     }
-    if (values.quantity<=0){
+    if (values.quantity <= 0) {
       toast.error("Please enter a value greater than zero for the quantity.");
       setLoading(false);
       return;

@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { BiSearch } from "react-icons/bi";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -65,13 +64,7 @@ const Categories = () => {
               type="search"
               placeholder="Type queries"
               className=" sm:py-3 border border-gray-400 rounded-md focus:outline-none focus:ring-2 focus:ring-green-600 w-full"
-            />
-            <button
-              type="submit"
-              className="absolute top-0 right-0 px-3 sm:px-4 whitespace-pre-wrap  my-2 text-gray-400 outline-none focus:outline-none active:outline-none"
-            >
-              <BiSearch size={25} className="inline-block align-middle" />
-            </button>
+            />          
           </div>
           <div className=" flex ">
             <button className="bg-[#248F59] transition-transform hover:scale-95 hover:text-white w-full px-4 py-2 sm:py-3 rounded-md text-sm sm:text-base whitespace-nowrap flex justify-center items-center font-sans uppercase text-[#FFFFFF]">
