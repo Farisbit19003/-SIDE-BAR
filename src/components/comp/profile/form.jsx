@@ -33,7 +33,7 @@ const Form = ({ dispatch, loggedIn, avatarInfo }) => {
       if (!name) {
         return toast.error("Please Enter Your Name");
       }
-      if (passwordError) {
+      if (password&&passwordError) {
         return toast.error("Please Enter valid Password");
       }
       if (whatsappError) {
