@@ -3,7 +3,8 @@ import { AiOutlineCloudUpload} from "react-icons/ai";
 import { TiDeleteOutline } from "react-icons/ti";
 import {LoadingOutlined}  from "@ant-design/icons"
 import axios from "axios";
-const FileInput = ({ keyPrefix, multiple,image ,setImage,setloading,loading}) => {
+const FileInput = ({ keyPrefix, multiple,image ,setImage}) => {
+  const [loading,setloading]=useState(false);
   const [files, setFiles] = useState([]);
   const formData = new FormData();
   const uploadImageToCloud=async(event)=>{

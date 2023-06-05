@@ -42,13 +42,34 @@ const AddProduct = () => {
       !values.purchasePrice ||
       !values.quantity ||
       !values.feature_pic
-    ) {
+     ) 
+    {
       toast.error("Please Fill all Fields");
       setLoading(false);
       return;
     }
     if (values.gallery_pics.length < 3) {
       toast.error("Please add at least Three Gallery Images");
+      setLoading(false);
+      return;
+    }
+    if(values.purchasePrice>=values.salePrice){
+      toast.error("Purchase Price must be smaller than Sale Price");
+      setLoading(false);
+      return;
+    }
+    if (values.purchasePrice <= 0) {
+      toast.error("Purchase Price must be greater than zero");
+      setLoading(false);
+      return;
+    }
+    if (values.quantity<=0){
+      toast.error("Please enter a value greater than zero for the quantity.");
+      setLoading(false);
+      return;
+    }
+    if (values.salePrice <= 0) {
+      toast.error("Sale Price must be greater than zero");
       setLoading(false);
       return;
     }
