@@ -47,7 +47,7 @@ const ProductForm = ({ shops, values, setValues, loading, setLoading }) => {
     const { name, value } = e.target;
     let sanitizedValue = value;
     if (name === 'purchasePrice' || name === 'salePrice' || name === 'quantity' || name==="unit") {
-      sanitizedValue = value.replace(/^[0\-+]+/, '');
+      sanitizedValue = value.replace(/^[0\.\-+]+/, '');
     }
     setValues({ ...values, [e.target.name]: sanitizedValue });
   };
