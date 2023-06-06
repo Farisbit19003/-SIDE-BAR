@@ -41,7 +41,7 @@ const Graph = () => {
     }
   });
 
-  const series = revenueByMonth.map((entry) => entry.revenue);
+  const series = revenueByMonth.map((entry) =>Math.round(entry.revenue));
   const categories = revenueByMonth.map((entry) => entry.month);
 
   const handlChange = (e) => {
