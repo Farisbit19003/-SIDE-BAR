@@ -256,7 +256,7 @@ const DetailsCard = ({
             </p>
             <p className="text-sm text-sub-heading">
               <span className="block w-full text-muted">Email:</span>{" "}
-              <span className="font-semibold whitespace-nowrap mr-2">
+              <span className="font-semibold text-xs whitespace-nowrap mr-2">
                 {singleShop?.user?.email}
               </span>
             </p>
