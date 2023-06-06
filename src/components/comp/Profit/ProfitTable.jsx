@@ -92,19 +92,28 @@ export const ProfitTable = ({ orders, keyword, Searched }) => {
                               }, 0)}
                             </td>
                             <td className="px-4 py-2">
-                              {item?.Products?.reduce((acc, p) => {
+                            {Math.round(item?.Products?.reduce((acc, p) => {
                                 return (
                                   acc + p.Product?.salePrice * p.order_quantity
                                 );
-                              }, 0) * 0.9}
+                              }, 0) * 0.9).toLocaleString("en-US", {
+                          style: "currency",
+                          currency: "PKR",
+                        })}
+                            
                             </td>
                             <td className="px-4 py-2">
-                              {item?.Products?.reduce((acc, p) => {
+                            {Math.round(item?.Products?.reduce((acc, p) => {
                                 return (
                                   acc +
                                   p.Product?.purchasePrice * p.order_quantity
                                 );
-                              }, 0)}
+                              }, 0)).toLocaleString("en-US", {
+                          style: "currency",
+                          currency: "PKR",
+                        })}
+                            
+                            
                             </td>
                             <td className="px-4 py-2">
                               {Math.round(
@@ -122,8 +131,10 @@ export const ProfitTable = ({ orders, keyword, Searched }) => {
                                         p.order_quantity
                                     );
                                   }, 0)
-                              )}
-                              /<span className="text-xs font-bold">PKR</span>
+                              ).toLocaleString("en-US", {
+                                style: "currency",
+                                currency: "PKR",
+                              })}
                             </td>
 
                             <td className="px-4 py-2 flex items-center justify-center">

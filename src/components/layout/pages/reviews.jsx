@@ -3,7 +3,7 @@ import { BiSearch } from "react-icons/bi";
 import { useSelector } from "react-redux";
 import { ReviewTable } from "../../comp/reviews/reviewTable";
 import ShopLayout from "../../layout/Shop/index";
-
+import { Pagination } from "antd";
 const Reviews = () => {
   const [products, setProducts] = useState([]);
   const [keyword, setKeyword] = useState("");
@@ -29,6 +29,17 @@ const Reviews = () => {
     setKeyword(e.target.value.toLowerCase());
   };
   const Searched = (keyword) => (c) => c.name.toLowerCase().includes(keyword);
+  const [page, setPage] = useState(1);
+  const [itemsPerPage] = useState(15);
+  //Sort Products Based on Sold
+  // calculate the start and end indexes of the current page
+  const startIndex = (page - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const totalposts = products?.length
+    ? ((products.length / 15) * 10).toFixed()
+    : "";
+  // extract a portion of the array based on the start and end indexes
+  const paginatedData = products?.slice(startIndex, endIndex)
   return (
     <ShopLayout>
       <div className="p-3 md:p-6 mb-6 flex border border-[#f2f2f2] rounded flex-col sm:flex-row items-center justify-between bg-white ">
@@ -55,7 +66,16 @@ const Reviews = () => {
           </div>
         </div>
       </div>
-      <ReviewTable products={products} Searched={Searched} keyword={keyword} />
+      <ReviewTable products={paginatedData} Searched={Searched} keyword={keyword} />
+      <div className="row">
+        <div className="col text-center mb-5">
+          <Pagination
+            current={page}
+            onChange={(value) => setPage(value)}
+            total={totalposts}
+          />
+        </div>
+      </div>
     </ShopLayout>
   );
 };

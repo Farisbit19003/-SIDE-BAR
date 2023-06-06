@@ -135,11 +135,15 @@ export const OrderTable = ({ orders, keyword, Searched }) => {
                               {item?.store?.Storename}
                             </td>
                             <td className="px-4 py-2">
-                              {item?.Products?.reduce((acc, p) => {
+                            {Math.round(item?.Products?.reduce((acc, p) => {
                                 return (
                                   acc + p.Product?.salePrice * p.order_quantity
                                 );
-                              }, 0) * 0.9}
+                              }, 0) * 0.9).toLocaleString("en-US", {
+                          style: "currency",
+                          currency: "PKR",
+                        })}
+                  
                             </td>
                             <td className="px-4 py-2 flex items-center justify-center">
                               <Link to={`/order/detail/${item._id}`}>

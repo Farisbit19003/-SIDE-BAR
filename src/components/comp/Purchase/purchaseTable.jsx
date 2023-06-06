@@ -14,7 +14,10 @@ export const PurchaseTable = ({ products, values, setValues }) => {
       const subtotal = price * product.quantity;
       total += subtotal;
     });
-    return total;
+    return Math.round(total).toLocaleString("en-US", {
+      style: "currency",
+      currency: "PKR",
+    });
   };
 
   const handleDelete = (item, index) => {
@@ -100,7 +103,7 @@ export const PurchaseTable = ({ products, values, setValues }) => {
                     ))}
                     <tr className="bg-white font-bold cursor-default hover:!bg-gray-100 border-b-2 font-sans">
                       <td className="px-4 py-2">
-                        Total Amount: {calculateTotal()} /PKR
+                        Total Amount: {calculateTotal()}
                       </td>
                     </tr>
                   </tbody>

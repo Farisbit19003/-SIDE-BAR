@@ -40,7 +40,10 @@ const DetailPack = ({ singleOrder, GrandTotal }) => {
               Total<span className="ml-1 ltr:mr-auto rtl:ml-auto">:</span>
             </span>
             <span className="text-sm font-bold text-heading">
-              {GrandTotal}/PKR
+              {Math.round(GrandTotal).toLocaleString("en-US", {
+                style: "currency",
+                currency: "PKR",
+              })}
             </span>
           </div>
           <div className="flex w-full  justify-between">
@@ -51,7 +54,12 @@ const DetailPack = ({ singleOrder, GrandTotal }) => {
               <span className="ml-1 ltr:mr-auto rtl:ml-auto">:</span>
             </span>
             <span className="text-sm font-bold text-heading">
-              {GrandTotal * (singleOrder?.orderType === "Sales" ? 0.9 : 1)}/PKR
+              {Math.round(
+                GrandTotal * (singleOrder?.orderType === "Sales" ? 0.9 : 1)
+              ).toLocaleString("en-US", {
+                style: "currency",
+                currency: "PKR",
+              })}
             </span>
           </div>
         </div>

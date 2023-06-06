@@ -41,8 +41,13 @@ const Graph = () => {
     }
   });
 
-  const series = revenueByMonth.map((entry) =>Math.round(entry.revenue));
-  const categories = revenueByMonth.map((entry) => entry.month);
+  // Sort the revenueByMonth array in descending order based on the month
+  revenueByMonth.sort((a, b) => new Date(b.month) - new Date(a.month));
+  // Get the last 10 elements of the revenueByMonth array
+  const last10Months = revenueByMonth.slice(0, 15);
+  // Create the series and categories arrays using the last 10 months
+  const series = last10Months.map((entry) => Math.round(entry.revenue));
+  const categories = last10Months.map((entry) => entry.month);
 
   const handlChange = (e) => {
     if (e.target.value === "select") {
