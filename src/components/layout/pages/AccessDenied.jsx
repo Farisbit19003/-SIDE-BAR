@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect} from "react";
 import {AiFillCloseCircle} from "react-icons/ai"
 const AccessDenied = () => {
   useEffect(() => {
