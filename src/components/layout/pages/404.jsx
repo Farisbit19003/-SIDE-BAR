@@ -1,6 +1,8 @@
 import React, { useEffect} from "react";
 const NotFound = () => {
-
+    useEffect(() => {
+      window.scrollTo(0, 0);
+    }, []);
   return (
     <>
       <div className="fixed inset-0 flex items-center justify-center">
