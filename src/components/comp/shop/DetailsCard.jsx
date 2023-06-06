@@ -256,7 +256,7 @@ const DetailsCard = ({
             </p>
             <p className="text-sm text-sub-heading">
               <span className="block w-full text-muted">Email:</span>{" "}
-              <span className="font-semibold whitespace-nowrap">
+              <span className="font-semibold whitespace-nowrap mr-2">
                 {singleShop?.user?.email}
               </span>
             </p>
@@ -264,12 +264,7 @@ const DetailsCard = ({
               <span className="block w-full text-muted">Bank:</span>{" "}
               <span className="font-semibold">Stripe</span>
             </p>
-            <p className="text-sm text-sub-heading">
-              <span className="block w-full text-muted">account-no:</span>{" "}
-              <span className="font-semibold">
-                {singleShop?.stripe_account_id}
-              </span>
-            </p>
+            
           </div>
         </div>
       </div>
