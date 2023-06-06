@@ -51,7 +51,7 @@ const AddProduct = () => {
       setLoading(false);
       return;
     }
-    if (values.purchasePrice >= values.salePrice) {
+    if (Math.round( values.purchasePrice) >= Math.round (values.salePrice)) {
       toast.error("Purchase Price must be smaller than Sale Price");
       setLoading(false);
       return;
@@ -102,6 +102,7 @@ const AddProduct = () => {
   };
   return (
     <ShopLayout>
+      {JSON.stringify(values,null,4)}
       <div className="my-2 flex flex-wrap border-b-2 border-dashed  pb-8 sm:my-8">
         <h1 className="text-[#248F59] font-serif text-3xl font-normal">
           Create Products

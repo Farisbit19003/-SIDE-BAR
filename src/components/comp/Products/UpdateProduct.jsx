@@ -86,7 +86,7 @@ const UpdateProducts = () => {
       setLoading(false);
       return;
     }
-    if (values.purchasePrice >= values.salePrice) {
+    if (Math.round( values.purchasePrice) >= Math.round (values.salePrice)) {
       toast.error("Purchase Price must be smaller than Sale Price");
       setLoading(false);
       return;

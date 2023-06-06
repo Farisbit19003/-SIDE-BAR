@@ -20,13 +20,14 @@ const Products = () => {
   );
   const [ok, setOk] = useState([]);
   const dispatch = useDispatch();
+  const update=product?.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
   const onShopChange = (e) => {
     if (e.target.value === "select") {
       return setProducts(product);
     }
-    const filter = product?.filter((p) => {
+    const filter = update?.filter((p) => {
       return p.store._id === e.target.value;
-    });
+    })
     filter && setProducts(filter);
     document.getElementById("categorySelect").value = "select";
   };
@@ -34,7 +35,7 @@ const Products = () => {
     if (e.target.value === "select") {
       return setProducts(product);
     }
-    const filter = product?.filter((p) => {
+    const filter = update?.filter((p) => {
       return p.category._id === e.target.value;
     });
     filter && setProducts(filter);
@@ -49,7 +50,7 @@ const Products = () => {
   }, [sellerShops, category]);
   useEffect(() => {
     if (product && product.length) {
-      setProducts(product);
+      setProducts(update);
       const productWithOrder = product?.filter((p) => {
         const hasAssociatedOrder = allOrders?.some((order) =>
           order?.Products?.some((pro) => pro?.Product?._id === p?._id)

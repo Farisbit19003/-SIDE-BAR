@@ -44,7 +44,12 @@ const ProductForm = ({ shops, values, setValues, loading, setLoading }) => {
     setValues({ ...values, store: store });
   }, [store]);
   const onChange = (e) => {
-    setValues({ ...values, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    let sanitizedValue = value;
+    if (name === 'purchasePrice' || name === 'salePrice' || name === 'quantity' || name==="unit") {
+      sanitizedValue = value.replace(/^[0\-+]+/, '');
+    }
+    setValues({ ...values, [e.target.name]: sanitizedValue });
   };
   return (
     <form>
@@ -186,8 +191,7 @@ const ProductForm = ({ shops, values, setValues, loading, setLoading }) => {
         />
         <Card>
           <div className="p-3 font-sans w-full flex flex-col">
-            <label className="font-semibold ">Purchase Price</label>
-
+            <label className="font-semibold">Purchase Price</label>
             <input
               onChange={onChange}
               name="purchasePrice"
@@ -195,8 +199,8 @@ const ProductForm = ({ shops, values, setValues, loading, setLoading }) => {
               type="number"
               className="h-12 my-2  bg-white border border-gray-400 rounded-lg px-3 py-2 text-lg font-sans font-normal tracking-normal text-left focus:outline-none focus:ring-2 focus:ring-green-600"
             />
-            <label className="font-semibold ">Sale Price</label>
 
+            <label className="font-semibold">Sale Price</label>
             <input
               onChange={onChange}
               name="salePrice"
@@ -204,8 +208,8 @@ const ProductForm = ({ shops, values, setValues, loading, setLoading }) => {
               type="number"
               className="h-12 my-2  bg-white border border-gray-400 rounded-lg px-3 py-2 text-lg font-sans font-normal tracking-normal text-left focus:outline-none focus:ring-2 focus:ring-green-600"
             />
-            <label className="font-semibold ">Quantity</label>
 
+            <label className="font-semibold">Quantity</label>
             <input
               onChange={onChange}
               name="quantity"
