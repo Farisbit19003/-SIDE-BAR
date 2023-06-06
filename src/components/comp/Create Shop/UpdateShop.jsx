@@ -29,6 +29,8 @@ const UpdateShop = () => {
   const { loggedIn, category, sellerShops } = useSelector((state) => ({
     ...state,
   }));
+  const [whatsappError, setWhatsappError] = useState("");
+
   const role = loggedIn && loggedIn.user && loggedIn.user.role;
   const navigate = useNavigate();
   const params = useParams();
@@ -97,7 +99,9 @@ const UpdateShop = () => {
       setLoading(false);
       return;
     }
-
+    if (whatsappError) {
+      return toast.error("Please Enter valid Contact Number");
+    }
     try {
       setLoading(true);
       UpdateStore(singleShop?._id, values).then((res) => {
@@ -140,6 +144,8 @@ const UpdateShop = () => {
               setValues={setValues}
               setLoading={setLoading}
               loading={loading}
+              whatsappError={whatsappError}
+            setWhatsappError={setWhatsappError}
             />
             <div className="flex justify-end">
               <SaveButton handleSubmit={handleSubmit} loading={loading} />

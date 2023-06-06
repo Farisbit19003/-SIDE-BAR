@@ -24,6 +24,7 @@ const CreateShops = () => {
     cover_pic: {},
   });
   const [loading, setLoading] = useState(false);
+  const [whatsappError, setWhatsappError] = useState("");
   const { category } = useSelector((state) => ({ ...state }));
   const navigate=useNavigate();
   const dispatch=useDispatch();
@@ -57,7 +58,9 @@ const CreateShops = () => {
       setLoading(false);
       return;
     }
-
+    if (whatsappError) {
+      return toast.error("Please Enter valid Contact Number");
+    }
     try {
       setLoading(true);
       CreateStore(values).then((res) => {
@@ -105,6 +108,8 @@ const CreateShops = () => {
             setValues={setValues}
             setLoading={setLoading}
             loading={loading}
+            whatsappError={whatsappError}
+            setWhatsappError={setWhatsappError}
           />
           <div className="flex justify-end">
             <SaveButton handleSubmit={handleSubmit} loading={loading} />

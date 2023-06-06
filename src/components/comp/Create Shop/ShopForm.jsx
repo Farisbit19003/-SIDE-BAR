@@ -11,7 +11,7 @@ const coverImageInformation = (
     <span className="font-bold">1170 x 435</span>
   </span>
 );
-const ShopForm = ({ categories, values, setValues, setLoading, loading }) => {
+const ShopForm = ({ categories, values, setValues, setLoading, loading,setWhatsappError,whatsappError }) => {
   const {
     Storename,
     description,
@@ -40,6 +40,22 @@ const ShopForm = ({ categories, values, setValues, setLoading, loading }) => {
   }, [main_pic || cover_pic]);
   const onChange = (e) => {
     setValues({ ...values, [e.target.name]: e.target.value });
+  };
+  const handleWhatsappChange = (e) => {
+    const input = e.target.value;
+    // Remove any non-digit characters
+    const digitsOnly = input.replace(/\D/g, "");
+    // Limit the input to a maximum of 11 digits
+    const limitedInput = digitsOnly.slice(0, 11);
+    setValues({ ...values, [e.target.name]: limitedInput });
+
+    // Validate Pakistan phone number
+    const regex = /^(\+92|0)?[0-9]{10}$/;
+    if (!regex.test(limitedInput)) {
+      setWhatsappError("Please enter a valid Pakistan phone number.");
+    } else {
+      setWhatsappError("");
+    }
   };
   return (
     <>
@@ -205,10 +221,11 @@ const ShopForm = ({ categories, values, setValues, setLoading, loading }) => {
             <input
               value={Storewhatsapp}
               name="Storewhatsapp"
-              onChange={onChange}
+              onChange={handleWhatsappChange}
               type="number"
               className="mb-2  bg-white border border-gray-400 rounded-lg px-3 py-2 text-lg font-sans font-normal tracking-normal text-left focus:outline-none focus:ring-2 focus:ring-green-600"
             />
+              {whatsappError && <p className="text-red-500">{whatsappError}</p>}
 
             <label className="font-semibold flex">
               Instagram{" "}

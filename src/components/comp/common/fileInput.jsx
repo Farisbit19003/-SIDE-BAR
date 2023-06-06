@@ -86,8 +86,7 @@ const FileInput = ({ keyPrefix, multiple, image, setImage }) => {
             <AiOutlineCloudUpload size={40} />
             <div className="text-center">
               <p>
-                <span className="text-[#248F59]">Upload an image</span> or drag
-                and drop
+                <span className="text-[#248F59]">Upload an image</span>
               </p>
               <p>PNG, JPG</p>
             </div>
@@ -100,12 +99,13 @@ const FileInput = ({ keyPrefix, multiple, image, setImage }) => {
           style={{ display: "none" }}
           multiple={multiple}
         />
-        <div className="flex flex-row justify-start ">
+        
           {loading ? (
             <LoadingOutlined />
           ) : (
             image?.map((file, index) => (
-              <div key={index} className="flex flex-row m-2  my-2">
+              <div  key={index} className="flex flex-row justify-start ">
+              <div className="flex flex-row m-2  my-2">
                 <div className="flex-1  text-gray-500 font-semibold">
                   <span>
                     <img src={file.url} height={100} width={100} />
@@ -118,9 +118,10 @@ const FileInput = ({ keyPrefix, multiple, image, setImage }) => {
                   onClick={() => handleRemoveFile(index)}
                 />
               </div>
+              </div>
             ))
-          )}
-        </div>
+          )} 
+       
       </div>
     </>
   );
