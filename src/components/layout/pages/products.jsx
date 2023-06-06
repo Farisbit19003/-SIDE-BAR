@@ -7,7 +7,7 @@ import swal from "sweetalert";
 import { DeleteProduct, SellerProducts } from "../../comp/Products/functions";
 import { ProductsTable } from "../../comp/Products/productsTable";
 import ShopLayout from "../../layout/Shop/index";
-
+import { Pagination } from "antd";
 const Products = () => {
   const [products, setProducts] = useState([]);
   const [keyword, setKeyword] = useState("");
@@ -20,14 +20,16 @@ const Products = () => {
   );
   const [ok, setOk] = useState([]);
   const dispatch = useDispatch();
-  const update=product?.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+  const update = product?.sort(
+    (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+  );
   const onShopChange = (e) => {
     if (e.target.value === "select") {
       return setProducts(product);
     }
     const filter = update?.filter((p) => {
       return p.store._id === e.target.value;
-    })
+    });
     filter && setProducts(filter);
     document.getElementById("categorySelect").value = "select";
   };
@@ -93,7 +95,18 @@ const Products = () => {
     e.preventDefault();
     setKeyword(e.target.value.toLowerCase());
   };
-  const Searched = (keyword) => (c) => c.name.toLowerCase().includes(keyword);
+  const Searched = (keyword) => (c) => c?.name?.toLowerCase().includes(keyword);
+  const [page, setPage] = useState(1);
+  const [itemsPerPage] = useState(15);
+  //Sort Products Based on Sold
+  // calculate the start and end indexes of the current page
+  const startIndex = (page - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const totalposts = products?.length
+    ? ((products.length / 15) * 10).toFixed()
+    : "";
+  // extract a portion of the array based on the start and end indexes
+  const paginatedData = products?.slice(startIndex, endIndex);
   return (
     <ShopLayout>
       <div className="p-3 md:p-6 mb-6 flex border rounded border-[#f2f2f2] flex-col sm:flex-row items-center justify-between bg-white ">
@@ -172,12 +185,21 @@ const Products = () => {
         </div>
       )}
       <ProductsTable
-        products={products}
+        products={paginatedData}
         handleDelete={handleDelete}
         Searched={Searched}
         keyword={keyword}
         ok={ok}
       />
+      <div className="row">
+        <div className="col text-center mb-5">
+          <Pagination
+            current={page}
+            onChange={(value) => setPage(value)}
+            total={totalposts}
+          />
+        </div>
+      </div>
     </ShopLayout>
   );
 };

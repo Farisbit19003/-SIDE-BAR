@@ -6,6 +6,8 @@ import { Link } from "react-router-dom";
 import { PurchaseOrderTable } from "../../comp/Purchase/Table";
 import Filters from "../../comp/common/filter";
 import ShopLayout from "../../layout/Shop/index";
+import { Pagination } from "antd";
+
 const Purchase = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -142,6 +144,17 @@ const Purchase = () => {
     document.getElementById("shopSelect").value = "select";
     setOrders(update);
   };
+  const [page, setPage] = useState(1);
+  const [itemsPerPage] = useState(15);
+  //Sort Products Based on Sold
+  // calculate the start and end indexes of the current page
+  const startIndex = (page - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const totalposts = orders?.length
+    ? ((orders?.length / 15) * 10).toFixed()
+    : "";
+  // extract a portion of the array based on the start and end indexes
+  const paginatedData = orders?.slice(startIndex, endIndex);
   return (
     <ShopLayout>
       <div className="p-3 md:p-6 mb-6 flex border rounded border-[#f2f2f2] md:gap-2 sm:gap-3 flex-col sm:flex-row items-center justify-between bg-white ">
@@ -186,10 +199,19 @@ const Purchase = () => {
         />
       )}
       <PurchaseOrderTable
-        orders={orders}
+        orders={paginatedData}
         Searched={Searched}
         keyword={keyword}
       />
+        <div className="row">
+        <div className="col text-center mb-5">
+          <Pagination
+            current={page}
+            onChange={(value) => setPage(value)}
+            total={totalposts}
+          />
+        </div>
+      </div>
     </ShopLayout>
   );
 };

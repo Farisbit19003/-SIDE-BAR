@@ -6,6 +6,7 @@ import swal from "sweetalert";
 import CatTable from "../../comp/category/categoryTable";
 import { AllCategory, DeleteCategory } from "../../comp/category/functions";
 import AdminLayout from "../admin";
+import { Pagination } from "antd";
 const Categories = () => {
   const [categories, setCategories] = useState([]);
   const [keyword, setKeyword] = useState("");
@@ -52,6 +53,17 @@ const Categories = () => {
     setKeyword(e.target.value.toLowerCase());
   };
   const Searched = (keyword) => (c) => c.name.toLowerCase().includes(keyword);
+  const [page, setPage] = useState(1);
+  const [itemsPerPage] = useState(15);
+  //Sort Products Based on Sold
+  // calculate the start and end indexes of the current page
+  const startIndex = (page - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const totalposts = categories?.length
+    ? ((categories.length / 15) * 10).toFixed()
+    : "";
+  // extract a portion of the array based on the start and end indexes
+  const paginatedData = categories?.slice(startIndex, endIndex);
   return (
     <AdminLayout>
       <div className="p-3 md:p-6 mb-6 flex  border rounded border-[#f2f2f2] flex-col sm:flex-row items-center justify-between bg-white ">
@@ -78,11 +90,20 @@ const Categories = () => {
       </div>
       <CatTable
         ok={ok}
-        category={categories}
+        category={paginatedData}
         handleDelete={handleDelete}
         Searched={Searched}
         keyword={keyword}
       />
+        <div className="row">
+        <div className="col text-center mb-5">
+          <Pagination
+            current={page}
+            onChange={(value) => setPage(value)}
+            total={totalposts}
+          />
+        </div>
+      </div>
     </AdminLayout>
   );
 };

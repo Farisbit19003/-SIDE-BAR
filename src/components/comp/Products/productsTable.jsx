@@ -31,6 +31,7 @@ export const ProductsTable = ({
     const stock = p.totalSold;
     return acc + stock;
   }, 0);
+  console.log("Table",products)
   return (
     <>
       {!products || products.length === 0 ? (

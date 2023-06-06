@@ -5,6 +5,8 @@ import swal from "sweetalert";
 import { AllUsers, DeleteUser } from "../../comp/user/Userfunction";
 import { UserTable } from "../../comp/user/userTable";
 import AdminLayout from "../admin";
+import { Pagination } from "antd";
+
 const Users = () => {
   const [users, setUsers] = useState([]);
   const [keyword, setKeyword] = useState("");
@@ -59,7 +61,17 @@ const Users = () => {
     setKeyword(e.target.value.toLowerCase());
   };
   const Searched = (keyword) => (c) => c.name.toLowerCase().includes(keyword);
-
+  const [page, setPage] = useState(1);
+  const [itemsPerPage] = useState(15);
+  //Sort Products Based on Sold
+  // calculate the start and end indexes of the current page
+  const startIndex = (page - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const totalposts = users?.length
+    ? ((users.length / 15) * 10).toFixed()
+    : "";
+  // extract a portion of the array based on the start and end indexes
+  const paginatedData = users?.slice(startIndex, endIndex);
   return (
     <AdminLayout>
       <div className="p-3 md:p-6 mb-6 border rounded border-[#f2f2f2] flex flex-col sm:flex-row items-center justify-between bg-white ">
@@ -81,10 +93,19 @@ const Users = () => {
       <UserTable
         ok={ok}
         handleDelete={handleDelete}
-        users={users}
+        users={paginatedData}
         Searched={Searched}
         keyword={keyword}
       />
+         <div className="row">
+        <div className="col text-center mb-5">
+          <Pagination
+            current={page}
+            onChange={(value) => setPage(value)}
+            total={totalposts}
+          />
+        </div>
+      </div>
     </AdminLayout>
   );
 };
