@@ -68,7 +68,7 @@ function App() {
       SellerOrders(dispatch);
     }
   }, [loggedIn]);
-  const PUBLIC_API = "https://bazarpk.herokuapp.com/api";
+  const PUBLIC_API = "https://bazakrpk.onrender.com/api";
   //Default setting
   axios.defaults.baseURL = PUBLIC_API;
   let token = loggedIn?.token;
