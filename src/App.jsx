@@ -68,9 +68,9 @@ function App() {
       SellerOrders(dispatch);
     }
   }, [loggedIn]);
-  const PUBLIC_API = "https://bazarpk.herokuapp.com/api";
+
   //Default setting
-  axios.defaults.baseURL = PUBLIC_API;
+  axios.defaults.baseURL = import.meta.env.VITE_PUBLIC_API;
   let token = loggedIn?.token;
   axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
   // When Token Expire Logout automatically
