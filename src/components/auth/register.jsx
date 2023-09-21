@@ -1,11 +1,11 @@
-import { useState, useContext, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { toast } from "react-toastify";
-import { createSeller } from "./auth";
 import { LoadingOutlined } from "@ant-design/icons";
+import { useContext, useEffect, useState } from "react";
+import { FaSpinner } from "react-icons/fa";
+import { useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import swal from "sweetalert";
-import { AiOutlineLoading3Quarters } from "react-icons/ai";
+import { createSeller } from "./auth";
 import Logo from "./logo";
 
 const Register = () => {
@@ -85,14 +85,16 @@ const Register = () => {
     }
   };
   return loggedIn && loggedIn.token ? (
-    <div className="fixed inset-0 flex items-center justify-center">
-      <div className="flex flex-col items-center">
-        <AiOutlineLoading3Quarters className="text-6xl w-16 h-16 text-[#248F59] animate-spin" />
-        <span className="mt-4 text-gray-500 text-lg font-semibold">
-          Redirecting to Homepage...
-        </span>
+    <>
+      <div className="fixed inset-0 flex items-center justify-center">
+        <div className="flex flex-col items-center">
+          <FaSpinner className="text-6xl w-16 h-16 text-[#248F59] animate-spin" />
+          <span className="mt-4 text-gray-500 font-sans text-lg font-semibold">
+            Redirecting to Homepage...
+          </span>
+        </div>
       </div>
-    </div>
+    </>
   ) : (
     <>
       <div className="bg-gray-200 flex flex-wrap h-screen lg:p-4  mx-auto justify-center">
@@ -102,7 +104,7 @@ const Register = () => {
             Register New Account
           </h1>
           {/* NAME */}
-          <label className="mb-3 block text-sm font-semibold leading-none text-body-dark">
+          <label className="mb-3 block font-sans text-sm font-semibold leading-none ">
             Name
           </label>
           <input
@@ -115,43 +117,45 @@ const Register = () => {
                 setName(input);
               }
             }}
-            className="h-12 mb-4 flex flex-wrap bg-white border border-gray-400 rounded-lg px-3 py-2 text-lg font-sans font-normal tracking-normal text-left focus:outline-none focus:ring-2 focus:ring-green-600"
+            className="h-12 mb-4 flex flex-wrap bg-white border border-gray-400 rounded-lg px-3 py-2 text-lg font-sans font-normal tracking-normal text-left focus:outline-none focus:ring-2 focus:ring-[#248f59]"
           />
           {/* EMAIL */}
-          <label className="mb-3 block text-sm font-semibold leading-none text-body-dark">
+          <label className="mb-3 block text-sm font-sans font-semibold leading-none ">
             Email
           </label>
           <input
             type="email"
             value={email}
             onChange={handleEmailChange}
-            className="h-12 mb-4 flex flex-wrap bg-white border border-gray-400 rounded-lg px-3 py-2 text-lg font-sans font-normal tracking-normal text-left focus:outline-none focus:ring-2 focus:ring-green-600"
+            className="h-12 mb-4 flex flex-wrap bg-white border border-gray-400 rounded-lg px-3 py-2 text-lg font-sans font-normal tracking-normal text-left focus:outline-none focus:ring-2 focus:ring-[#248f59]"
           />
-          {emailError && <p className="text-red-500">{emailError}</p>}
+          {emailError && <p className="text-red-500 font-sans">{emailError}</p>}
 
           {/* PASSWORD */}
-          <label className="font-semibold flex flex-wrap mb-3  text-sm leading-none text-body-dark">
+          <label className="font-semibold font-sans flex flex-wrap mb-3 text-sm leading-none ">
             Password
           </label>
           <input
             type="password"
             value={password}
             onChange={handlePasswordChange}
-            className="h-12 mb-4 flex flex-wrap  bg-white border border-gray-400 rounded-lg px-3 py-2 text-lg font-sans font-normal tracking-normal text-left focus:outline-none focus:ring-2 focus:ring-green-600"
+            className="h-12 mb-4 flex flex-wrap bg-white border border-gray-400 rounded-lg px-3 py-2 text-lg font-sans font-normal tracking-normal text-left focus:outline-none focus:ring-2 focus:ring-[#248f59]"
           />
-          {passwordError && <p className="text-red-500">{passwordError}</p>}
+          {passwordError && (
+            <p className="text-red-500 font-sans">{passwordError}</p>
+          )}
 
           {/* BUTTON */}
           <button
             onClick={handleSubmit}
-            className="h-12 mb-3 flex flex-wrap justify-center items-center rounded-lg w-full bg-[#248F59] uppercase text-[#FFFFFF]"
+            className="h-12 mb-3 font-sans transition-transform hover:scale-95 flex flex-wrap justify-center items-center rounded-lg w-full bg-[#248F59] uppercase text-[#F2F2F2] hover:text-white"
           >
             {loading ? <LoadingOutlined /> : " Register"}
           </button>
           {/* OR */}
-          <div className="relative flex flex-col mt-2 items-center justify-center text-sm text-heading">
-            <hr className="w-full " />
-            <span className="start-2/4 -ms-4 absolute -top-2.5 bg-light px-2">
+          <div className="relative flex flex-col mt-2 items-center justify-center text-sm ">
+            <hr className="w-full" />
+            <span className="start-2/4 -ms-4 absolute font-sans -top-2.5 bg-white px-2">
               OR
             </span>
           </div>

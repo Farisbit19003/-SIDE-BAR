@@ -1,18 +1,21 @@
-import { useState, useContext, useEffect } from "react";
+import { LoadingOutlined } from "@ant-design/icons";
+import { useEffect, useState } from "react";
+import { FaSpinner } from "react-icons/fa";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { LOGIN } from "./auth";
-import { LoadingOutlined } from "@ant-design/icons";
-import { AiOutlineLoading3Quarters } from "react-icons/ai";
-import { useDispatch } from "react-redux";
 import Logo from "./logo";
+
 const Login = () => {
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setloading] = useState(false);
-  const { loggedIn } = useSelector((state) => ({ ...state }));
   const [emailError, setEmailError] = useState("");
+
+  const { loggedIn } = useSelector((state) => ({ ...state }));
+  
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -27,6 +30,7 @@ const Login = () => {
     setloading(true);
     LOGIN(email, password, setloading, navigate, dispatch);
   };
+
   useEffect(() => {
     if (loggedIn && loggedIn.token) {
       setTimeout(() => {
@@ -34,12 +38,13 @@ const Login = () => {
       }, 3000); // 5 seconds
     }
   }, [loggedIn && loggedIn.token]);
+
   const validateEmail = (email) => {
     // Regular expression pattern for email validation
     const emailPattern = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
-
     return emailPattern.test(email);
   };
+
   const handleEmailChange = (e) => {
     const enteredEmail = e.target.value;
     setEmail(enteredEmail);
@@ -50,15 +55,18 @@ const Login = () => {
       setEmailError("");
     }
   };
+
   return loggedIn && loggedIn.token ? (
+    <>
     <div className="fixed inset-0 flex items-center justify-center">
       <div className="flex flex-col items-center">
-        <AiOutlineLoading3Quarters className="text-6xl w-16 h-16 text-[#248F59] animate-spin" />
+        <FaSpinner className="text-6xl w-16 h-16 text-[#248F59] animate-spin" />
         <span className="mt-4 text-gray-500 text-lg font-semibold">
           Redirecting to Homepage...
         </span>
       </div>
     </div>
+    </>
   ) : (
     <>
       <div className="bg-gray-200 flex flex-wrap h-screen lg:p-4   mx-auto justify-center">
@@ -69,24 +77,24 @@ const Login = () => {
             Login
           </h1>
           {/* EMAIL */}
-          <label className="mb-3 block text-sm font-semibold leading-none text-body-dark">
+          <label className="mb-3 block text-sm font-sans font-semibold leading-none ">
             Email
           </label>
           <input
             value={email}
             onChange={handleEmailChange}
             type="email"
-            className="h-12 mb-4 flex flex-wrap bg-white border border-gray-400 rounded-lg px-3 py-2 text-lg font-sans font-normal tracking-normal text-left focus:outline-none focus:ring-2 focus:ring-green-600"
+            className="h-12 mb-4 flex flex-wrap bg-white border border-gray-400 rounded-lg px-3 py-2 text-lg font-sans font-normal tracking-normal text-left focus:outline-none focus:ring-2 focus:ring-[#248f59]"
           />
-          {emailError && <p className="text-red-500">{emailError}</p>}
+          {emailError && <p className="text-red-500 font-sans">{emailError}</p>}
 
           {/* PASSWORD */}
-          <label className="mb-3 block text-sm font-semibold leading-none text-body-dark">
+          <label className="mb-3 block text-sm font-sans font-semibold leading-none ">
             Password
           </label>
           <Link
             to="/forgot-password"
-            className="text-end cursor-pointer justify-end text-sm flex flex-wrap text-[#248F59] italic mb-2 -mt-6 align-middle"
+            className="text-end cursor-pointer font-sans justify-end text-sm flex flex-wrap text-[#248F59] italic mb-2 -mt-6 align-middle"
           >
             Forgot Password?
           </Link>
@@ -94,19 +102,19 @@ const Login = () => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             type="password"
-            className="h-12 mb-4 flex flex-wrap  bg-white border border-gray-400 rounded-lg px-3 py-2 text-lg font-sans font-normal tracking-normal text-left focus:outline-none focus:ring-2 focus:ring-green-600"
+            className="h-12 mb-4 flex flex-wrap bg-white border border-gray-400 rounded-lg px-3 py-2 text-lg font-sans font-normal tracking-normal text-left focus:outline-none focus:ring-2 focus:ring-[#248f59]"
           />
           {/* LOGIN */}
           <button
             onClick={handleSubmit}
-            className="h-12 my-3 flex flex-wrap justify-center items-center rounded-lg w-full bg-[#248F59] uppercase text-[#FFFFFF]"
+            className="h-12 my-3 flex flex-wrap font-sans justify-center transition-transform hover:scale-95 items-center rounded-lg w-full bg-[#248F59] uppercase text-[#F2F2F2] hover:text-white"
           >
             {loading ? <LoadingOutlined /> : " Login"}
           </button>
           {/* OR */}
-          <div className="relative flex my-5 flex-col items-center justify-center text-sm text-heading">
+          <div className="relative flex my-5 flex-col items-center justify-center text-sm ">
             <hr className="w-full" />
-            <span className="start-2/4 -ms-4 absolute -top-2.5 bg-light px-2">
+            <span className="start-2/4 -ms-4 absolute font-sans -top-2.5 bg-white px-2">
               OR
             </span>
           </div>

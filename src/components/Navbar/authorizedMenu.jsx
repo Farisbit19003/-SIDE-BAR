@@ -37,7 +37,7 @@ const AuthorizedMenu = () => {
           <Menu.Item>
             <li
               className="flex w-full flex-col space-y-1 rounded-t
-             bg-[#248F59] px-4 py-3 text-sm text-[#FFFFFF]"
+             bg-[#248F59] px-4 py-3 text-sm text-white"
             >
               <span className="font-semibold capitalize">
                 {loggedIn && loggedIn.user ? loggedIn.user.name : ""}
@@ -50,7 +50,7 @@ const AuthorizedMenu = () => {
 
           <Menu.Item>
             <li className="cursor-pointer border-b border-gray-100 last:border-0">
-              <div className="block px-4 py-3 text-sm font-semibold capitalize transition duration-200 hover:text-accent">
+              <div className="block px-4 py-3 text-sm font-semibold capitalize transition duration-200 ">
                 <Link to="/profile-update">Profile</Link>
               </div>
             </li>
@@ -62,7 +62,7 @@ const AuthorizedMenu = () => {
             >
               <a
                 className={
-                  "block px-4 py-3 text-sm font-semibold capitalize transition duration-200 hover:text-accent"
+                  "block px-4 py-3 text-sm font-semibold capitalize transition duration-200 "
                 }
               >
                 Logout

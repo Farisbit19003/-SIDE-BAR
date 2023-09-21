@@ -23,7 +23,7 @@ export const LOGIN = async (
     } else {
       setloading(false);
       if (data?.user?.role === "Buyer") {
-        toast.error("Not Authencticated Permission Denied")
+        toast.error("Not Authencticated Permission Denied");
       } else {
         const auth = {
           user: data.user,

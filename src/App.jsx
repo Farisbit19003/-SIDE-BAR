@@ -6,49 +6,49 @@ import axios from "axios";
 import ForgotPassword from "./components/auth/forgotpassword";
 import Login from "./components/auth/login";
 import Register from "./components/auth/register";
-import NewCategory from "./components/comp/category/newCategory";
-import ShopDetails from "./components/comp/shop/shopDetails";
-import CreateWithdrawls from "./components/comp/withdrawls/createWithdrawls";
-import Profile from "./components/layout/pages/profile";
-import Categories from "./components/layout/pages/categories";
-import CreateShops from "./components/layout/pages/createshop";
-import Dashboard from "./components/layout/pages/dashboard";
-import MyShops from "./components/layout/pages/my-shops";
-import Orders from "./components/layout/pages/orders";
-import Products from "./components/layout/pages/products";
-import Reviews from "./components/layout/pages/reviews";
-import Settings from "./components/layout/pages/settings";
-import Shops from "./components/layout/pages/shops";
-import Users from "./components/layout/pages/users";
-import AddProduct from "./components/comp/Products/addProduct";
+import NewCategory from "./components/category/newCategory";
+import ShopDetails from "./components/shop/shopDetails";
+import CreateWithdrawls from "./components/withdrawls/createWithdrawls";
+import Profile from "./pages/profile";
+import Categories from "./pages/categories";
+import CreateShops from "./pages/createshop";
+import Dashboard from "./pages/dashboard";
+import MyShops from "./pages/my-shops";
+import Orders from "./pages/orders";
+import Products from "./pages/products";
+import Reviews from "./pages/reviews";
+import Settings from "./pages/settings";
+import Shops from "./pages/shops";
+import Users from "./pages/users";
+import AddProduct from "./components/Products/addProduct";
 import RegisterComplete from "./components/auth/register-complete";
-import AccessDenied from "./components/layout/pages/AccessDenied";
-import UpdateCategory from "./components/comp/category/UpdateCategory";
+import AccessDenied from "./pages/AccessDenied";
+import UpdateCategory from "./components/category/UpdateCategory";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { GetSettings } from "./components/comp/settings/functions";
-import { AllContacts, AllUsers } from "./components/comp/user/Userfunction";
-import { AllCategory } from "./components/comp/category/functions";
+import { GetSettings } from "./components/settings/functions";
+import { AllContacts, AllUsers } from "./components/user/Userfunction";
+import { AllCategory } from "./components/category/functions";
 import {
   AllShops,
   SellerShops,
   SellerOrders,
-} from "./components/comp/Create Shop/functions";
-import UpdateShop from "./components/comp/Create Shop/UpdateShop";
-import NotFound from "./components/layout/pages/404";
+} from "./components/Create Shop/functions";
+import UpdateShop from "./components/Create Shop/UpdateShop";
+import NotFound from "./pages/404";
 import {
   AllOrders,
   AllProducts,
   SellerProducts,
-} from "./components/comp/Products/functions";
-import UpdateProducts from "./components/comp/Products/UpdateProduct";
-import Purchase from "./components/layout/pages/purchase";
-import AddPurchase from "./components/comp/Purchase/addPurchase";
-import OrderDetail from "./components/comp/orders/order-detail";
-import StripeCallBack from "./components/comp/profile/Callback";
-import Contact from "./components/layout/pages/Contact";
-import ProfitandLoss from "./components/layout/pages/ProfitandLoss";
-import StockReport from "./components/layout/pages/StockReport";
+} from "./components/Products/functions";
+import UpdateProducts from "./components/Products/UpdateProduct";
+import Purchase from "./pages/purchase";
+import AddPurchase from "./components/Purchase/addPurchase";
+import OrderDetail from "./components/orders/order-detail";
+import StripeCallBack from "./components/profile/Callback";
+import Contact from "./pages/Contact";
+import ProfitandLoss from "./pages/ProfitandLoss";
+import StockReport from "./pages/StockReport";
 function App() {
   const { loggedIn } = useSelector((state) => ({ ...state }));
   const dispatch = useDispatch();

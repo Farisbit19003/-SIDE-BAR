@@ -1,12 +1,14 @@
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { AiOutlineLoading3Quarters } from "react-icons/ai";
-import { useSelector } from "react-redux";
 import { LoadingOutlined } from "@ant-design/icons";
-import { ForgotEmail, Reset } from "./auth";
+import { useEffect, useState } from "react";
+import { FaSpinner } from "react-icons/fa";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { ForgotEmail, Reset } from "./auth";
 import Logo from "./logo";
+
 const ForgotPassword = () => {
+
   const [email, setEmail] = useState("");
   const [Newpassword, setNewPassword] = useState("");
   const [secret, setSecret] = useState("");
@@ -14,8 +16,11 @@ const ForgotPassword = () => {
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [ok, setOK] = useState(false);
+  
   const navigate = useNavigate();
+  
   const { loggedIn } = useSelector((state) => ({ ...state }));
+  
   const sendResetEmail = (e) => {
     e.preventDefault();
     try {
@@ -106,55 +111,59 @@ const ForgotPassword = () => {
       setPasswordError("");
     }
   };
+
   return loggedIn && loggedIn.token ? (
-    <div className="fixed inset-0 flex items-center justify-center">
-      <div className="flex flex-col items-center">
-        <AiOutlineLoading3Quarters className="text-6xl w-16 h-16 text-[#248F59] animate-spin" />
-        <span className="mt-4 text-gray-500 text-lg font-semibold">
-          Redirecting to Homepage...
-        </span>
+    <>
+      <div className="fixed inset-0 flex items-center justify-center">
+        <div className="flex flex-col items-center">
+          <FaSpinner className="text-6xl w-16 h-16 text-[#248F59] animate-spin" />
+          <span className="mt-4 text-gray-500 font-sans text-lg font-semibold">
+            Redirecting to Homepage...
+          </span>
+        </div>
       </div>
-    </div>
+    </>
   ) : (
     <>
-      <div className="bg-gray-200 flex flex-wrap h-screen  lg:p-4 mx-auto justify-center">
-        <div className="bg-white flex flex-col p-4   md:w-4/12 w-full mx-auto border-2 justify-center shadow">
+      <div className="bg-gray-200 flex flex-wrap h-screen lg:p-4 mx-auto justify-center">
+        <div className="bg-white flex flex-col p-4 md:w-4/12 w-full mx-auto border-2 justify-center shadow">
           <Logo />
           <h1 className="text-gray-400 font-thin flex justify-center items-center italic mb-6 font-sans">
             Forgot Password
           </h1>
           {/* EMAIL */}
-          <label className="mb-3 block text-sm font-semibold leading-none text-body-dark">
+          <label className="mb-3 block font-sans text-sm font-semibold leading-none ">
             Email
           </label>
           <input
             value={email}
             onChange={handleEmailChange}
             type="email"
-            className="h-12 mb-4 flex flex-wrap bg-white border border-gray-400 rounded-lg px-3 py-2 text-lg font-sans font-normal tracking-normal text-left focus:outline-none focus:ring-2 focus:ring-green-600"
+            className="h-12 mb-4 flex flex-wrap bg-white border border-gray-400 rounded-lg px-3 py-2 text-lg font-sans font-normal tracking-normal text-left focus:outline-none focus:ring-2 focus:ring-[#248f59]"
           />
-          {emailError && <p className="text-red-500">{emailError}</p>}
+          {emailError && <p className="text-red-500 font-sans">{emailError}</p>}
           {ok ? (
             <>
-              <label className="mb-3 block text-sm font-semibold leading-none text-body-dark">
+            {/* PASSWORD */}
+              <label className="mb-3 block text-sm font-sans font-semibold leading-none ">
                 New Password
               </label>
               <input
                 value={Newpassword}
                 onChange={handlePasswordChange}
                 type="password"
-                className="h-12 mb-4 flex flex-wrap bg-white border border-gray-400 rounded-lg px-3 py-2 text-lg font-sans font-normal tracking-normal text-left focus:outline-none focus:ring-2 focus:ring-green-600"
+                className="h-12 mb-4 flex flex-wrap bg-white border border-gray-400 rounded-lg px-3 py-2 text-lg font-sans font-normal tracking-normal text-left focus:outline-none focus:ring-2 focus:ring-[#248f59]"
               />
-              {passwordError && <p className="text-red-500">{passwordError}</p>}
-
-              <label className="mb-3 block text-sm font-semibold leading-none text-body-dark">
+              {passwordError && <p className="text-red-500 font-sans">{passwordError}</p>}
+              {/* CODE */}
+              <label className="mb-3 block text-sm font-sans font-semibold leading-none ">
                 Code
               </label>
               <input
                 value={secret}
                 onChange={(e) => setSecret(e.target.value)}
                 type="password"
-                className="h-12 mb-4 flex flex-wrap bg-white border border-gray-400 rounded-lg px-3 py-2 text-lg font-sans font-normal tracking-normal text-left focus:outline-none focus:ring-2 focus:ring-green-600"
+                className="h-12 mb-4 flex flex-wrap bg-white border border-gray-400 rounded-lg px-3 py-2 text-lg font-sans font-normal tracking-normal text-left focus:outline-none focus:ring-2 focus:ring-[#248f59]"
               />
             </>
           ) : (
@@ -164,14 +173,14 @@ const ForgotPassword = () => {
           {!ok ? (
             <button
               onClick={sendResetEmail}
-              className="h-12 my-2 flex flex-wrap justify-center items-center rounded-lg w-full bg-[#248F59] uppercase text-[#FFFFFF]"
+              className="h-12 my-2 transition-transform hover:scale-95 font-sans flex flex-wrap justify-center items-center rounded-lg w-full bg-[#248F59] uppercase text-[#F2F2F2] hover:text-white"
             >
               {loading ? <LoadingOutlined /> : "Submit Email"}
             </button>
           ) : (
             <button
               onClick={ForgotNow}
-              className="h-12 my-2 flex flex-wrap justify-center items-center rounded-lg w-full bg-[#248F59] uppercase text-[#FFFFFF]"
+              className="h-12 my-2 flex flex-wrap font-sans transition-transform hover:scale-95 justify-center items-center rounded-lg w-full bg-[#248F59] uppercase text-[#F2F2F2] hover:text-white"
             >
               {loading ? <LoadingOutlined /> : "Forgot Password"}
             </button>
