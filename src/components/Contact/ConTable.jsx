@@ -5,11 +5,13 @@ import { BiTrash } from "react-icons/bi";
 import { toast } from "react-toastify";
 import { SendMessage } from "./function";
 
-const ConTable = ({ contacts, handleDelete, keyword, Searched, ok }) => {
+const ConTable = ({ contacts, handleDelete, keyword, Searched }) => {
+
   const [selectedContact, setSelectedContact] = useState(null);
   const [message, setMessage] = useState("");
   const [showModal, setShowModal] = useState(false);
   const [loading, setLoading] = useState(false);
+
   function handleMouseEnter(event) {
     const cell = event.currentTarget;
     const review = cell.textContent;
@@ -22,6 +24,7 @@ const ConTable = ({ contacts, handleDelete, keyword, Searched, ok }) => {
     cell.removeAttribute("title");
     cell.classList.remove("show-review");
   }
+
   const openModal = (contact) => {
     setSelectedContact(contact);
     setShowModal(true);
@@ -32,6 +35,7 @@ const ConTable = ({ contacts, handleDelete, keyword, Searched, ok }) => {
     setShowModal(false);
     document.documentElement.classList.remove("modal-open");
   };
+
   let row = 1;
 
   const handleMessage = (e) => {
@@ -52,25 +56,28 @@ const ConTable = ({ contacts, handleDelete, keyword, Searched, ok }) => {
       }
     });
   };
+
   return (
     <>
       {!contacts || contacts.length === 0 ? (
-        <div className="flex justify-center">
-          <div className="flex flex-col items-center">
-            <span className="mt-4 text-gray-500 text-lg font-semibold">
-              Loading...
-            </span>
-            <span className="mt-4 text-green-600 font-serif text-3xl font-normal">
-              No Contact Found
-            </span>
+        <>
+          <div className="flex justify-center">
+            <div className="flex flex-col items-center">
+              <span className="mt-4 text-gray-500 text-lg font-semibold">
+                Loading...
+              </span>
+              <span className="mt-4 text-green-600 font-serif text-3xl font-normal">
+                No Contact Found
+              </span>
+            </div>
           </div>
-        </div>
+        </>
       ) : (
         <>
           <div className="mb-6 p-3 flex border rounded border-[#f2f2f2] w-full bg-white">
             <div className="mx-auto mt-2 h-fit w-full">
               <div className="flex flex-row justify-center items-center mx-2 my-2">
-                <p className="flex font-sans font-semibold text-lg ">
+                <p className="flex font-sans font-semibold text-lg">
                   Contact Us
                 </p>
               </div>
@@ -126,6 +133,7 @@ const ConTable = ({ contacts, handleDelete, keyword, Searched, ok }) => {
 
           {/* Modal */}
           {showModal && selectedContact && (
+          <>
             <div className="fixed inset-0 flex items-center justify-center z-50 bg-opacity-50 bg-gray-500">
               <div className="bg-white rounded-lg p-4 w-1/2 ">
                 <h2 className="text-3xl border-b flex items-center justify-center font-serif text-[#248f59] mb-2">
@@ -158,7 +166,7 @@ const ConTable = ({ contacts, handleDelete, keyword, Searched, ok }) => {
                   </p>
                   <div>
                     <h2 className="font-sans font-semibold p-2 my-1">
-                      Message
+                      Message:
                     </h2>
                     <textarea
                       onChange={(e) => setMessage(e.target.value)}
@@ -182,6 +190,7 @@ const ConTable = ({ contacts, handleDelete, keyword, Searched, ok }) => {
                 </div>
               </div>
             </div>
+          </>
           )}
         </>
       )}

@@ -1,12 +1,14 @@
-import React, { useState, useEffect } from "react";
+import { LoadingOutlined } from "@ant-design/icons";
+import React, { useEffect, useState } from "react";
+import { toast } from "react-toastify";
+import { BecomeSeller, UpdateProfile } from "../auth/auth";
 import Card from "../common/cards";
 import Description from "../common/discription";
 import FileInput from "../common/fileInput";
 import SaveButton from "../common/save";
-import { toast } from "react-toastify";
-import { BecomeSeller, UpdateProfile } from "../auth/auth";
-import { LoadingOutlined } from "@ant-design/icons";
+
 const Form = ({ dispatch, loggedIn, avatarInfo }) => {
+  
   const [email, setEmail] = useState("");
   const [whatsapp, setWhatsapp] = useState("");
   const [name, setName] = useState("");
@@ -27,6 +29,7 @@ const Form = ({ dispatch, loggedIn, avatarInfo }) => {
       loggedIn.user.image && setImage([loggedIn.user.image]);
     }
   }, [loggedIn && loggedIn.token]);
+  
   const handleSubmit = (e) => {
     e.preventDefault();
     try {
@@ -105,15 +108,11 @@ const Form = ({ dispatch, loggedIn, avatarInfo }) => {
   };
   const handleWhatsappChange = (e) => {
     const input = e.target.value;
-
     // Remove any non-digit characters
     const digitsOnly = input.replace(/\D/g, "");
-
     // Limit the input to a maximum of 11 digits
     const limitedInput = digitsOnly.slice(0, 11);
-
     setWhatsapp(limitedInput);
-
     // Validate Pakistan phone number
     const regex = /^(\+92|0)?[0-9]{10}$/;
     if (!regex.test(limitedInput)) {
@@ -154,7 +153,6 @@ const Form = ({ dispatch, loggedIn, avatarInfo }) => {
           <div className="flex sm:pe-4 md:pe-5  w-full px-0 pb-5 sm:w-4/12 sm:py-8 md:w-1/3">
             <Description title={"Avatar"} details={avatarInfo} />
           </div>
-
           <Card>
             <FileInput
               loading={loading}
@@ -173,8 +171,8 @@ const Form = ({ dispatch, loggedIn, avatarInfo }) => {
               details={"Add your profile information from here"}
             />
           </div>
-
           <Card>
+            {/* NAME */}
             <div className="p-3 font-sans w-full flex flex-col">
               <label className="font-semibold ">Name</label>
               <input
@@ -189,6 +187,7 @@ const Form = ({ dispatch, loggedIn, avatarInfo }) => {
                 type="text"
                 className="h-10 my-2  bg-white border border-gray-400 rounded-lg px-3 py-2 text-lg font-sans font-normal tracking-normal text-left focus:outline-none focus:ring-2 focus:ring-[#248f59]"
               />
+              {/* NUMBER */}
               <label className="font-semibold ">Contact</label>
               <input
                 value={whatsapp}

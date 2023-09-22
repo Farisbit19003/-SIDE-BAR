@@ -6,6 +6,7 @@ import ShopLayout from "../../layout/Shop/index";
 import SaveButton from "../common/save";
 import ProductForm from "./ProductForm";
 import { CreateProduct, SellerProducts } from "./functions";
+
 const AddProduct = () => {
   const [shops, setShops] = useState([]);
   const { sellerShops } = useSelector((state) => ({ ...state }));
@@ -22,13 +23,16 @@ const AddProduct = () => {
     feature_pic: {},
   });
   const [loading, setLoading] = useState(false);
+  
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  
   useEffect(() => {
     if (sellerShops) {
       setShops(sellerShops);
     }
   }, [sellerShops]);
+  
   //handleSubmit
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -101,24 +105,25 @@ const AddProduct = () => {
     }
   };
   return (
-    <ShopLayout>
-      <div className="my-2 flex flex-wrap border-b-2 border-dashed  pb-8 sm:my-8">
-        <h1 className="text-[#248F59] font-serif text-3xl font-normal">
-          Create Products
-        </h1>
-      </div>
-      <ProductForm
-        shops={shops}
-        values={values}
-        setValues={setValues}
-        setLoading={setLoading}
-        loading={loading}
-      />
-      <div className="float-right">
-        {" "}
-        <SaveButton handleSubmit={handleSubmit} loading={loading} />
-      </div>
-    </ShopLayout>
+    <>
+      <ShopLayout>
+        <div className="my-2 flex flex-wrap border-b-2 border-dashed  pb-8 sm:my-8">
+          <h1 className="text-[#248F59] font-serif text-3xl font-normal">
+            Create Products
+          </h1>
+        </div>
+        <ProductForm
+          shops={shops}
+          values={values}
+          setValues={setValues}
+          setLoading={setLoading}
+          loading={loading}
+        />
+        <div className="float-right">
+          <SaveButton handleSubmit={handleSubmit} loading={loading} />
+        </div>
+      </ShopLayout>
+    </>
   );
 };
 

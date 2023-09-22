@@ -1,12 +1,13 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
+import { FaSpinner } from "react-icons/fa";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate, useParams } from "react-router-dom";
+import { toast } from "react-toastify";
 import ShopLayout from "../../layout/Shop";
 import SaveButton from "../common/save";
 import ShopForm from "./ShopForm";
-import { toast } from "react-toastify";
-import { useDispatch, useSelector } from "react-redux";
 import { SellerShops, UpdateStore } from "./functions";
-import { AiOutlineLoading3Quarters } from "react-icons/ai";
-import { useNavigate, useParams } from "react-router-dom";
+
 const UpdateShop = () => {
   const [categories, setCategories] = useState([]);
   const [singleShop, setSingleShop] = useState({});
@@ -26,12 +27,15 @@ const UpdateShop = () => {
     cover_pic: {},
   });
   const [loading, setLoading] = useState(false);
+  const [whatsappError, setWhatsappError] = useState("");
+
   const { loggedIn, category, sellerShops } = useSelector((state) => ({
     ...state,
   }));
-  const [whatsappError, setWhatsappError] = useState("");
+  
 
   const role = loggedIn && loggedIn.user && loggedIn.user.role;
+  
   const navigate = useNavigate();
   const params = useParams();
   const dispatch = useDispatch();
@@ -120,40 +124,42 @@ const UpdateShop = () => {
     }
   };
   return (
-    <ShopLayout>
-      {!singleShop || sellerShops === null ? (
-        <div className=" inset-0 flex items-center justify-center">
-          <div className="flex flex-col items-center">
-            <AiOutlineLoading3Quarters className="text-6xl w-16 h-16 text-[#248F59] animate-spin" />
-            <span className="mt-16 text-gray-500 text-lg font-semibold">
-              Loading ....................................
-            </span>
+    <>
+      <ShopLayout>
+        {!singleShop || sellerShops === null ? (
+          <div className=" inset-0 flex items-center justify-center">
+            <div className="flex flex-col items-center">
+              <FaSpinner className="text-6xl w-16 h-16 text-[#248F59] animate-spin" />
+              <span className="mt-16 text-gray-500 text-lg font-semibold">
+                Loading ....................................
+              </span>
+            </div>
           </div>
-        </div>
-      ) : (
-        <>
-          <form>
-            <div className="my-2 flex flex-wrap border-b-2 border-dashed  pb-8 sm:my-8">
-              <h1 className="text-[#248F59] font-serif text-3xl font-normal">
-                Update Shops
-              </h1>
-            </div>
-            <ShopForm
-              categories={categories}
-              values={values}
-              setValues={setValues}
-              setLoading={setLoading}
-              loading={loading}
-              whatsappError={whatsappError}
-            setWhatsappError={setWhatsappError}
-            />
-            <div className="flex justify-end">
-              <SaveButton handleSubmit={handleSubmit} loading={loading} />
-            </div>
-          </form>
-        </>
-      )}
-    </ShopLayout>
+        ) : (
+          <>
+            <form>
+              <div className="my-2 flex flex-wrap border-b-2 border-dashed  pb-8 sm:my-8">
+                <h1 className="text-[#248F59] font-serif text-3xl font-normal">
+                  Update Shops
+                </h1>
+              </div>
+              <ShopForm
+                categories={categories}
+                values={values}
+                setValues={setValues}
+                setLoading={setLoading}
+                loading={loading}
+                whatsappError={whatsappError}
+                setWhatsappError={setWhatsappError}
+              />
+              <div className="flex justify-end">
+                <SaveButton handleSubmit={handleSubmit} loading={loading} />
+              </div>
+            </form>
+          </>
+        )}
+      </ShopLayout>
+    </>
   );
 };
 

@@ -1,12 +1,13 @@
-import React, { useEffect, useState } from "react";
-import { RecentPurchasesTable } from "./table/recentPurchasesTable";
-import { PopularProductTable } from "./table/popularProductTable";
-import { useSelector } from "react-redux";
 import { Pagination } from "antd";
+import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { PopularProductTable } from "./table/popularProductTable";
+import { RecentPurchasesTable } from "./table/recentPurchasesTable";
 const Table = () => {
-  const { loggedIn, allOrders, product } = useSelector((state) => ({
+  const { allOrders, product } = useSelector((state) => ({
     ...state,
   }));
+
   const [products, setProducts] = useState([]);
   const [recentOrders, setRecentOrders] = useState([]);
 
@@ -27,8 +28,10 @@ const Table = () => {
     const limitedOrders = filteredOrders?.slice(0, 10); // Get the first 10 elements
     setRecentOrders(limitedOrders);
   }, [allOrders]);
+
   const [page, setPage] = useState(1);
   const [itemsPerPage] = useState(15);
+
   //Sort Products Based on Sold
   // calculate the start and end indexes of the current page
   const startIndex = (page - 1) * itemsPerPage;
@@ -40,6 +43,7 @@ const Table = () => {
   const paginatedData = products?.slice(startIndex, endIndex);
   const [page1, setPage1] = useState(1);
   const [itemsPerPage1] = useState(15);
+
   //Sort Products Based on Sold
   // calculate the start and end indexes of the current page
   const startIndex1 = (page1 - 1) * itemsPerPage1;
@@ -51,25 +55,26 @@ const Table = () => {
   const paginatedData1 = recentOrders?.slice(startIndex1, endIndex1);
   return (
     <>
+      {/* RECENT PURCHASE */}
       <RecentPurchasesTable recentOrders={paginatedData1} />
-    <div className="row">
-        <div className="col text-center mb-5">
-          <Pagination
-            current={page1}
-            onChange={(value) => setPage1(value)}
-            total={totalposts1}
-          />
-        </div>
+
+      <div className=" text-center mb-5">
+        <Pagination
+          current={page1}
+          onChange={(value) => setPage1(value)}
+          total={totalposts1}
+        />
       </div>
+
+      {/* POPULAR PRODUCTS */}
       <PopularProductTable products={paginatedData} />
-      <div className="row">
-        <div className="col text-center mb-5">
-          <Pagination
-            current={page}
-            onChange={(value) => setPage(value)}
-            total={totalposts}
-          />
-        </div>
+
+      <div className=" text-center">
+        <Pagination
+          current={page}
+          onChange={(value) => setPage(value)}
+          total={totalposts}
+        />
       </div>
     </>
   );

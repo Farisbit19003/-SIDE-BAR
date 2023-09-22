@@ -4,6 +4,7 @@ import FileInput from "../common/fileInput";
 import Card from "../common/cards";
 import { AiFillFacebook, AiOutlineInstagram } from "react-icons/ai";
 import SearchField from "./SearchField";
+
 const coverImageInformation = (
   <span>
     {"Upload your shop cover image from here."} <br />
@@ -11,7 +12,17 @@ const coverImageInformation = (
     <span className="font-bold">1170 x 435</span>
   </span>
 );
-const ShopForm = ({ categories, values, setValues, setLoading, loading,setWhatsappError,whatsappError }) => {
+
+const ShopForm = ({
+  categories,
+  values,
+  setValues,
+  setLoading,
+  loading,
+  setWhatsappError,
+  whatsappError,
+}) => {
+
   const {
     Storename,
     description,
@@ -28,19 +39,24 @@ const ShopForm = ({ categories, values, setValues, setLoading, loading,setWhatsa
   } = values;
   const [mainpic, setMainpic] = useState([]);
   const [coverpic, setCoverpic] = useState([]);
+
   useEffect(() => {
     setValues({ ...values, main_pic: mainpic[0] });
   }, [mainpic]);
+
   useEffect(() => {
     setValues({ ...values, cover_pic: coverpic[0] });
   }, [coverpic]);
+
   useEffect(() => {
     cover_pic && setCoverpic([cover_pic]);
     main_pic && setMainpic([main_pic]);
   }, [main_pic || cover_pic]);
+
   const onChange = (e) => {
     setValues({ ...values, [e.target.name]: e.target.value });
   };
+
   const handleWhatsappChange = (e) => {
     const input = e.target.value;
     // Remove any non-digit characters
@@ -48,7 +64,6 @@ const ShopForm = ({ categories, values, setValues, setLoading, loading,setWhatsa
     // Limit the input to a maximum of 11 digits
     const limitedInput = digitsOnly.slice(0, 11);
     setValues({ ...values, [e.target.name]: limitedInput });
-
     // Validate Pakistan phone number
     const regex = /^(\+92|0)?[0-9]{10}$/;
     if (!regex.test(limitedInput)) {
@@ -57,6 +72,7 @@ const ShopForm = ({ categories, values, setValues, setLoading, loading,setWhatsa
       setWhatsappError("");
     }
   };
+
   return (
     <>
       {/* LOGO */}
@@ -110,7 +126,6 @@ const ShopForm = ({ categories, values, setValues, setLoading, loading,setWhatsa
         <div className="flex w-full bg-white sm:w-8/12 md:w-2/3">
           <div className="p-3 font-sans w-full flex flex-col">
             <label className="font-semibold ">Name</label>
-
             <input
               value={Storename}
               name="Storename"
@@ -120,7 +135,6 @@ const ShopForm = ({ categories, values, setValues, setLoading, loading,setWhatsa
             />
 
             <label className="font-semibold ">Description</label>
-
             <textarea
               value={description}
               name="description"
@@ -130,6 +144,7 @@ const ShopForm = ({ categories, values, setValues, setLoading, loading,setWhatsa
           </div>
         </div>
       </div>
+      {/* CATEGORY */}
       <div className="my-2 flex flex-wrap border-b-2 border-dashed  pb-8 sm:my-8">
         <div className="flex sm:pe-4 md:pe-5  w-full px-0 pb-5 sm:w-4/12 sm:py-8 md:w-1/3">
           <Description
@@ -146,7 +161,7 @@ const ShopForm = ({ categories, values, setValues, setLoading, loading,setWhatsa
               name="category"
               className="mb-2  bg-white border border-gray-400 rounded-lg px-3 py-2 text-lg font-sans font-normal tracking-normal text-left focus:outline-none focus:ring-2 focus:ring-[#248f59]"
             >
-              <option value=""></option>
+              <option>---Select Category---</option>
               {categories &&
                 categories.map((category) => (
                   <option key={category._id} value={category._id}>
@@ -169,7 +184,6 @@ const ShopForm = ({ categories, values, setValues, setLoading, loading,setWhatsa
         <div className="flex w-full bg-white sm:w-8/12 md:w-2/3">
           <div className="p-3 font-sans w-full flex flex-col">
             <label className="font-semibold ">Country</label>
-
             <input
               value={Country}
               name="Country"
@@ -177,8 +191,8 @@ const ShopForm = ({ categories, values, setValues, setLoading, loading,setWhatsa
               type="text"
               className="h-12 mb-2  bg-white border border-gray-400 rounded-lg px-3 py-2 text-lg font-sans font-normal tracking-normal text-left focus:outline-none focus:ring-2 focus:ring-[#248f59]"
             />
-            <label className="font-semibold ">City</label>
 
+            <label className="font-semibold ">City</label>
             <input
               value={City}
               name="City"
@@ -188,7 +202,6 @@ const ShopForm = ({ categories, values, setValues, setLoading, loading,setWhatsa
             />
 
             <label className="font-semibold ">Street Address</label>
-
             <textarea
               value={Streetaddress}
               name="Streetaddress"
@@ -209,45 +222,43 @@ const ShopForm = ({ categories, values, setValues, setLoading, loading,setWhatsa
         <div className="flex w-full bg-white sm:w-8/12 md:w-2/3">
           <div className="p-3 font-sans w-full flex flex-col">
             <label className="font-semibold ">Your Location</label>
-
             <SearchField
               values={values}
               setValues={setValues}
               mapAddress={mapAddress}
             />
-
             <label className="font-semibold ">Contact Number</label>
-
             <input
               value={Storewhatsapp}
               name="Storewhatsapp"
               onChange={handleWhatsappChange}
-              type="number"
+              type="tel"
               className="mb-2  bg-white border border-gray-400 rounded-lg px-3 py-2 text-lg font-sans font-normal tracking-normal text-left focus:outline-none focus:ring-2 focus:ring-[#248f59]"
             />
-              {whatsappError && <p className="text-red-500 font-sans">{whatsappError}</p>}
+            {whatsappError && (
+              <p className="text-red-500 font-sans">{whatsappError}</p>
+            )}
 
             <label className="font-semibold flex">
-              Instagram{" "}
+              Instagram
               <AiOutlineInstagram
                 size={25}
                 className="align-middle"
                 color="orange"
               />
             </label>
-
             <input
               value={insta}
               name="insta"
               onChange={onChange}
               type="url"
-              className="mb-2  bg-white border border-gray-400 rounded-lg px-3 py-2 text-lg font-sans font-normal tracking-normal text-left focus:outline-none focus:ring-2 focus:ring-[#248f59]"
+              className="mb-2 bg-white border border-gray-400 rounded-lg px-3 py-2 text-lg font-sans font-normal tracking-normal text-left focus:outline-none focus:ring-2 focus:ring-[#248f59]"
             />
+
             <label className="font-semibold flex">
-              Facebook{" "}
+              Facebook
               <AiFillFacebook size={25} className="align-middle" color="blue" />
             </label>
-
             <input
               value={facebook}
               name="facebook"

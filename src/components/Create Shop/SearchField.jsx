@@ -18,7 +18,9 @@ const SearchField = ({ values, setValues, mapAddress }) => {
   const onUnmount = React.useCallback(function callback() {
     setAutocomplete(null);
   }, []);
+
   let location = {};
+
   const onPlaceChanged = () => {
     const place = autocomplete.getPlace();
 
@@ -52,7 +54,7 @@ const SearchField = ({ values, setValues, mapAddress }) => {
         defaultValue={mapAddress}
         type="text"
         placeholder="Enter Location From Map"
-        className={`flex h-12 w-full appearance-none items-center rounded border border-border-base px-4 text-sm  transition duration-300 ease-in-out focus:border-accent focus:outline-none focus:ring-0`}
+        className="flex h-12 w-full appearance-none items-center rounded border border-border-base px-4 text-sm  transition duration-300 ease-in-out focus:border-accent focus:outline-none focus:ring-2 focus:ring-[#248f59]" 
       />
     </Autocomplete>
   );

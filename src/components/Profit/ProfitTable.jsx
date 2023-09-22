@@ -1,6 +1,6 @@
-import moment from "moment";
 import React from "react";
 import { AiOutlineEye } from "react-icons/ai";
+import { DateTime } from "luxon";
 import { Link } from "react-router-dom";
 export const ProfitTable = ({ orders, keyword, Searched }) => {
   let row = 1;
@@ -24,17 +24,18 @@ export const ProfitTable = ({ orders, keyword, Searched }) => {
   return (
     <>
       {!orders || orders.length === 0 ? (
-        <div className="flex justify-center">
-          <div className="flex flex-col items-center">
-            {/* <AiOutlineLoading3Quarters className="text-6xl w-16 h-16 text-[#248F59] animate-spin" /> */}
-            <span className="mt-4 text-gray-500 text-lg font-semibold">
-              Loading...
-            </span>
-            <span className="mt-4 text-[#248F59] font-serif text-3xl font-normal">
-              No Order Found
-            </span>
+        <>
+          <div className="flex justify-center">
+            <div className="flex flex-col items-center">
+              <span className="mt-4 text-gray-500 text-lg font-semibold">
+                Loading...
+              </span>
+              <span className="mt-4 text-[#248F59] font-serif text-3xl font-normal">
+                No Order Found
+              </span>
+            </div>
           </div>
-        </div>
+        </>
       ) : (
         <>
           <div className="my-6 p-3 flex border bg-white  rounded border-[#f2f2f2]">
@@ -79,7 +80,9 @@ export const ProfitTable = ({ orders, keyword, Searched }) => {
                             <td className="px-4 py-2">{row++}</td>
                             <td className="px-4 py-2">{item._id}</td>
                             <td className="px-4 py-2">
-                              {moment(item?.createdAt).format("MMMM D, YYYY")}
+                              {DateTime.fromISO(item?.createdAt).toLocaleString(
+                                DateTime.DATE_FULL
+                              )}
                             </td>
 
                             <td className="px-4 py-2">{item?.orderBy?.name}</td>
@@ -92,28 +95,30 @@ export const ProfitTable = ({ orders, keyword, Searched }) => {
                               }, 0)}
                             </td>
                             <td className="px-4 py-2">
-                            {Math.round(item?.Products?.reduce((acc, p) => {
-                                return (
-                                  acc + p.Product?.salePrice * p.order_quantity
-                                );
-                              }, 0) * 0.9).toLocaleString("en-US", {
-                          style: "currency",
-                          currency: "PKR",
-                        })}
-                            
+                              {Math.round(
+                                item?.Products?.reduce((acc, p) => {
+                                  return (
+                                    acc +
+                                    p.Product?.salePrice * p.order_quantity
+                                  );
+                                }, 0) * 0.9
+                              ).toLocaleString("en-US", {
+                                style: "currency",
+                                currency: "PKR",
+                              })}
                             </td>
                             <td className="px-4 py-2">
-                            {Math.round(item?.Products?.reduce((acc, p) => {
-                                return (
-                                  acc +
-                                  p.Product?.purchasePrice * p.order_quantity
-                                );
-                              }, 0)).toLocaleString("en-US", {
-                          style: "currency",
-                          currency: "PKR",
-                        })}
-                            
-                            
+                              {Math.round(
+                                item?.Products?.reduce((acc, p) => {
+                                  return (
+                                    acc +
+                                    p.Product?.purchasePrice * p.order_quantity
+                                  );
+                                }, 0)
+                              ).toLocaleString("en-US", {
+                                style: "currency",
+                                currency: "PKR",
+                              })}
                             </td>
                             <td className="px-4 py-2">
                               {Math.round(
@@ -145,17 +150,7 @@ export const ProfitTable = ({ orders, keyword, Searched }) => {
                           </tr>
                         </>
                       ))}
-                    <tr className="bg-white cursor-default whitespace-nowrap hover:!bg-gray-100 border-b-2 font-sans">
-                      <td className="px-4 py-2 font-bold"></td>
-                      <td className="px-4 py-2 font-bold"></td>
-                      <td className="px-4 py-2 font-bold"></td>
-                      <td className="px-4 py-2 font-bold"></td>
-                      <td className="px-4 py-2 font-bold"></td>
-                      <td className="px-4 py-2 font-bold"></td>
-                      <td className="px-4 py-2 font-bold"></td>
-                      <td className="px-4 py-2 font-bold"></td>
-                    </tr>
-                  </tbody>
+                    </tbody>
                 </table>
               </div>
             </div>

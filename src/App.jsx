@@ -14,7 +14,7 @@ import Categories from "./pages/categories";
 import CreateShops from "./pages/createshop";
 import Dashboard from "./pages/dashboard";
 import MyShops from "./pages/my-shops";
-import Orders from "./pages/orders";
+import Sales from "./pages/sales";
 import Products from "./pages/products";
 import Reviews from "./pages/reviews";
 import Settings from "./pages/settings";
@@ -49,7 +49,9 @@ import StripeCallBack from "./components/profile/Callback";
 import Contact from "./pages/Contact";
 import ProfitandLoss from "./pages/ProfitandLoss";
 import StockReport from "./pages/StockReport";
-function App() {
+import ScrollToTop from "./Helper/ScrollToTop";
+
+const App=()=> {
   const { loggedIn } = useSelector((state) => ({ ...state }));
   const dispatch = useDispatch();
   useEffect(() => {
@@ -89,6 +91,7 @@ function App() {
   return (
     <>
       <Router>
+        <ScrollToTop />
         <Routes>
           <Route exact path="/stock-report" element={<StockReport />} />
           <Route exact path="/profit" element={<ProfitandLoss />} />
@@ -113,7 +116,7 @@ function App() {
             element={<UpdateProducts />}
           />
           <Route exact path="/my-shop" element={<MyShops />} />
-          <Route exact path="/orders" element={<Orders />} />
+          <Route exact path="/sales" element={<Sales />} />
           <Route exact path="/order/detail/:_id" element={<OrderDetail />} />
           <Route exact path="/purchase" element={<Purchase />} />
           <Route exact path="/purchase/add" element={<AddPurchase />} />
@@ -125,11 +128,6 @@ function App() {
             element={<UpdateCategory />}
           />
           <Route exact path="/reviews" element={<Reviews />} />
-          <Route
-            exact
-            path="/withdrawls/request"
-            element={<CreateWithdrawls />}
-          />
           <Route exact path="/settings" element={<Settings />} />
           <Route exact path="/users" element={<Users />} />
           <Route exact path="/my-shop/create" element={<CreateShops />} />

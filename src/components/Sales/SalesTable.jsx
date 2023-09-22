@@ -1,8 +1,9 @@
-import moment from "moment";
 import React from "react";
 import { AiOutlineEye } from "react-icons/ai";
 import { Link } from "react-router-dom";
-export const OrderTable = ({ orders, keyword, Searched }) => {
+import { DateTime } from "luxon";
+
+export const SalesTable = ({ orders, keyword, Searched }) => {
   let row = 1;
   const Revenue = orders
     ?.filter((order) => order.orderStatus !== "cancelled")
@@ -35,22 +36,14 @@ export const OrderTable = ({ orders, keyword, Searched }) => {
 
   function getStatusColorClass(status) {
     switch (status) {
-      case "Order Processing":
+      case "Not Processed":
         return "text-[#EAB308]";
-      case "Order Completed":
+      case "delivered":
         return "text-[green]";
-      case "Order Cancelled":
+      case "confirmed":
         return "text-pink-500";
-      case "Order Failed":
+      case "cancelled":
         return "text-red-500 font-sans";
-      case "Order Refund":
-        return "text-amber-800";
-      case "Order At Local Facility":
-        return "text-slate-800";
-      case "Order Out For Delivery":
-        return "text-emerald-500";
-      case "Order Pending":
-        return "text-orange-600";
       default:
         return "";
     }
@@ -108,13 +101,11 @@ export const OrderTable = ({ orders, keyword, Searched }) => {
                             <td className="px-4 py-2">{row++}</td>
                             <td className="px-4 py-2">{item._id}</td>
                             <td className="px-4 py-2">
-                              {moment(item?.createdAt).format("MMMM D, YYYY")}
+                              {DateTime.fromISO(item?.createdAt).toLocaleString(
+                                DateTime.DATE_FULL
+                              )}
                             </td>
-                            <td
-                              className={`px-4 py-2 font-semibold  ${getStatusColorClass(
-                                orders.orderStatus
-                              )}`}
-                            >
+                            <td className={`px-4 py-2 font-semibold  ${getStatusColorClass(item.orderStatus)}`}>
                               {item.orderStatus}
                             </td>
                             <td className="px-4 py-2">{item?.orderType}</td>
@@ -135,15 +126,17 @@ export const OrderTable = ({ orders, keyword, Searched }) => {
                               {item?.store?.Storename}
                             </td>
                             <td className="px-4 py-2">
-                            {Math.round(item?.Products?.reduce((acc, p) => {
-                                return (
-                                  acc + p.Product?.salePrice * p.order_quantity
-                                );
-                              }, 0) * 0.9).toLocaleString("en-US", {
-                          style: "currency",
-                          currency: "PKR",
-                        })}
-                  
+                              {Math.round(
+                                item?.Products?.reduce((acc, p) => {
+                                  return (
+                                    acc +
+                                    p.Product?.salePrice * p.order_quantity
+                                  );
+                                }, 0) * 0.9
+                              ).toLocaleString("en-US", {
+                                style: "currency",
+                                currency: "PKR",
+                              })}
                             </td>
                             <td className="px-4 py-2 flex items-center justify-center">
                               <Link to={`/order/detail/${item._id}`}>

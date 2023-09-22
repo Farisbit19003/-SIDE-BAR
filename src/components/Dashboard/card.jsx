@@ -4,24 +4,26 @@ import { BiCartDownload } from "react-icons/bi";
 import { BsShop } from "react-icons/bs";
 import { useSelector } from "react-redux";
 import StickerCard from "./StickerCards";
+import { DateTime } from "luxon"; 
 
 const Card = () => {
   const { loggedIn, allShops, product, sellerShops, allOrders, allusers } =
     useSelector((state) => ({
       ...state,
     }));
+
   const role = loggedIn && loggedIn.user && loggedIn.user.role;
 
-  const currentDate = new Date();
-  const thirtyDaysAgo = new Date();
-  thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+  const currentDate = DateTime.now();
+  const thirtyDaysAgo = currentDate.minus({ days: 30 });
+  
   const SellerRevenue = allOrders
     ?.filter(
       (order) =>
         order.orderType === "Sales" && order.orderStatus !== "cancelled"
-    ) // Filter orders with orderType "Sales"
+    )
     .map((order) => {
-      const orderDate = new Date(order.createdAt);
+      const orderDate = DateTime.fromISO(order.createdAt);
       if (orderDate >= thirtyDaysAgo && orderDate <= currentDate) {
         const orderTotal = order.Products?.reduce((acc, product) => {
           return acc + product?.Product?.salePrice * product?.order_quantity;
@@ -36,11 +38,12 @@ const Card = () => {
     return acc + orderTotal;
   }, 0);
 
-  const today = new Date(); // Get the current date
+  const today = DateTime.now();
   const todayOrders = allOrders?.filter((order) => {
-    const orderDate = new Date(order.createdAt); // Assuming 'date' property contains the order date
-    return orderDate.toDateString() === today.toDateString(); // Compare the order date with today's date
+    const orderDate = DateTime.fromISO(order.createdAt);
+    return orderDate.hasSame(today, 'day');
   });
+
   const SellerTodayRevenue = todayOrders
     ?.filter(
       (order) =>
@@ -51,7 +54,7 @@ const Card = () => {
         return acc + product?.Product?.salePrice * product?.order_quantity;
       }, 0);
 
-      return orderTotal * (role === "Admin" ? 0.1 : 0.9); // Subtracting 10% from the order total
+      return orderTotal * (role === "Admin" ? 0.1 : 0.9);
     });
 
   const SellerTodaytotalRevenue = SellerTodayRevenue?.reduce(
@@ -76,17 +79,19 @@ const Card = () => {
         return acc + profit;
       }, 0);
 
-      return orderTotal; // Subtracting 10% from the order total
+      return orderTotal;
     });
 
   const profit = profitRevenue?.reduce((acc, orderTotal) => {
     return acc + orderTotal;
   }, 0);
+
   const sellersLength = allusers?.filter((user) => user.role === "Seller");
 
   return (
     <>
       <div className="mb-1 grid w-full grid-cols-1 gap-2 sm:grid-cols-2 xl:grid-cols-4">
+        {/* DASHBOARD TOP CARDS */}
         <div className="w-full ">
           {role === "Seller" ? (
             <StickerCard
@@ -121,7 +126,7 @@ const Card = () => {
             icon={
               <BiCartDownload
                 size={30}
-                className=" align-middle text-[#ff6e6e]"
+                className="align-middle text-[#ff6e6e]"
               />
             }
             iconBgStyle={{ backgroundColor: "#facaca" }}
@@ -141,7 +146,7 @@ const Card = () => {
             icon={
               <AiOutlineDollarCircle
                 size={35}
-                className=" align-middle text-[#ffb300]"
+                className="align-middle text-[#ffb300]"
               />
             }
             iconBgStyle={{ backgroundColor: "#ffe8b2" }}
@@ -162,7 +167,7 @@ const Card = () => {
               icon={
                 <AiOutlineDollarCircle
                   size={35}
-                  className=" align-middle text-[#ffb300]"
+                  className="align-middle text-[#ffb300]"
                 />
               }
               iconBgStyle={{ backgroundColor: "#ffe8b2" }}
@@ -197,4 +202,5 @@ const Card = () => {
     </>
   );
 };
+
 export default Card;

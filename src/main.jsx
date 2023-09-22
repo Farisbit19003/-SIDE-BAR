@@ -1,11 +1,10 @@
-import React, { useEffect } from 'react'
+import { configureStore } from '@reduxjs/toolkit'
+import React from 'react'
 import ReactDOM from 'react-dom/client'
+import { Provider } from "react-redux"
+import { composeWithDevTools } from "redux-devtools-extension"
 import App from './App'
 import './index.css'
-import axios from 'axios'
-import { configureStore} from '@reduxjs/toolkit'
-import {Provider} from "react-redux"
-import { composeWithDevTools } from "redux-devtools-extension"
 import rootReducers from './reducers'
 const store=configureStore({reducer:rootReducers,},composeWithDevTools());
 ReactDOM.createRoot(document.getElementById('root')).render(

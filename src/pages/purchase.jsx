@@ -1,21 +1,19 @@
+import { Pagination } from "antd";
 import React, { useEffect, useState } from "react";
 import "react-datepicker/dist/react-datepicker.css";
-import { BsFilterSquare } from "react-icons/bs";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { PurchaseOrderTable } from "../components/Purchase/Table";
+import FilterButton from "../components/common/FilterButton";
+import Search from "../components/common/Search";
 import Filters from "../components/common/filter";
 import ShopLayout from "../layout/Shop";
-import { Pagination } from "antd";
 
 const Purchase = () => {
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
+
   const [orders, setOrders] = useState([]);
   const [keyword, setKeyword] = useState("");
   const [products, setProducts] = useState([]);
-  const dispatch = useDispatch();
   const { sellerShops, allOrders, product } = useSelector((state) => ({
     ...state,
   }));
@@ -131,10 +129,6 @@ const Purchase = () => {
     }
   }, [allOrders]);
 
-  const handleSearchInputChange = (e) => {
-    e.preventDefault();
-    setKeyword(e.target.value.toLowerCase());
-  };
   const Searched = (keyword) => (c) => c._id.includes(keyword);
   const handleReset = (e) => {
     e.preventDefault();
@@ -164,14 +158,8 @@ const Purchase = () => {
           </h1>
         </div>
 
-        <div className="relative w-full max-w-md">
-          <input
-            onChange={handleSearchInputChange}
-            type="search"
-            placeholder="Type queries"
-            className="w-full sm:py-3 border border-gray-400 rounded-md focus:outline-none focus:ring-2 focus:ring-[#248f59]"
-          />
-        </div>
+        <Search setKeyword={setKeyword}/>
+
         <div className=" flex ">
           <button className="bg-[#248F59] w-full px-4 transition-transform hover:scale-95  py-2 sm:py-3 rounded-md text-base sm:text-sm whitespace-nowrap flex justify-center items-center font-sans uppercase hover:text-white text-[#f2f2f2]">
             <Link to="/purchase/add">Add Purchase</Link>
@@ -179,12 +167,8 @@ const Purchase = () => {
         </div>
       </div>
 
-      {/* Button to toggle visibility */}
-      <div className="flex mb-1 items-center justify-end">
-        <button onClick={toggleVisibility}>
-          <BsFilterSquare color="green" size={25} />
-        </button>
-      </div>
+      {/*Filter Button  */}
+      <FilterButton onClick={toggleVisibility} />
 
       {!isHidden && (
         <Filters
@@ -203,15 +187,15 @@ const Purchase = () => {
         Searched={Searched}
         keyword={keyword}
       />
-        <div className="row">
-        <div className="col text-center mb-5">
+       
+        <div className="text-center">
           <Pagination
             current={page}
             onChange={(value) => setPage(value)}
             total={totalposts}
           />
         </div>
-      </div>
+
     </ShopLayout>
   );
 };

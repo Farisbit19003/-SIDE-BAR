@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 import { UpdateSetting } from "../components/settings/functions";
 import SettingsForm from "../components/settings/settingsForm";
 import AdminLayout from "../layout/admin";
+
 const Settings = () => {
   const { siteSetting } = useSelector((state) => ({ ...state }));
   const [image, setImage] = useState([]);
@@ -15,9 +16,7 @@ const Settings = () => {
   const [id, setId] = useState("");
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
+
   useEffect(() => {
     if (siteSetting) {
       setValues({
@@ -29,7 +28,9 @@ const Settings = () => {
       setId([siteSetting._id]);
     }
   }, [siteSetting]);
+  
   values.image = image[0];
+  
   const handleSubmit = (e) => {
     e.preventDefault();
     if (
@@ -61,24 +62,26 @@ const Settings = () => {
     }
   };
   return (
-    <AdminLayout>
-      <div className="p-3 md:p-6 mb-6 flex border border-[#f2f2f2] rounded flex-col sm:flex-row items-center justify-center bg-white ">
-        <div>
-          <h1 className="font-serif font-normal text-3xl text-[#248F59]">
-            Site Settings
-          </h1>
+    <>
+      <AdminLayout>
+        <div className="p-3 md:p-6 mb-6 flex border border-[#f2f2f2] rounded flex-col sm:flex-row items-center justify-center bg-white ">
+          <div>
+            <h1 className="font-serif font-normal text-3xl text-[#248F59]">
+              Site Settings
+            </h1>
+          </div>
         </div>
-      </div>
-      <SettingsForm
-        values={values}
-        setValues={setValues}
-        image={image}
-        setImage={setImage}
-        loading={loading}
-        setloading={setLoading}
-        handleSubmit={handleSubmit}
-      />
-    </AdminLayout>
+        <SettingsForm
+          values={values}
+          setValues={setValues}
+          image={image}
+          setImage={setImage}
+          loading={loading}
+          setloading={setLoading}
+          handleSubmit={handleSubmit}
+        />
+      </AdminLayout>
+    </>
   );
 };
 

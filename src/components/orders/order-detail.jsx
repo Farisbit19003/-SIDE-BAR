@@ -1,16 +1,20 @@
 import React, { useEffect, useState } from "react";
-import { AiOutlineLoading3Quarters } from "react-icons/ai";
+import { FaSpinner } from "react-icons/fa";
 import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import ShopLayout from "../../layout/Shop";
 import DetailPack from "./orderdetail/detailpack";
 import OrderViewHeader from "./orderdetail/order-view-header";
 import { OrderDetailTable } from "./orderdetail/orderDetailTable";
+
 const OrderDetail = () => {
+  
   const { allOrders, loggedIn } = useSelector((state) => ({ ...state }));
   const [singleOrder, setSingleOrder] = useState({});
+  
   const params = useParams();
   const navigate = useNavigate();
+  
   let GrandTotal =
     singleOrder?.orderType == "Sales"
       ? singleOrder?.Products?.reduce((acc, p) => {
@@ -26,11 +30,13 @@ const OrderDetail = () => {
     });
     setSingleOrder(updated[0]);
   };
+  
   useEffect(() => {
     if (allOrders && allOrders.length) {
       LoadOrder();
     }
   }, [params, allOrders]);
+  
   useEffect(() => {
     if (!singleOrder || !loggedIn?.token) {
       const timeoutId = setTimeout(() => {
@@ -39,15 +45,18 @@ const OrderDetail = () => {
       return () => clearTimeout(timeoutId);
     }
   }, [singleOrder, loggedIn]);
+  
   return !singleOrder || allOrders === null || !loggedIn?.token ? (
-    <div className="h-screen flex items-center justify-center">
-      <div className="flex flex-col items-center">
-        <AiOutlineLoading3Quarters className="text-6xl w-16 h-16 text-[#248F59] animate-spin" />
-        <span className="mt-4 text-gray-500 text-lg font-semibold">
-          Loading...
-        </span>
+    <>
+      <div className="h-screen flex items-center justify-center">
+        <div className="flex flex-col items-center">
+          <FaSpinner className="text-6xl w-16 h-16 text-[#248F59] animate-spin" />
+          <span className="mt-4 text-gray-500 text-lg font-semibold">
+            Loading...
+          </span>
+        </div>
       </div>
-    </div>
+    </>
   ) : (
     <>
       <ShopLayout>

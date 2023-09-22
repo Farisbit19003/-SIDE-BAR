@@ -22,7 +22,7 @@ export const OrderDetailTable = ({ singleOrder }) => {
               <tbody>
                 {singleOrder?.Products?.map((item, index) => (
                   <tr
-                    className="bg-white cursor-default hover:!bg-gray-100 border-b-2 font-sans"
+                    className="bg-white cursor-default hover:bg-gray-100 border-b-2 font-sans"
                     key={index}
                   >
                     <td className="px-4 py-2">{item?.Product?.name}</td>

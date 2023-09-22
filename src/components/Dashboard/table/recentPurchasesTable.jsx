@@ -1,5 +1,6 @@
 import React from "react";
-import moment from "moment";
+import { DateTime } from "luxon"; 
+
 export const RecentPurchasesTable = ({ recentOrders }) => {
   let row = 1;
   return (
@@ -34,8 +35,7 @@ export const RecentPurchasesTable = ({ recentOrders }) => {
                     <td className="px-4 py-2">{item._id}</td>
 
                     <td className="px-4 py-2">
-                      {" "}
-                      {moment(item?.createdAt).format("MMMM D, YYYY")}
+                      {DateTime.fromISO(item?.createdAt).toLocaleString(DateTime.DATE_MED)}
                     </td>
                     <td className="px-4 py-2">{item.store?.Storename}</td>
                     <td className="px-4 py-2">
@@ -48,8 +48,6 @@ export const RecentPurchasesTable = ({ recentOrders }) => {
                         className={`h-fit text-[#248F59] bg-[#DEEEE6] w-fit whitespace-nowrap px-2 py-2 rounded uppercase text-xs font-sans`}
                       >
                         {item.paymentType}
-                        {/* {item.payment.status}
-                        {item.payment.icon} */}
                       </div>
                     </td>
                     <td className="px-4 py-2">

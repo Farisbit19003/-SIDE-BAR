@@ -76,40 +76,9 @@ const BarChart = ({
     <div className="h-full w-full border border-[#f2f2f2] rounded bg-white shadow-sm">
       <div className="flex items-center justify-between px-3 py-8">
         <h3 className="text-lg font-semibold font-sans ">{widgetTitle}</h3>
-
-        {/* <div className="flex flex-col">
-          <span className="text-lg font-semibold text-green-500">
-            {prefix}
-            {totalValue}
-          </span>
-
-          <div className="flex items-center">
-            {position === 'up' && (
-              <span className="text-green-500">
-                <ArrowUp />
-              </span>
-            )}
-            {position === 'down' && (
-              <span className="text-red-400">
-                <ArrowDown />
-              </span>
-            )}
-            <span className="ms-1 text-sm ">
-              <span
-                className={cn(
-                  position === 'down' ? 'text-red-400' : 'text-green-500'
-                )}
-              >
-                {percentage}
-              </span>
-              &nbsp;
-              {text}
-            </span>
-          </div>
-        </div> */}
       </div>
 
-      <div className="flex w-full flex-wrap" style={{ display: 'block' }}>
+      <div className="w-full flex-wrap block">
         <Charts
           options={options.options}
           series={options.series}

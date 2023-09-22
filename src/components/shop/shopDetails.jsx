@@ -1,21 +1,25 @@
 import React, { useEffect, useState } from "react";
-import AdminLayout from "../../layout/admin";
+import { FaSpinner } from "react-icons/fa";
+import { useSelector } from "react-redux";
+import { useNavigate, useParams } from "react-router-dom";
 import ShopLayout from "../../layout/Shop";
+import AdminLayout from "../../layout/admin";
 import DetailsCard from "./DetailsCard";
-import { useSelector, useDispatch } from "react-redux";
-import { useParams } from "react-router-dom";
-import { AiOutlineLoading3Quarters } from "react-icons/ai";
-import { useNavigate } from "react-router-dom";
+
+
 const ShopDetails = () => {
+
   const [singleShop, setSingleShop] = useState({});
   const [productLength, setProductLength] = useState([]);
   const [OrdersLength, setOrdersLength] = useState([]);
   const [GrandTotal,setGrandTotal]=useState("");
   const [ok, setOk] = useState(true);
+
   const { loggedIn, allShops,allOrders ,sellerShops, product, allProducts } = useSelector(
     (state) => ({ ...state })
   );
   const role = loggedIn && loggedIn.user && loggedIn.user.role;
+
   const params = useParams();
   const navigate = useNavigate();
 
@@ -33,6 +37,7 @@ const ShopDetails = () => {
       filtered && setSingleShop(filtered[0]);
     }
   }, [params, params.slug]);
+  
   useEffect(() => {
     if (role === "Admin") {
       const pro = allProducts?.filter((p) => {
@@ -47,6 +52,7 @@ const ShopDetails = () => {
     }
     setOk(false);
   }, [singleShop,product,allProducts]);
+
   useEffect(() => {
     const salesOrders = allOrders?.filter((order) => {
       return order.store._id === singleShop?._id && order.orderType === "Sales"
@@ -78,52 +84,64 @@ const ShopDetails = () => {
       return () => clearTimeout(timeoutId);
     }
   }, [singleShop]);
+
   return (
     <>
       {role === "Admin" ? (
-        <AdminLayout>
-          {!singleShop || allShops === null ? (
-            <div className=" inset-0 flex items-center justify-center">
-              <div className="flex flex-col items-center">
-                <AiOutlineLoading3Quarters className="mt-48 text-6xl w-16 h-16 text-[#248F59] animate-spin" />
-                <span className="mt-16 text-gray-500 text-lg font-semibold">
-                  Loading.....................
-                </span>
-              </div>
-            </div>
-          ) : (
-            <DetailsCard
-              ok={ok}
-              page="Admin"
-              singleShop={singleShop}
-              proLength={productLength}
-              OrdersLength={OrdersLength}
-              GrandTotal={GrandTotal}
-            />
-          )}
-        </AdminLayout>
+        <>
+          <AdminLayout>
+            {!singleShop || allShops === null ? (
+              <>
+                <div className=" inset-0 flex items-center justify-center">
+                  <div className="flex flex-col items-center">
+                    <FaSpinner className="mt-48 text-6xl w-16 h-16 text-[#248F59] animate-spin" />
+                    <span className="mt-16 text-gray-500 text-lg font-semibold">
+                      Loading.....................
+                    </span>
+                  </div>
+                </div>
+              </>
+            ) : (
+              <>
+                <DetailsCard
+                  ok={ok}
+                  page="Admin"
+                  singleShop={singleShop}
+                  proLength={productLength}
+                  OrdersLength={OrdersLength}
+                  GrandTotal={GrandTotal}
+                />
+              </>
+            )}
+          </AdminLayout>
+        </>
       ) : (
-        <ShopLayout>
-          {!singleShop || sellerShops === null ? (
-            <div className=" inset-0 flex items-center justify-center">
-              <div className="flex flex-col items-center">
-                <AiOutlineLoading3Quarters className="mt-48 text-6xl w-16 h-16 text-[#248F59] animate-spin" />
-                <span className="mt-16 text-gray-500 text-lg font-semibold">
-                  Loading.....................
-                </span>
-              </div>
-            </div>
-          ) : (
-            <DetailsCard
-              ok={ok}
-              singleShop={singleShop}
-              proLength={productLength}
-              OrdersLength={OrdersLength}
-              GrandTotal={GrandTotal}
-
-            />
-          )}
-        </ShopLayout>
+        <>
+          <ShopLayout>
+            {!singleShop || sellerShops === null ? (
+              <>
+                <div className=" inset-0 flex items-center justify-center">
+                  <div className="flex flex-col items-center">
+                    <FaSpinner className="mt-48 text-6xl w-16 h-16 text-[#248F59] animate-spin" />
+                    <span className="mt-16 text-gray-500 text-lg font-semibold">
+                      Loading.....................
+                    </span>
+                  </div>
+                </div>
+              </>
+            ) : (
+              <>
+                <DetailsCard
+                  ok={ok}
+                  singleShop={singleShop}
+                  proLength={productLength}
+                  OrdersLength={OrdersLength}
+                  GrandTotal={GrandTotal}
+                />
+              </>
+            )}
+          </ShopLayout>
+        </>
       )}
     </>
   );

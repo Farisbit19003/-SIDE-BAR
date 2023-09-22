@@ -3,27 +3,15 @@ import { AiOutlineEye } from "react-icons/ai";
 
 export const ReviewTable = ({ keyword, Searched, products }) => {
   let row = 1;
-  function handleMouseEnter(event) {
-    const cell = event.currentTarget;
-    const review = cell.textContent;
-    cell.setAttribute("title", review);
-    cell.classList.add("show-review");
-  }
 
-  function handleMouseLeave(event) {
-    const cell = event.currentTarget;
-    cell.removeAttribute("title");
-    cell.classList.remove("show-review");
-  }
   return !products || products.length === 0 ? (
     <div className="flex  justify-center">
       <div className="flex flex-col items-center">
-        {/* <AiOutlineLoading3Quarters className="text-6xl w-16 h-16 text-[#248F59] animate-spin" /> */}
         <span className="mt-4 text-gray-500 text-lg font-semibold">
           Loading...
         </span>
         <span className="mt-4 text-[#248F59] font-serif text-3xl font-normal">
-          No Product Found
+          No Review Found
         </span>
       </div>
     </div>

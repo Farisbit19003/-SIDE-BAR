@@ -28,7 +28,7 @@ const Filters = ({
             onChange={onShopChange}
             name="store"
             id="shopSelect"
-            className="w-full md:w-auto h-12 mb-2 bg-white border-gray-400 rounded-lg px-3 py-2 font-sans font-normal tracking-normal text-left focus:outline-none focus:ring-2 focus:ring-[#248f59]"
+            className="w-full md:w-auto h-12 mb-2 bg-white border-gray-400 rounded-lg px-3 py-2 font-sans font-normal tracking-normal text-left focus:outline-none focus:border-none focus:ring-2 focus:ring-[#248f59]"
           >
             <option value="select">--Select--</option>
             {sellerShops?.map((shop) => (
@@ -46,7 +46,7 @@ const Filters = ({
             onChange={onProductChange}
             name="store"
             id="productSelect"
-            className="w-full md:w-auto h-12 mb-2 text-md bg-white border-gray-400 rounded-lg px-3 py-2 font-sans font-normal tracking-normal text-left focus:outline-none focus:ring-2 focus:ring-[#248f59]"
+            className="w-full md:w-auto h-12 mb-2 text-md bg-white border-gray-400 rounded-lg px-3 py-2 font-sans font-normal tracking-normal text-left focus:outline-none focus:border-none focus:ring-2 focus:ring-[#248f59]"
           >
             <option value="select">--Select--</option>
             {products?.map((p) => (
@@ -68,7 +68,7 @@ const Filters = ({
             endDate={endDate}
             maxDate={new Date()}
             selectsRange
-            className="w-full md:w-auto h-12 mb-2 text-md bg-white border-gray-400 rounded-lg px-3 py-2 font-sans font-normal tracking-normal text-left focus:outline-none focus:ring-2 focus:ring-[#248f59]"
+            className="w-full md:w-auto h-12 mb-2 text-md bg-white border-gray-400 rounded-lg px-3 py-2 font-sans font-normal tracking-normal text-left focus:outline-none focus:border-none focus:ring-2 focus:ring-[#248f59]"
           />
         </div>
 

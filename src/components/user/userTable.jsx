@@ -1,6 +1,7 @@
 import { BiTrash } from "react-icons/bi";
 export const UserTable = ({ handleDelete, users, keyword, Searched, ok }) => {
   let row = 1;
+
   function handleMouseEnter(event) {
     const cell = event.currentTarget;
     const review = cell.textContent;
@@ -16,17 +17,18 @@ export const UserTable = ({ handleDelete, users, keyword, Searched, ok }) => {
   return (
     <>
       {!users || users.length === 0 ? (
-        <div className="flex  justify-center">
-          <div className="flex flex-col items-center">
-            {/* <AiOutlineLoading3Quarters className="text-6xl w-16 h-16 text-[#248F59] animate-spin" /> */}
-            <span className="mt-4 text-gray-500 text-lg font-semibold">
-              Loading...
-            </span>
-            <span className="mt-4 text-[#248F59] font-serif text-3xl font-normal">
-              No User Found
-            </span>
+        <>
+          <div className="flex  justify-center">
+            <div className="flex flex-col items-center">
+              <span className="mt-4 text-gray-500 text-lg font-semibold">
+                Loading...
+              </span>
+              <span className="mt-4 text-[#248F59] font-serif text-3xl font-normal">
+                No User Found
+              </span>
+            </div>
           </div>
-        </div>
+        </>
       ) : (
         <div className="my-6 p-3 flex border rounded border-[#f2f2f2] bg-white shadow">
           <div className=" mx-auto mt-2 h-fit w-full">
@@ -69,7 +71,7 @@ export const UserTable = ({ handleDelete, users, keyword, Searched, ok }) => {
                           {item.status}
                         </td>
                         <td className="px-4 py-2">
-                          {item.whatsapp && item.whatsapp}
+                          {item.whatsapp}
                         </td>
                         <td
                           className="px-4 py-2 text-ellipsis overflow-hidden max-w-xs"

@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { TiDelete } from "react-icons/ti";
 
-export const PurchaseTable = ({ products, values, setValues }) => {
+export const AddPurchaseTable = ({ products, values, setValues }) => {
+  
   const [updatedProducts, setUpdatedProducts] = useState([]);
 
   useEffect(() => {
     setUpdatedProducts(products);
   }, [products]);
+  
   const calculateTotal = () => {
     let total = 0;
     updatedProducts?.forEach((product) => {
@@ -40,22 +42,24 @@ export const PurchaseTable = ({ products, values, setValues }) => {
   return (
     <>
       {!updatedProducts || updatedProducts.length === 0 ? (
-        <div className="flex justify-center">
-          <div className="flex flex-col items-center">
-            <span className="mt-4 text-gray-500 text-lg font-semibold">
-              Loading...
-            </span>
-            <span className="mt-4 text-[#248F59] font-serif text-3xl font-normal">
-              No Purchase Found
-            </span>
+        <>
+          <div className="flex justify-center">
+            <div className="flex flex-col items-center">
+              <span className="mt-4 text-gray-500 text-lg font-semibold">
+                Loading...
+              </span>
+              <span className="mt-4 text-[#248F59] font-serif text-3xl font-normal">
+                No Purchase Found
+              </span>
+            </div>
           </div>
-        </div>
+        </>
       ) : (
         <>
           <div className="my-6 flex border bg-white shadow">
             <div className="mx-auto mt-2 h-fit w-full">
               <div className="flex flex-row justify-center items-center mx-2 my-2">
-                <p className="flex font-sans font-semibold text-lg">Purchase</p>
+                <p className="flex font-sans font-semibold text-lg">Add Purchase</p>
               </div>
               <div className="overflow-x-auto flex flex-col justify-center">
                 <table className="mx-2 my-2 font-sans shadow">

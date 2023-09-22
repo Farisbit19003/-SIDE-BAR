@@ -1,13 +1,11 @@
-import React, { useEffect} from "react";
-import { useSelector,useDispatch } from "react-redux";
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
 import Form from "../components/profile/form";
 import ShopLayout from "../layout/Shop";
 import AdminLayout from "../layout/admin";
 
 const Profile = () => {
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
+
   const {loggedIn}=useSelector((state)=>({...state}));
   const role = loggedIn && loggedIn.user && loggedIn.user.role;
   const dispatch=useDispatch();
@@ -21,17 +19,25 @@ const Profile = () => {
   return (
     <>
       {role === "Admin" ? (
-        <AdminLayout>
-          <>
-            <Form dispatch={dispatch} loggedIn={loggedIn} avatarInfo={avatarInfo} />
-          </>
-        </AdminLayout>
+        <>
+          <AdminLayout>
+            <Form
+              dispatch={dispatch}
+              loggedIn={loggedIn}
+              avatarInfo={avatarInfo}
+            />
+          </AdminLayout>
+        </>
       ) : (
-        <ShopLayout>
-          <>
-            <Form dispatch={dispatch} loggedIn={loggedIn} avatarInfo={avatarInfo} />
-          </>
-        </ShopLayout>
+        <>
+          <ShopLayout>
+            <Form
+              dispatch={dispatch}
+              loggedIn={loggedIn}
+              avatarInfo={avatarInfo}
+            />
+          </ShopLayout>
+        </>
       )}
     </>
   );

@@ -15,32 +15,6 @@ import { TfiReceipt } from "react-icons/tfi";
 
 export const siteSettings = {
   name: "Bazar.pk",
-  //   description: '',
-  //   logo: {
-  //     url: '/logo.svg',
-  //     alt: 'PickBazar',
-  //     href: '/',
-  //     width: 128,
-  //     height: 40,
-  //   },
-  //   defaultLanguage: 'en',
-  //   author: {
-  //     name: 'RedQ, Inc.',
-  //     websiteUrl: 'https://redq.io',
-  //     address: '',
-  //   },
-  //   headerLinks: [],
-  //   authorizedLinks: [
-  //     {
-  //       href: Routes.profileUpdate,
-  //       labelTransKey: 'authorized-nav-item-profile',
-  //     },
-  //     {
-  //       href: Routes.logout,
-  //       labelTransKey: 'authorized-nav-item-logout',
-  //     },
-  //   ],
-  //   currencyCode: 'USD',
   sidebarLinks: {
     admin: [
       {
@@ -100,17 +74,11 @@ export const siteSettings = {
         icon: <AiOutlineShopping size={20} />,
         to: "/products",
       },
-      // {
-      //   id: 5,
-      //   label: "Attributes",
-      //   icon: <TagsOutlined />,
-      //   to: "/attributes",
-      // },
       {
         id: 7,
         label: "Sales Report",
         icon: <AiOutlineBarChart size={20} />,
-        to: "/orders",
+        to: "/sales",
       },
       {
         id: 11,

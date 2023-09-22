@@ -1,13 +1,13 @@
-import React from "react";
-import ShopLayout from "../../layout/Shop/index";
-import SaveButton from "../common/save";
-import { useState, useEffect } from "react";
-import { toast } from "react-toastify";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import PurchaseForm from "./PurchaseForm";
+import { toast } from "react-toastify";
+import ShopLayout from "../../layout/Shop/index";
 import { SellerOrders } from "../Create Shop/functions";
+import SaveButton from "../common/save";
+import PurchaseForm from "./PurchaseForm";
 import { CreateOrder } from "./functions";
+
 const AddPurchase = () => {
   const [shops, setShops] = useState([]);
   const {sellerShops,product } = useSelector((state) => ({ ...state }));
@@ -27,11 +27,13 @@ const AddPurchase = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  
   useEffect(() => {
     if (sellerShops) {
       setShops(sellerShops);
     }
   }, [sellerShops]);
+  
   //handleSubmit
   const handleSubmit = () => {
     if (!values.store) {
@@ -45,6 +47,7 @@ const AddPurchase = () => {
     }
       hanldeCod();
   };
+  
   const hanldeCod = () => {
     try {
       setLoading(true);
@@ -65,23 +68,24 @@ const AddPurchase = () => {
     }
   };
   return (
-    <ShopLayout>
-      <div className="my-2 flex flex-wrap border-b-2 border-dashed  pb-8 sm:my-8">
-        <h1 className="text-[#248F59] font-serif text-3xl font-normal">
-          Add Purchase
-        </h1>
-      </div>
-      <PurchaseForm
-        shops={shops}
-        product={product}
-        values={values}
-        setValues={setValues}
-      />
-      <div className="float-right">
-        {" "}
-        <SaveButton handleSubmit={handleSubmit} loading={loading} />
-      </div>
-    </ShopLayout>
+    <>
+      <ShopLayout>
+        <div className="my-2 flex flex-wrap border-b-2 border-dashed  pb-8 sm:my-8">
+          <h1 className="text-[#248F59] font-serif text-3xl font-normal">
+            Add Purchase
+          </h1>
+        </div>
+        <PurchaseForm
+          shops={shops}
+          product={product}
+          values={values}
+          setValues={setValues}
+        />
+        <div className="flex justify-end">
+          <SaveButton handleSubmit={handleSubmit} loading={loading} />
+        </div>
+      </ShopLayout>
+    </>
   );
 };
 

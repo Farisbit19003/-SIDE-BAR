@@ -1,12 +1,16 @@
+import { LoadingOutlined } from "@ant-design/icons";
+import axios from "axios";
 import { useState } from "react";
 import { AiOutlineCloudUpload } from "react-icons/ai";
 import { TiDeleteOutline } from "react-icons/ti";
-import { LoadingOutlined } from "@ant-design/icons";
-import axios from "axios";
+
 const FileInput = ({ keyPrefix, multiple, image, setImage }) => {
+
   const [loading, setloading] = useState(false);
   const [files, setFiles] = useState([]);
+
   const formData = new FormData();
+
   const uploadImageToCloud = async (event) => {
     setloading(true);
     const { data } = await axios.post("/image/upload", formData);
@@ -19,6 +23,7 @@ const FileInput = ({ keyPrefix, multiple, image, setImage }) => {
     setloading(false);
     event.target.value = null;
   };
+
   const uploadMultiImageToCloud = async (event) => {
     const newFiles = Array.from(event.target.files);
     setloading(true);
@@ -50,24 +55,6 @@ const FileInput = ({ keyPrefix, multiple, image, setImage }) => {
     }
   };
 
-  // const handleDrop = (event) => {
-  //   event.preventDefault();
-  //   event.stopPropagation();
-  //   const newFiles = Array.from(event.dataTransfer.files);
-  //   let file = event.target.files[0];
-  //   formData.append("image",file);
-  //   if (multiple) {
-  //     setFiles([...files, ...newFiles]);
-  //   } else {
-  //     setFiles([...newFiles.slice(0, 1)]);
-  //     uploadImageToCloud(event);
-  //   }
-  // };
-
-  // const handleDragOver = (event) => {
-  //   event.preventDefault();
-  //   event.stopPropagation();
-  // };
   const handleRemoveFile = (index) => {
     const newFiles = [...image];
     newFiles.splice(index, 1);
@@ -78,11 +65,7 @@ const FileInput = ({ keyPrefix, multiple, image, setImage }) => {
     <>
       <div className="flex flex-col cursor-pointer w-full border-green-500 border-2 border-dashed">
         <label htmlFor={`${keyPrefix}-file-input`}>
-          <div
-            className="flex items-center cursor-pointer md:w-full justify-center flex-col font-sans rounded-lg p-5"
-            // onDragOver={handleDragOver}
-            // onDrop={handleDrop}
-          >
+          <div className="flex items-center cursor-pointer md:w-full justify-center flex-col font-sans rounded-lg p-5">
             <AiOutlineCloudUpload size={40} />
             <div className="text-center">
               <p>
@@ -99,12 +82,12 @@ const FileInput = ({ keyPrefix, multiple, image, setImage }) => {
           style={{ display: "none" }}
           multiple={multiple}
         />
-        
-          {loading ? (
-            <LoadingOutlined />
-          ) : (
-            image?.map((file, index) => (
-              <div  key={index} className="flex flex-row justify-start ">
+
+        {loading ? (
+          <LoadingOutlined />
+        ) : (
+          image?.map((file, index) => (
+            <div key={index} className="flex flex-row justify-start ">
               <div className="flex flex-row m-2  my-2">
                 <div className="flex-1  text-gray-500 font-semibold">
                   <span>
@@ -118,10 +101,9 @@ const FileInput = ({ keyPrefix, multiple, image, setImage }) => {
                   onClick={() => handleRemoveFile(index)}
                 />
               </div>
-              </div>
-            ))
-          )} 
-       
+            </div>
+          ))
+        )}
       </div>
     </>
   );

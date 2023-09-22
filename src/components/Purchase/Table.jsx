@@ -1,7 +1,7 @@
 import React from "react";
 import { AiOutlineEye } from "react-icons/ai";
 import { Link } from "react-router-dom";
-import moment from "moment";
+import { DateTime } from "luxon";
 export const PurchaseOrderTable = ({ orders, keyword, Searched }) => {
   let row = 1;
   const Revenue = orders?.map((order) => {
@@ -27,29 +27,6 @@ export const PurchaseOrderTable = ({ orders, keyword, Searched }) => {
     const cell = event.currentTarget;
     cell.removeAttribute("title");
     cell.classList.remove("show-review");
-  }
-
-  function getStatusColorClass(status) {
-    switch (status) {
-      case "Order Processing":
-        return "text-[#EAB308]";
-      case "Order Completed":
-        return "text-[green]";
-      case "Order Cancelled":
-        return "text-pink-500";
-      case "Order Failed":
-        return "text-red-500 font-sans";
-      case "Order Refund":
-        return "text-amber-800";
-      case "Order At Local Facility":
-        return "text-slate-800";
-      case "Order Out For Delivery":
-        return "text-emerald-500";
-      case "Order Pending":
-        return "text-orange-600";
-      default:
-        return "";
-    }
   }
 
   return (
@@ -103,13 +80,9 @@ export const PurchaseOrderTable = ({ orders, keyword, Searched }) => {
                             <td className="px-4 py-2">{row++}</td>
                             <td className="px-4 py-2">{item._id}</td>
                             <td className="px-4 py-2">
-                              {moment(item?.createdAt).format("MMMM D, YYYY")}
+                              {DateTime.fromISO(item?.createdAt).toLocaleString(DateTime.DATE_FULL)}
                             </td>
-                            <td
-                              className={`px-4 py-2 font-semibold  ${getStatusColorClass(
-                                orders.orderStatus
-                              )}`}
-                            >
+                            <td className="px-4 py-2 font-semibold text-[#248f59]">
                               {item.orderStatus}
                             </td>
                             <td className="px-4 py-2">{item?.orderType}</td>

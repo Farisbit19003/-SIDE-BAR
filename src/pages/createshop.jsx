@@ -1,12 +1,14 @@
-import { useState, useEffect } from "react";
-import ShopLayout from "../layout/Shop/index";
-import SaveButton from "../components/common/save";
-import ShopForm from "../components/Create Shop/ShopForm";
-import { toast } from "react-toastify";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { CreateStore,SellerShops } from "../components/Create Shop/functions";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import ShopForm from "../components/Create Shop/ShopForm";
+import { CreateStore, SellerShops } from "../components/Create Shop/functions";
+import SaveButton from "../components/common/save";
+import ShopLayout from "../layout/Shop/index";
+
 const CreateShops = () => {
+  
   const [categories, setCategories] = useState([]);
   const [values, setValues] = useState({
     Storename: "",
@@ -23,19 +25,19 @@ const CreateShops = () => {
     main_pic: {},
     cover_pic: {},
   });
+  
   const [loading, setLoading] = useState(false);
   const [whatsappError, setWhatsappError] = useState("");
   const { category } = useSelector((state) => ({ ...state }));
   const navigate=useNavigate();
   const dispatch=useDispatch();
+  
   useEffect(() => {
     if (category) {
       setCategories(category);
     }
   }, [category]);
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
+
   //handleSubmit
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -94,14 +96,15 @@ const CreateShops = () => {
     }
   };
   return (
-    <ShopLayout>
-      <>
-              <form>
+    <>
+      <ShopLayout>
+        <form>
           <div className="my-2 flex flex-wrap border-b-2 border-dashed  pb-8 sm:my-8">
             <h1 className="text-[#248F59] font-serif text-3xl font-normal">
               Create Shops
             </h1>
           </div>
+          {/* SHOP FORM */}
           <ShopForm
             categories={categories}
             values={values}
@@ -115,8 +118,8 @@ const CreateShops = () => {
             <SaveButton handleSubmit={handleSubmit} loading={loading} />
           </div>
         </form>
-      </>
-    </ShopLayout>
+      </ShopLayout>
+    </>
   );
 };
 

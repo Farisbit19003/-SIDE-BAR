@@ -7,19 +7,21 @@ import logo from "../../assets/Logo.svg";
 import Navbar from "../../components/Navbar";
 import SidebarItem from "../../components/Navbar/sitebar-items";
 import { siteSettings } from "../../components/SiteSettings/site.settings";
+import { FaSpinner } from "react-icons/fa";
 const ShopLayout = ({ children }) => {
   const [open, setOpen] = useState(false);
   const { loggedIn } = useSelector((state) => ({ ...state }));
   const role = loggedIn && loggedIn.user && loggedIn.user.role;
   const navigate = useNavigate();
-  const dispatch=useDispatch();
-  // initialize with the first item's id
+  const dispatch = useDispatch();
+
   const onClose = () => {
     setOpen(false);
   };
+
   useEffect(() => {
     // Redirect to login if state is null
-    if (!loggedIn||!loggedIn.token) {
+    if (!loggedIn || !loggedIn.token) {
       setTimeout(() => {
         navigate("/login");
       }, 3000);
@@ -41,6 +43,7 @@ const ShopLayout = ({ children }) => {
     }
   }, [loggedIn]);
 
+  // SIDE BAR ITEMS
   const SidebarItemMap = () => (
     <Fragment>
       {siteSettings.sidebarLinks.shop.map((s) => (
@@ -49,20 +52,22 @@ const ShopLayout = ({ children }) => {
     </Fragment>
   );
   return !loggedIn || !loggedIn.token || role !== "Seller" ? (
-    <div className="fixed inset-0 flex items-center justify-center">
-      <div className="flex flex-col items-center">
-        <AiOutlineLoading3Quarters className="text-6xl w-16 h-16 text-[#248F59] animate-spin" />
-        <span className="mt-4 text-gray-500 text-lg font-semibold">
-          Loading...
-        </span>
-        <span className="mt-4 text-gray-500 text-lg font-semibold">
-          You are not Authenticated
-        </span>
+    <>
+      <div className="fixed inset-0 flex items-center justify-center">
+        <div className="flex flex-col items-center">
+          <FaSpinner className="text-6xl w-16 h-16 text-[#248F59] animate-spin" />
+          <span className="mt-4 text-gray-500 text-lg font-semibold">
+            Authenticating
+          </span>
+        </div>
       </div>
-    </div>
+    </>
   ) : (
+    <>
     <div className="flex min-h-screen flex-col bg-gray-100 transition-colors duration-150">
+      {/* NAVBAR */}
       <Navbar setOpen={setOpen} />
+      {/* DRAWER FOR SMALLER SCREEN */}
       <Drawer
         title={<img src={logo} alt="logo" className="object-cover" />}
         placement="left"
@@ -72,21 +77,24 @@ const ShopLayout = ({ children }) => {
         <SidebarItemMap />
       </Drawer>
 
-      <div className="flex flex-1   pt-20">
+      <div className="flex flex-1 pt-20">
+        {/* SIDE BAR */}
         <aside
           className="xl:w-76 ltr:left-0
-         ltr:right-auto rtl:right-0 rtl:left-auto fixed bottom-0 hidden
-          h-full w-72 overflow-y-auto bg-white px-4 pt-20 shadow lg:block"
+        ltr:right-auto rtl:right-0 rtl:left-auto fixed bottom-0 hidden
+        h-full w-72 overflow-y-auto bg-white px-4 pt-20 shadow lg:block"
         >
           <div className="flex flex-col space-y-2 py-3">
             <SidebarItemMap />
           </div>
         </aside>
+        {/* MAIN CONTENT */}
         <main className="lg:pl-72 lg:pr-0 xl:pl-76 xl:pr-76 w-full">
           <div className="h-full p-5 md:p-8">{children}</div>
         </main>
       </div>
     </div>
+  </>
   );
 };
 export default ShopLayout;

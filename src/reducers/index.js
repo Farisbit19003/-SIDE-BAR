@@ -9,21 +9,20 @@ import {
   SellerShopsReducer,
   AllProductsReducer,
   OrderReducer,
-  ContactReducer
+  ContactReducer,
 } from "./Reducers";
-
 
 const rootReducers = combineReducers({
   loggedIn: userReducer,
   category: CategoryReducer,
-  allShops:ShopsReducer,
+  allShops: ShopsReducer,
   product: ProductReducer,
-  siteSetting:SiteReducer,
-  allusers:AllUsersReducer,
-  sellerShops:SellerShopsReducer,
-  allProducts:AllProductsReducer,
-  allOrders:OrderReducer,
-  allContacts:ContactReducer
+  siteSetting: SiteReducer,
+  allusers: AllUsersReducer,
+  sellerShops: SellerShopsReducer,
+  allProducts: AllProductsReducer,
+  allOrders: OrderReducer,
+  allContacts: ContactReducer,
 });
 
 export default rootReducers;

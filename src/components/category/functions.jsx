@@ -1,5 +1,6 @@
 import axios from "axios";
 import { toast } from "react-toastify";
+
 export const CreateCategory = async (values) => {
   const { data } = await axios.post("/category/create", { values });
   return data;

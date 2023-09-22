@@ -84,7 +84,6 @@ const CatTable = ({ category, handleDelete, keyword, Searched, ok }) => {
                               />
                             )}
                             <Link to={`/categories/update/${item.slug}`}>
-                              {" "}
                               <BiEdit size={25} />
                             </Link>
                           </td>

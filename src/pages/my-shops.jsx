@@ -1,27 +1,23 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import Search from "../components/common/Search";
 import { ShopTable } from "../components/shop/shopsTable";
 import ShopLayout from "../layout/Shop/";
+
 const MyShops = () => {
+  
   const [shops, setShops] = useState([]);
   const [keyword, setKeyword] = useState("");
-
   const { sellerShops } = useSelector((state) => ({ ...state }));
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
+
   useEffect(() => {
     if (sellerShops && sellerShops.length) {
       setShops(sellerShops);
     }
   }, [sellerShops]);
-
-  const handleSearchInputChange = (e) => {
-    e.preventDefault();
-    setKeyword(e.target.value.toLowerCase());
-  };
-  const Searched = (keyword) => (c) =>
-    c.Storename.toLowerCase().includes(keyword);
+ 
+  const Searched = (keyword) => (c) => c.Storename.toLowerCase().includes(keyword);
+ 
   return (
     <>
       <ShopLayout>
@@ -31,16 +27,10 @@ const MyShops = () => {
               My Shops
             </h1>
           </div>
-
-          <div className="relative w-full max-w-md">
-            <input
-              onChange={handleSearchInputChange}
-              type="search"
-              placeholder="Type queries"
-              className="w-full sm:py-3 border border-gray-400 rounded-md focus:outline-none focus:ring-2 focus:ring-[#248f59]"
-            />
-          </div>
+            {/* SEARCH */}
+            <Search setKeyword={setKeyword}/>
         </div>
+        {/* SHOP TABLE */}
         <ShopTable shops={shops} Searched={Searched} keyword={keyword} />
       </ShopLayout>
     </>

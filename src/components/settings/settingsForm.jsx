@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Description from "../common/discription";
 import Card from "../common/cards";
 import FileInput from "../common/fileInput";
@@ -13,9 +13,11 @@ const SettingsForm = ({
   loading,
   handleSubmit,
 }) => {
+
   const handleChange = (e) => {
     setValues({ ...values, [e.target.name]: e.target.value });
   };
+
   const logoInformation = (
     <span>
       {"Upload your site logo from here"} <br />
@@ -23,6 +25,7 @@ const SettingsForm = ({
       <span className="font-bold">128 x 40 Pixel</span>
     </span>
   );
+
   return (
     <>
       <form>
@@ -51,11 +54,10 @@ const SettingsForm = ({
               details={"Change your site information from here"}
             />
           </div>
-
+            {/* TITLE AND SUBTITLE */}
           <Card>
             <div className="p-3 font-sans w-full flex flex-col">
               <label className="font-semibold ">Site Title</label>
-
               <input
                 value={values.siteTitle}
                 onChange={handleChange}
@@ -65,7 +67,6 @@ const SettingsForm = ({
               />
 
               <label className="font-semibold ">Site Subtitle</label>
-
               <input
                 value={values.siteSubtitle}
                 onChange={handleChange}
@@ -95,13 +96,14 @@ const SettingsForm = ({
                 onChange={handleChange}
                 name="stripe_account_id"
                 type="text"
-                className="h-12 mb-2  bg-white border border-gray-400 rounded-lg px-3 py-2 text-lg font-sans font-normal tracking-normal text-left focus:outline-none focus:ring-2 focus:ring-[#248f59]"
+                disabled
+                className="h-12 mb-2 bg-white border border-gray-400 rounded-lg px-3 py-2 text-lg font-sans font-normal tracking-normal text-left focus:outline-none focus:ring-2 focus:ring-[#248f59]"
               />
             </div>
           </Card>
         </div>
 
-        <div className="flex items-center justify-end">
+        <div className="flex justify-end">
           <SaveButton loading={loading} handleSubmit={handleSubmit} />
         </div>
       </form>
