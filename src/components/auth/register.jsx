@@ -1,5 +1,6 @@
 import { LoadingOutlined } from "@ant-design/icons";
 import { useEffect, useState } from "react";
+import { FaSpinner } from "react-icons/fa";
 import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
