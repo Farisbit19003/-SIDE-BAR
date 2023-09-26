@@ -1,14 +1,13 @@
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import axios from "axios";
+
 // Pages
 import ForgotPassword from "./components/auth/forgotpassword";
 import Login from "./components/auth/login";
 import Register from "./components/auth/register";
 import NewCategory from "./components/category/newCategory";
 import ShopDetails from "./components/shop/shopDetails";
-import CreateWithdrawls from "./components/withdrawls/createWithdrawls";
 import Profile from "./pages/profile";
 import Categories from "./pages/categories";
 import CreateShops from "./pages/createshop";
@@ -24,23 +23,8 @@ import AddProduct from "./components/Products/addProduct";
 import RegisterComplete from "./components/auth/register-complete";
 import AccessDenied from "./pages/AccessDenied";
 import UpdateCategory from "./components/category/UpdateCategory";
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { GetSettings } from "./components/settings/functions";
-import { AllContacts, AllUsers } from "./components/user/Userfunction";
-import { AllCategory } from "./components/category/functions";
-import {
-  AllShops,
-  SellerShops,
-  SellerOrders,
-} from "./components/Create Shop/functions";
 import UpdateShop from "./components/Create Shop/UpdateShop";
 import NotFound from "./pages/404";
-import {
-  AllOrders,
-  AllProducts,
-  SellerProducts,
-} from "./components/Products/functions";
 import UpdateProducts from "./components/Products/UpdateProduct";
 import Purchase from "./pages/purchase";
 import AddPurchase from "./components/Purchase/addPurchase";
@@ -52,42 +36,7 @@ import StockReport from "./pages/StockReport";
 import ScrollToTop from "./Helper/ScrollToTop";
 
 const App=()=> {
-  const { loggedIn } = useSelector((state) => ({ ...state }));
-  const dispatch = useDispatch();
-  useEffect(() => {
-    GetSettings(dispatch);
-    AllCategory(dispatch);
-    if (loggedIn && loggedIn.user && loggedIn.user.role === "Admin") {
-      AllUsers(dispatch);
-      AllContacts(dispatch);
-      AllShops(dispatch);
-      AllProducts(dispatch);
-      AllOrders(dispatch);
-    }
-    if (loggedIn && loggedIn.user && loggedIn.user.role === "Seller") {
-      SellerShops(dispatch);
-      SellerProducts(dispatch);
-      SellerOrders(dispatch);
-    }
-  }, [loggedIn]);
-  const PUBLIC_API = "https://bazakrpk.onrender.com/api";
-  //Default setting
-  axios.defaults.baseURL = import.meta.env.VITE_PUBLIC_API;
-  let token = loggedIn?.token;
-  axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-  // When Token Expire Logout automatically
-  axios.interceptors.response.use(
-    function (response) {
-      return response;
-    },
-    function (Error) {
-      let res = Error.response;
-      if (res.status === 401 && res.config && !res.config._isRetryREquest) {
-        window.localStorage.removeItem("auth");
-        window.location.href = "/login";
-      }
-    }
-  );
+ 
   return (
     <>
       <Router>

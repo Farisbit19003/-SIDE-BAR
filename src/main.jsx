@@ -6,12 +6,14 @@ import { composeWithDevTools } from "redux-devtools-extension"
 import App from './App'
 import './index.css'
 import rootReducers from './reducers'
+import { UserProvider } from './context'
 const store=configureStore({reducer:rootReducers,},composeWithDevTools());
-ReactDOM.createRoot(document.getElementById('root')).render(
-
+ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <Provider store={store}>
-      <App />
+      <UserProvider>
+        <App />
+      </UserProvider>
     </Provider>
-  </React.StrictMode>,
-)
+  </React.StrictMode>
+);
