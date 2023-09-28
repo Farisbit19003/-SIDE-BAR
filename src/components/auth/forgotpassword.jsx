@@ -4,7 +4,7 @@ import { FaSpinner } from "react-icons/fa";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { ForgotEmail, Reset } from "./auth";
+import { PutFunction } from "../../Helper/Service";
 import Logo from "./logo";
 
 const ForgotPassword = () => {
@@ -13,8 +13,6 @@ const ForgotPassword = () => {
   const [Newpassword, setNewPassword] = useState("");
   const [secret, setSecret] = useState("");
   const [loading, setloading] = useState(false);
-  const [emailError, setEmailError] = useState("");
-  const [passwordError, setPasswordError] = useState("");
   const [ok, setOK] = useState(false);
   
   const navigate = useNavigate();
@@ -24,17 +22,12 @@ const ForgotPassword = () => {
   const sendResetEmail = (e) => {
     e.preventDefault();
     try {
-      if (!email) {
-        return toast.error("Please Add Email");
-      }
-      if (emailError) {
-        return toast.error("Please Add Valid Email");
-      }
       setloading(true);
-      ForgotEmail(email).then((res) => {
-        if (res.error) {
+      let obj= {email}
+      PutFunction("/forgot",obj).then((res) => {
+        if (res.hasError) {
           setloading(false);
-          toast.error(res.error);
+          toast.error(res.error.email);
         } else {
           setloading(false);
           setOK(true);
@@ -42,7 +35,7 @@ const ForgotPassword = () => {
         }
       });
     } catch (err) {
-      toast.error(err.response.data);
+      toast.error("SOMETHING WENT WRONG!");
       setloading(false);
     }
   };
@@ -50,28 +43,33 @@ const ForgotPassword = () => {
   const ForgotNow = (e) => {
     e.preventDefault();
     try {
-      if (!email || !Newpassword || !secret) {
-        return toast.error("Please Fill all Fields");
-      }
-      if (passwordError) {
-        return toast.error("Please Add Valid Password");
-      }
+      let obj = { secret, Newpassword, email }; 
       setloading(true);
-      Reset(email, Newpassword, secret).then((res) => {
-        if (res.error) {
+      PutFunction("/forgot/complete", obj).then((res) => {
+        if (res.hasError) {
           setloading(false);
-          toast.error(res.error);
+          if (res.error.secret) {
+            toast.error(res.error.secret);
+          }
+          if (res.error.Newpassword) {
+            toast.error(res.error.Newpassword);
+          }
+          if (res.error.email) {
+            toast.error(res.error.email);
+          }
         } else {
           setloading(false);
-          toast.success("Forgot Password Succesfully");
+          toast.success("Forgot Password Successfully");
           navigate("/login");
         }
       });
     } catch (err) {
-      toast.error(err.response.data);
+      console.error("Error:", err);
+      toast.error("SOMETHING WENT WRONG!");
       setloading(false);
     }
   };
+  
 
   useEffect(() => {
     if (loggedIn && loggedIn.token) {
@@ -80,36 +78,15 @@ const ForgotPassword = () => {
       }, 3000); // 5 seconds
     }
   }, [loggedIn && loggedIn.token]);
-  const validateEmail = (email) => {
-    // Regular expression pattern for email validation
-    const emailPattern = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
-
-    return emailPattern.test(email);
-  };
+ 
   const handleEmailChange = (e) => {
     const enteredEmail = e.target.value;
     setEmail(enteredEmail);
-
-    if (enteredEmail && !validateEmail(enteredEmail)) {
-      setEmailError("Invalid email");
-    } else {
-      setEmailError("");
-    }
   };
 
   const handlePasswordChange = (e) => {
     const input = e.target.value;
     setNewPassword(input);
-    // Validate password
-    const regex =
-      /^(?=.*?[A-Za-z])(?=.*?[0-9])(?=.*?[!@#$%^&*])[A-Za-z0-9!@#$%^&*]{8,}$/;
-    if (!regex.test(input)) {
-      setPasswordError(
-        "Password must be at least 8 characters long and contain at least one special character and number."
-      );
-    } else {
-      setPasswordError("");
-    }
   };
 
   return loggedIn && loggedIn.token ? (
@@ -141,7 +118,7 @@ const ForgotPassword = () => {
             type="email"
             className="h-12 mb-4 flex flex-wrap bg-white border border-gray-400 rounded-lg px-3 py-2 text-lg font-sans font-normal tracking-normal text-left focus:outline-none focus:ring-2 focus:ring-[#248f59]"
           />
-          {emailError && <p className="text-red-500 font-sans">{emailError}</p>}
+          
           {ok ? (
             <>
             {/* PASSWORD */}
@@ -154,7 +131,7 @@ const ForgotPassword = () => {
                 type="password"
                 className="h-12 mb-4 flex flex-wrap bg-white border border-gray-400 rounded-lg px-3 py-2 text-lg font-sans font-normal tracking-normal text-left focus:outline-none focus:ring-2 focus:ring-[#248f59]"
               />
-              {passwordError && <p className="text-red-500 font-sans">{passwordError}</p>}
+             
               {/* CODE */}
               <label className="mb-3 block text-sm font-sans font-semibold leading-none ">
                 Code
