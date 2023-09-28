@@ -2,9 +2,9 @@ import { LoadingOutlined } from "@ant-design/icons";
 import { useEffect, useState } from "react";
 import { FaSpinner } from "react-icons/fa";
 import { useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { registerComplete } from "./auth";
+import { PostFunction } from "../../Helper/Service";
 import Logo from "./logo";
 
 const RegisterComplete = () => {
@@ -23,14 +23,18 @@ const RegisterComplete = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      if (!email || !secret) {
-        return toast.error("Please Fill al Fields");
-      }
       setloading(true);
-      registerComplete(email, secret).then((res) => {
-        if (res.error) {
+      let obj = {email, secret};
+      PostFunction("/register/complete", obj).then((e) => {
+        if (e.hasError) {
           setloading(false);
-          toast.error(res.error);
+          // Display error messages in toast notifications
+          if (e.error.email) {
+            toast.error(e.error.email);
+          }
+          if (e.error.secret) {
+            toast.error(e.error.secret);
+          }
         } else {
           setloading(false);
           setEmail("");
@@ -40,7 +44,7 @@ const RegisterComplete = () => {
         }
       });
     } catch (err) {
-      toast.error(err.response.data);
+      toast.error("Something went wrong!");
       setloading(false);
     }
   };
@@ -84,16 +88,10 @@ const RegisterComplete = () => {
             type="email"
             className="h-12 mb-4 flex flex-wrap bg-white border border-gray-400 rounded-lg px-3 py-2 text-lg font-sans font-normal tracking-normal text-left focus:outline-none focus:ring-2 focus:ring-[#248f59]"
           />
-          {/* PASSWORD */}
+          {/* Secret */}
           <label className="mb-3 block text-sm font-semibold leading-none">
             Secret
           </label>
-          <Link
-            to="/forgot-password"
-            className="text-end cursor-pointer justify-end text-sm flex flex-wrap text-[#248F59] italic mb-2 -mt-6 align-middle"
-          >
-            Forgot Password?
-          </Link>
           <input
             value={secret}
             onChange={(e) => setSecret(e.target.value)}
@@ -103,7 +101,7 @@ const RegisterComplete = () => {
           {/* LOGIN */}
           <button
             onClick={handleSubmit}
-            className="h-12 my-3 flex flex-wrap justify-center items-center rounded-lg w-full bg-[#248F59] uppercase text-[#F2F2F2] hover:text-white"
+            className="h-12 my-3 flex flex-wrap justify-center transition-transform hover:scale-95 items-center rounded-lg w-full bg-[#248F59] uppercase text-[#F2F2F2] hover:text-white"
           >
             {loading ? <LoadingOutlined /> : "Complete Registration"}
           </button>

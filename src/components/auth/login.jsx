@@ -25,7 +25,6 @@ const Login = () => {
       let obj = { email, password };
 
       PostFunction("/login", obj).then((e) => {
-        console.log(e);
         if (e.hasError) {
           setloading(false);
           // Display error messages in toast notifications
