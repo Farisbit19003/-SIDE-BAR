@@ -4,7 +4,7 @@ import { FaSpinner } from "react-icons/fa";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { PostFunction } from "../../Helper/Service";
+import { PutFunction } from "../../Helper/Service";
 import Logo from "./logo";
 
 const RegisterComplete = () => {
@@ -25,7 +25,7 @@ const RegisterComplete = () => {
     try {
       setloading(true);
       let obj = {email, secret};
-      PostFunction("/register/complete", obj).then((e) => {
+      PutFunction("/register/complete", obj).then((e) => {
         if (e.hasError) {
           setloading(false);
           // Display error messages in toast notifications
