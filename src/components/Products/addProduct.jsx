@@ -39,38 +39,42 @@ const AddProduct = () => {
     try {
       setLoading(true);
       let obj = {
-       values
+        ...values // Spread the values object
       };
       PostFunction("/product/create", obj).then((res) => {
         if (res.hasError) {
           setLoading(false);
-          if (res.error.salePrice) {
-            toast.error.salePrice;
-          }
-          if (res.error.store) {
-            toast.error.store;
-          }
-          if (res.error.category) {
-            toast.error.category;
-          }
           if (res.error.name) {
-            toast.error.name;
+            toast.error(res.error.name);
           }
-          if (res.error.gallery_pics) {
-            toast.error.gallery_pics;
+          if (res.error.description) {
+            toast.error(res.error.description);
           }
-          if (res.error.feature_pic) {
-            toast.error.feature_pic;
-          }
-          if (res.error.quantity) {
-            toast.error.quantity;
-          }
-          if (res.error.unit) {
-            toast.error.unit;
+          if (res.error.salePrice) {
+            toast.error(res.error.salePrice);
           }
           if (res.error.purchasePrice) {
-            toast.error.purchasePrice;
+            toast.error(res.error.purchasePrice);
           }
+          if (res.error.quantity) {
+            toast.error(res.error.quantity);
+          }
+          if (res.error.gallery_pics) {
+            toast.error(res.error.gallery_pics);
+          }
+          if (res.error.feature_pic) {
+            toast.error(res.error.feature_pic);
+          }
+          if (res.error.unit) {
+            toast.error(res.error.unit);
+          }
+          if (res.error.category) {
+            toast.error(res.error.category);
+          }
+          if (res.error.store) {
+            toast.error(res.error.store);
+          }
+          
         } else {
           toast.success("Product Created");
           setValues({
@@ -82,7 +86,7 @@ const AddProduct = () => {
             purchasePrice: "",
             quantity: "",
             unit: "",
-            gallery_pics: {},
+            gallery_pics: [],
             feature_pic: {},
           });
           setLoading(false);
@@ -94,6 +98,7 @@ const AddProduct = () => {
       toast.error(error);
     }
   };
+  
   return (
     <>
       <ShopLayout>

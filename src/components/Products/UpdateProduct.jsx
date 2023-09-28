@@ -3,13 +3,13 @@ import { FaSpinner } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
+import { PutFunction } from "../../Helper/Service";
 import ShopLayout from "../../layout/Shop/index";
 import SaveButton from "../common/save";
 import ProductForm from "./ProductForm";
-import { SellerProducts, UpdateProduct } from "./functions";
+import { SellerProducts } from "./functions";
 
 const UpdateProducts = () => {
-  
   const [shops, setShops] = useState([]);
   const [singleProduct, setSingleProduct] = useState({});
   const { loggedIn, sellerShops, product } = useSelector((state) => ({
@@ -27,9 +27,9 @@ const UpdateProducts = () => {
     gallery_pics: [],
     feature_pic: {},
   });
-  
+
   const role = loggedIn && loggedIn.user && loggedIn.user.role;
-  
+
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -40,7 +40,7 @@ const UpdateProducts = () => {
       setShops(sellerShops);
     }
   }, [sellerShops]);
-  
+
   useEffect(() => {
     if (role === "Seller" && product) {
       const filtered = product?.filter((s) => {
@@ -49,7 +49,7 @@ const UpdateProducts = () => {
       filtered && setSingleProduct(filtered[0]);
     }
   }, [product, params.slug]);
-  
+
   useEffect(() => {
     if (!singleProduct) {
       const timeoutId = setTimeout(() => {
@@ -57,7 +57,7 @@ const UpdateProducts = () => {
       }, 3000);
       return () => clearTimeout(timeoutId);
     }
-    
+
     if (singleProduct) {
       setValues({
         name: singleProduct?.name,
@@ -73,57 +73,63 @@ const UpdateProducts = () => {
       });
     }
   }, [singleProduct]);
-  
+
   //handleSubmit
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (
-      !values.name ||
-      !values.discription ||
-      !values.store ||
-      !values.category ||
-      !values.salePrice ||
-      !values.purchasePrice ||
-      !values.quantity ||
-      !values.feature_pic
-    ) {
-      toast.error("Please Fill all Fields");
-      setLoading(false);
-      return;
-    }
-    if (values.gallery_pics.length < 3) {
-      toast.error("Please add at least Three Gallery Images");
-      setLoading(false);
-      return;
-    }
-    if (Math.round(values.purchasePrice) >= Math.round(values.salePrice)) {
-      toast.error("Purchase Price must be smaller than Sale Price");
-      setLoading(false);
-      return;
-    }
-    if (values.purchasePrice <= 0) {
-      toast.error("Purchase Price must be greater than zero");
-      setLoading(false);
-      return;
-    }
-    if (values.quantity <= 0) {
-      toast.error("Please enter a value greater than zero for the quantity.");
-      setLoading(false);
-      return;
-    }
-    if (values.salePrice <= 0) {
-      toast.error("Sale Price must be greater than zero");
-      setLoading(false);
-      return;
-    }
+
     try {
       setLoading(true);
-      UpdateProduct(params.slug, values).then((res) => {
-        if (res.error) {
-          toast.error(res.error);
+      let obj = {
+        ...values, // Spread the values object
+      };
+      PutFunction(`/product/update/${slug}`, obj).then((res) => {
+        if (res.hasError) {
           setLoading(false);
+          if (res.error.name) {
+            toast.error(res.error.name);
+          }
+          if (res.error.description) {
+            toast.error(res.error.description);
+          }
+          if (res.error.salePrice) {
+            toast.error(res.error.salePrice);
+          }
+          if (res.error.purchasePrice) {
+            toast.error(res.error.purchasePrice);
+          }
+          if (res.error.quantity) {
+            toast.error(res.error.quantity);
+          }
+          if (res.error.gallery_pics) {
+            toast.error(res.error.gallery_pics);
+          }
+          if (res.error.feature_pic) {
+            toast.error(res.error.feature_pic);
+          }
+          if (res.error.unit) {
+            toast.error(res.error.unit);
+          }
+          if (res.error.category) {
+            toast.error(res.error.category);
+          }
+          if (res.error.store) {
+            toast.error(res.error.store);
+          }
         } else {
-          toast.success("Product Updated");
+          toast.success("Product Created");
+          setValues({
+            name: "",
+            discription: "",
+            store: "",
+            category: "",
+            salePrice: "",
+            purchasePrice: "",
+            quantity: "",
+            unit: "",
+            gallery_pics: [],
+            feature_pic: {},
+          });
           setLoading(false);
           SellerProducts(dispatch);
           navigate("/products");
@@ -133,7 +139,7 @@ const UpdateProducts = () => {
       toast.error(error);
     }
   };
-  
+
   return (
     <ShopLayout>
       {!singleProduct || product === null ? (
@@ -162,7 +168,7 @@ const UpdateProducts = () => {
             loading={loading}
           />
           <div className="float-right">
-               <SaveButton handleSubmit={handleSubmit} loading={loading} />
+            <SaveButton handleSubmit={handleSubmit} loading={loading} />
           </div>
         </>
       )}
