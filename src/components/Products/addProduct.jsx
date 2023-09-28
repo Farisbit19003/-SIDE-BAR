@@ -2,11 +2,11 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { PostFunction } from "../../Helper/Service";
 import ShopLayout from "../../layout/Shop/index";
 import SaveButton from "../common/save";
 import ProductForm from "./ProductForm";
-import { SellerProducts } from "./functions";
+import { CreateProduct, SellerProducts } from "./functions";
+
 const AddProduct = () => {
   const [shops, setShops] = useState([]);
   const { sellerShops } = useSelector((state) => ({ ...state }));
@@ -23,58 +23,64 @@ const AddProduct = () => {
     feature_pic: {},
   });
   const [loading, setLoading] = useState(false);
-
+  
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
+  
   useEffect(() => {
     if (sellerShops) {
       setShops(sellerShops);
     }
   }, [sellerShops]);
-
+  
   //handleSubmit
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (
+      !values.name ||
+      !values.discription ||
+      !values.store ||
+      !values.category ||
+      !values.salePrice ||
+      !values.purchasePrice ||
+      !values.quantity ||
+      !values.feature_pic
+    ) {
+      toast.error("Please Fill all Fields");
+      setLoading(false);
+      return;
+    }
+    if (values.gallery_pics.length < 3) {
+      toast.error("Please add at least Three Gallery Images");
+      setLoading(false);
+      return;
+    }
+    if (Math.round( values.purchasePrice) >= Math.round (values.salePrice)) {
+      toast.error("Purchase Price must be smaller than Sale Price");
+      setLoading(false);
+      return;
+    }
+    if (values.purchasePrice <= 0) {
+      toast.error("Purchase Price must be greater than zero");
+      setLoading(false);
+      return;
+    }
+    if (values.quantity <= 0) {
+      toast.error("Please enter a value greater than zero for the quantity.");
+      setLoading(false);
+      return;
+    }
+    if (values.salePrice <= 0) {
+      toast.error("Sale Price must be greater than zero");
+      setLoading(false);
+      return;
+    }
     try {
       setLoading(true);
-      let obj = {
-        ...values // Spread the values object
-      };
-      PostFunction("/product/create", obj).then((res) => {
-        if (res.hasError) {
+      CreateProduct(values).then((res) => {
+        if (res.error) {
+          toast.error(res.error);
           setLoading(false);
-          if (res.error.name) {
-            toast.error(res.error.name);
-          }
-          if (res.error.discription) {
-            toast.error(res.error.discription);
-          }
-          if (res.error.salePrice) {
-            toast.error(res.error.salePrice);
-          }
-          if (res.error.purchasePrice) {
-            toast.error(res.error.purchasePrice);
-          }
-          if (res.error.quantity) {
-            toast.error(res.error.quantity);
-          }
-          if (res.error.gallery_pics) {
-            toast.error(res.error.gallery_pics);
-          }
-          if (res.error.feature_pic) {
-            toast.error(res.error.feature_pic);
-          }
-          if (res.error.unit) {
-            toast.error(res.error.unit);
-          }
-          if (res.error.category) {
-            toast.error(res.error.category);
-          }
-          if (res.error.store) {
-            toast.error(res.error.store);
-          }
-          
         } else {
           toast.success("Product Created");
           setValues({
@@ -86,7 +92,7 @@ const AddProduct = () => {
             purchasePrice: "",
             quantity: "",
             unit: "",
-            gallery_pics: [],
+            gallery_pics: {},
             feature_pic: {},
           });
           setLoading(false);
@@ -98,7 +104,6 @@ const AddProduct = () => {
       toast.error(error);
     }
   };
-  
   return (
     <>
       <ShopLayout>
