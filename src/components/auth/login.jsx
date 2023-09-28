@@ -4,33 +4,48 @@ import { FaSpinner } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { PostFunction } from "../../Helper/Service";
 import { LOGIN } from "./auth";
 import Logo from "./logo";
 
 const Login = () => {
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setloading] = useState(false);
-  const [emailError, setEmailError] = useState("");
 
   const { loggedIn } = useSelector((state) => ({ ...state }));
-  
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!email || !password) {
-      return toast.error("Please Fill al Field");
-    }
-    if (emailError) {
-      return toast.error("Please Add Valid Email");
-    }
-    setloading(true);
-    LOGIN(email, password, setloading, navigate, dispatch);
-  };
+    try {
+      setloading(true);
+      let obj = { email, password };
 
+      PostFunction("/login", obj).then((e) => {
+        console.log(e);
+        if (e.hasError) {
+          setloading(false);
+          // Display error messages in toast notifications
+          if (e.error.email) {
+            toast.error(e.error.email);
+          }
+          if (e.error.password) {
+            toast.error(e.error.password);
+          }
+        } else {
+          setloading(true);
+          LOGIN(email, password, setloading, navigate, dispatch);
+        }
+      });
+    } catch (err) {
+      console.error("Error:", err);
+      toast.error("An error occurred while processing your request.");
+      setloading(false);
+    }
+  };
   useEffect(() => {
     if (loggedIn && loggedIn.token) {
       setTimeout(() => {
@@ -39,33 +54,21 @@ const Login = () => {
     }
   }, [loggedIn && loggedIn.token]);
 
-  const validateEmail = (email) => {
-    // Regular expression pattern for email validation
-    const emailPattern = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
-    return emailPattern.test(email);
-  };
-
   const handleEmailChange = (e) => {
     const enteredEmail = e.target.value;
     setEmail(enteredEmail);
-
-    if (enteredEmail && !validateEmail(enteredEmail)) {
-      setEmailError("Invalid email");
-    } else {
-      setEmailError("");
-    }
   };
 
   return loggedIn && loggedIn.token ? (
     <>
-    <div className="fixed inset-0 flex items-center justify-center">
-      <div className="flex flex-col items-center">
-        <FaSpinner className="text-6xl w-16 h-16 text-[#248F59] animate-spin" />
-        <span className="mt-4 text-gray-500 text-lg font-semibold">
-          Redirecting to Homepage...
-        </span>
+      <div className="fixed inset-0 flex items-center justify-center">
+        <div className="flex flex-col items-center">
+          <FaSpinner className="text-6xl w-16 h-16 text-[#248F59] animate-spin" />
+          <span className="mt-4 text-gray-500 text-lg font-semibold">
+            Redirecting to Homepage...
+          </span>
+        </div>
       </div>
-    </div>
     </>
   ) : (
     <>
@@ -86,7 +89,6 @@ const Login = () => {
             type="email"
             className="h-12 mb-4 flex flex-wrap bg-white border border-gray-400 rounded-lg px-3 py-2 text-lg font-sans font-normal tracking-normal text-left focus:outline-none focus:ring-2 focus:ring-[#248f59]"
           />
-          {emailError && <p className="text-red-500 font-sans">{emailError}</p>}
 
           {/* PASSWORD */}
           <label className="mb-3 block text-sm font-sans font-semibold leading-none ">

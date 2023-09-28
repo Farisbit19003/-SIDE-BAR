@@ -1,12 +1,12 @@
 import { LoadingOutlined } from "@ant-design/icons";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { FaSpinner } from "react-icons/fa";
 import { useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import swal from "sweetalert";
-import { createSeller } from "./auth";
 import Logo from "./logo";
+import { PostFunction } from "../../Helper/Service";
 
 const Register = () => {
   const [name, setName] = useState("");
@@ -14,51 +14,43 @@ const Register = () => {
   const [password, setPassword] = useState("");
   const [loading, setloading] = useState(false);
   const { loggedIn } = useSelector((state) => ({ ...state }));
-  const navigate = useNavigate();
-
+ 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       setloading(true);
-      const res = await createSeller(name, email, password);
-      if (res.error) {
-        setloading(false);
-        // Display error messages in toast notifications
-        if (res.error.name) {
-          toast.error(res.error.name);
+      let obj = { name, email, password };
+
+      PostFunction("/register-seller", obj).then((e) => {
+        console.log(e);
+        if (e.hasError) {
+          setloading(false);
+          // Display error messages in toast notifications
+          if (e.error.name) {
+            toast.error(e.error.name);
+          }
+          if (e.error.email) {
+            toast.error(e.error.email);
+          }
+          if (e.error.password) {
+            toast.error(e.error.password);
+          }
+        } else {
+          setloading(false);
+          setEmail("");
+          setName("");
+          setPassword("");
+          window.localStorage.setItem("Email", email);
+          swal("Please Check your Email and Complete Registration");
         }
-        if (res.error.email) {
-          toast.error(res.error.email);
-        }
-        if (res.error.password) {
-          toast.error(res.error.password);
-        }
-      } else {
-        setloading(false);
-        setEmail("");
-        setName("");
-        setPassword("");
-        window.localStorage.setItem("Email", email);
-        swal("Please Check your Email and Complete Registration");
-      }
+      });
     } catch (err) {
       console.error("Error:", err);
       toast.error("An error occurred while processing your request.");
       setloading(false);
     }
-  };
+  };  
   
-  
-  
-  
-  useEffect(() => {
-    if (loggedIn && loggedIn.token) {
-      setTimeout(() => {
-        navigate("/");
-      }, 3000); // 3 seconds
-    }
-  }, [loggedIn && loggedIn.token]);
-
   return loggedIn && loggedIn.token ? (
     <>
       <div className="fixed inset-0 flex items-center justify-center">
