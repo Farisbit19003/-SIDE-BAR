@@ -83,14 +83,14 @@ const UpdateProducts = () => {
       let obj = {
         ...values, // Spread the values object
       };
-      PutFunction(`/product/update/${slug}`, obj).then((res) => {
+      PutFunction(`/product/update/${params.slug}`, obj).then((res) => {
         if (res.hasError) {
           setLoading(false);
           if (res.error.name) {
             toast.error(res.error.name);
           }
-          if (res.error.description) {
-            toast.error(res.error.description);
+          if (res.error.discription) {
+            toast.error(res.error.discription);
           }
           if (res.error.salePrice) {
             toast.error(res.error.salePrice);
@@ -148,7 +148,7 @@ const UpdateProducts = () => {
             <div className="flex flex-col items-center">
               <FaSpinner className="text-6xl w-16 h-16 text-[#248F59] animate-spin" />
               <span className="mt-16 text-gray-500 text-lg font-semibold">
-                Loading ....................................
+                Loading 
               </span>
             </div>
           </div>

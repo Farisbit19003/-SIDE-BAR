@@ -151,7 +151,7 @@ const ProductForm = ({ shops, values, setValues, loading, setLoading }) => {
         <div className="my-2 flex flex-wrap border-b-2 border-dashed  pb-8 sm:my-8">
           <div className="flex sm:pe-4 md:pe-5  w-full px-0 pb-5 sm:w-4/12 sm:py-8 md:w-1/3">
             <Description
-              title={"Description"}
+              title={"Discription"}
               details={
                 "Add your product description and necessary information from here"
               }
@@ -175,7 +175,7 @@ const ProductForm = ({ shops, values, setValues, loading, setLoading }) => {
                 type="text"
                 className="h-12 my-2  bg-white border border-gray-400 rounded-lg px-3 py-2 text-lg font-sans font-normal tracking-normal text-left focus:outline-none focus:ring-2 focus:ring-[#248f59]"
               />
-              <label className="font-semibold ">Description</label>
+              <label className="font-semibold ">Discription</label>
               <textarea
                 onChange={onChange}
                 name="discription"

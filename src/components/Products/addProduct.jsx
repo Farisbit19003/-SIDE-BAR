@@ -47,8 +47,8 @@ const AddProduct = () => {
           if (res.error.name) {
             toast.error(res.error.name);
           }
-          if (res.error.description) {
-            toast.error(res.error.description);
+          if (res.error.discription) {
+            toast.error(res.error.discription);
           }
           if (res.error.salePrice) {
             toast.error(res.error.salePrice);
